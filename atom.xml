@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-05-31T07:58:49.737Z</updated>
+  <updated>2016-06-02T07:24:40.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>appcan主应用子应用页面互调方法</title>
+    <link href="http://yoursite.com/2016/06/02/appcan%E4%B8%BB%E5%BA%94%E7%94%A8%E5%AD%90%E5%BA%94%E7%94%A8%E9%A1%B5%E9%9D%A2%E4%BA%92%E8%B0%83%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2016/06/02/appcan主应用子应用页面互调方法/</id>
+    <published>2016-06-02T07:02:46.000Z</published>
+    <updated>2016-06-02T07:24:40.000Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;&lt;p&gt;由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面&lt;/p&gt;
+&lt;h3 id=&quot;子应用打开主应用页面&quot;&gt;&lt;a href=&quot;#子应用打开主应用页面&quot; class=&quot;headerlink&quot; title=&quot;子应用打开主应用页面&quot;&gt;&lt;/a&gt;子应用打开主应用页面&lt;/h3&gt;&lt;p&gt;将需要打开的公共页面放置在plugin文件夹下的子应用中，调用时调用这个子应用打开。&lt;/p&gt;
+&lt;p&gt;1.plugin子应用也是一个widget应用，在config.xml同级创建一个plugin目录，其中放入以appid命名的文件夹，里面防止子应用的config以及相关网页代码。&lt;/p&gt;
+&lt;p&gt;2.调用时也需要使用uexWidget.startWidget来调用，但是无需传入appkey。&lt;/p&gt;
+&lt;p&gt;3.此应用无需在EMM注册，升级时跟随主应用升级。&lt;/p&gt;
+&lt;h3 id=&quot;主应用打开子应用页面&quot;&gt;&lt;a href=&quot;#主应用打开子应用页面&quot; class=&quot;headerlink&quot; title=&quot;主应用打开子应用页面&quot;&gt;&lt;/a&gt;主应用打开子应用页面&lt;/h3&gt;&lt;p&gt;1.使用uexWidget.startWidget启动应用，openInfo中携带字符串，例如：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;uexWidget.startWidget(&amp;quot;aaaao20031&amp;quot;, &amp;quot;5&amp;quot;, &amp;quot;pluginCallback&amp;quot;, &amp;quot;plugin123123&amp;quot;, &amp;quot;200&amp;quot;, &amp;quot;cfec6312-2584-4916-bfba-1a8239421c6f&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;2.在A应用中接收openInfo,之后在A应用内部跳转到a页面。(A页面背景色最好设置为透明)&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;uexWidget.cbGetOpenerInfo=function(opId,dataType,data)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if(data==&amp;apos;xxx&amp;apos;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        appcan.window.open();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        appcan.window.open();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;uexWidget.getOpenerInfo();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;&lt;p&gt;由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面&lt;/p&gt;
+&lt;h3 id=&quot;子应用打开
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Hello World</title>
