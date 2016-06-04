@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-02T07:24:40.000Z</updated>
+  <updated>2016-06-04T15:20:01.137Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,27 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>express入门</title>
+    <link href="http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2016/06/04/express入门/</id>
+    <published>2016-06-04T14:22:25.000Z</published>
+    <updated>2016-06-04T15:20:01.137Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;npm install express --save
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;Express-应用生成器&quot;&gt;&lt;a href=&quot;#Express-应用生成器&quot; class=&quot;headerlink&quot; title=&quot;Express 应用生成器&quot;&gt;&lt;/a&gt;Express 应用生成器&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;npm install express-generator -g
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;npm install express --save
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;Express-应用生成器&quot;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>appcan主应用子应用页面互调方法</title>
