@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2016-06-05T15:07:39.374Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2016-06-05T14:18:08.419Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2016-06-05T14:16:56.371Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/</loc>
-    
-    <lastmod>2016-06-05T14:14:48.838Z</lastmod>
     
   </url>
   
