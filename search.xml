@@ -7,19 +7,20 @@
       <title><![CDATA[express入门]]></title>
       <url>http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code>npm install express --save
-</code></pre><h1 id="Express-应用生成器"><a href="#Express-应用生成器" class="headerlink" title="Express 应用生成器"></a>Express 应用生成器</h1><h4 id="安装-expres-sgenerator-："><a href="#安装-expres-sgenerator-：" class="headerlink" title="安装 expres-sgenerator ："></a>安装 expres-sgenerator ：</h4><pre><code>npm install express-generator -g
-</code></pre><p>####创建应用程序<br>    express myapp</p>
-<p>####安装依赖项：<br>    cd myapp<br>    npm install</p>
-<p>####启动<br>    MacOS or Linux :<em> npm start<br>    Wdinwos:set DEBUG=myapp:</em> &amp; npm start</p>
-<p>#基本路由</p>
-<p>####路由结构<br>    app.METHOD(PATH, HANDLER)</p>
-<ul>
+</code></pre><h1 id="Express-应用生成器"><a href="#Express-应用生成器" class="headerlink" title="Express 应用生成器"></a>Express 应用生成器</h1><h3 id="安装-expres-sgenerator-："><a href="#安装-expres-sgenerator-：" class="headerlink" title="安装 expres-sgenerator ："></a>安装 expres-sgenerator ：</h3><pre><code>npm install express-generator -g
+</code></pre><h3 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h3><pre><code>express myapp
+</code></pre><h3 id="安装依赖项："><a href="#安装依赖项：" class="headerlink" title="安装依赖项："></a>安装依赖项：</h3><pre><code>cd myapp
+npm install
+</code></pre><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><pre><code>MacOS or Linux :* npm start
+Wdinwos:set DEBUG=myapp:* &amp; npm start
+</code></pre><h1 id="基本路由"><a href="#基本路由" class="headerlink" title="基本路由"></a>基本路由</h1><h3 id="路由结构"><a href="#路由结构" class="headerlink" title="路由结构"></a>路由结构</h3><pre><code>app.METHOD(PATH, HANDLER)
+</code></pre><ul>
 <li>app 是 express 的实例。</li>
 <li>METHOD 是 HTTP 请求方法。</li>
 <li>PATH 是服务器上的路径。</li>
-<li>HANDLER 是在路由匹配时执行的函数。<br>####例子<br>  app.get(‘/‘, function (req, res) {<pre><code>res.send(&apos;Hello World!&apos;);
+<li>HANDLER 是在路由匹配时执行的函数。<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3>  app.get(‘/‘, function (req, res) {<pre><code>res.send(&apos;Hello World!&apos;);
 </code></pre>  });<br>  app.post(‘/‘, function (req, res) {<pre><code>res.send(&apos;Got a POST request&apos;);
-</code></pre>  });<h1 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a>静态文件</h1><h4 id="使用-Express-中的-express-static-内置中间件函数"><a href="#使用-Express-中的-express-static-内置中间件函数" class="headerlink" title="使用 Express 中的 express.static 内置中间件函数"></a>使用 Express 中的 express.static 内置中间件函数</h4>  app.use(express.static(‘public’));<br>  app.use(express.static(‘files’));</li>
+</code></pre>  });<h1 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a>静态文件</h1><h3 id="使用-Express-中的-express-static-内置中间件函数"><a href="#使用-Express-中的-express-static-内置中间件函数" class="headerlink" title="使用 Express 中的 express.static 内置中间件函数"></a>使用 Express 中的 express.static 内置中间件函数</h3>  app.use(express.static(‘public’));<br>  app.use(express.static(‘files’));</li>
 </ul>
 ]]></content>
     </entry>
