@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title><![CDATA[Markdown]]></title>
+      <url>http://yoursite.com/2016/06/06/Markdown%E5%85%A5%E9%97%A8/</url>
+      <content type="html"><![CDATA[<h1 id="段落和换行"><a href="#段落和换行" class="headerlink" title="段落和换行"></a>段落和换行</h1><p>一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行<br>如果你确实想要依赖 Markdown 来插入 <br \=""> 标签的话，在插入处先按入两个以上的空格然后回车。  </p>
+<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><pre><code># 一级标题  
+## 二级标题  
+### 三级标题  
+</code></pre><p>以此类推，总共六级标题</p>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p> 无序列表使用星号、加号或是减号作为列表标记: </p>
+<pre><code>*   Red
+*   Green
+*   Blue
+</code></pre><p>or  </p>
+<pre><code>+   Red
++   Green
++   Blue      
+</code></pre><p>or  </p>
+<pre><code>-   Red
+-   Green
+-   Blue
+</code></pre><p>有序列表则使用数字接着一个英文句点：</p>
+<pre><code>1.  Bird
+2.  McHale
+3.  Parish
+</code></pre><h1 id="区块引用-Blockquotes"><a href="#区块引用-Blockquotes" class="headerlink" title="区块引用 Blockquotes"></a>区块引用 Blockquotes</h1><p>只需要在文本前加入 <code>&gt;</code> 这种尖括号（大于号）即可</p>
+<blockquote>
+<p>例如这样  </p>
+</blockquote>
+<h1 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h1><p>缩进 4 个空格或是 1 个制表符就可,例如  </p>
+<pre><code>这是一个普通段落：
+    这是一个代码区块。  
+</code></pre><h1 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h1><p>在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。  </p>
+<pre><code>***
+</code></pre><h1 id="图片与链接"><a href="#图片与链接" class="headerlink" title="图片与链接"></a>图片与链接</h1><pre><code>连接 [an example](http://example.com/ &quot;Title&quot;)
+图片 ![Alt text](/path/to/img.jpg)
+</code></pre>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[express入门]]></title>
       <url>http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code>npm install express --save
