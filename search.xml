@@ -4,6 +4,40 @@
   
     
     <entry>
+      <title><![CDATA[androidStudio快捷键整理]]></title>
+      <url>http://yoursite.com/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/</url>
+      <content type="html"><![CDATA[<h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><p>Alt + insert  </p>
+<h4 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h4><p>Ctrl+Alt+L </p>
+<h4 id="大小写切换"><a href="#大小写切换" class="headerlink" title="大小写切换"></a>大小写切换</h4><p>Ctrl+Shift+U </p>
+<h4 id="代码提示"><a href="#代码提示" class="headerlink" title="代码提示"></a>代码提示</h4><p>shift+ space(自己设置)<br>设置方法：File-&gt;setting-&gt;Keymap-&gt;Main menu-&gt;Code-&gt;Completion</p>
+]]></content>
+    </entry>
+    
+    <entry>
+      <title><![CDATA[android学习记录]]></title>
+      <url>http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/</url>
+      <content type="html"><![CDATA[<h4 id="activity之间的跳转和数据传递"><a href="#activity之间的跳转和数据传递" class="headerlink" title="activity之间的跳转和数据传递"></a>activity之间的跳转和数据传递</h4><p>MainActivity-&gt;Main2Activity<br>MainActivity代码:  </p>
+<pre><code>Intent intent = new Intent();
+intent.putExtra(&quot;name&quot;,&quot;哈哈哈&quot;);
+intent.setClass(MainActivity.this,Main2Activity.class);
+MainActivity.this.startActivity(intent);  
+</code></pre><p>Main2Activity代码:  </p>
+<pre><code>tv1 = (TextView) findViewById(R.id.main2text);
+String value = getIntent().getStringExtra(&quot;name&quot;);
+tv1.setText(value);  
+</code></pre><h4 id="activity生命周期"><a href="#activity生命周期" class="headerlink" title="activity生命周期"></a>activity生命周期</h4><p><img src="/uploads/activityLifecycle.PNG" alt="Activity Lifecycle">  </p>
+<h5 id="onCreate"><a href="#onCreate" class="headerlink" title="onCreate()"></a>onCreate()</h5><p>Called when the activity is first created<br>当activity第一次被创建的时候调用</p>
+<h5 id="onStart"><a href="#onStart" class="headerlink" title="onStart()"></a>onStart()</h5><p>Called when the activity is becoming visible to the user<br>当activity对用户可见时调用</p>
+<h4 id="onRestart"><a href="#onRestart" class="headerlink" title="onRestart()"></a>onRestart()</h4><p>Called after your activity has been stopped<br>当activity已经stoped过，恢复的时候调用</p>
+<h5 id="onResume"><a href="#onResume" class="headerlink" title="onResume()"></a>onResume()</h5><p>Called when the activity will start interacting with the user<br>当用户能获取activity焦点时调用</p>
+<h5 id="onPause"><a href="#onPause" class="headerlink" title="onPause()"></a>onPause()</h5><p>Called when the system is about to start resuming a previous activity<br>当系统恢复之前的activity时调用（失去焦点），通常用来在此方法里面持久化当前activity的数据等</p>
+<h5 id="onStop"><a href="#onStop" class="headerlink" title="onStop()"></a>onStop()</h5><p>Called when the activity is no longer visible to the use<br>当activity完全不可见时调用</p>
+<h5 id="onDestroy"><a href="#onDestroy" class="headerlink" title="onDestroy()"></a>onDestroy()</h5><p>The final call you receive before your activity is destroyed  </p>
+<h4 id="将activity设置为窗口模式"><a href="#将activity设置为窗口模式" class="headerlink" title="将activity设置为窗口模式"></a>将activity设置为窗口模式</h4><p>在AndroidManifest.xml中设置theme</p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Markdown]]></title>
       <url>http://yoursite.com/2016/06/06/Markdown%E5%85%A5%E9%97%A8/</url>
       <content type="html"><![CDATA[<h1 id="段落和换行"><a href="#段落和换行" class="headerlink" title="段落和换行"></a>段落和换行</h1><p>一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行<br>如果你确实想要依赖 Markdown 来插入 <br \=""> 标签的话，在插入处先按入两个以上的空格然后回车。  </p>

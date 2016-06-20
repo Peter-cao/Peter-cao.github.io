@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-06T05:24:46.652Z</updated>
+  <updated>2016-06-19T15:32:17.579Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,69 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>androidStudio快捷键整理</title>
+    <link href="http://yoursite.com/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
+    <id>http://yoursite.com/2016/06/19/androidStudio快捷键整理/</id>
+    <published>2016-06-19T10:25:35.000Z</published>
+    <updated>2016-06-19T15:32:17.579Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;generate&quot;&gt;&lt;a href=&quot;#generate&quot; class=&quot;headerlink&quot; title=&quot;generate&quot;&gt;&lt;/a&gt;generate&lt;/h4&gt;&lt;p&gt;Alt + insert  &lt;/p&gt;
+&lt;h4 id=&quot;格式化代码&quot;&gt;&lt;a href=&quot;#格式化代码&quot; class=&quot;headerlink&quot; title=&quot;格式化代码&quot;&gt;&lt;/a&gt;格式化代码&lt;/h4&gt;&lt;p&gt;Ctrl+Alt+L &lt;/p&gt;
+&lt;h4 id=&quot;大小写切换&quot;&gt;&lt;a href=&quot;#大小写切换&quot; class=&quot;headerlink&quot; title=&quot;大小写切换&quot;&gt;&lt;/a&gt;大小写切换&lt;/h4&gt;&lt;p&gt;Ctrl+Shift+U &lt;/p&gt;
+&lt;h4 id=&quot;代码提示&quot;&gt;&lt;a href=&quot;#代码提示&quot; class=&quot;headerlink&quot; title=&quot;代码提示&quot;&gt;&lt;/a&gt;代码提示&lt;/h4&gt;&lt;p&gt;shift+ space(自己设置)&lt;br&gt;设置方法：File-&amp;gt;setting-&amp;gt;Keymap-&amp;gt;Main menu-&amp;gt;Code-&amp;gt;Completion&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;generate&quot;&gt;&lt;a href=&quot;#generate&quot; class=&quot;headerlink&quot; title=&quot;generate&quot;&gt;&lt;/a&gt;generate&lt;/h4&gt;&lt;p&gt;Alt + insert  &lt;/p&gt;
+&lt;h4 id=&quot;格式化代码&quot;&gt;&lt;a href=&quot;#格式
+    
+    </summary>
+    
+    
+      <category term="android studio" scheme="http://yoursite.com/tags/android-studio/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>android学习记录</title>
+    <link href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2016/06/19/android入门/</id>
+    <published>2016-06-19T10:09:27.000Z</published>
+    <updated>2016-06-19T15:33:53.818Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainActivity-&amp;gt;Main2Activity&lt;br&gt;MainActivity代码:  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent intent = new Intent();
+intent.putExtra(&amp;quot;name&amp;quot;,&amp;quot;哈哈哈&amp;quot;);
+intent.setClass(MainActivity.this,Main2Activity.class);
+MainActivity.this.startActivity(intent);  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Main2Activity代码:  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;tv1 = (TextView) findViewById(R.id.main2text);
+String value = getIntent().getStringExtra(&amp;quot;name&amp;quot;);
+tv1.setText(value);  
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;activity生命周期&quot;&gt;&lt;a href=&quot;#activity生命周期&quot; class=&quot;headerlink&quot; title=&quot;activity生命周期&quot;&gt;&lt;/a&gt;activity生命周期&lt;/h4&gt;&lt;p&gt;&lt;img src=&quot;/uploads/activityLifecycle.PNG&quot; alt=&quot;Activity Lifecycle&quot;&gt;  &lt;/p&gt;
+&lt;h5 id=&quot;onCreate&quot;&gt;&lt;a href=&quot;#onCreate&quot; class=&quot;headerlink&quot; title=&quot;onCreate()&quot;&gt;&lt;/a&gt;onCreate()&lt;/h5&gt;&lt;p&gt;Called when the activity is first created&lt;br&gt;当activity第一次被创建的时候调用&lt;/p&gt;
+&lt;h5 id=&quot;onStart&quot;&gt;&lt;a href=&quot;#onStart&quot; class=&quot;headerlink&quot; title=&quot;onStart()&quot;&gt;&lt;/a&gt;onStart()&lt;/h5&gt;&lt;p&gt;Called when the activity is becoming visible to the user&lt;br&gt;当activity对用户可见时调用&lt;/p&gt;
+&lt;h4 id=&quot;onRestart&quot;&gt;&lt;a href=&quot;#onRestart&quot; class=&quot;headerlink&quot; title=&quot;onRestart()&quot;&gt;&lt;/a&gt;onRestart()&lt;/h4&gt;&lt;p&gt;Called after your activity has been stopped&lt;br&gt;当activity已经stoped过，恢复的时候调用&lt;/p&gt;
+&lt;h5 id=&quot;onResume&quot;&gt;&lt;a href=&quot;#onResume&quot; class=&quot;headerlink&quot; title=&quot;onResume()&quot;&gt;&lt;/a&gt;onResume()&lt;/h5&gt;&lt;p&gt;Called when the activity will start interacting with the user&lt;br&gt;当用户能获取activity焦点时调用&lt;/p&gt;
+&lt;h5 id=&quot;onPause&quot;&gt;&lt;a href=&quot;#onPause&quot; class=&quot;headerlink&quot; title=&quot;onPause()&quot;&gt;&lt;/a&gt;onPause()&lt;/h5&gt;&lt;p&gt;Called when the system is about to start resuming a previous activity&lt;br&gt;当系统恢复之前的activity时调用（失去焦点），通常用来在此方法里面持久化当前activity的数据等&lt;/p&gt;
+&lt;h5 id=&quot;onStop&quot;&gt;&lt;a href=&quot;#onStop&quot; class=&quot;headerlink&quot; title=&quot;onStop()&quot;&gt;&lt;/a&gt;onStop()&lt;/h5&gt;&lt;p&gt;Called when the activity is no longer visible to the use&lt;br&gt;当activity完全不可见时调用&lt;/p&gt;
+&lt;h5 id=&quot;onDestroy&quot;&gt;&lt;a href=&quot;#onDestroy&quot; class=&quot;headerlink&quot; title=&quot;onDestroy()&quot;&gt;&lt;/a&gt;onDestroy()&lt;/h5&gt;&lt;p&gt;The final call you receive before your activity is destroyed  &lt;/p&gt;
+&lt;h4 id=&quot;将activity设置为窗口模式&quot;&gt;&lt;a href=&quot;#将activity设置为窗口模式&quot; class=&quot;headerlink&quot; title=&quot;将activity设置为窗口模式&quot;&gt;&lt;/a&gt;将activity设置为窗口模式&lt;/h4&gt;&lt;p&gt;在AndroidManifest.xml中设置theme&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainAc
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
   
   <entry>
     <title>Markdown</title>

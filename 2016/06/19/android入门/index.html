@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="android," />
 
 
 
@@ -86,15 +86,27 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2016/06/index.html">
+<meta name="description" content="activity之间的跳转和数据传递MainActivity-&amp;gt;Main2ActivityMainActivity代码:  
+Intent intent = new Intent();
+intent.putExtra(&amp;quot;name&amp;quot;,&amp;quot;哈哈哈&amp;quot;);
+intent.setClass(MainActivity.this,Main2Activity.class">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android学习记录">
+<meta property="og:url" content="http://yoursite.com/2016/06/19/android入门/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description">
+<meta property="og:description" content="activity之间的跳转和数据传递MainActivity-&amp;gt;Main2ActivityMainActivity代码:  
+Intent intent = new Intent();
+intent.putExtra(&amp;quot;name&amp;quot;,&amp;quot;哈哈哈&amp;quot;);
+intent.setClass(MainActivity.this,Main2Activity.class">
+<meta property="og:image" content="http://yoursite.com/uploads/activityLifecycle.PNG">
+<meta property="og:updated_time" content="2016-06-19T15:33:53.818Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
-<meta name="twitter:description">
+<meta name="twitter:title" content="android学习记录">
+<meta name="twitter:description" content="activity之间的跳转和数据传递MainActivity-&amp;gt;Main2ActivityMainActivity代码:  
+Intent intent = new Intent();
+intent.putExtra(&amp;quot;name&amp;quot;,&amp;quot;哈哈哈&amp;quot;);
+intent.setClass(MainActivity.this,Main2Activity.class">
+<meta name="twitter:image" content="http://yoursite.com/uploads/activityLifecycle.PNG">
 
 
 
@@ -112,7 +124,7 @@
   };
 </script>
 
-  <title> 归档 | 个人博客 </title>
+  <title> android学习记录 | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -143,7 +155,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,214 +273,176 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 6 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                android学习记录
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-19T18:09:27+08:00" content="2016-06-19">
+              2016-06-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/19/android入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/19/android入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <h4 id="activity之间的跳转和数据传递"><a href="#activity之间的跳转和数据传递" class="headerlink" title="activity之间的跳转和数据传递"></a>activity之间的跳转和数据传递</h4><p>MainActivity-&gt;Main2Activity<br>MainActivity代码:  </p>
+<pre><code>Intent intent = new Intent();
+intent.putExtra(&quot;name&quot;,&quot;哈哈哈&quot;);
+intent.setClass(MainActivity.this,Main2Activity.class);
+MainActivity.this.startActivity(intent);  
+</code></pre><p>Main2Activity代码:  </p>
+<pre><code>tv1 = (TextView) findViewById(R.id.main2text);
+String value = getIntent().getStringExtra(&quot;name&quot;);
+tv1.setText(value);  
+</code></pre><h4 id="activity生命周期"><a href="#activity生命周期" class="headerlink" title="activity生命周期"></a>activity生命周期</h4><p><img src="/uploads/activityLifecycle.PNG" alt="Activity Lifecycle">  </p>
+<h5 id="onCreate"><a href="#onCreate" class="headerlink" title="onCreate()"></a>onCreate()</h5><p>Called when the activity is first created<br>当activity第一次被创建的时候调用</p>
+<h5 id="onStart"><a href="#onStart" class="headerlink" title="onStart()"></a>onStart()</h5><p>Called when the activity is becoming visible to the user<br>当activity对用户可见时调用</p>
+<h4 id="onRestart"><a href="#onRestart" class="headerlink" title="onRestart()"></a>onRestart()</h4><p>Called after your activity has been stopped<br>当activity已经stoped过，恢复的时候调用</p>
+<h5 id="onResume"><a href="#onResume" class="headerlink" title="onResume()"></a>onResume()</h5><p>Called when the activity will start interacting with the user<br>当用户能获取activity焦点时调用</p>
+<h5 id="onPause"><a href="#onPause" class="headerlink" title="onPause()"></a>onPause()</h5><p>Called when the system is about to start resuming a previous activity<br>当系统恢复之前的activity时调用（失去焦点），通常用来在此方法里面持久化当前activity的数据等</p>
+<h5 id="onStop"><a href="#onStop" class="headerlink" title="onStop()"></a>onStop()</h5><p>Called when the activity is no longer visible to the use<br>当activity完全不可见时调用</p>
+<h5 id="onDestroy"><a href="#onDestroy" class="headerlink" title="onDestroy()"></a>onDestroy()</h5><p>The final call you receive before your activity is destroyed  </p>
+<h4 id="将activity设置为窗口模式"><a href="#将activity设置为窗口模式" class="headerlink" title="将activity设置为窗口模式"></a>将activity设置为窗口模式</h4><p>在AndroidManifest.xml中设置theme</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Petercao WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Petercao Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag">#android</a>
+          
+        </div>
+      
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/19/androidStudio快捷键整理/" itemprop="url">
-              
-                <span itemprop="name">androidStudio快捷键整理</span>
-              
-            </a>
-        
-      </h1>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/06/Markdown入门/" rel="next" title="Markdown">
+                <i class="fa fa-chevron-left"></i> Markdown
+              </a>
+            
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-19T18:25:35+08:00"
-              content="2016-06-19" >
-          06-19
-        </time>
-      </div>
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/19/androidStudio快捷键整理/" rel="prev" title="androidStudio快捷键整理">
+                androidStudio快捷键整理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
         
-            <a class="post-title-link" href="/2016/06/19/android入门/" itemprop="url">
-              
-                <span itemprop="name">android学习记录</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-19T18:09:27+08:00"
-              content="2016-06-19" >
-          06-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/06/Markdown入门/" itemprop="url">
-              
-                <span itemprop="name">Markdown</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-06T10:28:51+08:00"
-              content="2016-06-06" >
-          06-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/04/express入门/" itemprop="url">
-              
-                <span itemprop="name">express入门</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-04T22:22:25+08:00"
-              content="2016-06-04" >
-          06-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/02/appcan主应用子应用页面互调方法/" itemprop="url">
-              
-                <span itemprop="name">appcan主应用子应用页面互调方法</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-02T15:02:46+08:00"
-              content="2016-06-02" >
-          06-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-
+    </div>
+  </div>
 
 
           </div>
@@ -476,6 +450,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/06/19/android入门/"
+           data-title="android学习记录" data-url="http://yoursite.com/2016/06/19/android入门/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -495,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/aaa.jpg"
@@ -553,6 +544,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#activity之间的跳转和数据传递"><span class="nav-number">1.</span> <span class="nav-text">activity之间的跳转和数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activity生命周期"><span class="nav-number">2.</span> <span class="nav-text">activity生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onCreate"><span class="nav-number">2.1.</span> <span class="nav-text">onCreate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStart"><span class="nav-number">2.2.</span> <span class="nav-text">onStart()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onRestart"><span class="nav-number">3.</span> <span class="nav-text">onRestart()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onResume"><span class="nav-number">3.1.</span> <span class="nav-text">onResume()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onPause"><span class="nav-number">3.2.</span> <span class="nav-text">onPause()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStop"><span class="nav-number">3.3.</span> <span class="nav-text">onStop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onDestroy"><span class="nav-number">3.4.</span> <span class="nav-text">onDestroy()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将activity设置为窗口模式"><span class="nav-number">4.</span> <span class="nav-text">将activity设置为窗口模式</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -649,11 +651,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

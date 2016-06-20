@@ -285,6 +285,228 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/19/androidStudio快捷键整理/" itemprop="url">
+                  androidStudio快捷键整理
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-19T18:25:35+08:00" content="2016-06-19">
+              2016-06-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/19/androidStudio快捷键整理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/19/androidStudio快捷键整理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><p>Alt + insert  </p>
+<h4 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h4><p>Ctrl+Alt+L </p>
+<h4 id="大小写切换"><a href="#大小写切换" class="headerlink" title="大小写切换"></a>大小写切换</h4><p>Ctrl+Shift+U </p>
+<h4 id="代码提示"><a href="#代码提示" class="headerlink" title="代码提示"></a>代码提示</h4><p>shift+ space(自己设置)<br>设置方法：File-&gt;setting-&gt;Keymap-&gt;Main menu-&gt;Code-&gt;Completion</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/06/19/android入门/" itemprop="url">
+                  android学习记录
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-19T18:09:27+08:00" content="2016-06-19">
+              2016-06-19
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/19/android入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/19/android入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="activity之间的跳转和数据传递"><a href="#activity之间的跳转和数据传递" class="headerlink" title="activity之间的跳转和数据传递"></a>activity之间的跳转和数据传递</h4><p>MainActivity-&gt;Main2Activity<br>MainActivity代码:  </p>
+<pre><code>Intent intent = new Intent();
+intent.putExtra(&quot;name&quot;,&quot;哈哈哈&quot;);
+intent.setClass(MainActivity.this,Main2Activity.class);
+MainActivity.this.startActivity(intent);  
+</code></pre><p>Main2Activity代码:  </p>
+<pre><code>tv1 = (TextView) findViewById(R.id.main2text);
+String value = getIntent().getStringExtra(&quot;name&quot;);
+tv1.setText(value);  
+</code></pre><h4 id="activity生命周期"><a href="#activity生命周期" class="headerlink" title="activity生命周期"></a>activity生命周期</h4><p><img src="/uploads/activityLifecycle.PNG" alt="Activity Lifecycle">  </p>
+<h5 id="onCreate"><a href="#onCreate" class="headerlink" title="onCreate()"></a>onCreate()</h5><p>Called when the activity is first created<br>当activity第一次被创建的时候调用</p>
+<h5 id="onStart"><a href="#onStart" class="headerlink" title="onStart()"></a>onStart()</h5><p>Called when the activity is becoming visible to the user<br>当activity对用户可见时调用</p>
+<h4 id="onRestart"><a href="#onRestart" class="headerlink" title="onRestart()"></a>onRestart()</h4><p>Called after your activity has been stopped<br>当activity已经stoped过，恢复的时候调用</p>
+<h5 id="onResume"><a href="#onResume" class="headerlink" title="onResume()"></a>onResume()</h5><p>Called when the activity will start interacting with the user<br>当用户能获取activity焦点时调用</p>
+<h5 id="onPause"><a href="#onPause" class="headerlink" title="onPause()"></a>onPause()</h5><p>Called when the system is about to start resuming a previous activity<br>当系统恢复之前的activity时调用（失去焦点），通常用来在此方法里面持久化当前activity的数据等</p>
+<h5 id="onStop"><a href="#onStop" class="headerlink" title="onStop()"></a>onStop()</h5><p>Called when the activity is no longer visible to the use<br>当activity完全不可见时调用</p>
+<h5 id="onDestroy"><a href="#onDestroy" class="headerlink" title="onDestroy()"></a>onDestroy()</h5><p>The final call you receive before your activity is destroyed  </p>
+<h4 id="将activity设置为窗口模式"><a href="#将activity设置为窗口模式" class="headerlink" title="将activity设置为窗口模式"></a>将activity设置为窗口模式</h4><p>在AndroidManifest.xml中设置theme</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/06/Markdown入门/" itemprop="url">
                   Markdown
                 </a>
@@ -326,6 +548,13 @@
           
 
           
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/06/Markdown入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/06/Markdown入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
             
           
 
@@ -471,6 +700,13 @@
 
           
             
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/04/express入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/04/express入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -599,6 +835,13 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
 
           
             
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/02/appcan主应用子应用页面互调方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/02/appcan主应用子应用页面互调方法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -699,6 +942,13 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
 
           
             
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/31/hello-world/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/31/hello-world/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -798,7 +1048,7 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -815,7 +1065,7 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -950,9 +1200,28 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
 
   
 
+  
+    
+  
 
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"AmazingK"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
 
   
+    
+  
+
+
 
 
 
