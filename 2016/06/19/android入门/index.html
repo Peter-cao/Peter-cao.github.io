@@ -99,7 +99,7 @@ Intent intent = new Intent();
 intent.putExtra(&amp;quot;name&amp;quot;,&amp;quot;哈哈哈&amp;quot;);
 intent.setClass(MainActivity.this,Main2Activity.class">
 <meta property="og:image" content="http://yoursite.com/uploads/activityLifecycle.PNG">
-<meta property="og:updated_time" content="2016-06-19T15:33:53.818Z">
+<meta property="og:updated_time" content="2016-06-21T15:28:06.900Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android学习记录">
 <meta name="twitter:description" content="activity之间的跳转和数据传递MainActivity-&amp;gt;Main2ActivityMainActivity代码:  
@@ -359,7 +359,113 @@ tv1.setText(value);
 <h5 id="onStop"><a href="#onStop" class="headerlink" title="onStop()"></a>onStop()</h5><p>Called when the activity is no longer visible to the use<br>当activity完全不可见时调用</p>
 <h5 id="onDestroy"><a href="#onDestroy" class="headerlink" title="onDestroy()"></a>onDestroy()</h5><p>The final call you receive before your activity is destroyed  </p>
 <h4 id="将activity设置为窗口模式"><a href="#将activity设置为窗口模式" class="headerlink" title="将activity设置为窗口模式"></a>将activity设置为窗口模式</h4><p>在AndroidManifest.xml中设置theme</p>
+<h4 id="设备兼容"><a href="#设备兼容" class="headerlink" title="设备兼容"></a>设备兼容</h4><h5 id="语言兼容"><a href="#语言兼容" class="headerlink" title="语言兼容"></a>语言兼容</h5><pre><code>MyProject/
+    res/
+       values/
+           strings.xml
+       values-es/
+           strings.xml
+       values-fr/
+           strings.xml  
+</code></pre><p>Android系统会基于当前系统的语言环境设置来选择对应的设置</p>
+<h5 id="屏幕兼容"><a href="#屏幕兼容" class="headerlink" title="屏幕兼容"></a>屏幕兼容</h5><p>创建不同的布局  </p>
+<pre><code>MyProject/
+    res/
+        layout/              # default (portrait)
+            main.xml
+        layout-land/         # landscape
+            main.xml
+        layout-large/        # large (portrait)
+            main.xml
+        layout-large-land/   # large landscape
+            main.xml
+</code></pre><p>创建不同的位图  </p>
+<ul>
+<li>xhdpi: 2.0</li>
+<li>hdpi: 1.5</li>
+<li>mdpi: 1.0 (baseline)</li>
+<li>ldpi: 0.75</li>
+</ul>
+<p>如果xhdpi的图像为200*200，则hdpi为150*150，mdpi为100*100,ldpi为75*75  </p>
+<pre><code>MyProject/
+    res/
+        drawable-xhdpi/
+            awesomeimage.png
+        drawable-hdpi/
+            awesomeimage.png
+        drawable-mdpi/
+            awesomeimage.png
+        drawable-ldpi/
+            awesomeimage.png  
+</code></pre><p>当引用 @drawable/awesomeimage时，系统会根据屏幕的分辨率选择对应的图片</p>
+<h5 id="版本兼容"><a href="#版本兼容" class="headerlink" title="版本兼容"></a>版本兼容</h5><p>指定最小和目标API级别  </p>
+<pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; ... &gt;
+    &lt;uses-sdk android:minSdkVersion=&quot;4&quot; android:targetSdkVersion=&quot;15&quot; /&gt;
+    ...
+&lt;/manifest&gt;  
+</code></pre><p>在运行时检查系统版本  </p>
+<pre><code>private void setUpActionBar() {
+    // Make sure we&apos;re running on Honeycomb or higher to use ActionBar APIs
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+}  
+</code></pre><p>使用平台的主题和样式<br>To make your activity look like a dialog box:</p>
+<pre><code>&lt;activity android:theme=&quot;@android:style/Theme.Dialog&quot;&gt;
+</code></pre><p>To make your activity have a transparent background:</p>
+<pre><code>&lt;activity android:theme=&quot;@android:style/Theme.Translucent&quot;&gt;
+</code></pre><p>To apply your own custom theme defined in /res/values/styles.xml:</p>
+<pre><code>&lt;activity android:theme=&quot;@style/CustomTheme&quot;&gt;
+</code></pre><p>To apply a theme to your entire app (all activities), add the android:theme attribute to the <application> element:</application></p>
+<pre><code>application android:theme=&quot;@style/CustomTheme&quot;&gt;  
+</code></pre><h4 id="Fragment的创建"><a href="#Fragment的创建" class="headerlink" title="Fragment的创建"></a>Fragment的创建</h4><p>1.Create a Fragment Class  </p>
+<pre><code>import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
+public class ArticleFragment extends Fragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.article_view, container, false);
+    }
+}
+</code></pre><p>2.Add a Fragment to an Activity using XML  </p>
+<p>res/layout-large/news_articles.xml  </p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:orientation=&quot;horizontal&quot;
+    android:layout_width=&quot;fill_parent&quot;
+    android:layout_height=&quot;fill_parent&quot;&gt;
+
+    &lt;fragment android:name=&quot;com.example.android.fragments.HeadlinesFragment&quot;
+              android:id=&quot;@+id/headlines_fragment&quot;
+              android:layout_weight=&quot;1&quot;
+              android:layout_width=&quot;0dp&quot;
+              android:layout_height=&quot;match_parent&quot; /&gt;
+
+    &lt;fragment android:name=&quot;com.example.android.fragments.ArticleFragment&quot;
+              android:id=&quot;@+id/article_fragment&quot;
+              android:layout_weight=&quot;2&quot;
+              android:layout_width=&quot;0dp&quot;
+              android:layout_height=&quot;match_parent&quot; /&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre><p>3.Then apply the layout to your activity  </p>
+<pre><code>import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class MainActivity extends FragmentActivity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.news_articles);
+    }
+}
+</code></pre><p>更多内容参考<a href="http://blog.csdn.net/guolin_blog/article/details/8881711" target="_blank" rel="external">Android Fragment完全解析，关于碎片你所需知道的一切</a></p>
+<h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4>
       
     </div>
 
@@ -551,7 +657,7 @@ tv1.setText(value);
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#activity之间的跳转和数据传递"><span class="nav-number">1.</span> <span class="nav-text">activity之间的跳转和数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activity生命周期"><span class="nav-number">2.</span> <span class="nav-text">activity生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onCreate"><span class="nav-number">2.1.</span> <span class="nav-text">onCreate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStart"><span class="nav-number">2.2.</span> <span class="nav-text">onStart()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onRestart"><span class="nav-number">3.</span> <span class="nav-text">onRestart()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onResume"><span class="nav-number">3.1.</span> <span class="nav-text">onResume()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onPause"><span class="nav-number">3.2.</span> <span class="nav-text">onPause()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStop"><span class="nav-number">3.3.</span> <span class="nav-text">onStop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onDestroy"><span class="nav-number">3.4.</span> <span class="nav-text">onDestroy()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将activity设置为窗口模式"><span class="nav-number">4.</span> <span class="nav-text">将activity设置为窗口模式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#activity之间的跳转和数据传递"><span class="nav-number">1.</span> <span class="nav-text">activity之间的跳转和数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activity生命周期"><span class="nav-number">2.</span> <span class="nav-text">activity生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onCreate"><span class="nav-number">2.1.</span> <span class="nav-text">onCreate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStart"><span class="nav-number">2.2.</span> <span class="nav-text">onStart()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onRestart"><span class="nav-number">3.</span> <span class="nav-text">onRestart()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onResume"><span class="nav-number">3.1.</span> <span class="nav-text">onResume()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onPause"><span class="nav-number">3.2.</span> <span class="nav-text">onPause()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStop"><span class="nav-number">3.3.</span> <span class="nav-text">onStop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onDestroy"><span class="nav-number">3.4.</span> <span class="nav-text">onDestroy()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将activity设置为窗口模式"><span class="nav-number">4.</span> <span class="nav-text">将activity设置为窗口模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设备兼容"><span class="nav-number">5.</span> <span class="nav-text">设备兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语言兼容"><span class="nav-number">5.1.</span> <span class="nav-text">语言兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#屏幕兼容"><span class="nav-number">5.2.</span> <span class="nav-text">屏幕兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#版本兼容"><span class="nav-number">5.3.</span> <span class="nav-text">版本兼容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment的创建"><span class="nav-number">6.</span> <span class="nav-text">Fragment的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存数据"><span class="nav-number">7.</span> <span class="nav-text">保存数据</span></a></li></ol></div>
             
           </div>
         </section>

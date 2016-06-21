@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-19T15:32:17.579Z</updated>
+  <updated>2016-06-20T06:40:17.500Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,12 +20,13 @@
     <link href="http://yoursite.com/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2016/06/19/androidStudio快捷键整理/</id>
     <published>2016-06-19T10:25:35.000Z</published>
-    <updated>2016-06-19T15:32:17.579Z</updated>
+    <updated>2016-06-20T06:40:17.500Z</updated>
     
     <content type="html">&lt;h4 id=&quot;generate&quot;&gt;&lt;a href=&quot;#generate&quot; class=&quot;headerlink&quot; title=&quot;generate&quot;&gt;&lt;/a&gt;generate&lt;/h4&gt;&lt;p&gt;Alt + insert  &lt;/p&gt;
 &lt;h4 id=&quot;格式化代码&quot;&gt;&lt;a href=&quot;#格式化代码&quot; class=&quot;headerlink&quot; title=&quot;格式化代码&quot;&gt;&lt;/a&gt;格式化代码&lt;/h4&gt;&lt;p&gt;Ctrl+Alt+L &lt;/p&gt;
 &lt;h4 id=&quot;大小写切换&quot;&gt;&lt;a href=&quot;#大小写切换&quot; class=&quot;headerlink&quot; title=&quot;大小写切换&quot;&gt;&lt;/a&gt;大小写切换&lt;/h4&gt;&lt;p&gt;Ctrl+Shift+U &lt;/p&gt;
 &lt;h4 id=&quot;代码提示&quot;&gt;&lt;a href=&quot;#代码提示&quot; class=&quot;headerlink&quot; title=&quot;代码提示&quot;&gt;&lt;/a&gt;代码提示&lt;/h4&gt;&lt;p&gt;shift+ space(自己设置)&lt;br&gt;设置方法：File-&amp;gt;setting-&amp;gt;Keymap-&amp;gt;Main menu-&amp;gt;Code-&amp;gt;Completion&lt;/p&gt;
+&lt;h4 id=&quot;导入包&quot;&gt;&lt;a href=&quot;#导入包&quot; class=&quot;headerlink&quot; title=&quot;导入包&quot;&gt;&lt;/a&gt;导入包&lt;/h4&gt;&lt;p&gt;Alt + Enter&lt;/p&gt;
 </content>
     
     <summary type="html">
@@ -45,7 +46,7 @@
     <link href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/19/android入门/</id>
     <published>2016-06-19T10:09:27.000Z</published>
-    <updated>2016-06-19T15:33:53.818Z</updated>
+    <updated>2016-06-21T15:28:06.900Z</updated>
     
     <content type="html">&lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainActivity-&amp;gt;Main2Activity&lt;br&gt;MainActivity代码:  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Intent intent = new Intent();
@@ -65,7 +66,113 @@ tv1.setText(value);
 &lt;h5 id=&quot;onStop&quot;&gt;&lt;a href=&quot;#onStop&quot; class=&quot;headerlink&quot; title=&quot;onStop()&quot;&gt;&lt;/a&gt;onStop()&lt;/h5&gt;&lt;p&gt;Called when the activity is no longer visible to the use&lt;br&gt;当activity完全不可见时调用&lt;/p&gt;
 &lt;h5 id=&quot;onDestroy&quot;&gt;&lt;a href=&quot;#onDestroy&quot; class=&quot;headerlink&quot; title=&quot;onDestroy()&quot;&gt;&lt;/a&gt;onDestroy()&lt;/h5&gt;&lt;p&gt;The final call you receive before your activity is destroyed  &lt;/p&gt;
 &lt;h4 id=&quot;将activity设置为窗口模式&quot;&gt;&lt;a href=&quot;#将activity设置为窗口模式&quot; class=&quot;headerlink&quot; title=&quot;将activity设置为窗口模式&quot;&gt;&lt;/a&gt;将activity设置为窗口模式&lt;/h4&gt;&lt;p&gt;在AndroidManifest.xml中设置theme&lt;/p&gt;
-</content>
+&lt;h4 id=&quot;设备兼容&quot;&gt;&lt;a href=&quot;#设备兼容&quot; class=&quot;headerlink&quot; title=&quot;设备兼容&quot;&gt;&lt;/a&gt;设备兼容&lt;/h4&gt;&lt;h5 id=&quot;语言兼容&quot;&gt;&lt;a href=&quot;#语言兼容&quot; class=&quot;headerlink&quot; title=&quot;语言兼容&quot;&gt;&lt;/a&gt;语言兼容&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;MyProject/
+    res/
+       values/
+           strings.xml
+       values-es/
+           strings.xml
+       values-fr/
+           strings.xml  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Android系统会基于当前系统的语言环境设置来选择对应的设置&lt;/p&gt;
+&lt;h5 id=&quot;屏幕兼容&quot;&gt;&lt;a href=&quot;#屏幕兼容&quot; class=&quot;headerlink&quot; title=&quot;屏幕兼容&quot;&gt;&lt;/a&gt;屏幕兼容&lt;/h5&gt;&lt;p&gt;创建不同的布局  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;MyProject/
+    res/
+        layout/              # default (portrait)
+            main.xml
+        layout-land/         # landscape
+            main.xml
+        layout-large/        # large (portrait)
+            main.xml
+        layout-large-land/   # large landscape
+            main.xml
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;创建不同的位图  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;xhdpi: 2.0&lt;/li&gt;
+&lt;li&gt;hdpi: 1.5&lt;/li&gt;
+&lt;li&gt;mdpi: 1.0 (baseline)&lt;/li&gt;
+&lt;li&gt;ldpi: 0.75&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果xhdpi的图像为200*200，则hdpi为150*150，mdpi为100*100,ldpi为75*75  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;MyProject/
+    res/
+        drawable-xhdpi/
+            awesomeimage.png
+        drawable-hdpi/
+            awesomeimage.png
+        drawable-mdpi/
+            awesomeimage.png
+        drawable-ldpi/
+            awesomeimage.png  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当引用 @drawable/awesomeimage时，系统会根据屏幕的分辨率选择对应的图片&lt;/p&gt;
+&lt;h5 id=&quot;版本兼容&quot;&gt;&lt;a href=&quot;#版本兼容&quot; class=&quot;headerlink&quot; title=&quot;版本兼容&quot;&gt;&lt;/a&gt;版本兼容&lt;/h5&gt;&lt;p&gt;指定最小和目标API级别  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot; ... &amp;gt;
+    &amp;lt;uses-sdk android:minSdkVersion=&amp;quot;4&amp;quot; android:targetSdkVersion=&amp;quot;15&amp;quot; /&amp;gt;
+    ...
+&amp;lt;/manifest&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在运行时检查系统版本  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private void setUpActionBar() {
+    // Make sure we&amp;apos;re running on Honeycomb or higher to use ActionBar APIs
+    if (Build.VERSION.SDK_INT &amp;gt;= Build.VERSION_CODES.HONEYCOMB) {
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+}  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用平台的主题和样式&lt;br&gt;To make your activity look like a dialog box:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;activity android:theme=&amp;quot;@android:style/Theme.Dialog&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To make your activity have a transparent background:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;activity android:theme=&amp;quot;@android:style/Theme.Translucent&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To apply your own custom theme defined in /res/values/styles.xml:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;activity android:theme=&amp;quot;@style/CustomTheme&amp;quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;To apply a theme to your entire app (all activities), add the android:theme attribute to the &lt;application&gt; element:&lt;/application&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;application android:theme=&amp;quot;@style/CustomTheme&amp;quot;&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Fragment的创建&quot;&gt;&lt;a href=&quot;#Fragment的创建&quot; class=&quot;headerlink&quot; title=&quot;Fragment的创建&quot;&gt;&lt;/a&gt;Fragment的创建&lt;/h4&gt;&lt;p&gt;1.Create a Fragment Class  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+public class ArticleFragment extends Fragment {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.article_view, container, false);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;2.Add a Fragment to an Activity using XML  &lt;/p&gt;
+&lt;p&gt;res/layout-large/news_articles.xml  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;LinearLayout xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
+    android:orientation=&amp;quot;horizontal&amp;quot;
+    android:layout_width=&amp;quot;fill_parent&amp;quot;
+    android:layout_height=&amp;quot;fill_parent&amp;quot;&amp;gt;
+
+    &amp;lt;fragment android:name=&amp;quot;com.example.android.fragments.HeadlinesFragment&amp;quot;
+              android:id=&amp;quot;@+id/headlines_fragment&amp;quot;
+              android:layout_weight=&amp;quot;1&amp;quot;
+              android:layout_width=&amp;quot;0dp&amp;quot;
+              android:layout_height=&amp;quot;match_parent&amp;quot; /&amp;gt;
+
+    &amp;lt;fragment android:name=&amp;quot;com.example.android.fragments.ArticleFragment&amp;quot;
+              android:id=&amp;quot;@+id/article_fragment&amp;quot;
+              android:layout_weight=&amp;quot;2&amp;quot;
+              android:layout_width=&amp;quot;0dp&amp;quot;
+              android:layout_height=&amp;quot;match_parent&amp;quot; /&amp;gt;
+
+&amp;lt;/LinearLayout&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.Then apply the layout to your activity  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class MainActivity extends FragmentActivity {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.news_articles);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;更多内容参考&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/8881711&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Fragment完全解析，关于碎片你所需知道的一切&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;保存数据&quot;&gt;&lt;a href=&quot;#保存数据&quot; class=&quot;headerlink&quot; title=&quot;保存数据&quot;&gt;&lt;/a&gt;保存数据&lt;/h4&gt;</content>
     
     <summary type="html">
     
