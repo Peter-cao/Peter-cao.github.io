@@ -99,7 +99,7 @@ Intent intent = new Intent();
 intent.putExtra(&amp;quot;name&amp;quot;,&amp;quot;哈哈哈&amp;quot;);
 intent.setClass(MainActivity.this,Main2Activity.class">
 <meta property="og:image" content="http://yoursite.com/uploads/activityLifecycle.PNG">
-<meta property="og:updated_time" content="2016-06-21T15:28:06.900Z">
+<meta property="og:updated_time" content="2016-06-21T15:41:46.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android学习记录">
 <meta name="twitter:description" content="activity之间的跳转和数据传递MainActivity-&amp;gt;Main2ActivityMainActivity代码:  
@@ -465,7 +465,23 @@ public class MainActivity extends FragmentActivity {
     }
 }
 </code></pre><p>更多内容参考<a href="http://blog.csdn.net/guolin_blog/article/details/8881711" target="_blank" rel="external">Android Fragment完全解析，关于碎片你所需知道的一切</a></p>
-<h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4>
+<h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><h5 id="保存键值对"><a href="#保存键值对" class="headerlink" title="保存键值对"></a>保存键值对</h5><p>获取SharedPreferences     </p>
+<pre><code>1.通过R.string.preference_file_key获取对应的SharedPreferences
+    Context context = getActivity();
+    SharedPreferences sharedPref = context.getSharedPreferences(
+        getString(R.string.preference_file_key), Context.MODE_PRIVATE);  
+2.获取Activity的公共的SharedPreferences
+    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);  
+</code></pre><p>写入SharedPreferences </p>
+<pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+SharedPreferences.Editor editor = sharedPref.edit();
+editor.putInt(getString(R.string.saved_high_score), newHighScore);
+editor.commit();
+</code></pre><p>读取SharedPreferences </p>
+<pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
+long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
+</code></pre><h5 id="保存文件"><a href="#保存文件" class="headerlink" title="保存文件"></a>保存文件</h5><h5 id="使用-SQLite-保存数据"><a href="#使用-SQLite-保存数据" class="headerlink" title="使用 SQLite 保存数据"></a>使用 SQLite 保存数据</h5>
       
     </div>
 
@@ -657,7 +673,7 @@ public class MainActivity extends FragmentActivity {
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#activity之间的跳转和数据传递"><span class="nav-number">1.</span> <span class="nav-text">activity之间的跳转和数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activity生命周期"><span class="nav-number">2.</span> <span class="nav-text">activity生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onCreate"><span class="nav-number">2.1.</span> <span class="nav-text">onCreate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStart"><span class="nav-number">2.2.</span> <span class="nav-text">onStart()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onRestart"><span class="nav-number">3.</span> <span class="nav-text">onRestart()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onResume"><span class="nav-number">3.1.</span> <span class="nav-text">onResume()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onPause"><span class="nav-number">3.2.</span> <span class="nav-text">onPause()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStop"><span class="nav-number">3.3.</span> <span class="nav-text">onStop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onDestroy"><span class="nav-number">3.4.</span> <span class="nav-text">onDestroy()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将activity设置为窗口模式"><span class="nav-number">4.</span> <span class="nav-text">将activity设置为窗口模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设备兼容"><span class="nav-number">5.</span> <span class="nav-text">设备兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语言兼容"><span class="nav-number">5.1.</span> <span class="nav-text">语言兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#屏幕兼容"><span class="nav-number">5.2.</span> <span class="nav-text">屏幕兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#版本兼容"><span class="nav-number">5.3.</span> <span class="nav-text">版本兼容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment的创建"><span class="nav-number">6.</span> <span class="nav-text">Fragment的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存数据"><span class="nav-number">7.</span> <span class="nav-text">保存数据</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#activity之间的跳转和数据传递"><span class="nav-number">1.</span> <span class="nav-text">activity之间的跳转和数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activity生命周期"><span class="nav-number">2.</span> <span class="nav-text">activity生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onCreate"><span class="nav-number">2.1.</span> <span class="nav-text">onCreate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStart"><span class="nav-number">2.2.</span> <span class="nav-text">onStart()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onRestart"><span class="nav-number">3.</span> <span class="nav-text">onRestart()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onResume"><span class="nav-number">3.1.</span> <span class="nav-text">onResume()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onPause"><span class="nav-number">3.2.</span> <span class="nav-text">onPause()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStop"><span class="nav-number">3.3.</span> <span class="nav-text">onStop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onDestroy"><span class="nav-number">3.4.</span> <span class="nav-text">onDestroy()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将activity设置为窗口模式"><span class="nav-number">4.</span> <span class="nav-text">将activity设置为窗口模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设备兼容"><span class="nav-number">5.</span> <span class="nav-text">设备兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语言兼容"><span class="nav-number">5.1.</span> <span class="nav-text">语言兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#屏幕兼容"><span class="nav-number">5.2.</span> <span class="nav-text">屏幕兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#版本兼容"><span class="nav-number">5.3.</span> <span class="nav-text">版本兼容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment的创建"><span class="nav-number">6.</span> <span class="nav-text">Fragment的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存数据"><span class="nav-number">7.</span> <span class="nav-text">保存数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#保存键值对"><span class="nav-number">7.1.</span> <span class="nav-text">保存键值对</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#保存文件"><span class="nav-number">7.2.</span> <span class="nav-text">保存文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用-SQLite-保存数据"><span class="nav-number">7.3.</span> <span class="nav-text">使用 SQLite 保存数据</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

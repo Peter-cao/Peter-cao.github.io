@@ -46,7 +46,7 @@
     <link href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/19/android入门/</id>
     <published>2016-06-19T10:09:27.000Z</published>
-    <updated>2016-06-21T15:28:06.900Z</updated>
+    <updated>2016-06-21T15:41:46.644Z</updated>
     
     <content type="html">&lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainActivity-&amp;gt;Main2Activity&lt;br&gt;MainActivity代码:  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Intent intent = new Intent();
@@ -172,7 +172,23 @@ public class MainActivity extends FragmentActivity {
     }
 }
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;更多内容参考&lt;a href=&quot;http://blog.csdn.net/guolin_blog/article/details/8881711&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Android Fragment完全解析，关于碎片你所需知道的一切&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&quot;保存数据&quot;&gt;&lt;a href=&quot;#保存数据&quot; class=&quot;headerlink&quot; title=&quot;保存数据&quot;&gt;&lt;/a&gt;保存数据&lt;/h4&gt;</content>
+&lt;h4 id=&quot;保存数据&quot;&gt;&lt;a href=&quot;#保存数据&quot; class=&quot;headerlink&quot; title=&quot;保存数据&quot;&gt;&lt;/a&gt;保存数据&lt;/h4&gt;&lt;h5 id=&quot;保存键值对&quot;&gt;&lt;a href=&quot;#保存键值对&quot; class=&quot;headerlink&quot; title=&quot;保存键值对&quot;&gt;&lt;/a&gt;保存键值对&lt;/h5&gt;&lt;p&gt;获取SharedPreferences     &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1.通过R.string.preference_file_key获取对应的SharedPreferences
+    Context context = getActivity();
+    SharedPreferences sharedPref = context.getSharedPreferences(
+        getString(R.string.preference_file_key), Context.MODE_PRIVATE);  
+2.获取Activity的公共的SharedPreferences
+    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;写入SharedPreferences &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+SharedPreferences.Editor editor = sharedPref.edit();
+editor.putInt(getString(R.string.saved_high_score), newHighScore);
+editor.commit();
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;读取SharedPreferences &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
+long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;保存文件&quot;&gt;&lt;a href=&quot;#保存文件&quot; class=&quot;headerlink&quot; title=&quot;保存文件&quot;&gt;&lt;/a&gt;保存文件&lt;/h5&gt;&lt;h5 id=&quot;使用-SQLite-保存数据&quot;&gt;&lt;a href=&quot;#使用-SQLite-保存数据&quot; class=&quot;headerlink&quot; title=&quot;使用 SQLite 保存数据&quot;&gt;&lt;/a&gt;使用 SQLite 保存数据&lt;/h5&gt;</content>
     
     <summary type="html">
     

@@ -141,7 +141,23 @@ public class MainActivity extends FragmentActivity {
     }
 }
 </code></pre><p>更多内容参考<a href="http://blog.csdn.net/guolin_blog/article/details/8881711" target="_blank" rel="external">Android Fragment完全解析，关于碎片你所需知道的一切</a></p>
-<h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4>]]></content>
+<h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><h5 id="保存键值对"><a href="#保存键值对" class="headerlink" title="保存键值对"></a>保存键值对</h5><p>获取SharedPreferences     </p>
+<pre><code>1.通过R.string.preference_file_key获取对应的SharedPreferences
+    Context context = getActivity();
+    SharedPreferences sharedPref = context.getSharedPreferences(
+        getString(R.string.preference_file_key), Context.MODE_PRIVATE);  
+2.获取Activity的公共的SharedPreferences
+    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);  
+</code></pre><p>写入SharedPreferences </p>
+<pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+SharedPreferences.Editor editor = sharedPref.edit();
+editor.putInt(getString(R.string.saved_high_score), newHighScore);
+editor.commit();
+</code></pre><p>读取SharedPreferences </p>
+<pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
+long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
+</code></pre><h5 id="保存文件"><a href="#保存文件" class="headerlink" title="保存文件"></a>保存文件</h5><h5 id="使用-SQLite-保存数据"><a href="#使用-SQLite-保存数据" class="headerlink" title="使用 SQLite 保存数据"></a>使用 SQLite 保存数据</h5>]]></content>
     </entry>
     
     <entry>
