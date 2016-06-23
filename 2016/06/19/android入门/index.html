@@ -99,7 +99,7 @@ Intent intent = new Intent();
 intent.putExtra(&amp;quot;name&amp;quot;,&amp;quot;哈哈哈&amp;quot;);
 intent.setClass(MainActivity.this,Main2Activity.class">
 <meta property="og:image" content="http://yoursite.com/uploads/activityLifecycle.PNG">
-<meta property="og:updated_time" content="2016-06-21T15:41:46.644Z">
+<meta property="og:updated_time" content="2016-06-22T15:23:26.016Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android学习记录">
 <meta name="twitter:description" content="activity之间的跳转和数据传递MainActivity-&amp;gt;Main2ActivityMainActivity代码:  
@@ -481,7 +481,210 @@ editor.commit();
 <pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
 long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
-</code></pre><h5 id="保存文件"><a href="#保存文件" class="headerlink" title="保存文件"></a>保存文件</h5><h5 id="使用-SQLite-保存数据"><a href="#使用-SQLite-保存数据" class="headerlink" title="使用 SQLite 保存数据"></a>使用 SQLite 保存数据</h5>
+</code></pre><h5 id="保存文件"><a href="#保存文件" class="headerlink" title="保存文件"></a>保存文件</h5><h6 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a>内部存储</h6><ul>
+<li>它始终可用  </li>
+<li>默认情况下只有您的应用可以访问此处保存的文件</li>
+<li>当用户卸载您的应用时，系统会从内部存储中删除您的应用的所有文件。</li>
+</ul>
+<p>获取应用的内部目录的 File  </p>
+<pre><code>getFilesDir()
+</code></pre><p>获取应用临时缓存文件的内部目录的 File  </p>
+<pre><code>getCacheDir()
+</code></pre><p>用法：</p>
+<pre><code>File file = new File(context.getFilesDir(), filename);
+</code></pre><p>或者 调用 openFileOutput() 获取写入到内部目录中的文件的 FileOutputStream</p>
+<pre><code>String filename = &quot;myfile&quot;;
+String string = &quot;Hello world!&quot;;
+FileOutputStream outputStream;
+
+try {
+  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+  outputStream.write(string.getBytes());
+  outputStream.close();
+} catch (Exception e) {
+  e.printStackTrace();
+}  
+</code></pre><p>或者 缓存某些文件，您应改用 createTempFile()</p>
+<pre><code>public File getTempFile(Context context, String url) {
+    File file;
+    try {
+        String fileName = Uri.parse(url).getLastPathSegment();
+        file = File.createTempFile(fileName, null, context.getCacheDir());
+    catch (IOException e) {
+        // Error while creating file
+    }
+    return file;
+}
+</code></pre><h6 id="外部存储"><a href="#外部存储" class="headerlink" title="外部存储"></a>外部存储</h6><ul>
+<li>它并非始终可用，因为用户可采用 USB 存储的形式装载外部存储，并在某些情况下会从设备中将其删除</li>
+<li>它是全局可读的，因此此处保存的文件可能不受您控制地被读取</li>
+<li>当用户卸载您的应用时，只有在您通过 getExternalFilesDir() 将您的应用的文件保存在目录中时，系统才会从此处删除您的应用的文件</li>
+</ul>
+<p>1.获取权限  </p>
+<pre><code>&lt;manifest ...&gt;  
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+     &lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot; /&gt;
+    ...
+&lt;/manifest&gt;
+</code></pre><p>通过调用 getExternalStorageState() 查询外部存储状态。 如果返回的状态为 MEDIA_MOUNTED，那么您可以对您的文件进行读写    </p>
+<pre><code>/* Checks if external storage is available for read and write */
+public boolean isExternalStorageWritable() {
+    String state = Environment.getExternalStorageState();
+    if (Environment.MEDIA_MOUNTED.equals(state)) {
+        return true;
+    }
+    return false;
+}
+
+/* Checks if external storage is available to at least read */
+public boolean isExternalStorageReadable() {
+    String state = Environment.getExternalStorageState();
+    if (Environment.MEDIA_MOUNTED.equals(state) ||
+        Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+        return true;
+    }
+    return false;
+}
+</code></pre><p>如果要使用外部存储上的公共文件，使用 getExternalStoragePublicDirectory() 方法获取表示外部存储上相应目录的 File 。该方法使用指定 您想要保存以便它们可以与其他公共文件在逻辑上组织在一起的文件类型的参数，比如 DIRECTORY_MUSIC 或 DIRECTORY_PICTURES  </p>
+<pre><code>public File getAlbumStorageDir(String albumName) {
+    // Get the directory for the user&apos;s public pictures directory. 
+    File file = new File(Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES), albumName);
+    if (!file.mkdirs()) {
+        Log.e(LOG_TAG, &quot;Directory not created&quot;);
+    }
+    return file;
+} 
+</code></pre><p>通过调用 getExternalFilesDir() 获取相应的目录并向其传递指示您想要的目录类型的名称。当用户卸载应用时，系统会删除这些文件</p>
+<pre><code>public File getAlbumStorageDir(Context context, String albumName) {
+    // Get the directory for the app&apos;s private pictures directory. 
+    File file = new File(context.getExternalFilesDir(
+            Environment.DIRECTORY_PICTURES), albumName);
+    if (!file.mkdirs()) {
+        Log.e(LOG_TAG, &quot;Directory not created&quot;);
+    }
+    return file;
+}
+</code></pre><h6 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h6><pre><code>myFile.delete();
+or
+myContext.deleteFile(fileName);
+</code></pre><h5 id="使用-SQLite-保存数据"><a href="#使用-SQLite-保存数据" class="headerlink" title="使用 SQLite 保存数据"></a>使用 SQLite 保存数据</h5><h6 id="Define-a-Schema-and-Contract"><a href="#Define-a-Schema-and-Contract" class="headerlink" title="Define a Schema and Contract"></a>Define a Schema and Contract</h6><p>通过实现 BaseColumns接口，能自动生成_ID 字段</p>
+<pre><code>public final class FeedReaderContract {
+    // To prevent someone from accidentally instantiating the contract class,
+    // give it an empty constructor.
+    public FeedReaderContract() {}
+
+    /* Inner class that defines the table contents */
+    public static abstract class FeedEntry implements BaseColumns {
+        public static final String TABLE_NAME = &quot;entry&quot;;
+        public static final String COLUMN_NAME_ENTRY_ID = &quot;entryid&quot;;
+        public static final String COLUMN_NAME_TITLE = &quot;title&quot;;
+        public static final String COLUMN_NAME_SUBTITLE = &quot;subtitle&quot;;
+        ...
+    }
+}
+</code></pre><h6 id="Create-a-Database-Using-a-SQL-Helper"><a href="#Create-a-Database-Using-a-SQL-Helper" class="headerlink" title="Create a Database Using a SQL Helper"></a>Create a Database Using a SQL Helper</h6><pre><code>private static final String TEXT_TYPE = &quot; TEXT&quot;;
+private static final String COMMA_SEP = &quot;,&quot;;
+private static final String SQL_CREATE_ENTRIES =
+    &quot;CREATE TABLE &quot; + FeedEntry.TABLE_NAME + &quot; (&quot; +
+    FeedEntry._ID + &quot; INTEGER PRIMARY KEY,&quot; +
+    FeedEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+    FeedEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
+    ... // Any other options for the CREATE command
+    &quot; )&quot;;
+
+private static final String SQL_DELETE_ENTRIES =
+    &quot;DROP TABLE IF EXISTS &quot; + FeedEntry.TABLE_NAME; 
+</code></pre><p>Note: Because they can be long-running, be sure that you call getWritableDatabase() or getReadableDatabase() in a background thread, such as with AsyncTask or IntentService.</p>
+<pre><code>public class FeedReaderDbHelper extends SQLiteOpenHelper {
+    // If you change the database schema, you must increment the database version.
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = &quot;FeedReader.db&quot;;
+
+    public FeedReaderDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_ENTRIES);
+    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // This database is only a cache for online data, so its upgrade policy is
+        // to simply to discard the data and start over
+        db.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(db);
+    }
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
+    }
+}
+</code></pre><p>然后</p>
+<pre><code>FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(getContext())
+</code></pre><h6 id="Put-Information-into-a-Database"><a href="#Put-Information-into-a-Database" class="headerlink" title="Put Information into a Database"></a>Put Information into a Database</h6><pre><code>// Gets the data repository in write mode
+SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+ContentValues values = new ContentValues();
+values.put(FeedEntry.COLUMN_NAME_ENTRY_ID, id);
+values.put(FeedEntry.COLUMN_NAME_TITLE, title);
+values.put(FeedEntry.COLUMN_NAME_CONTENT, content);
+
+// Insert the new row, returning the primary key value of the new row
+long newRowId;
+newRowId = db.insert(
+         FeedEntry.TABLE_NAME,
+         FeedEntry.COLUMN_NAME_NULLABLE,
+         values);
+</code></pre><h6 id="Read-Information-from-a-Database"><a href="#Read-Information-from-a-Database" class="headerlink" title="Read Information from a Database"></a>Read Information from a Database</h6><pre><code>SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+String[] projection = {
+    FeedEntry._ID,
+    FeedEntry.COLUMN_NAME_TITLE,
+    FeedEntry.COLUMN_NAME_UPDATED,
+    ...
+    };
+
+// How you want the results sorted in the resulting Cursor
+String sortOrder =
+    FeedEntry.COLUMN_NAME_UPDATED + &quot; DESC&quot;;
+
+Cursor c = db.query(
+    FeedEntry.TABLE_NAME,  // The table to query
+    projection,                               // The columns to return
+    selection,                                // The columns for the WHERE clause
+    selectionArgs,                            // The values for the WHERE clause
+    null,                                     // don&apos;t group the rows
+    null,                                     // don&apos;t filter by row groups
+    sortOrder                                 // The sort order
+    );
+</code></pre><p>then</p>
+<pre><code>cursor.moveToFirst();
+long itemId = cursor.getLong(
+    cursor.getColumnIndexOrThrow(FeedEntry._ID)
+)
+</code></pre><h6 id="Delete-Information-from-a-Database"><a href="#Delete-Information-from-a-Database" class="headerlink" title="Delete Information from a Database"></a>Delete Information from a Database</h6><pre><code>// Define &apos;where&apos; part of query.
+String selection = FeedEntry.COLUMN_NAME_ENTRY_ID + &quot; LIKE ?&quot;;
+// Specify arguments in placeholder order.
+String[] selectionArgs = { String.valueOf(rowId) };
+// Issue SQL statement.
+db.delete(table_name, selection, selectionArgs)
+</code></pre><h6 id="Update-a-Database"><a href="#Update-a-Database" class="headerlink" title="Update a Database"></a>Update a Database</h6><pre><code>SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+// New value for one column
+ContentValues values = new ContentValues();
+values.put(FeedEntry.COLUMN_NAME_TITLE, title);
+
+// Which row to update, based on the ID
+String selection = FeedEntry.COLUMN_NAME_ENTRY_ID + &quot; LIKE ?&quot;;
+String[] selectionArgs = { String.valueOf(rowId) };
+
+int count = db.update(
+    FeedReaderDbHelper.FeedEntry.TABLE_NAME,
+    values,
+    selection,
+    selectionArgs);
+</code></pre>
       
     </div>
 
@@ -620,7 +823,7 @@ long highScore = sharedPref.getInt(getString(R.string.saved_high_score), default
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -637,7 +840,7 @@ long highScore = sharedPref.getInt(getString(R.string.saved_high_score), default
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -673,7 +876,7 @@ long highScore = sharedPref.getInt(getString(R.string.saved_high_score), default
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#activity之间的跳转和数据传递"><span class="nav-number">1.</span> <span class="nav-text">activity之间的跳转和数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activity生命周期"><span class="nav-number">2.</span> <span class="nav-text">activity生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onCreate"><span class="nav-number">2.1.</span> <span class="nav-text">onCreate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStart"><span class="nav-number">2.2.</span> <span class="nav-text">onStart()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onRestart"><span class="nav-number">3.</span> <span class="nav-text">onRestart()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onResume"><span class="nav-number">3.1.</span> <span class="nav-text">onResume()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onPause"><span class="nav-number">3.2.</span> <span class="nav-text">onPause()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStop"><span class="nav-number">3.3.</span> <span class="nav-text">onStop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onDestroy"><span class="nav-number">3.4.</span> <span class="nav-text">onDestroy()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将activity设置为窗口模式"><span class="nav-number">4.</span> <span class="nav-text">将activity设置为窗口模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设备兼容"><span class="nav-number">5.</span> <span class="nav-text">设备兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语言兼容"><span class="nav-number">5.1.</span> <span class="nav-text">语言兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#屏幕兼容"><span class="nav-number">5.2.</span> <span class="nav-text">屏幕兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#版本兼容"><span class="nav-number">5.3.</span> <span class="nav-text">版本兼容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment的创建"><span class="nav-number">6.</span> <span class="nav-text">Fragment的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存数据"><span class="nav-number">7.</span> <span class="nav-text">保存数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#保存键值对"><span class="nav-number">7.1.</span> <span class="nav-text">保存键值对</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#保存文件"><span class="nav-number">7.2.</span> <span class="nav-text">保存文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用-SQLite-保存数据"><span class="nav-number">7.3.</span> <span class="nav-text">使用 SQLite 保存数据</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#activity之间的跳转和数据传递"><span class="nav-number">1.</span> <span class="nav-text">activity之间的跳转和数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activity生命周期"><span class="nav-number">2.</span> <span class="nav-text">activity生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onCreate"><span class="nav-number">2.1.</span> <span class="nav-text">onCreate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStart"><span class="nav-number">2.2.</span> <span class="nav-text">onStart()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onRestart"><span class="nav-number">3.</span> <span class="nav-text">onRestart()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onResume"><span class="nav-number">3.1.</span> <span class="nav-text">onResume()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onPause"><span class="nav-number">3.2.</span> <span class="nav-text">onPause()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStop"><span class="nav-number">3.3.</span> <span class="nav-text">onStop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onDestroy"><span class="nav-number">3.4.</span> <span class="nav-text">onDestroy()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#将activity设置为窗口模式"><span class="nav-number">4.</span> <span class="nav-text">将activity设置为窗口模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设备兼容"><span class="nav-number">5.</span> <span class="nav-text">设备兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#语言兼容"><span class="nav-number">5.1.</span> <span class="nav-text">语言兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#屏幕兼容"><span class="nav-number">5.2.</span> <span class="nav-text">屏幕兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#版本兼容"><span class="nav-number">5.3.</span> <span class="nav-text">版本兼容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment的创建"><span class="nav-number">6.</span> <span class="nav-text">Fragment的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存数据"><span class="nav-number">7.</span> <span class="nav-text">保存数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#保存键值对"><span class="nav-number">7.1.</span> <span class="nav-text">保存键值对</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#保存文件"><span class="nav-number">7.2.</span> <span class="nav-text">保存文件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#内部存储"><span class="nav-number">7.2.1.</span> <span class="nav-text">内部存储</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#外部存储"><span class="nav-number">7.2.2.</span> <span class="nav-text">外部存储</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#删除文件"><span class="nav-number">7.2.3.</span> <span class="nav-text">删除文件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用-SQLite-保存数据"><span class="nav-number">7.3.</span> <span class="nav-text">使用 SQLite 保存数据</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Define-a-Schema-and-Contract"><span class="nav-number">7.3.1.</span> <span class="nav-text">Define a Schema and Contract</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Create-a-Database-Using-a-SQL-Helper"><span class="nav-number">7.3.2.</span> <span class="nav-text">Create a Database Using a SQL Helper</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Put-Information-into-a-Database"><span class="nav-number">7.3.3.</span> <span class="nav-text">Put Information into a Database</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Read-Information-from-a-Database"><span class="nav-number">7.3.4.</span> <span class="nav-text">Read Information from a Database</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Delete-Information-from-a-Database"><span class="nav-number">7.3.5.</span> <span class="nav-text">Delete Information from a Database</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Update-a-Database"><span class="nav-number">7.3.6.</span> <span class="nav-text">Update a Database</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>

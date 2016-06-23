@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-20T06:40:17.500Z</updated>
+  <updated>2016-06-23T05:26:13.846Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,256 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>shadowsocks搭建VPN</title>
+    <link href="http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/2016/06/23/翻墙方法/</id>
+    <published>2016-06-23T05:03:22.000Z</published>
+    <updated>2016-06-23T05:26:13.846Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;https://www.openvzvps.cc/aff.php?aff=259
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;修改安装的系统并安装服务&quot;&gt;&lt;a href=&quot;#修改安装的系统并安装服务&quot; class=&quot;headerlink&quot; title=&quot;修改安装的系统并安装服务&quot;&gt;&lt;/a&gt;修改安装的系统并安装服务&lt;/h4&gt;&lt;p&gt;在 客户中心-&amp;gt;我的产品与服务 将预装的centos重装为ubunt&lt;br&gt;用xshell进入后台  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;apt-get update
+apt-get install python-gevent python-pip
+apt-get install python-m2crypto
+pip install shadowsocks
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;添加配置文件并启动服务&quot;&gt;&lt;a href=&quot;#添加配置文件并启动服务&quot; class=&quot;headerlink&quot; title=&quot;添加配置文件并启动服务&quot;&gt;&lt;/a&gt;添加配置文件并启动服务&lt;/h4&gt;&lt;p&gt;下载&lt;a href=&quot;/uploads/shadowsocks.rar&quot;&gt;shadowsocks.rar&lt;/a&gt;&lt;br&gt;修改里面的shadowsocks.json  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    &amp;quot;server&amp;quot;:&amp;quot;0.0.0.0&amp;quot;,
+    &amp;quot;server_port&amp;quot;:xxxx,  //端口
+    &amp;quot;password&amp;quot;:&amp;quot;xxxxxx&amp;quot;, //密码
+    &amp;quot;timeout&amp;quot;:600,
+    &amp;quot;method&amp;quot;:&amp;quot;aes-256-cfb&amp;quot;
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;将文件夹上传到root目录，然后&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;bash restart.sh
+bash check.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;下载客户端&quot;&gt;&lt;a href=&quot;#下载客户端&quot; class=&quot;headerlink&quot; title=&quot;下载客户端&quot;&gt;&lt;/a&gt;下载客户端&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;windows: https://shadowsocks.org/en/download/clients.html
+android: https://github.com/shadowsocks/shadowsocks-android/releases
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;https://www.openvzvps.cc/aff.php?aff=259
+&lt;/code&gt;&lt;/
+    
+    </summary>
+    
+    
+      <category term="shadowsocks" scheme="http://yoursite.com/tags/shadowsocks/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>android_系统权限</title>
+    <link href="http://yoursite.com/2016/06/23/android-%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/"/>
+    <id>http://yoursite.com/2016/06/23/android-系统权限/</id>
+    <published>2016-06-22T16:07:25.000Z</published>
+    <updated>2016-06-22T16:15:50.669Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;&lt;h5 id=&quot;确定app需要哪些权限&quot;&gt;&lt;a href=&quot;#确定app需要哪些权限&quot; class=&quot;headerlink&quot; title=&quot;确定app需要哪些权限&quot;&gt;&lt;/a&gt;确定app需要哪些权限&lt;/h5&gt;&lt;h5 id=&quot;在Manifest中添加权限&quot;&gt;&lt;a href=&quot;#在Manifest中添加权限&quot; class=&quot;headerlink&quot; title=&quot;在Manifest中添加权限&quot;&gt;&lt;/a&gt;在Manifest中添加权限&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
+        package=&amp;quot;com.example.snazzyapp&amp;quot;&amp;gt;
+
+    &amp;lt;uses-permission android:name=&amp;quot;android.permission.SEND_SMS&amp;quot;/&amp;gt;
+
+
+    &amp;lt;application ...&amp;gt;
+        ...
+    &amp;lt;/application&amp;gt;
+
+&amp;lt;/manifest&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;在运行时请求权限&quot;&gt;&lt;a href=&quot;#在运行时请求权限&quot; class=&quot;headerlink&quot; title=&quot;在运行时请求权限&quot;&gt;&lt;/a&gt;在运行时请求权限&lt;/h4&gt;&lt;h4 id=&quot;权限的最佳实践&quot;&gt;&lt;a href=&quot;#权限的最佳实践&quot; class=&quot;headerlink&quot; title=&quot;权限的最佳实践&quot;&gt;&lt;/a&gt;权限的最佳实践&lt;/h4&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;&lt;h5 id=&quot;确定app需要哪些权限&quot;&gt;&lt;a href=&quot;#确定app需要哪些权限&quot; class=&quot;headerlink&quot; ti
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>android_与其他APP互动</title>
+    <link href="http://yoursite.com/2016/06/22/android-%E4%B8%8E%E5%85%B6%E4%BB%96APP%E4%BA%92%E5%8A%A8/"/>
+    <id>http://yoursite.com/2016/06/22/android-与其他APP互动/</id>
+    <published>2016-06-22T15:26:17.000Z</published>
+    <updated>2016-06-22T16:00:43.492Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;如何打开其他app&quot;&gt;&lt;a href=&quot;#如何打开其他app&quot; class=&quot;headerlink&quot; title=&quot;如何打开其他app&quot;&gt;&lt;/a&gt;如何打开其他app&lt;/h4&gt;&lt;h5 id=&quot;创建隐含的Intent&quot;&gt;&lt;a href=&quot;#创建隐含的Intent&quot; class=&quot;headerlink&quot; title=&quot;创建隐含的Intent&quot;&gt;&lt;/a&gt;创建隐含的Intent&lt;/h5&gt;&lt;h6 id=&quot;通过Uri创建Intent&quot;&gt;&lt;a href=&quot;#通过Uri创建Intent&quot; class=&quot;headerlink&quot; title=&quot;通过Uri创建Intent&quot;&gt;&lt;/a&gt;通过Uri创建Intent&lt;/h6&gt;&lt;p&gt;打电话  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Uri number = Uri.parse(&amp;quot;tel:5551234&amp;quot;);
+Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;打开地图  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Map point based on address
+Uri location = Uri.parse(&amp;quot;geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California&amp;quot;);
+// Or map point based on latitude/longitude
+// Uri location = Uri.parse(&amp;quot;geo:37.422219,-122.08364?z=14&amp;quot;); // z param is zoom level
+Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;打开网页&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Uri webpage = Uri.parse(&amp;quot;http://www.android.com&amp;quot;);
+Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;通过添加-extra-data-来制定action&quot;&gt;&lt;a href=&quot;#通过添加-extra-data-来制定action&quot; class=&quot;headerlink&quot; title=&quot;通过添加 extra data 来制定action&quot;&gt;&lt;/a&gt;通过添加 extra data 来制定action&lt;/h6&gt;&lt;p&gt;发送邮件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent emailIntent = new Intent(Intent.ACTION_SEND);
+// The intent does not have a URI, so declare the &amp;quot;text/plain&amp;quot; MIME type
+emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
+emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {&amp;quot;jon@example.com&amp;quot;}); // recipients
+emailIntent.putExtra(Intent.EXTRA_SUBJECT, &amp;quot;Email subject&amp;quot;);
+emailIntent.putExtra(Intent.EXTRA_TEXT, &amp;quot;Email message text&amp;quot;);
+emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(&amp;quot;content://path/to/email/attachment&amp;quot;));
+// You can also attach multiple items by passing an ArrayList of Uris  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;创建一个日历标签&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent calendarIntent = new Intent(Intent.ACTION_INSERT, Events.CONTENT_URI);
+Calendar beginTime = Calendar.getInstance().set(2012, 0, 19, 7, 30);
+Calendar endTime = Calendar.getInstance().set(2012, 0, 19, 10, 30);
+calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
+calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
+calendarIntent.putExtra(Events.TITLE, &amp;quot;Ninja class&amp;quot;);
+calendarIntent.putExtra(Events.EVENT_LOCATION, &amp;quot;Secret dojo&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;校验是否有app可以接收Intent&quot;&gt;&lt;a href=&quot;#校验是否有app可以接收Intent&quot; class=&quot;headerlink&quot; title=&quot;校验是否有app可以接收Intent&quot;&gt;&lt;/a&gt;校验是否有app可以接收Intent&lt;/h5&gt;&lt;p&gt;queryIntentActivities()&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;PackageManager packageManager = getPackageManager();
+List activities = packageManager.queryIntentActivities(intent,
+        PackageManager.MATCH_DEFAULT_ONLY);
+boolean isIntentSafe = activities.size() &amp;gt; 0;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;用Intent-启动activity&quot;&gt;&lt;a href=&quot;#用Intent-启动activity&quot; class=&quot;headerlink&quot; title=&quot;用Intent 启动activity&quot;&gt;&lt;/a&gt;用Intent 启动activity&lt;/h5&gt;&lt;p&gt;startActivity(intent);&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Build the intent
+Uri location = Uri.parse(&amp;quot;geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California&amp;quot;);
+Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+
+// Verify it resolves
+PackageManager packageManager = getPackageManager();
+List&amp;lt;ResolveInfo&amp;gt; activities = packageManager.queryIntentActivities(mapIntent, 0);
+boolean isIntentSafe = activities.size() &amp;gt; 0;
+
+// Start an activity if it&amp;apos;s safe
+if (isIntentSafe) {
+    startActivity(mapIntent);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;创建一个app选择器&quot;&gt;&lt;a href=&quot;#创建一个app选择器&quot; class=&quot;headerlink&quot; title=&quot;创建一个app选择器&quot;&gt;&lt;/a&gt;创建一个app选择器&lt;/h5&gt;&lt;p&gt;通过用createChooser()创建Intent 然后调用 startActivity&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent intent = new Intent(Intent.ACTION_SEND);
+...
+
+// Always use string resources for UI text.
+// This says something like &amp;quot;Share this photo with&amp;quot;
+String title = getResources().getString(R.string.chooser_title);
+// Create intent to show chooser
+Intent chooser = Intent.createChooser(intent, title);
+
+// Verify the intent will resolve to at least one activity
+if (intent.resolveActivity(getPackageManager()) != null) {
+    startActivity(chooser);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;从另外一个activity获得一个结果&quot;&gt;&lt;a href=&quot;#从另外一个activity获得一个结果&quot; class=&quot;headerlink&quot; title=&quot;从另外一个activity获得一个结果&quot;&gt;&lt;/a&gt;从另外一个activity获得一个结果&lt;/h4&gt;&lt;h5 id=&quot;启动一个activity&quot;&gt;&lt;a href=&quot;#启动一个activity&quot; class=&quot;headerlink&quot; title=&quot;启动一个activity&quot;&gt;&lt;/a&gt;启动一个activity&lt;/h5&gt;&lt;p&gt; startActivityForResult() &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;static final int PICK_CONTACT_REQUEST = 1;  // The request code
+...
+private void pickContact() {
+    Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse(&amp;quot;content://contacts&amp;quot;));
+    pickContactIntent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+    startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;接收结果&quot;&gt;&lt;a href=&quot;#接收结果&quot; class=&quot;headerlink&quot; title=&quot;接收结果&quot;&gt;&lt;/a&gt;接收结果&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    // Check which request we&amp;apos;re responding to
+    if (requestCode == PICK_CONTACT_REQUEST) {
+        // Make sure the request was successful
+        if (resultCode == RESULT_OK) {
+            // The user picked a contact.
+            // The Intent&amp;apos;s data Uri identifies which contact was selected.
+
+            // Do something with the contact here (bigger example below)
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;获取联系人数据&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    // Check which request it is that we&amp;apos;re responding to
+    if (requestCode == PICK_CONTACT_REQUEST) {
+        // Make sure the request was successful
+        if (resultCode == RESULT_OK) {
+            // Get the URI that points to the selected contact
+            Uri contactUri = data.getData();
+            // We only need the NUMBER column, because there will be only one row in the result
+            String[] projection = {Phone.NUMBER};
+
+            // Perform the query on the contact to get the NUMBER column
+            // We don&amp;apos;t need a selection or sort order (there&amp;apos;s only one result for the given URI)
+            // CAUTION: The query() method should be called from a separate thread to avoid blocking
+            // your app&amp;apos;s UI thread. (For simplicity of the sample, this code doesn&amp;apos;t do that.)
+            // Consider using CursorLoader to perform the query.
+            Cursor cursor = getContentResolver()
+                    .query(contactUri, projection, null, null, null);
+            cursor.moveToFirst();
+
+            // Retrieve the phone number from the NUMBER column
+            int column = cursor.getColumnIndex(Phone.NUMBER);
+            String number = cursor.getString(column);
+
+            // Do something with the phone number...
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;允许其他app启动你的activity&quot;&gt;&lt;a href=&quot;#允许其他app启动你的activity&quot; class=&quot;headerlink&quot; title=&quot;允许其他app启动你的activity&quot;&gt;&lt;/a&gt;允许其他app启动你的activity&lt;/h4&gt;&lt;h5 id=&quot;添加Intent过滤器&quot;&gt;&lt;a href=&quot;#添加Intent过滤器&quot; class=&quot;headerlink&quot; title=&quot;添加Intent过滤器&quot;&gt;&lt;/a&gt;添加Intent过滤器&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;activity android:name=&amp;quot;ShareActivity&amp;quot;&amp;gt;
+    &amp;lt;intent-filter&amp;gt;
+        &amp;lt;action android:name=&amp;quot;android.intent.action.SEND&amp;quot;/&amp;gt;
+        &amp;lt;category android:name=&amp;quot;android.intent.category.DEFAULT&amp;quot;/&amp;gt;
+        &amp;lt;data android:mimeType=&amp;quot;text/plain&amp;quot;/&amp;gt;
+        &amp;lt;data android:mimeType=&amp;quot;image/*&amp;quot;/&amp;gt;
+    &amp;lt;/intent-filter&amp;gt;
+&amp;lt;/activity&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;  or&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;activity android:name=&amp;quot;ShareActivity&amp;quot;&amp;gt;
+    &amp;lt;!-- filter for sending text; accepts SENDTO action with sms URI schemes --&amp;gt;
+    &amp;lt;intent-filter&amp;gt;
+        &amp;lt;action android:name=&amp;quot;android.intent.action.SENDTO&amp;quot;/&amp;gt;
+        &amp;lt;category android:name=&amp;quot;android.intent.category.DEFAULT&amp;quot;/&amp;gt;
+        &amp;lt;data android:scheme=&amp;quot;sms&amp;quot; /&amp;gt;
+        &amp;lt;data android:scheme=&amp;quot;smsto&amp;quot; /&amp;gt;
+    &amp;lt;/intent-filter&amp;gt;
+    &amp;lt;!-- filter for sending text or images; accepts SEND action and text or image data --&amp;gt;
+    &amp;lt;intent-filter&amp;gt;
+        &amp;lt;action android:name=&amp;quot;android.intent.action.SEND&amp;quot;/&amp;gt;
+        &amp;lt;category android:name=&amp;quot;android.intent.category.DEFAULT&amp;quot;/&amp;gt;
+        &amp;lt;data android:mimeType=&amp;quot;image/*&amp;quot;/&amp;gt;
+        &amp;lt;data android:mimeType=&amp;quot;text/plain&amp;quot;/&amp;gt;
+    &amp;lt;/intent-filter&amp;gt;
+&amp;lt;/activity&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;在activity中处理Intent&quot;&gt;&lt;a href=&quot;#在activity中处理Intent&quot; class=&quot;headerlink&quot; title=&quot;在activity中处理Intent&quot;&gt;&lt;/a&gt;在activity中处理Intent&lt;/h5&gt;&lt;p&gt; getIntent()&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    setContentView(R.layout.main);
+
+    // Get the intent that started this activity
+    Intent intent = getIntent();
+    Uri data = intent.getData();
+
+    // Figure out what to do based on the intent type
+    if (intent.getType().indexOf(&amp;quot;image/&amp;quot;) != -1) {
+        // Handle intents with image data ...
+    } else if (intent.getType().equals(&amp;quot;text/plain&amp;quot;)) {
+        // Handle intents with text ...
+    }
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;返回结果&quot;&gt;&lt;a href=&quot;#返回结果&quot; class=&quot;headerlink&quot; title=&quot;返回结果&quot;&gt;&lt;/a&gt;返回结果&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;// Create intent to deliver some kind of result data
+Intent result = new Intent(&amp;quot;com.example.RESULT_ACTION&amp;quot;, Uri.parse(&amp;quot;content://result_uri&amp;quot;));
+setResult(Activity.RESULT_OK, result);
+finish();
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;如何打开其他app&quot;&gt;&lt;a href=&quot;#如何打开其他app&quot; class=&quot;headerlink&quot; title=&quot;如何打开其他app&quot;&gt;&lt;/a&gt;如何打开其他app&lt;/h4&gt;&lt;h5 id=&quot;创建隐含的Intent&quot;&gt;&lt;a href=&quot;#创建隐含的Intent&quot; c
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
   
   <entry>
     <title>androidStudio快捷键整理</title>
@@ -46,7 +296,7 @@
     <link href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/19/android入门/</id>
     <published>2016-06-19T10:09:27.000Z</published>
-    <updated>2016-06-21T15:41:46.644Z</updated>
+    <updated>2016-06-22T15:23:26.016Z</updated>
     
     <content type="html">&lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainActivity-&amp;gt;Main2Activity&lt;br&gt;MainActivity代码:  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Intent intent = new Intent();
@@ -188,7 +438,210 @@ editor.commit();
 &lt;pre&gt;&lt;code&gt;SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
 int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
 long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
-&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;保存文件&quot;&gt;&lt;a href=&quot;#保存文件&quot; class=&quot;headerlink&quot; title=&quot;保存文件&quot;&gt;&lt;/a&gt;保存文件&lt;/h5&gt;&lt;h5 id=&quot;使用-SQLite-保存数据&quot;&gt;&lt;a href=&quot;#使用-SQLite-保存数据&quot; class=&quot;headerlink&quot; title=&quot;使用 SQLite 保存数据&quot;&gt;&lt;/a&gt;使用 SQLite 保存数据&lt;/h5&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;保存文件&quot;&gt;&lt;a href=&quot;#保存文件&quot; class=&quot;headerlink&quot; title=&quot;保存文件&quot;&gt;&lt;/a&gt;保存文件&lt;/h5&gt;&lt;h6 id=&quot;内部存储&quot;&gt;&lt;a href=&quot;#内部存储&quot; class=&quot;headerlink&quot; title=&quot;内部存储&quot;&gt;&lt;/a&gt;内部存储&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;它始终可用  &lt;/li&gt;
+&lt;li&gt;默认情况下只有您的应用可以访问此处保存的文件&lt;/li&gt;
+&lt;li&gt;当用户卸载您的应用时，系统会从内部存储中删除您的应用的所有文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;获取应用的内部目录的 File  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;getFilesDir()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;获取应用临时缓存文件的内部目录的 File  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;getCacheDir()
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用法：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;File file = new File(context.getFilesDir(), filename);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;或者 调用 openFileOutput() 获取写入到内部目录中的文件的 FileOutputStream&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;String filename = &amp;quot;myfile&amp;quot;;
+String string = &amp;quot;Hello world!&amp;quot;;
+FileOutputStream outputStream;
+
+try {
+  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+  outputStream.write(string.getBytes());
+  outputStream.close();
+} catch (Exception e) {
+  e.printStackTrace();
+}  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;或者 缓存某些文件，您应改用 createTempFile()&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public File getTempFile(Context context, String url) {
+    File file;
+    try {
+        String fileName = Uri.parse(url).getLastPathSegment();
+        file = File.createTempFile(fileName, null, context.getCacheDir());
+    catch (IOException e) {
+        // Error while creating file
+    }
+    return file;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;外部存储&quot;&gt;&lt;a href=&quot;#外部存储&quot; class=&quot;headerlink&quot; title=&quot;外部存储&quot;&gt;&lt;/a&gt;外部存储&lt;/h6&gt;&lt;ul&gt;
+&lt;li&gt;它并非始终可用，因为用户可采用 USB 存储的形式装载外部存储，并在某些情况下会从设备中将其删除&lt;/li&gt;
+&lt;li&gt;它是全局可读的，因此此处保存的文件可能不受您控制地被读取&lt;/li&gt;
+&lt;li&gt;当用户卸载您的应用时，只有在您通过 getExternalFilesDir() 将您的应用的文件保存在目录中时，系统才会从此处删除您的应用的文件&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;1.获取权限  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;manifest ...&amp;gt;  
+    &amp;lt;uses-permission android:name=&amp;quot;android.permission.WRITE_EXTERNAL_STORAGE&amp;quot; /&amp;gt;
+     &amp;lt;uses-permission android:name=&amp;quot;android.permission.READ_EXTERNAL_STORAGE&amp;quot; /&amp;gt;
+    ...
+&amp;lt;/manifest&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;通过调用 getExternalStorageState() 查询外部存储状态。 如果返回的状态为 MEDIA_MOUNTED，那么您可以对您的文件进行读写    &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;/* Checks if external storage is available for read and write */
+public boolean isExternalStorageWritable() {
+    String state = Environment.getExternalStorageState();
+    if (Environment.MEDIA_MOUNTED.equals(state)) {
+        return true;
+    }
+    return false;
+}
+
+/* Checks if external storage is available to at least read */
+public boolean isExternalStorageReadable() {
+    String state = Environment.getExternalStorageState();
+    if (Environment.MEDIA_MOUNTED.equals(state) ||
+        Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+        return true;
+    }
+    return false;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果要使用外部存储上的公共文件，使用 getExternalStoragePublicDirectory() 方法获取表示外部存储上相应目录的 File 。该方法使用指定 您想要保存以便它们可以与其他公共文件在逻辑上组织在一起的文件类型的参数，比如 DIRECTORY_MUSIC 或 DIRECTORY_PICTURES  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public File getAlbumStorageDir(String albumName) {
+    // Get the directory for the user&amp;apos;s public pictures directory. 
+    File file = new File(Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES), albumName);
+    if (!file.mkdirs()) {
+        Log.e(LOG_TAG, &amp;quot;Directory not created&amp;quot;);
+    }
+    return file;
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;通过调用 getExternalFilesDir() 获取相应的目录并向其传递指示您想要的目录类型的名称。当用户卸载应用时，系统会删除这些文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public File getAlbumStorageDir(Context context, String albumName) {
+    // Get the directory for the app&amp;apos;s private pictures directory. 
+    File file = new File(context.getExternalFilesDir(
+            Environment.DIRECTORY_PICTURES), albumName);
+    if (!file.mkdirs()) {
+        Log.e(LOG_TAG, &amp;quot;Directory not created&amp;quot;);
+    }
+    return file;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;删除文件&quot;&gt;&lt;a href=&quot;#删除文件&quot; class=&quot;headerlink&quot; title=&quot;删除文件&quot;&gt;&lt;/a&gt;删除文件&lt;/h6&gt;&lt;pre&gt;&lt;code&gt;myFile.delete();
+or
+myContext.deleteFile(fileName);
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;使用-SQLite-保存数据&quot;&gt;&lt;a href=&quot;#使用-SQLite-保存数据&quot; class=&quot;headerlink&quot; title=&quot;使用 SQLite 保存数据&quot;&gt;&lt;/a&gt;使用 SQLite 保存数据&lt;/h5&gt;&lt;h6 id=&quot;Define-a-Schema-and-Contract&quot;&gt;&lt;a href=&quot;#Define-a-Schema-and-Contract&quot; class=&quot;headerlink&quot; title=&quot;Define a Schema and Contract&quot;&gt;&lt;/a&gt;Define a Schema and Contract&lt;/h6&gt;&lt;p&gt;通过实现 BaseColumns接口，能自动生成_ID 字段&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public final class FeedReaderContract {
+    // To prevent someone from accidentally instantiating the contract class,
+    // give it an empty constructor.
+    public FeedReaderContract() {}
+
+    /* Inner class that defines the table contents */
+    public static abstract class FeedEntry implements BaseColumns {
+        public static final String TABLE_NAME = &amp;quot;entry&amp;quot;;
+        public static final String COLUMN_NAME_ENTRY_ID = &amp;quot;entryid&amp;quot;;
+        public static final String COLUMN_NAME_TITLE = &amp;quot;title&amp;quot;;
+        public static final String COLUMN_NAME_SUBTITLE = &amp;quot;subtitle&amp;quot;;
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;Create-a-Database-Using-a-SQL-Helper&quot;&gt;&lt;a href=&quot;#Create-a-Database-Using-a-SQL-Helper&quot; class=&quot;headerlink&quot; title=&quot;Create a Database Using a SQL Helper&quot;&gt;&lt;/a&gt;Create a Database Using a SQL Helper&lt;/h6&gt;&lt;pre&gt;&lt;code&gt;private static final String TEXT_TYPE = &amp;quot; TEXT&amp;quot;;
+private static final String COMMA_SEP = &amp;quot;,&amp;quot;;
+private static final String SQL_CREATE_ENTRIES =
+    &amp;quot;CREATE TABLE &amp;quot; + FeedEntry.TABLE_NAME + &amp;quot; (&amp;quot; +
+    FeedEntry._ID + &amp;quot; INTEGER PRIMARY KEY,&amp;quot; +
+    FeedEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+    FeedEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
+    ... // Any other options for the CREATE command
+    &amp;quot; )&amp;quot;;
+
+private static final String SQL_DELETE_ENTRIES =
+    &amp;quot;DROP TABLE IF EXISTS &amp;quot; + FeedEntry.TABLE_NAME; 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note: Because they can be long-running, be sure that you call getWritableDatabase() or getReadableDatabase() in a background thread, such as with AsyncTask or IntentService.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class FeedReaderDbHelper extends SQLiteOpenHelper {
+    // If you change the database schema, you must increment the database version.
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = &amp;quot;FeedReader.db&amp;quot;;
+
+    public FeedReaderDbHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL(SQL_CREATE_ENTRIES);
+    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // This database is only a cache for online data, so its upgrade policy is
+        // to simply to discard the data and start over
+        db.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(db);
+    }
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        onUpgrade(db, oldVersion, newVersion);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(getContext())
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;Put-Information-into-a-Database&quot;&gt;&lt;a href=&quot;#Put-Information-into-a-Database&quot; class=&quot;headerlink&quot; title=&quot;Put Information into a Database&quot;&gt;&lt;/a&gt;Put Information into a Database&lt;/h6&gt;&lt;pre&gt;&lt;code&gt;// Gets the data repository in write mode
+SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+ContentValues values = new ContentValues();
+values.put(FeedEntry.COLUMN_NAME_ENTRY_ID, id);
+values.put(FeedEntry.COLUMN_NAME_TITLE, title);
+values.put(FeedEntry.COLUMN_NAME_CONTENT, content);
+
+// Insert the new row, returning the primary key value of the new row
+long newRowId;
+newRowId = db.insert(
+         FeedEntry.TABLE_NAME,
+         FeedEntry.COLUMN_NAME_NULLABLE,
+         values);
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;Read-Information-from-a-Database&quot;&gt;&lt;a href=&quot;#Read-Information-from-a-Database&quot; class=&quot;headerlink&quot; title=&quot;Read Information from a Database&quot;&gt;&lt;/a&gt;Read Information from a Database&lt;/h6&gt;&lt;pre&gt;&lt;code&gt;SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+String[] projection = {
+    FeedEntry._ID,
+    FeedEntry.COLUMN_NAME_TITLE,
+    FeedEntry.COLUMN_NAME_UPDATED,
+    ...
+    };
+
+// How you want the results sorted in the resulting Cursor
+String sortOrder =
+    FeedEntry.COLUMN_NAME_UPDATED + &amp;quot; DESC&amp;quot;;
+
+Cursor c = db.query(
+    FeedEntry.TABLE_NAME,  // The table to query
+    projection,                               // The columns to return
+    selection,                                // The columns for the WHERE clause
+    selectionArgs,                            // The values for the WHERE clause
+    null,                                     // don&amp;apos;t group the rows
+    null,                                     // don&amp;apos;t filter by row groups
+    sortOrder                                 // The sort order
+    );
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;then&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cursor.moveToFirst();
+long itemId = cursor.getLong(
+    cursor.getColumnIndexOrThrow(FeedEntry._ID)
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;Delete-Information-from-a-Database&quot;&gt;&lt;a href=&quot;#Delete-Information-from-a-Database&quot; class=&quot;headerlink&quot; title=&quot;Delete Information from a Database&quot;&gt;&lt;/a&gt;Delete Information from a Database&lt;/h6&gt;&lt;pre&gt;&lt;code&gt;// Define &amp;apos;where&amp;apos; part of query.
+String selection = FeedEntry.COLUMN_NAME_ENTRY_ID + &amp;quot; LIKE ?&amp;quot;;
+// Specify arguments in placeholder order.
+String[] selectionArgs = { String.valueOf(rowId) };
+// Issue SQL statement.
+db.delete(table_name, selection, selectionArgs)
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;Update-a-Database&quot;&gt;&lt;a href=&quot;#Update-a-Database&quot; class=&quot;headerlink&quot; title=&quot;Update a Database&quot;&gt;&lt;/a&gt;Update a Database&lt;/h6&gt;&lt;pre&gt;&lt;code&gt;SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+// New value for one column
+ContentValues values = new ContentValues();
+values.put(FeedEntry.COLUMN_NAME_TITLE, title);
+
+// Which row to update, based on the ID
+String selection = FeedEntry.COLUMN_NAME_ENTRY_ID + &amp;quot; LIKE ?&amp;quot;;
+String[] selectionArgs = { String.valueOf(rowId) };
+
+int count = db.update(
+    FeedReaderDbHelper.FeedEntry.TABLE_NAME,
+    values,
+    selection,
+    selectionArgs);
+&lt;/code&gt;&lt;/pre&gt;</content>
     
     <summary type="html">
     

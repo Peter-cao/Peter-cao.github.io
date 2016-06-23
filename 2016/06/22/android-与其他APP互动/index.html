@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="nodejs," />
+  <meta name="keywords" content="android," />
 
 
 
@@ -86,16 +86,31 @@
 
 
 
-<meta name="description">
+<meta name="description" content="如何打开其他app创建隐含的Intent通过Uri创建Intent打电话  
+Uri number = Uri.parse(&amp;quot;tel:5551234&amp;quot;);
+Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+打开地图  
+// Map point based on address
+Uri location =">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Async">
-<meta property="og:url" content="http://yoursite.com/2016/06/13/Async/index.html">
+<meta property="og:title" content="android_与其他APP互动">
+<meta property="og:url" content="http://yoursite.com/2016/06/22/android-与其他APP互动/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-06-20T03:58:33.091Z">
+<meta property="og:description" content="如何打开其他app创建隐含的Intent通过Uri创建Intent打电话  
+Uri number = Uri.parse(&amp;quot;tel:5551234&amp;quot;);
+Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+打开地图  
+// Map point based on address
+Uri location =">
+<meta property="og:updated_time" content="2016-06-22T16:00:43.492Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Async">
-<meta name="twitter:description">
+<meta name="twitter:title" content="android_与其他APP互动">
+<meta name="twitter:description" content="如何打开其他app创建隐含的Intent通过Uri创建Intent打电话  
+Uri number = Uri.parse(&amp;quot;tel:5551234&amp;quot;);
+Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+打开地图  
+// Map point based on address
+Uri location =">
 
 
 
@@ -113,7 +128,7 @@
   };
 </script>
 
-  <title> Async | 个人博客 </title>
+  <title> android_与其他APP互动 | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +298,7 @@
             
             
               
-                Async
+                android_与其他APP互动
               
             
           </h1>
@@ -295,8 +310,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-13T13:15:23+08:00" content="2016-06-13">
-              2016-06-13
+            <time itemprop="dateCreated" datetime="2016-06-22T23:26:17+08:00" content="2016-06-22">
+              2016-06-22
             </time>
           </span>
 
@@ -306,8 +321,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/13/Async/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/13/Async/" itemprop="commentsCount"></span>
+                <a href="/2016/06/22/android-与其他APP互动/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/22/android-与其他APP互动/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -330,7 +345,166 @@
       
 
       
-        
+        <h4 id="如何打开其他app"><a href="#如何打开其他app" class="headerlink" title="如何打开其他app"></a>如何打开其他app</h4><h5 id="创建隐含的Intent"><a href="#创建隐含的Intent" class="headerlink" title="创建隐含的Intent"></a>创建隐含的Intent</h5><h6 id="通过Uri创建Intent"><a href="#通过Uri创建Intent" class="headerlink" title="通过Uri创建Intent"></a>通过Uri创建Intent</h6><p>打电话  </p>
+<pre><code>Uri number = Uri.parse(&quot;tel:5551234&quot;);
+Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+</code></pre><p>打开地图  </p>
+<pre><code>// Map point based on address
+Uri location = Uri.parse(&quot;geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California&quot;);
+// Or map point based on latitude/longitude
+// Uri location = Uri.parse(&quot;geo:37.422219,-122.08364?z=14&quot;); // z param is zoom level
+Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+</code></pre><p>打开网页</p>
+<pre><code>Uri webpage = Uri.parse(&quot;http://www.android.com&quot;);
+Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
+</code></pre><h6 id="通过添加-extra-data-来制定action"><a href="#通过添加-extra-data-来制定action" class="headerlink" title="通过添加 extra data 来制定action"></a>通过添加 extra data 来制定action</h6><p>发送邮件</p>
+<pre><code>Intent emailIntent = new Intent(Intent.ACTION_SEND);
+// The intent does not have a URI, so declare the &quot;text/plain&quot; MIME type
+emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
+emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {&quot;jon@example.com&quot;}); // recipients
+emailIntent.putExtra(Intent.EXTRA_SUBJECT, &quot;Email subject&quot;);
+emailIntent.putExtra(Intent.EXTRA_TEXT, &quot;Email message text&quot;);
+emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(&quot;content://path/to/email/attachment&quot;));
+// You can also attach multiple items by passing an ArrayList of Uris  
+</code></pre><p>创建一个日历标签</p>
+<pre><code>Intent calendarIntent = new Intent(Intent.ACTION_INSERT, Events.CONTENT_URI);
+Calendar beginTime = Calendar.getInstance().set(2012, 0, 19, 7, 30);
+Calendar endTime = Calendar.getInstance().set(2012, 0, 19, 10, 30);
+calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
+calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
+calendarIntent.putExtra(Events.TITLE, &quot;Ninja class&quot;);
+calendarIntent.putExtra(Events.EVENT_LOCATION, &quot;Secret dojo&quot;);
+</code></pre><h5 id="校验是否有app可以接收Intent"><a href="#校验是否有app可以接收Intent" class="headerlink" title="校验是否有app可以接收Intent"></a>校验是否有app可以接收Intent</h5><p>queryIntentActivities()</p>
+<pre><code>PackageManager packageManager = getPackageManager();
+List activities = packageManager.queryIntentActivities(intent,
+        PackageManager.MATCH_DEFAULT_ONLY);
+boolean isIntentSafe = activities.size() &gt; 0;
+</code></pre><h5 id="用Intent-启动activity"><a href="#用Intent-启动activity" class="headerlink" title="用Intent 启动activity"></a>用Intent 启动activity</h5><p>startActivity(intent);</p>
+<pre><code>// Build the intent
+Uri location = Uri.parse(&quot;geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California&quot;);
+Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
+
+// Verify it resolves
+PackageManager packageManager = getPackageManager();
+List&lt;ResolveInfo&gt; activities = packageManager.queryIntentActivities(mapIntent, 0);
+boolean isIntentSafe = activities.size() &gt; 0;
+
+// Start an activity if it&apos;s safe
+if (isIntentSafe) {
+    startActivity(mapIntent);
+}
+</code></pre><h5 id="创建一个app选择器"><a href="#创建一个app选择器" class="headerlink" title="创建一个app选择器"></a>创建一个app选择器</h5><p>通过用createChooser()创建Intent 然后调用 startActivity</p>
+<pre><code>Intent intent = new Intent(Intent.ACTION_SEND);
+...
+
+// Always use string resources for UI text.
+// This says something like &quot;Share this photo with&quot;
+String title = getResources().getString(R.string.chooser_title);
+// Create intent to show chooser
+Intent chooser = Intent.createChooser(intent, title);
+
+// Verify the intent will resolve to at least one activity
+if (intent.resolveActivity(getPackageManager()) != null) {
+    startActivity(chooser);
+}
+</code></pre><h4 id="从另外一个activity获得一个结果"><a href="#从另外一个activity获得一个结果" class="headerlink" title="从另外一个activity获得一个结果"></a>从另外一个activity获得一个结果</h4><h5 id="启动一个activity"><a href="#启动一个activity" class="headerlink" title="启动一个activity"></a>启动一个activity</h5><p> startActivityForResult() </p>
+<pre><code>static final int PICK_CONTACT_REQUEST = 1;  // The request code
+...
+private void pickContact() {
+    Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse(&quot;content://contacts&quot;));
+    pickContactIntent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
+    startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
+}
+</code></pre><h5 id="接收结果"><a href="#接收结果" class="headerlink" title="接收结果"></a>接收结果</h5><pre><code>@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    // Check which request we&apos;re responding to
+    if (requestCode == PICK_CONTACT_REQUEST) {
+        // Make sure the request was successful
+        if (resultCode == RESULT_OK) {
+            // The user picked a contact.
+            // The Intent&apos;s data Uri identifies which contact was selected.
+
+            // Do something with the contact here (bigger example below)
+        }
+    }
+}
+</code></pre><p>获取联系人数据</p>
+<pre><code>@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    // Check which request it is that we&apos;re responding to
+    if (requestCode == PICK_CONTACT_REQUEST) {
+        // Make sure the request was successful
+        if (resultCode == RESULT_OK) {
+            // Get the URI that points to the selected contact
+            Uri contactUri = data.getData();
+            // We only need the NUMBER column, because there will be only one row in the result
+            String[] projection = {Phone.NUMBER};
+
+            // Perform the query on the contact to get the NUMBER column
+            // We don&apos;t need a selection or sort order (there&apos;s only one result for the given URI)
+            // CAUTION: The query() method should be called from a separate thread to avoid blocking
+            // your app&apos;s UI thread. (For simplicity of the sample, this code doesn&apos;t do that.)
+            // Consider using CursorLoader to perform the query.
+            Cursor cursor = getContentResolver()
+                    .query(contactUri, projection, null, null, null);
+            cursor.moveToFirst();
+
+            // Retrieve the phone number from the NUMBER column
+            int column = cursor.getColumnIndex(Phone.NUMBER);
+            String number = cursor.getString(column);
+
+            // Do something with the phone number...
+        }
+    }
+}
+</code></pre><h4 id="允许其他app启动你的activity"><a href="#允许其他app启动你的activity" class="headerlink" title="允许其他app启动你的activity"></a>允许其他app启动你的activity</h4><h5 id="添加Intent过滤器"><a href="#添加Intent过滤器" class="headerlink" title="添加Intent过滤器"></a>添加Intent过滤器</h5><pre><code>&lt;activity android:name=&quot;ShareActivity&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SEND&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+        &lt;data android:mimeType=&quot;text/plain&quot;/&gt;
+        &lt;data android:mimeType=&quot;image/*&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre><p>  or</p>
+<pre><code>&lt;activity android:name=&quot;ShareActivity&quot;&gt;
+    &lt;!-- filter for sending text; accepts SENDTO action with sms URI schemes --&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SENDTO&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+        &lt;data android:scheme=&quot;sms&quot; /&gt;
+        &lt;data android:scheme=&quot;smsto&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;!-- filter for sending text or images; accepts SEND action and text or image data --&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SEND&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+        &lt;data android:mimeType=&quot;image/*&quot;/&gt;
+        &lt;data android:mimeType=&quot;text/plain&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre><h5 id="在activity中处理Intent"><a href="#在activity中处理Intent" class="headerlink" title="在activity中处理Intent"></a>在activity中处理Intent</h5><p> getIntent()</p>
+<pre><code>@Override
+protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+
+    setContentView(R.layout.main);
+
+    // Get the intent that started this activity
+    Intent intent = getIntent();
+    Uri data = intent.getData();
+
+    // Figure out what to do based on the intent type
+    if (intent.getType().indexOf(&quot;image/&quot;) != -1) {
+        // Handle intents with image data ...
+    } else if (intent.getType().equals(&quot;text/plain&quot;)) {
+        // Handle intents with text ...
+    }
+} 
+</code></pre><h5 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h5><pre><code>// Create intent to deliver some kind of result data
+Intent result = new Intent(&quot;com.example.RESULT_ACTION&quot;, Uri.parse(&quot;content://result_uri&quot;));
+setResult(Activity.RESULT_OK, result);
+finish();
+</code></pre>
       
     </div>
 
@@ -372,7 +546,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nodejs/" rel="tag">#nodejs</a>
+            <a href="/tags/android/" rel="tag">#android</a>
           
         </div>
       
@@ -381,16 +555,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/06/Markdown入门/" rel="next" title="Markdown">
-                <i class="fa fa-chevron-left"></i> Markdown
+              <a href="/2016/06/19/androidStudio快捷键整理/" rel="next" title="androidStudio快捷键整理">
+                <i class="fa fa-chevron-left"></i> androidStudio快捷键整理
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/19/android入门/" rel="prev" title="android学习记录">
-                android学习记录 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/23/android-系统权限/" rel="prev" title="android_系统权限">
+                android_系统权限 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -423,8 +597,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/13/Async/"
-           data-title="Async" data-url="http://yoursite.com/2016/06/13/Async/">
+      <div class="ds-thread" data-thread-key="2016/06/22/android-与其他APP互动/"
+           data-title="android_与其他APP互动" data-url="http://yoursite.com/2016/06/22/android-与其他APP互动/">
       </div>
     
   </div>
@@ -522,7 +696,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#如何打开其他app"><span class="nav-number">1.</span> <span class="nav-text">如何打开其他app</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#创建隐含的Intent"><span class="nav-number">1.1.</span> <span class="nav-text">创建隐含的Intent</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#通过Uri创建Intent"><span class="nav-number">1.1.1.</span> <span class="nav-text">通过Uri创建Intent</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#通过添加-extra-data-来制定action"><span class="nav-number">1.1.2.</span> <span class="nav-text">通过添加 extra data 来制定action</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#校验是否有app可以接收Intent"><span class="nav-number">1.2.</span> <span class="nav-text">校验是否有app可以接收Intent</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用Intent-启动activity"><span class="nav-number">1.3.</span> <span class="nav-text">用Intent 启动activity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#创建一个app选择器"><span class="nav-number">1.4.</span> <span class="nav-text">创建一个app选择器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从另外一个activity获得一个结果"><span class="nav-number">2.</span> <span class="nav-text">从另外一个activity获得一个结果</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#启动一个activity"><span class="nav-number">2.1.</span> <span class="nav-text">启动一个activity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接收结果"><span class="nav-number">2.2.</span> <span class="nav-text">接收结果</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#允许其他app启动你的activity"><span class="nav-number">3.</span> <span class="nav-text">允许其他app启动你的activity</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#添加Intent过滤器"><span class="nav-number">3.1.</span> <span class="nav-text">添加Intent过滤器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#在activity中处理Intent"><span class="nav-number">3.2.</span> <span class="nav-text">在activity中处理Intent</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#返回结果"><span class="nav-number">3.3.</span> <span class="nav-text">返回结果</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

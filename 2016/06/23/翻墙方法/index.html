@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="nodejs," />
+  <meta name="keywords" content="shadowsocks," />
 
 
 
@@ -86,16 +86,31 @@
 
 
 
-<meta name="description">
+<meta name="description" content="购买服务器https://www.openvzvps.cc/aff.php?aff=259
+修改安装的系统并安装服务在 客户中心-&amp;gt;我的产品与服务 将预装的centos重装为ubunt用xshell进入后台  
+apt-get update
+apt-get install python-gevent python-pip
+apt-get install python-m2crypto
+pip">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Async">
-<meta property="og:url" content="http://yoursite.com/2016/06/13/Async/index.html">
+<meta property="og:title" content="shadowsocks搭建VPN">
+<meta property="og:url" content="http://yoursite.com/2016/06/23/翻墙方法/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-06-20T03:58:33.091Z">
+<meta property="og:description" content="购买服务器https://www.openvzvps.cc/aff.php?aff=259
+修改安装的系统并安装服务在 客户中心-&amp;gt;我的产品与服务 将预装的centos重装为ubunt用xshell进入后台  
+apt-get update
+apt-get install python-gevent python-pip
+apt-get install python-m2crypto
+pip">
+<meta property="og:updated_time" content="2016-06-23T05:26:13.846Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Async">
-<meta name="twitter:description">
+<meta name="twitter:title" content="shadowsocks搭建VPN">
+<meta name="twitter:description" content="购买服务器https://www.openvzvps.cc/aff.php?aff=259
+修改安装的系统并安装服务在 客户中心-&amp;gt;我的产品与服务 将预装的centos重装为ubunt用xshell进入后台  
+apt-get update
+apt-get install python-gevent python-pip
+apt-get install python-m2crypto
+pip">
 
 
 
@@ -113,7 +128,7 @@
   };
 </script>
 
-  <title> Async | 个人博客 </title>
+  <title> shadowsocks搭建VPN | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +298,7 @@
             
             
               
-                Async
+                shadowsocks搭建VPN
               
             
           </h1>
@@ -295,8 +310,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-13T13:15:23+08:00" content="2016-06-13">
-              2016-06-13
+            <time itemprop="dateCreated" datetime="2016-06-23T13:03:22+08:00" content="2016-06-23">
+              2016-06-23
             </time>
           </span>
 
@@ -306,8 +321,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/06/13/Async/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/13/Async/" itemprop="commentsCount"></span>
+                <a href="/2016/06/23/翻墙方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/23/翻墙方法/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -330,7 +345,26 @@
       
 
       
-        
+        <h4 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h4><pre><code>https://www.openvzvps.cc/aff.php?aff=259
+</code></pre><h4 id="修改安装的系统并安装服务"><a href="#修改安装的系统并安装服务" class="headerlink" title="修改安装的系统并安装服务"></a>修改安装的系统并安装服务</h4><p>在 客户中心-&gt;我的产品与服务 将预装的centos重装为ubunt<br>用xshell进入后台  </p>
+<pre><code>apt-get update
+apt-get install python-gevent python-pip
+apt-get install python-m2crypto
+pip install shadowsocks
+</code></pre><h4 id="添加配置文件并启动服务"><a href="#添加配置文件并启动服务" class="headerlink" title="添加配置文件并启动服务"></a>添加配置文件并启动服务</h4><p>下载<a href="/uploads/shadowsocks.rar">shadowsocks.rar</a><br>修改里面的shadowsocks.json  </p>
+<pre><code>{
+    &quot;server&quot;:&quot;0.0.0.0&quot;,
+    &quot;server_port&quot;:xxxx,  //端口
+    &quot;password&quot;:&quot;xxxxxx&quot;, //密码
+    &quot;timeout&quot;:600,
+    &quot;method&quot;:&quot;aes-256-cfb&quot;
+} 
+</code></pre><p>将文件夹上传到root目录，然后</p>
+<pre><code>bash restart.sh
+bash check.sh
+</code></pre><h4 id="下载客户端"><a href="#下载客户端" class="headerlink" title="下载客户端"></a>下载客户端</h4><pre><code>windows: https://shadowsocks.org/en/download/clients.html
+android: https://github.com/shadowsocks/shadowsocks-android/releases
+</code></pre>
       
     </div>
 
@@ -372,7 +406,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nodejs/" rel="tag">#nodejs</a>
+            <a href="/tags/shadowsocks/" rel="tag">#shadowsocks</a>
           
         </div>
       
@@ -381,17 +415,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/06/Markdown入门/" rel="next" title="Markdown">
-                <i class="fa fa-chevron-left"></i> Markdown
+              <a href="/2016/06/23/android-系统权限/" rel="next" title="android_系统权限">
+                <i class="fa fa-chevron-left"></i> android_系统权限
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/19/android入门/" rel="prev" title="android学习记录">
-                android学习记录 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -423,8 +453,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/13/Async/"
-           data-title="Async" data-url="http://yoursite.com/2016/06/13/Async/">
+      <div class="ds-thread" data-thread-key="2016/06/23/翻墙方法/"
+           data-title="shadowsocks搭建VPN" data-url="http://yoursite.com/2016/06/23/翻墙方法/">
       </div>
     
   </div>
@@ -522,7 +552,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#购买服务器"><span class="nav-number">1.</span> <span class="nav-text">购买服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改安装的系统并安装服务"><span class="nav-number">2.</span> <span class="nav-text">修改安装的系统并安装服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加配置文件并启动服务"><span class="nav-number">3.</span> <span class="nav-text">添加配置文件并启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载客户端"><span class="nav-number">4.</span> <span class="nav-text">下载客户端</span></a></li></ol></div>
             
           </div>
         </section>
