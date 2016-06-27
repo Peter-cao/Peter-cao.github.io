@@ -657,6 +657,244 @@ sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
             
               
                 
+                <a class="post-title-link" href="/2016/06/23/android-简单数据的分享/" itemprop="url">
+                  android_简单数据的分享
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-23T22:25:22+08:00" content="2016-06-23">
+              2016-06-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/23/android-简单数据的分享/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/23/android-简单数据的分享/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="向其他app发送简单数据"><a href="#向其他app发送简单数据" class="headerlink" title="向其他app发送简单数据"></a>向其他app发送简单数据</h4><h5 id="发送文本内容"><a href="#发送文本内容" class="headerlink" title="发送文本内容"></a>发送文本内容</h5><pre><code>Intent sendIntent = new Intent();
+sendIntent.setAction(Intent.ACTION_SEND);
+sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
+sendIntent.setType(&quot;text/plain&quot;);
+startActivity(sendIntent);
+</code></pre><p>Intent.createChooser()</p>
+<pre><code>Intent sendIntent = new Intent();
+sendIntent.setAction(Intent.ACTION_SEND);
+sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
+sendIntent.setType(&quot;text/plain&quot;);
+startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+</code></pre><h5 id="发送二进制内容"><a href="#发送二进制内容" class="headerlink" title="发送二进制内容"></a>发送二进制内容</h5><pre><code>Intent shareIntent = new Intent();
+shareIntent.setAction(Intent.ACTION_SEND);
+shareIntent.putExtra(Intent.EXTRA_STREAM, uriToImage);
+shareIntent.setType(&quot;image/jpeg&quot;);
+startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
+</code></pre><h5 id="发送多个内容"><a href="#发送多个内容" class="headerlink" title="发送多个内容"></a>发送多个内容</h5><p>ACTION_SEND_MULTIPLE  </p>
+<pre><code>ArrayList&lt;Uri&gt; imageUris = new ArrayList&lt;Uri&gt;();
+imageUris.add(imageUri1); // Add your image URIs here
+imageUris.add(imageUri2);
+
+Intent shareIntent = new Intent();
+shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
+shareIntent.setType(&quot;image/*&quot;);
+startActivity(Intent.createChooser(shareIntent, &quot;Share images to..&quot;));
+</code></pre><h4 id="从其他app接收简单数据"><a href="#从其他app接收简单数据" class="headerlink" title="从其他app接收简单数据"></a>从其他app接收简单数据</h4><h5 id="更新Manifest"><a href="#更新Manifest" class="headerlink" title="更新Manifest"></a>更新Manifest</h5><pre><code>&lt;activity android:name=&quot;.ui.MyActivity&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+        &lt;data android:mimeType=&quot;text/plain&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SEND_MULTIPLE&quot; /&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre><h5 id="处理接收到的内容"><a href="#处理接收到的内容" class="headerlink" title="处理接收到的内容"></a>处理接收到的内容</h5><pre><code>void onCreate (Bundle savedInstanceState) {
+    ...
+    // Get intent, action and MIME type
+    Intent intent = getIntent();
+    String action = intent.getAction();
+    String type = intent.getType();
+
+    if (Intent.ACTION_SEND.equals(action) &amp;&amp; type != null) {
+        if (&quot;text/plain&quot;.equals(type)) {
+            handleSendText(intent); // Handle text being sent
+        } else if (type.startsWith(&quot;image/&quot;)) {
+            handleSendImage(intent); // Handle single image being sent
+        }
+    } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) &amp;&amp; type != null) {
+        if (type.startsWith(&quot;image/&quot;)) {
+            handleSendMultipleImages(intent); // Handle multiple images being sent
+        }
+    } else {
+        // Handle other intents, such as being started from the home screen
+    }
+    ...
+}
+
+void handleSendText(Intent intent) {
+    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (sharedText != null) {
+        // Update UI to reflect text being shared
+    }
+}
+
+void handleSendImage(Intent intent) {
+    Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+    if (imageUri != null) {
+        // Update UI to reflect image being shared
+    }
+}
+
+void handleSendMultipleImages(Intent intent) {
+    ArrayList&lt;Uri&gt; imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+    if (imageUris != null) {
+        // Update UI to reflect multiple images being shared
+    }
+}
+</code></pre><h4 id="添加一个简单的分享action"><a href="#添加一个简单的分享action" class="headerlink" title="添加一个简单的分享action"></a>添加一个简单的分享action</h4><h5 id="更新菜单声明"><a href="#更新菜单声明" class="headerlink" title="更新菜单声明"></a>更新菜单声明</h5><pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;item
+            android:id=&quot;@+id/menu_item_share&quot;
+            android:showAsAction=&quot;ifRoom&quot;
+            android:title=&quot;Share&quot;
+            android:actionProviderClass=
+                &quot;android.widget.ShareActionProvider&quot; /&gt;
+    ...
+&lt;/menu&gt;
+</code></pre><h5 id="Set-the-Share-Intent"><a href="#Set-the-Share-Intent" class="headerlink" title="Set the Share Intent"></a>Set the Share Intent</h5><pre><code>private ShareActionProvider mShareActionProvider;
+...
+
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate menu resource file.
+    getMenuInflater().inflate(R.menu.share_menu, menu);
+
+    // Locate MenuItem with ShareActionProvider
+    MenuItem item = menu.findItem(R.id.menu_item_share);
+
+    // Fetch and store ShareActionProvider
+    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
+    // Return true to display menu
+    return true;
+}
+
+// Call to update the share intent
+private void setShareIntent(Intent shareIntent) {
+    if (mShareActionProvider != null) {
+        mShareActionProvider.setShareIntent(shareIntent);
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/06/23/翻墙方法/" itemprop="url">
                   shadowsocks搭建VPN
                 </a>
@@ -2192,132 +2430,6 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/02/appcan主应用子应用页面互调方法/" itemprop="url">
-                  appcan主应用子应用页面互调方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-02T15:02:46+08:00" content="2016-06-02">
-              2016-06-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/appcan/" itemprop="url" rel="index">
-                    <span itemprop="name">appcan</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/02/appcan主应用子应用页面互调方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/02/appcan主应用子应用页面互调方法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面</p>
-<h3 id="子应用打开主应用页面"><a href="#子应用打开主应用页面" class="headerlink" title="子应用打开主应用页面"></a>子应用打开主应用页面</h3><p>将需要打开的公共页面放置在plugin文件夹下的子应用中，调用时调用这个子应用打开。</p>
-<p>1.plugin子应用也是一个widget应用，在config.xml同级创建一个plugin目录，其中放入以appid命名的文件夹，里面防止子应用的config以及相关网页代码。</p>
-<p>2.调用时也需要使用uexWidget.startWidget来调用，但是无需传入appkey。</p>
-<p>3.此应用无需在EMM注册，升级时跟随主应用升级。</p>
-<h3 id="主应用打开子应用页面"><a href="#主应用打开子应用页面" class="headerlink" title="主应用打开子应用页面"></a>主应用打开子应用页面</h3><p>1.使用uexWidget.startWidget启动应用，openInfo中携带字符串，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uexWidget.startWidget(&quot;aaaao20031&quot;, &quot;5&quot;, &quot;pluginCallback&quot;, &quot;plugin123123&quot;, &quot;200&quot;, &quot;cfec6312-2584-4916-bfba-1a8239421c6f&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>2.在A应用中接收openInfo,之后在A应用内部跳转到a页面。(A页面背景色最好设置为透明)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">uexWidget.cbGetOpenerInfo=function(opId,dataType,data)&#123;</span><br><span class="line">    if(data==&apos;xxx&apos;)&#123;</span><br><span class="line">        appcan.window.open();</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        appcan.window.open();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">uexWidget.getOpenerInfo();</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2363,7 +2475,7 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

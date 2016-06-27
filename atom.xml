@@ -291,6 +291,147 @@ sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
   </entry>
   
   <entry>
+    <title>android_简单数据的分享</title>
+    <link href="http://yoursite.com/2016/06/23/android-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E4%BA%AB/"/>
+    <id>http://yoursite.com/2016/06/23/android-简单数据的分享/</id>
+    <published>2016-06-23T14:25:22.000Z</published>
+    <updated>2016-06-27T06:51:45.118Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;向其他app发送简单数据&quot;&gt;&lt;a href=&quot;#向其他app发送简单数据&quot; class=&quot;headerlink&quot; title=&quot;向其他app发送简单数据&quot;&gt;&lt;/a&gt;向其他app发送简单数据&lt;/h4&gt;&lt;h5 id=&quot;发送文本内容&quot;&gt;&lt;a href=&quot;#发送文本内容&quot; class=&quot;headerlink&quot; title=&quot;发送文本内容&quot;&gt;&lt;/a&gt;发送文本内容&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;Intent sendIntent = new Intent();
+sendIntent.setAction(Intent.ACTION_SEND);
+sendIntent.putExtra(Intent.EXTRA_TEXT, &amp;quot;This is my text to send.&amp;quot;);
+sendIntent.setType(&amp;quot;text/plain&amp;quot;);
+startActivity(sendIntent);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Intent.createChooser()&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Intent sendIntent = new Intent();
+sendIntent.setAction(Intent.ACTION_SEND);
+sendIntent.putExtra(Intent.EXTRA_TEXT, &amp;quot;This is my text to send.&amp;quot;);
+sendIntent.setType(&amp;quot;text/plain&amp;quot;);
+startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;发送二进制内容&quot;&gt;&lt;a href=&quot;#发送二进制内容&quot; class=&quot;headerlink&quot; title=&quot;发送二进制内容&quot;&gt;&lt;/a&gt;发送二进制内容&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;Intent shareIntent = new Intent();
+shareIntent.setAction(Intent.ACTION_SEND);
+shareIntent.putExtra(Intent.EXTRA_STREAM, uriToImage);
+shareIntent.setType(&amp;quot;image/jpeg&amp;quot;);
+startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;发送多个内容&quot;&gt;&lt;a href=&quot;#发送多个内容&quot; class=&quot;headerlink&quot; title=&quot;发送多个内容&quot;&gt;&lt;/a&gt;发送多个内容&lt;/h5&gt;&lt;p&gt;ACTION_SEND_MULTIPLE  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ArrayList&amp;lt;Uri&amp;gt; imageUris = new ArrayList&amp;lt;Uri&amp;gt;();
+imageUris.add(imageUri1); // Add your image URIs here
+imageUris.add(imageUri2);
+
+Intent shareIntent = new Intent();
+shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
+shareIntent.setType(&amp;quot;image/*&amp;quot;);
+startActivity(Intent.createChooser(shareIntent, &amp;quot;Share images to..&amp;quot;));
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;从其他app接收简单数据&quot;&gt;&lt;a href=&quot;#从其他app接收简单数据&quot; class=&quot;headerlink&quot; title=&quot;从其他app接收简单数据&quot;&gt;&lt;/a&gt;从其他app接收简单数据&lt;/h4&gt;&lt;h5 id=&quot;更新Manifest&quot;&gt;&lt;a href=&quot;#更新Manifest&quot; class=&quot;headerlink&quot; title=&quot;更新Manifest&quot;&gt;&lt;/a&gt;更新Manifest&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;activity android:name=&amp;quot;.ui.MyActivity&amp;quot; &amp;gt;
+    &amp;lt;intent-filter&amp;gt;
+        &amp;lt;action android:name=&amp;quot;android.intent.action.SEND&amp;quot; /&amp;gt;
+        &amp;lt;category android:name=&amp;quot;android.intent.category.DEFAULT&amp;quot; /&amp;gt;
+        &amp;lt;data android:mimeType=&amp;quot;image/*&amp;quot; /&amp;gt;
+    &amp;lt;/intent-filter&amp;gt;
+    &amp;lt;intent-filter&amp;gt;
+        &amp;lt;action android:name=&amp;quot;android.intent.action.SEND&amp;quot; /&amp;gt;
+        &amp;lt;category android:name=&amp;quot;android.intent.category.DEFAULT&amp;quot; /&amp;gt;
+        &amp;lt;data android:mimeType=&amp;quot;text/plain&amp;quot; /&amp;gt;
+    &amp;lt;/intent-filter&amp;gt;
+    &amp;lt;intent-filter&amp;gt;
+        &amp;lt;action android:name=&amp;quot;android.intent.action.SEND_MULTIPLE&amp;quot; /&amp;gt;
+        &amp;lt;category android:name=&amp;quot;android.intent.category.DEFAULT&amp;quot; /&amp;gt;
+        &amp;lt;data android:mimeType=&amp;quot;image/*&amp;quot; /&amp;gt;
+    &amp;lt;/intent-filter&amp;gt;
+&amp;lt;/activity&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;处理接收到的内容&quot;&gt;&lt;a href=&quot;#处理接收到的内容&quot; class=&quot;headerlink&quot; title=&quot;处理接收到的内容&quot;&gt;&lt;/a&gt;处理接收到的内容&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;void onCreate (Bundle savedInstanceState) {
+    ...
+    // Get intent, action and MIME type
+    Intent intent = getIntent();
+    String action = intent.getAction();
+    String type = intent.getType();
+
+    if (Intent.ACTION_SEND.equals(action) &amp;amp;&amp;amp; type != null) {
+        if (&amp;quot;text/plain&amp;quot;.equals(type)) {
+            handleSendText(intent); // Handle text being sent
+        } else if (type.startsWith(&amp;quot;image/&amp;quot;)) {
+            handleSendImage(intent); // Handle single image being sent
+        }
+    } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) &amp;amp;&amp;amp; type != null) {
+        if (type.startsWith(&amp;quot;image/&amp;quot;)) {
+            handleSendMultipleImages(intent); // Handle multiple images being sent
+        }
+    } else {
+        // Handle other intents, such as being started from the home screen
+    }
+    ...
+}
+
+void handleSendText(Intent intent) {
+    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (sharedText != null) {
+        // Update UI to reflect text being shared
+    }
+}
+
+void handleSendImage(Intent intent) {
+    Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+    if (imageUri != null) {
+        // Update UI to reflect image being shared
+    }
+}
+
+void handleSendMultipleImages(Intent intent) {
+    ArrayList&amp;lt;Uri&amp;gt; imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+    if (imageUris != null) {
+        // Update UI to reflect multiple images being shared
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;添加一个简单的分享action&quot;&gt;&lt;a href=&quot;#添加一个简单的分享action&quot; class=&quot;headerlink&quot; title=&quot;添加一个简单的分享action&quot;&gt;&lt;/a&gt;添加一个简单的分享action&lt;/h4&gt;&lt;h5 id=&quot;更新菜单声明&quot;&gt;&lt;a href=&quot;#更新菜单声明&quot; class=&quot;headerlink&quot; title=&quot;更新菜单声明&quot;&gt;&lt;/a&gt;更新菜单声明&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;menu xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;&amp;gt;
+    &amp;lt;item
+            android:id=&amp;quot;@+id/menu_item_share&amp;quot;
+            android:showAsAction=&amp;quot;ifRoom&amp;quot;
+            android:title=&amp;quot;Share&amp;quot;
+            android:actionProviderClass=
+                &amp;quot;android.widget.ShareActionProvider&amp;quot; /&amp;gt;
+    ...
+&amp;lt;/menu&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;Set-the-Share-Intent&quot;&gt;&lt;a href=&quot;#Set-the-Share-Intent&quot; class=&quot;headerlink&quot; title=&quot;Set the Share Intent&quot;&gt;&lt;/a&gt;Set the Share Intent&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;private ShareActionProvider mShareActionProvider;
+...
+
+@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+    // Inflate menu resource file.
+    getMenuInflater().inflate(R.menu.share_menu, menu);
+
+    // Locate MenuItem with ShareActionProvider
+    MenuItem item = menu.findItem(R.id.menu_item_share);
+
+    // Fetch and store ShareActionProvider
+    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
+    // Return true to display menu
+    return true;
+}
+
+// Call to update the share intent
+private void setShareIntent(Intent shareIntent) {
+    if (mShareActionProvider != null) {
+        mShareActionProvider.setShareIntent(shareIntent);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;向其他app发送简单数据&quot;&gt;&lt;a href=&quot;#向其他app发送简单数据&quot; class=&quot;headerlink&quot; title=&quot;向其他app发送简单数据&quot;&gt;&lt;/a&gt;向其他app发送简单数据&lt;/h4&gt;&lt;h5 id=&quot;发送文本内容&quot;&gt;&lt;a href=&quot;#发送文本内容&quot;
+    
+    </summary>
+    
+      <category term="android" scheme="http://yoursite.com/categories/android/"/>
+    
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
     <title>shadowsocks搭建VPN</title>
     <link href="http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2016/06/23/翻墙方法/</id>

@@ -285,6 +285,132 @@
             
               
                 
+                <a class="post-title-link" href="/2016/06/02/appcan主应用子应用页面互调方法/" itemprop="url">
+                  appcan主应用子应用页面互调方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-02T15:02:46+08:00" content="2016-06-02">
+              2016-06-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/appcan/" itemprop="url" rel="index">
+                    <span itemprop="name">appcan</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/02/appcan主应用子应用页面互调方法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/02/appcan主应用子应用页面互调方法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面</p>
+<h3 id="子应用打开主应用页面"><a href="#子应用打开主应用页面" class="headerlink" title="子应用打开主应用页面"></a>子应用打开主应用页面</h3><p>将需要打开的公共页面放置在plugin文件夹下的子应用中，调用时调用这个子应用打开。</p>
+<p>1.plugin子应用也是一个widget应用，在config.xml同级创建一个plugin目录，其中放入以appid命名的文件夹，里面防止子应用的config以及相关网页代码。</p>
+<p>2.调用时也需要使用uexWidget.startWidget来调用，但是无需传入appkey。</p>
+<p>3.此应用无需在EMM注册，升级时跟随主应用升级。</p>
+<h3 id="主应用打开子应用页面"><a href="#主应用打开子应用页面" class="headerlink" title="主应用打开子应用页面"></a>主应用打开子应用页面</h3><p>1.使用uexWidget.startWidget启动应用，openInfo中携带字符串，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uexWidget.startWidget(&quot;aaaao20031&quot;, &quot;5&quot;, &quot;pluginCallback&quot;, &quot;plugin123123&quot;, &quot;200&quot;, &quot;cfec6312-2584-4916-bfba-1a8239421c6f&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>2.在A应用中接收openInfo,之后在A应用内部跳转到a页面。(A页面背景色最好设置为透明)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">uexWidget.cbGetOpenerInfo=function(opId,dataType,data)&#123;</span><br><span class="line">    if(data==&apos;xxx&apos;)&#123;</span><br><span class="line">        appcan.window.open();</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        appcan.window.open();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">uexWidget.getOpenerInfo();</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/05/31/hello-world/" itemprop="url">
                   Hello World
                 </a>
@@ -418,7 +544,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
