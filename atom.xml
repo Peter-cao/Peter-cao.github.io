@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-06-23T05:26:13.846Z</updated>
+  <updated>2016-06-27T06:49:44.825Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,286 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>android_文件共享</title>
+    <link href="http://yoursite.com/2016/06/26/android-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/"/>
+    <id>http://yoursite.com/2016/06/26/android-文件共享/</id>
+    <published>2016-06-26T07:12:59.000Z</published>
+    <updated>2016-06-27T06:49:44.825Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;配置文件共享&quot;&gt;&lt;a href=&quot;#配置文件共享&quot; class=&quot;headerlink&quot; title=&quot;配置文件共享&quot;&gt;&lt;/a&gt;配置文件共享&lt;/h4&gt;&lt;h5 id=&quot;定义FileProvider&quot;&gt;&lt;a href=&quot;#定义FileProvider&quot; class=&quot;headerlink&quot; title=&quot;定义FileProvider&quot;&gt;&lt;/a&gt;定义FileProvider&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot; package=&amp;quot;com.example.myapp&amp;quot;&amp;gt;
+    &amp;lt;application
+        ...&amp;gt;
+        &amp;lt;provider
+            android:name=&amp;quot;android.support.v4.content.FileProvider&amp;quot;
+            android:authorities=&amp;quot;com.example.myapp.fileprovider&amp;quot;
+            android:grantUriPermissions=&amp;quot;true&amp;quot;
+            android:exported=&amp;quot;false&amp;quot;&amp;gt;
+            &amp;lt;meta-data
+                android:name=&amp;quot;android.support.FILE_PROVIDER_PATHS&amp;quot;
+                android:resource=&amp;quot;@xml/filepaths&amp;quot; /&amp;gt;
+        &amp;lt;/provider&amp;gt;
+        ...
+    &amp;lt;/application&amp;gt;
+&amp;lt;/manifest&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;指定共享目录&quot;&gt;&lt;a href=&quot;#指定共享目录&quot; class=&quot;headerlink&quot; title=&quot;指定共享目录&quot;&gt;&lt;/a&gt;指定共享目录&lt;/h5&gt;&lt;p&gt;在res/xml/filepaths.xml中定义&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;paths&amp;gt;
+    &amp;lt;files-path path=&amp;quot;images/&amp;quot; name=&amp;quot;myimages&amp;quot; /&amp;gt;
+&amp;lt;/paths&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果你请求default_image.jpg&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;content://com.example.myapp.fileprovider/myimages/default_image.jpg
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;共享文件&quot;&gt;&lt;a href=&quot;#共享文件&quot; class=&quot;headerlink&quot; title=&quot;共享文件&quot;&gt;&lt;/a&gt;共享文件&lt;/h4&gt;&lt;h5 id=&quot;在配置中定义文件选择activity&quot;&gt;&lt;a href=&quot;#在配置中定义文件选择activity&quot; class=&quot;headerlink&quot; title=&quot;在配置中定义文件选择activity&quot;&gt;&lt;/a&gt;在配置中定义文件选择activity&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;&amp;gt;
+    ...
+        &amp;lt;application&amp;gt;
+        ...
+            &amp;lt;activity
+                android:name=&amp;quot;.FileSelectActivity&amp;quot;
+                android:label=&amp;quot;@File Selector&amp;quot; &amp;gt;
+                &amp;lt;intent-filter&amp;gt;
+                    &amp;lt;action
+                        android:name=&amp;quot;android.intent.action.PICK&amp;quot;/&amp;gt;
+                    &amp;lt;category
+                        android:name=&amp;quot;android.intent.category.DEFAULT&amp;quot;/&amp;gt;
+                    &amp;lt;category
+                        android:name=&amp;quot;android.intent.category.OPENABLE&amp;quot;/&amp;gt;
+                    &amp;lt;data android:mimeType=&amp;quot;text/plain&amp;quot;/&amp;gt;
+                    &amp;lt;data android:mimeType=&amp;quot;image/*&amp;quot;/&amp;gt;
+                &amp;lt;/intent-filter&amp;gt;
+            &amp;lt;/activity&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;在代码中定义文件选择activity&quot;&gt;&lt;a href=&quot;#在代码中定义文件选择activity&quot; class=&quot;headerlink&quot; title=&quot;在代码中定义文件选择activity&quot;&gt;&lt;/a&gt;在代码中定义文件选择activity&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;public class MainActivity extends Activity {
+    // The path to the root of this app&amp;apos;s internal storage
+    private File mPrivateRootDir;
+    // The path to the &amp;quot;images&amp;quot; subdirectory
+    private File mImagesDir;
+    // Array of files in the images subdirectory
+    File[] mImageFiles;
+    // Array of filenames corresponding to mImageFiles
+    String[] mImageFilenames;
+    // Initialize the Activity
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        ...
+        // Set up an Intent to send back to apps that request a file
+        mResultIntent =
+                new Intent(&amp;quot;com.example.myapp.ACTION_RETURN_FILE&amp;quot;);
+        // Get the files/ subdirectory of internal storage
+        mPrivateRootDir = getFilesDir();
+        // Get the files/images subdirectory;
+        mImagesDir = new File(mPrivateRootDir, &amp;quot;images&amp;quot;);
+        // Get the files in the images subdirectory
+        mImageFiles = mImagesDir.listFiles();
+        // Set the Activity&amp;apos;s result to null to begin with
+        setResult(Activity.RESULT_CANCELED, null);
+        /*
+         * Display the file names in the ListView mFileListView.
+         * Back the ListView with the array mImageFilenames, which
+         * you can create by iterating through mImageFiles and
+         * calling File.getAbsolutePath() for each File
+         */
+         ...
+    }
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;指定文件选择后的响应&quot;&gt;&lt;a href=&quot;#指定文件选择后的响应&quot; class=&quot;headerlink&quot; title=&quot;指定文件选择后的响应&quot;&gt;&lt;/a&gt;指定文件选择后的响应&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;protected void onCreate(Bundle savedInstanceState) {
+    ...
+    // Define a listener that responds to clicks on a file in the ListView
+    mFileListView.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+        @Override
+        /*
+         * When a filename in the ListView is clicked, get its
+         * content URI and send it to the requesting app
+         */
+        public void onItemClick(AdapterView&amp;lt;?&amp;gt; adapterView,
+                View view,
+                int position,
+                long rowId) {
+            /*
+             * Get a File for the selected file name.
+             * Assume that the file names are in the
+             * mImageFilename array.
+             */
+            File requestFile = new File(mImageFilename[position]);
+            /*
+             * Most file-related method calls need to be in
+             * try-catch blocks.
+             */
+            // Use the FileProvider to get a content URI
+            try {
+                fileUri = FileProvider.getUriForFile(
+                        MainActivity.this,
+                        &amp;quot;com.example.myapp.fileprovider&amp;quot;,
+                        requestFile);
+            } catch (IllegalArgumentException e) {
+                Log.e(&amp;quot;File Selector&amp;quot;,
+                      &amp;quot;The selected file can&amp;apos;t be shared: &amp;quot; +
+                      clickedFilename);
+            }
+            ...
+        }
+    });
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;授权&quot;&gt;&lt;a href=&quot;#授权&quot; class=&quot;headerlink&quot; title=&quot;授权&quot;&gt;&lt;/a&gt;授权&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;protected void onCreate(Bundle savedInstanceState) {
+    ...
+    // Define a listener that responds to clicks in the ListView
+    mFileListView.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView&amp;lt;?&amp;gt; adapterView,
+                View view,
+                int position,
+                long rowId) {
+            ...
+            if (fileUri != null) {
+                // Grant temporary read permission to the content URI
+                mResultIntent.addFlags(
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
+            ...
+         }
+         ...
+    });
+...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;共享文件给请求的app&quot;&gt;&lt;a href=&quot;#共享文件给请求的app&quot; class=&quot;headerlink&quot; title=&quot;共享文件给请求的app&quot;&gt;&lt;/a&gt;共享文件给请求的app&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;protected void onCreate(Bundle savedInstanceState) {
+    ...
+    // Define a listener that responds to clicks on a file in the ListView
+    mFileListView.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView&amp;lt;?&amp;gt; adapterView,
+                View view,
+                int position,
+                long rowId) {
+            ...
+            if (fileUri != null) {
+                ...
+                // Put the Uri and MIME type in the result Intent
+                mResultIntent.setDataAndType(
+                        fileUri,
+                        getContentResolver().getType(fileUri));
+                // Set the result
+                MainActivity.this.setResult(Activity.RESULT_OK,
+                        mResultIntent);
+                } else {
+                    mResultIntent.setDataAndType(null, &amp;quot;&amp;quot;);
+                    MainActivity.this.setResult(RESULT_CANCELED,
+                            mResultIntent);
+                }
+            }
+    });
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;一旦用户选择好文件以后，提供一个按钮返回app,点击调用finish（）&lt;br&gt;    public void onDoneClick(View v) {&lt;br&gt;        // Associate a method with the Done button&lt;br&gt;        finish();&lt;br&gt;    }&lt;/p&gt;
+&lt;h4 id=&quot;请求共享的文件&quot;&gt;&lt;a href=&quot;#请求共享的文件&quot; class=&quot;headerlink&quot; title=&quot;请求共享的文件&quot;&gt;&lt;/a&gt;请求共享的文件&lt;/h4&gt;&lt;h5 id=&quot;发送请求&quot;&gt;&lt;a href=&quot;#发送请求&quot; class=&quot;headerlink&quot; title=&quot;发送请求&quot;&gt;&lt;/a&gt;发送请求&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;public class MainActivity extends Activity {
+    private Intent mRequestFileIntent;
+    private ParcelFileDescriptor mInputPFD;
+    ...
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mRequestFileIntent = new Intent(Intent.ACTION_PICK);
+        mRequestFileIntent.setType(&amp;quot;image/jpg&amp;quot;);
+        ...
+    }
+    ...
+    protected void requestFile() {
+        /**
+         * When the user requests a file, send an Intent to the
+         * server app.
+         * files.
+         */
+            startActivityForResult(mRequestFileIntent, 0);
+        ...
+    }
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;接受文件&quot;&gt;&lt;a href=&quot;#接受文件&quot; class=&quot;headerlink&quot; title=&quot;接受文件&quot;&gt;&lt;/a&gt;接受文件&lt;/h5&gt;&lt;pre&gt;&lt;code&gt; /*
+ * When the Activity of the app that hosts files sets a result and calls
+ * finish(), this method is invoked. The returned Intent contains the
+ * content URI of a selected file. The result code indicates if the
+ * selection worked or not.
+ */
+@Override
+public void onActivityResult(int requestCode, int resultCode,
+        Intent returnIntent) {
+    // If the selection didn&amp;apos;t work
+    if (resultCode != RESULT_OK) {
+        // Exit without doing anything else
+        return;
+    } else {
+        // Get the file&amp;apos;s content URI from the incoming Intent
+        Uri returnUri = returnIntent.getData();
+        /*
+         * Try to open the file for &amp;quot;read&amp;quot; access using the
+         * returned URI. If the file isn&amp;apos;t found, write to the
+         * error log and return.
+         */
+        try {
+            /*
+             * Get the content resolver instance for this context, and use it
+             * to get a ParcelFileDescriptor for the file.
+             */
+            mInputPFD = getContentResolver().openFileDescriptor(returnUri, &amp;quot;r&amp;quot;);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Log.e(&amp;quot;MainActivity&amp;quot;, &amp;quot;File not found.&amp;quot;);
+            return;
+        }
+        // Get a regular file descriptor for the file
+        FileDescriptor fd = mInputPFD.getFileDescriptor();
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;取出文件信息&quot;&gt;&lt;a href=&quot;#取出文件信息&quot; class=&quot;headerlink&quot; title=&quot;取出文件信息&quot;&gt;&lt;/a&gt;取出文件信息&lt;/h4&gt;&lt;h5 id=&quot;读取文件的MIME-Type&quot;&gt;&lt;a href=&quot;#读取文件的MIME-Type&quot; class=&quot;headerlink&quot; title=&quot;读取文件的MIME Type&quot;&gt;&lt;/a&gt;读取文件的MIME Type&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;...
+/*
+ * Get the file&amp;apos;s content URI from the incoming Intent, then
+ * get the file&amp;apos;s MIME type
+ */
+Uri returnUri = returnIntent.getData();
+String mimeType = getContentResolver().getType(returnUri);
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;读取文件的名字和大小&quot;&gt;&lt;a href=&quot;#读取文件的名字和大小&quot; class=&quot;headerlink&quot; title=&quot;读取文件的名字和大小&quot;&gt;&lt;/a&gt;读取文件的名字和大小&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;...
+/*
+ * Get the file&amp;apos;s content URI from the incoming Intent,
+ * then query the server app to get the file&amp;apos;s display name
+ * and size.
+ */
+Uri returnUri = returnIntent.getData();
+Cursor returnCursor =
+        getContentResolver().query(returnUri, null, null, null, null);
+/*
+ * Get the column indexes of the data in the Cursor,
+ * move to the first row in the Cursor, get the data,
+ * and display it.
+ */
+int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+returnCursor.moveToFirst();
+TextView nameView = (TextView) findViewById(R.id.filename_text);
+TextView sizeView = (TextView) findViewById(R.id.filesize_text);
+nameView.setText(returnCursor.getString(nameIndex));
+sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
+...
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;配置文件共享&quot;&gt;&lt;a href=&quot;#配置文件共享&quot; class=&quot;headerlink&quot; title=&quot;配置文件共享&quot;&gt;&lt;/a&gt;配置文件共享&lt;/h4&gt;&lt;h5 id=&quot;定义FileProvider&quot;&gt;&lt;a href=&quot;#定义FileProvider&quot; class=&quot;
+    
+    </summary>
+    
+      <category term="android" scheme="http://yoursite.com/categories/android/"/>
+    
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
     <title>shadowsocks搭建VPN</title>
     <link href="http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2016/06/23/翻墙方法/</id>
     <published>2016-06-23T05:03:22.000Z</published>
-    <updated>2016-06-23T05:26:13.846Z</updated>
+    <updated>2016-06-23T05:26:56.260Z</updated>
     
     <content type="html">&lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;https://www.openvzvps.cc/aff.php?aff=259
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;修改安装的系统并安装服务&quot;&gt;&lt;a href=&quot;#修改安装的系统并安装服务&quot; class=&quot;headerlink&quot; title=&quot;修改安装的系统并安装服务&quot;&gt;&lt;/a&gt;修改安装的系统并安装服务&lt;/h4&gt;&lt;p&gt;在 客户中心-&amp;gt;我的产品与服务 将预装的centos重装为ubunt&lt;br&gt;用xshell进入后台  &lt;/p&gt;
@@ -60,7 +335,7 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
     <link href="http://yoursite.com/2016/06/23/android-%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/"/>
     <id>http://yoursite.com/2016/06/23/android-系统权限/</id>
     <published>2016-06-22T16:07:25.000Z</published>
-    <updated>2016-06-22T16:15:50.669Z</updated>
+    <updated>2016-06-27T06:50:14.760Z</updated>
     
     <content type="html">&lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;&lt;h5 id=&quot;确定app需要哪些权限&quot;&gt;&lt;a href=&quot;#确定app需要哪些权限&quot; class=&quot;headerlink&quot; title=&quot;确定app需要哪些权限&quot;&gt;&lt;/a&gt;确定app需要哪些权限&lt;/h5&gt;&lt;h5 id=&quot;在Manifest中添加权限&quot;&gt;&lt;a href=&quot;#在Manifest中添加权限&quot; class=&quot;headerlink&quot; title=&quot;在Manifest中添加权限&quot;&gt;&lt;/a&gt;在Manifest中添加权限&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
         package=&amp;quot;com.example.snazzyapp&amp;quot;&amp;gt;
@@ -73,13 +348,72 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
     &amp;lt;/application&amp;gt;
 
 &amp;lt;/manifest&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;在运行时请求权限&quot;&gt;&lt;a href=&quot;#在运行时请求权限&quot; class=&quot;headerlink&quot; title=&quot;在运行时请求权限&quot;&gt;&lt;/a&gt;在运行时请求权限&lt;/h4&gt;&lt;h4 id=&quot;权限的最佳实践&quot;&gt;&lt;a href=&quot;#权限的最佳实践&quot; class=&quot;headerlink&quot; title=&quot;权限的最佳实践&quot;&gt;&lt;/a&gt;权限的最佳实践&lt;/h4&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;在运行时请求权限&quot;&gt;&lt;a href=&quot;#在运行时请求权限&quot; class=&quot;headerlink&quot; title=&quot;在运行时请求权限&quot;&gt;&lt;/a&gt;在运行时请求权限&lt;/h4&gt;&lt;p&gt;在android6.0之后，在app运行时用户可以授予权限，而不是在app安装时确认&lt;/p&gt;
+&lt;h5 id=&quot;检查权限&quot;&gt;&lt;a href=&quot;#检查权限&quot; class=&quot;headerlink&quot; title=&quot;检查权限&quot;&gt;&lt;/a&gt;检查权限&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;// Assume thisActivity is the current activity
+int permissionCheck = ContextCompat.checkSelfPermission(thisActivity,
+        Manifest.permission.WRITE_CALENDAR);
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;请求权限&quot;&gt;&lt;a href=&quot;#请求权限&quot; class=&quot;headerlink&quot; title=&quot;请求权限&quot;&gt;&lt;/a&gt;请求权限&lt;/h5&gt;&lt;h6 id=&quot;解释为什么要权限&quot;&gt;&lt;a href=&quot;#解释为什么要权限&quot; class=&quot;headerlink&quot; title=&quot;解释为什么要权限&quot;&gt;&lt;/a&gt;解释为什么要权限&lt;/h6&gt;&lt;pre&gt;&lt;code&gt;shouldShowRequestPermissionRationale()    
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当app请求了对应权限，而用户拒绝了，此方法返回true&lt;/p&gt;
+&lt;h6 id=&quot;请求需要的权限&quot;&gt;&lt;a href=&quot;#请求需要的权限&quot; class=&quot;headerlink&quot; title=&quot;请求需要的权限&quot;&gt;&lt;/a&gt;请求需要的权限&lt;/h6&gt;&lt;p&gt;requestPermissions()&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Here, thisActivity is the current activity
+if (ContextCompat.checkSelfPermission(thisActivity,
+                Manifest.permission.READ_CONTACTS)
+        != PackageManager.PERMISSION_GRANTED) {
+
+    // Should we show an explanation?
+    if (ActivityCompat.shouldShowRequestPermissionRationale(thisActivity,
+            Manifest.permission.READ_CONTACTS)) {
+
+        // Show an expanation to the user *asynchronously* -- don&amp;apos;t block
+        // this thread waiting for the user&amp;apos;s response! After the user
+        // sees the explanation, try again to request the permission.
+
+    } else {
+
+        // No explanation needed, we can request the permission.
+
+        ActivityCompat.requestPermissions(thisActivity,
+                new String[]{Manifest.permission.READ_CONTACTS},
+                MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+        // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+        // app-defined int constant. The callback method gets the
+        // result of the request.
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h6 id=&quot;处理权限请求响应&quot;&gt;&lt;a href=&quot;#处理权限请求响应&quot; class=&quot;headerlink&quot; title=&quot;处理权限请求响应&quot;&gt;&lt;/a&gt;处理权限请求响应&lt;/h6&gt;&lt;pre&gt;&lt;code&gt;@Override
+public void onRequestPermissionsResult(int requestCode,
+        String permissions[], int[] grantResults) {
+    switch (requestCode) {
+        case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length &amp;gt; 0
+                &amp;amp;&amp;amp; grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                // permission was granted, yay! Do the
+                // contacts-related task you need to do.
+
+            } else {
+
+                // permission denied, boo! Disable the
+                // functionality that depends on this permission.
+            }
+            return;
+        }
+
+        // other &amp;apos;case&amp;apos; lines to check for other
+        // permissions this app might request
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;权限的最佳实践&quot;&gt;&lt;a href=&quot;#权限的最佳实践&quot; class=&quot;headerlink&quot; title=&quot;权限的最佳实践&quot;&gt;&lt;/a&gt;权限的最佳实践&lt;/h4&gt;</content>
     
     <summary type="html">
     
       &lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;&lt;h5 id=&quot;确定app需要哪些权限&quot;&gt;&lt;a href=&quot;#确定app需要哪些权限&quot; class=&quot;headerlink&quot; ti
     
     </summary>
+    
+      <category term="android" scheme="http://yoursite.com/categories/android/"/>
     
     
       <category term="android" scheme="http://yoursite.com/tags/android/"/>
@@ -91,7 +425,7 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
     <link href="http://yoursite.com/2016/06/22/android-%E4%B8%8E%E5%85%B6%E4%BB%96APP%E4%BA%92%E5%8A%A8/"/>
     <id>http://yoursite.com/2016/06/22/android-与其他APP互动/</id>
     <published>2016-06-22T15:26:17.000Z</published>
-    <updated>2016-06-22T16:00:43.492Z</updated>
+    <updated>2016-06-27T06:50:19.244Z</updated>
     
     <content type="html">&lt;h4 id=&quot;如何打开其他app&quot;&gt;&lt;a href=&quot;#如何打开其他app&quot; class=&quot;headerlink&quot; title=&quot;如何打开其他app&quot;&gt;&lt;/a&gt;如何打开其他app&lt;/h4&gt;&lt;h5 id=&quot;创建隐含的Intent&quot;&gt;&lt;a href=&quot;#创建隐含的Intent&quot; class=&quot;headerlink&quot; title=&quot;创建隐含的Intent&quot;&gt;&lt;/a&gt;创建隐含的Intent&lt;/h5&gt;&lt;h6 id=&quot;通过Uri创建Intent&quot;&gt;&lt;a href=&quot;#通过Uri创建Intent&quot; class=&quot;headerlink&quot; title=&quot;通过Uri创建Intent&quot;&gt;&lt;/a&gt;通过Uri创建Intent&lt;/h6&gt;&lt;p&gt;打电话  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Uri number = Uri.parse(&amp;quot;tel:5551234&amp;quot;);
@@ -260,6 +594,8 @@ finish();
     
     </summary>
     
+      <category term="android" scheme="http://yoursite.com/categories/android/"/>
+    
     
       <category term="android" scheme="http://yoursite.com/tags/android/"/>
     
@@ -270,7 +606,7 @@ finish();
     <link href="http://yoursite.com/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2016/06/19/androidStudio快捷键整理/</id>
     <published>2016-06-19T10:25:35.000Z</published>
-    <updated>2016-06-20T06:40:17.500Z</updated>
+    <updated>2016-06-27T06:49:18.931Z</updated>
     
     <content type="html">&lt;h4 id=&quot;generate&quot;&gt;&lt;a href=&quot;#generate&quot; class=&quot;headerlink&quot; title=&quot;generate&quot;&gt;&lt;/a&gt;generate&lt;/h4&gt;&lt;p&gt;Alt + insert  &lt;/p&gt;
 &lt;h4 id=&quot;格式化代码&quot;&gt;&lt;a href=&quot;#格式化代码&quot; class=&quot;headerlink&quot; title=&quot;格式化代码&quot;&gt;&lt;/a&gt;格式化代码&lt;/h4&gt;&lt;p&gt;Ctrl+Alt+L &lt;/p&gt;
@@ -286,6 +622,8 @@ finish();
     
     </summary>
     
+      <category term="android" scheme="http://yoursite.com/categories/android/"/>
+    
     
       <category term="android studio" scheme="http://yoursite.com/tags/android-studio/"/>
     
@@ -296,7 +634,7 @@ finish();
     <link href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/19/android入门/</id>
     <published>2016-06-19T10:09:27.000Z</published>
-    <updated>2016-06-22T15:23:26.016Z</updated>
+    <updated>2016-06-27T06:49:38.391Z</updated>
     
     <content type="html">&lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainActivity-&amp;gt;Main2Activity&lt;br&gt;MainActivity代码:  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Intent intent = new Intent();
@@ -648,6 +986,8 @@ int count = db.update(
       &lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainAc
     
     </summary>
+    
+      <category term="android" scheme="http://yoursite.com/categories/android/"/>
     
     
       <category term="android" scheme="http://yoursite.com/tags/android/"/>
