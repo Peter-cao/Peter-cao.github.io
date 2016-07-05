@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next pisces use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -101,7 +101,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"always"},
     fancybox: true,
     motion: true,
@@ -354,25 +354,12 @@
 
       
         
-          
-            <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code>npm install express --save
-</code></pre><h1 id="Express-应用生成器"><a href="#Express-应用生成器" class="headerlink" title="Express 应用生成器"></a>Express 应用生成器</h1><h3 id="安装-expres-sgenerator-："><a href="#安装-expres-sgenerator-：" class="headerlink" title="安装 expres-sgenerator ："></a>安装 expres-sgenerator ：</h3><pre><code>npm install express-generator -g
-</code></pre><h3 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h3><pre><code>express myapp
-</code></pre><h3 id="安装依赖项："><a href="#安装依赖项：" class="headerlink" title="安装依赖项："></a>安装依赖项：</h3><pre><code>cd myapp
-npm install
-</code></pre><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><pre><code>MacOS or Linux :* npm start
-Wdinwos:set DEBUG=myapp:* &amp; npm start
-</code></pre><h1 id="基本路由"><a href="#基本路由" class="headerlink" title="基本路由"></a>基本路由</h1><h3 id="路由结构"><a href="#路由结构" class="headerlink" title="路由结构"></a>路由结构</h3><pre><code>app.METHOD(PATH, HANDLER)
-</code></pre><ul>
-<li>app 是 express 的实例。</li>
-<li>METHOD 是 HTTP 请求方法。</li>
-<li>PATH 是服务器上的路径。</li>
-<li>HANDLER 是在路由匹配时执行的函数。<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3>  app.get(‘/‘, function (req, res) {<pre><code>res.send(&apos;Hello World!&apos;);
-</code></pre>  });<br>  app.post(‘/‘, function (req, res) {<pre><code>res.send(&apos;Got a POST request&apos;);
-</code></pre>  });<h1 id="静态文件"><a href="#静态文件" class="headerlink" title="静态文件"></a>静态文件</h1><h3 id="使用-Express-中的-express-static-内置中间件函数"><a href="#使用-Express-中的-express-static-内置中间件函数" class="headerlink" title="使用 Express 中的 express.static 内置中间件函数"></a>使用 Express 中的 express.static 内置中间件函数</h3>  app.use(express.static(‘public’));<br>  app.use(express.static(‘files’));</li>
-</ul>
-
-          
+          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/04/express入门/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -489,125 +476,12 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
 
       
         
-          
-            <h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面</p>
-<h3 id="子应用打开主应用页面"><a href="#子应用打开主应用页面" class="headerlink" title="子应用打开主应用页面"></a>子应用打开主应用页面</h3><p>将需要打开的公共页面放置在plugin文件夹下的子应用中，调用时调用这个子应用打开。</p>
-<p>1.plugin子应用也是一个widget应用，在config.xml同级创建一个plugin目录，其中放入以appid命名的文件夹，里面防止子应用的config以及相关网页代码。</p>
-<p>2.调用时也需要使用uexWidget.startWidget来调用，但是无需传入appkey。</p>
-<p>3.此应用无需在EMM注册，升级时跟随主应用升级。</p>
-<h3 id="主应用打开子应用页面"><a href="#主应用打开子应用页面" class="headerlink" title="主应用打开子应用页面"></a>主应用打开子应用页面</h3><p>1.使用uexWidget.startWidget启动应用，openInfo中携带字符串，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uexWidget.startWidget(&quot;aaaao20031&quot;, &quot;5&quot;, &quot;pluginCallback&quot;, &quot;plugin123123&quot;, &quot;200&quot;, &quot;cfec6312-2584-4916-bfba-1a8239421c6f&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>2.在A应用中接收openInfo,之后在A应用内部跳转到a页面。(A页面背景色最好设置为透明)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">uexWidget.cbGetOpenerInfo=function(opId,dataType,data)&#123;</span><br><span class="line">    if(data==&apos;xxx&apos;)&#123;</span><br><span class="line">        appcan.window.open();</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        appcan.window.open();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">uexWidget.getOpenerInfo();</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/05/31/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-31T15:58:49+08:00" content="2016-05-31">
-              2016-05-31
-            </time>
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/05/31/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/31/hello-world/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
+          <h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/02/appcan主应用子应用页面互调方法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -679,7 +553,7 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -754,7 +628,7 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
@@ -819,6 +693,13 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
 
   
 

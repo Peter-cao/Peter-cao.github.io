@@ -6,7 +6,9 @@
     <entry>
       <title><![CDATA[android_支持各种屏幕尺寸]]></title>
       <url>http://yoursite.com/2016/07/02/android-%E6%94%AF%E6%8C%81%E5%90%84%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8/</url>
-      <content type="html"><![CDATA[<h4 id="使用”wrap-content”和”match-parent”"><a href="#使用”wrap-content”和”match-parent”" class="headerlink" title="使用”wrap_content”和”match_parent”"></a>使用”wrap_content”和”match_parent”</h4><p>如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。例如：</p>
+      <content type="html"><![CDATA[<h4 id="使用”wrap-content”和”match-parent”"><a href="#使用”wrap-content”和”match-parent”" class="headerlink" title="使用”wrap_content”和”match_parent”"></a>使用”wrap_content”和”match_parent”</h4><p>如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。</p>
+<a id="more"></a>
+<p>例如：</p>
 <pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
 android:orientation=&quot;vertical&quot;
 android:layout_width=&quot;match_parent&quot;
@@ -237,7 +239,9 @@ android:orientation=&quot;horizontal&quot;&gt;
     <entry>
       <title><![CDATA[android_文件共享]]></title>
       <url>http://yoursite.com/2016/06/26/android-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/</url>
-      <content type="html"><![CDATA[<h4 id="配置文件共享"><a href="#配置文件共享" class="headerlink" title="配置文件共享"></a>配置文件共享</h4><h5 id="定义FileProvider"><a href="#定义FileProvider" class="headerlink" title="定义FileProvider"></a>定义FileProvider</h5><pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; package=&quot;com.example.myapp&quot;&gt;
+      <content type="html"><![CDATA[<h4 id="配置文件共享"><a href="#配置文件共享" class="headerlink" title="配置文件共享"></a>配置文件共享</h4><a id="more"></a>
+<h5 id="定义FileProvider"><a href="#定义FileProvider" class="headerlink" title="定义FileProvider"></a>定义FileProvider</h5><!--more-->
+<pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; package=&quot;com.example.myapp&quot;&gt;
     &lt;application
         ...&gt;
         &lt;provider
@@ -496,7 +500,8 @@ sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
     <entry>
       <title><![CDATA[android_简单数据的分享]]></title>
       <url>http://yoursite.com/2016/06/23/android-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E4%BA%AB/</url>
-      <content type="html"><![CDATA[<h4 id="向其他app发送简单数据"><a href="#向其他app发送简单数据" class="headerlink" title="向其他app发送简单数据"></a>向其他app发送简单数据</h4><h5 id="发送文本内容"><a href="#发送文本内容" class="headerlink" title="发送文本内容"></a>发送文本内容</h5><pre><code>Intent sendIntent = new Intent();
+      <content type="html"><![CDATA[<h4 id="向其他app发送简单数据"><a href="#向其他app发送简单数据" class="headerlink" title="向其他app发送简单数据"></a>向其他app发送简单数据</h4><a id="more"></a>
+<h5 id="发送文本内容"><a href="#发送文本内容" class="headerlink" title="发送文本内容"></a>发送文本内容</h5><pre><code>Intent sendIntent = new Intent();
 sendIntent.setAction(Intent.ACTION_SEND);
 sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
 sendIntent.setType(&quot;text/plain&quot;);
@@ -621,7 +626,8 @@ private void setShareIntent(Intent shareIntent) {
     <entry>
       <title><![CDATA[shadowsocks搭建VPN]]></title>
       <url>http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/</url>
-      <content type="html"><![CDATA[<h4 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h4><pre><code>https://www.openvzvps.cc/aff.php?aff=259
+      <content type="html"><![CDATA[<h4 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h4><a id="more"></a>
+<pre><code>https://www.openvzvps.cc/aff.php?aff=259
 </code></pre><h4 id="修改安装的系统并安装服务"><a href="#修改安装的系统并安装服务" class="headerlink" title="修改安装的系统并安装服务"></a>修改安装的系统并安装服务</h4><p>在 客户中心-&gt;我的产品与服务 将预装的centos重装为ubunt<br>用xshell进入后台  </p>
 <pre><code>apt-get update
 apt-get install python-gevent python-pip
@@ -646,7 +652,8 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
     <entry>
       <title><![CDATA[android_系统权限]]></title>
       <url>http://yoursite.com/2016/06/23/android-%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/</url>
-      <content type="html"><![CDATA[<h4 id="声明权限"><a href="#声明权限" class="headerlink" title="声明权限"></a>声明权限</h4><h5 id="确定app需要哪些权限"><a href="#确定app需要哪些权限" class="headerlink" title="确定app需要哪些权限"></a>确定app需要哪些权限</h5><h5 id="在Manifest中添加权限"><a href="#在Manifest中添加权限" class="headerlink" title="在Manifest中添加权限"></a>在Manifest中添加权限</h5><pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+      <content type="html"><![CDATA[<h4 id="声明权限"><a href="#声明权限" class="headerlink" title="声明权限"></a>声明权限</h4><a id="more"></a>
+<h5 id="确定app需要哪些权限"><a href="#确定app需要哪些权限" class="headerlink" title="确定app需要哪些权限"></a>确定app需要哪些权限</h5><h5 id="在Manifest中添加权限"><a href="#在Manifest中添加权限" class="headerlink" title="在Manifest中添加权限"></a>在Manifest中添加权限</h5><pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
         package=&quot;com.example.snazzyapp&quot;&gt;
 
     &lt;uses-permission android:name=&quot;android.permission.SEND_SMS&quot;/&gt;
@@ -720,7 +727,8 @@ public void onRequestPermissionsResult(int requestCode,
     <entry>
       <title><![CDATA[android_与其他APP互动]]></title>
       <url>http://yoursite.com/2016/06/22/android-%E4%B8%8E%E5%85%B6%E4%BB%96APP%E4%BA%92%E5%8A%A8/</url>
-      <content type="html"><![CDATA[<h4 id="如何打开其他app"><a href="#如何打开其他app" class="headerlink" title="如何打开其他app"></a>如何打开其他app</h4><h5 id="创建隐含的Intent"><a href="#创建隐含的Intent" class="headerlink" title="创建隐含的Intent"></a>创建隐含的Intent</h5><h6 id="通过Uri创建Intent"><a href="#通过Uri创建Intent" class="headerlink" title="通过Uri创建Intent"></a>通过Uri创建Intent</h6><p>打电话  </p>
+      <content type="html"><![CDATA[<h4 id="如何打开其他app"><a href="#如何打开其他app" class="headerlink" title="如何打开其他app"></a>如何打开其他app</h4><a id="more"></a>
+<h5 id="创建隐含的Intent"><a href="#创建隐含的Intent" class="headerlink" title="创建隐含的Intent"></a>创建隐含的Intent</h5><h6 id="通过Uri创建Intent"><a href="#通过Uri创建Intent" class="headerlink" title="通过Uri创建Intent"></a>通过Uri创建Intent</h6><p>打电话  </p>
 <pre><code>Uri number = Uri.parse(&quot;tel:5551234&quot;);
 Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
 </code></pre><p>打开地图  </p>
@@ -896,7 +904,8 @@ finish();
     <entry>
       <title><![CDATA[android学习记录]]></title>
       <url>http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/</url>
-      <content type="html"><![CDATA[<h4 id="activity之间的跳转和数据传递"><a href="#activity之间的跳转和数据传递" class="headerlink" title="activity之间的跳转和数据传递"></a>activity之间的跳转和数据传递</h4><p>MainActivity-&gt;Main2Activity<br>MainActivity代码:  </p>
+      <content type="html"><![CDATA[<h4 id="activity之间的跳转和数据传递"><a href="#activity之间的跳转和数据传递" class="headerlink" title="activity之间的跳转和数据传递"></a>activity之间的跳转和数据传递</h4><a id="more"></a>
+<p>MainActivity-&gt;Main2Activity<br>MainActivity代码:  </p>
 <pre><code>Intent intent = new Intent();
 intent.putExtra(&quot;name&quot;,&quot;哈哈哈&quot;);
 intent.setClass(MainActivity.this,Main2Activity.class);
@@ -1251,7 +1260,8 @@ int count = db.update(
     <entry>
       <title><![CDATA[Markdown]]></title>
       <url>http://yoursite.com/2016/06/06/Markdown%E5%85%A5%E9%97%A8/</url>
-      <content type="html"><![CDATA[<h1 id="段落和换行"><a href="#段落和换行" class="headerlink" title="段落和换行"></a>段落和换行</h1><p>一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行<br>如果你确实想要依赖 Markdown 来插入 <br \=""> 标签的话，在插入处先按入两个以上的空格然后回车。  </p>
+      <content type="html"><![CDATA[<h1 id="段落和换行"><a href="#段落和换行" class="headerlink" title="段落和换行"></a>段落和换行</h1><a id="more"></a>
+<p>一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行<br>如果你确实想要依赖 Markdown 来插入 <br \=""> 标签的话，在插入处先按入两个以上的空格然后回车。  </p>
 <h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><pre><code># 一级标题  
 ## 二级标题  
 ### 三级标题  
@@ -1289,7 +1299,8 @@ int count = db.update(
     <entry>
       <title><![CDATA[express入门]]></title>
       <url>http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/</url>
-      <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code>npm install express --save
+      <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><a id="more"></a>
+<pre><code>npm install express --save
 </code></pre><h1 id="Express-应用生成器"><a href="#Express-应用生成器" class="headerlink" title="Express 应用生成器"></a>Express 应用生成器</h1><h3 id="安装-expres-sgenerator-："><a href="#安装-expres-sgenerator-：" class="headerlink" title="安装 expres-sgenerator ："></a>安装 expres-sgenerator ：</h3><pre><code>npm install express-generator -g
 </code></pre><h3 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h3><pre><code>express myapp
 </code></pre><h3 id="安装依赖项："><a href="#安装依赖项：" class="headerlink" title="安装依赖项："></a>安装依赖项：</h3><pre><code>cd myapp
@@ -1311,28 +1322,14 @@ Wdinwos:set DEBUG=myapp:* &amp; npm start
     <entry>
       <title><![CDATA[appcan主应用子应用页面互调方法]]></title>
       <url>http://yoursite.com/2016/06/02/appcan%E4%B8%BB%E5%BA%94%E7%94%A8%E5%AD%90%E5%BA%94%E7%94%A8%E9%A1%B5%E9%9D%A2%E4%BA%92%E8%B0%83%E6%96%B9%E6%B3%95/</url>
-      <content type="html"><![CDATA[<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面</p>
+      <content type="html"><![CDATA[<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><a id="more"></a>
+<p>由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面</p>
 <h3 id="子应用打开主应用页面"><a href="#子应用打开主应用页面" class="headerlink" title="子应用打开主应用页面"></a>子应用打开主应用页面</h3><p>将需要打开的公共页面放置在plugin文件夹下的子应用中，调用时调用这个子应用打开。</p>
 <p>1.plugin子应用也是一个widget应用，在config.xml同级创建一个plugin目录，其中放入以appid命名的文件夹，里面防止子应用的config以及相关网页代码。</p>
 <p>2.调用时也需要使用uexWidget.startWidget来调用，但是无需传入appkey。</p>
 <p>3.此应用无需在EMM注册，升级时跟随主应用升级。</p>
 <h3 id="主应用打开子应用页面"><a href="#主应用打开子应用页面" class="headerlink" title="主应用打开子应用页面"></a>主应用打开子应用页面</h3><p>1.使用uexWidget.startWidget启动应用，openInfo中携带字符串，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uexWidget.startWidget(&quot;aaaao20031&quot;, &quot;5&quot;, &quot;pluginCallback&quot;, &quot;plugin123123&quot;, &quot;200&quot;, &quot;cfec6312-2584-4916-bfba-1a8239421c6f&quot;);</span><br></pre></td></tr></table></figure></p>
 <p>2.在A应用中接收openInfo,之后在A应用内部跳转到a页面。(A页面背景色最好设置为透明)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">uexWidget.cbGetOpenerInfo=function(opId,dataType,data)&#123;</span><br><span class="line">    if(data==&apos;xxx&apos;)&#123;</span><br><span class="line">        appcan.window.open();</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        appcan.window.open();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">uexWidget.getOpenerInfo();</span><br></pre></td></tr></table></figure></p>
-]]></content>
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Hello World]]></title>
-      <url>http://yoursite.com/2016/05/31/hello-world/</url>
-      <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 ]]></content>
     </entry>
     

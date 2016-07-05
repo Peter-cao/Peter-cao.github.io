@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-07-02T02:31:24.802Z</updated>
+  <updated>2016-07-05T08:40:53.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,11 @@
     <link href="http://yoursite.com/2016/07/02/android-%E6%94%AF%E6%8C%81%E5%90%84%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8/"/>
     <id>http://yoursite.com/2016/07/02/android-支持各种屏幕尺寸/</id>
     <published>2016-07-02T01:44:09.000Z</published>
-    <updated>2016-07-02T02:31:24.802Z</updated>
+    <updated>2016-07-05T08:40:53.000Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;使用”wrap-content”和”match-parent”&quot;&gt;&lt;a href=&quot;#使用”wrap-content”和”match-parent”&quot; class=&quot;headerlink&quot; title=&quot;使用”wrap_content”和”match_parent”&quot;&gt;&lt;/a&gt;使用”wrap_content”和”match_parent”&lt;/h4&gt;&lt;p&gt;如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。例如：&lt;/p&gt;
+    <content type="html">&lt;h4 id=&quot;使用”wrap-content”和”match-parent”&quot;&gt;&lt;a href=&quot;#使用”wrap-content”和”match-parent”&quot; class=&quot;headerlink&quot; title=&quot;使用”wrap_content”和”match_parent”&quot;&gt;&lt;/a&gt;使用”wrap_content”和”match_parent”&lt;/h4&gt;&lt;p&gt;如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。&lt;/p&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;例如：&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;LinearLayout xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
 android:orientation=&amp;quot;vertical&amp;quot;
 android:layout_width=&amp;quot;match_parent&amp;quot;
@@ -251,7 +253,7 @@ android:orientation=&amp;quot;horizontal&amp;quot;&amp;gt;
     
     <summary type="html">
     
-      &lt;h4 id=&quot;使用”wrap-content”和”match-parent”&quot;&gt;&lt;a href=&quot;#使用”wrap-content”和”match-parent”&quot; class=&quot;headerlink&quot; title=&quot;使用”wrap_content”和”match_parent
+      &lt;h4 id=&quot;使用”wrap-content”和”match-parent”&quot;&gt;&lt;a href=&quot;#使用”wrap-content”和”match-parent”&quot; class=&quot;headerlink&quot; title=&quot;使用”wrap_content”和”match_parent”&quot;&gt;&lt;/a&gt;使用”wrap_content”和”match_parent”&lt;/h4&gt;&lt;p&gt;如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。&lt;/p&gt;
     
     </summary>
     
@@ -267,9 +269,11 @@ android:orientation=&amp;quot;horizontal&amp;quot;&amp;gt;
     <link href="http://yoursite.com/2016/06/26/android-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/"/>
     <id>http://yoursite.com/2016/06/26/android-文件共享/</id>
     <published>2016-06-26T07:12:59.000Z</published>
-    <updated>2016-06-27T06:49:44.825Z</updated>
+    <updated>2016-07-05T08:46:27.000Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;配置文件共享&quot;&gt;&lt;a href=&quot;#配置文件共享&quot; class=&quot;headerlink&quot; title=&quot;配置文件共享&quot;&gt;&lt;/a&gt;配置文件共享&lt;/h4&gt;&lt;h5 id=&quot;定义FileProvider&quot;&gt;&lt;a href=&quot;#定义FileProvider&quot; class=&quot;headerlink&quot; title=&quot;定义FileProvider&quot;&gt;&lt;/a&gt;定义FileProvider&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot; package=&amp;quot;com.example.myapp&amp;quot;&amp;gt;
+    <content type="html">&lt;h4 id=&quot;配置文件共享&quot;&gt;&lt;a href=&quot;#配置文件共享&quot; class=&quot;headerlink&quot; title=&quot;配置文件共享&quot;&gt;&lt;/a&gt;配置文件共享&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h5 id=&quot;定义FileProvider&quot;&gt;&lt;a href=&quot;#定义FileProvider&quot; class=&quot;headerlink&quot; title=&quot;定义FileProvider&quot;&gt;&lt;/a&gt;定义FileProvider&lt;/h5&gt;&lt;!--more--&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot; package=&amp;quot;com.example.myapp&amp;quot;&amp;gt;
     &amp;lt;application
         ...&amp;gt;
         &amp;lt;provider
@@ -526,7 +530,7 @@ sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
     
     <summary type="html">
     
-      &lt;h4 id=&quot;配置文件共享&quot;&gt;&lt;a href=&quot;#配置文件共享&quot; class=&quot;headerlink&quot; title=&quot;配置文件共享&quot;&gt;&lt;/a&gt;配置文件共享&lt;/h4&gt;&lt;h5 id=&quot;定义FileProvider&quot;&gt;&lt;a href=&quot;#定义FileProvider&quot; class=&quot;
+      &lt;h4 id=&quot;配置文件共享&quot;&gt;&lt;a href=&quot;#配置文件共享&quot; class=&quot;headerlink&quot; title=&quot;配置文件共享&quot;&gt;&lt;/a&gt;配置文件共享&lt;/h4&gt;
     
     </summary>
     
@@ -542,9 +546,10 @@ sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
     <link href="http://yoursite.com/2016/06/23/android-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E4%BA%AB/"/>
     <id>http://yoursite.com/2016/06/23/android-简单数据的分享/</id>
     <published>2016-06-23T14:25:22.000Z</published>
-    <updated>2016-06-27T06:51:45.118Z</updated>
+    <updated>2016-07-05T08:44:01.000Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;向其他app发送简单数据&quot;&gt;&lt;a href=&quot;#向其他app发送简单数据&quot; class=&quot;headerlink&quot; title=&quot;向其他app发送简单数据&quot;&gt;&lt;/a&gt;向其他app发送简单数据&lt;/h4&gt;&lt;h5 id=&quot;发送文本内容&quot;&gt;&lt;a href=&quot;#发送文本内容&quot; class=&quot;headerlink&quot; title=&quot;发送文本内容&quot;&gt;&lt;/a&gt;发送文本内容&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;Intent sendIntent = new Intent();
+    <content type="html">&lt;h4 id=&quot;向其他app发送简单数据&quot;&gt;&lt;a href=&quot;#向其他app发送简单数据&quot; class=&quot;headerlink&quot; title=&quot;向其他app发送简单数据&quot;&gt;&lt;/a&gt;向其他app发送简单数据&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h5 id=&quot;发送文本内容&quot;&gt;&lt;a href=&quot;#发送文本内容&quot; class=&quot;headerlink&quot; title=&quot;发送文本内容&quot;&gt;&lt;/a&gt;发送文本内容&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;Intent sendIntent = new Intent();
 sendIntent.setAction(Intent.ACTION_SEND);
 sendIntent.putExtra(Intent.EXTRA_TEXT, &amp;quot;This is my text to send.&amp;quot;);
 sendIntent.setType(&amp;quot;text/plain&amp;quot;);
@@ -667,7 +672,7 @@ private void setShareIntent(Intent shareIntent) {
     
     <summary type="html">
     
-      &lt;h4 id=&quot;向其他app发送简单数据&quot;&gt;&lt;a href=&quot;#向其他app发送简单数据&quot; class=&quot;headerlink&quot; title=&quot;向其他app发送简单数据&quot;&gt;&lt;/a&gt;向其他app发送简单数据&lt;/h4&gt;&lt;h5 id=&quot;发送文本内容&quot;&gt;&lt;a href=&quot;#发送文本内容&quot;
+      &lt;h4 id=&quot;向其他app发送简单数据&quot;&gt;&lt;a href=&quot;#向其他app发送简单数据&quot; class=&quot;headerlink&quot; title=&quot;向其他app发送简单数据&quot;&gt;&lt;/a&gt;向其他app发送简单数据&lt;/h4&gt;
     
     </summary>
     
@@ -683,9 +688,10 @@ private void setShareIntent(Intent shareIntent) {
     <link href="http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2016/06/23/翻墙方法/</id>
     <published>2016-06-23T05:03:22.000Z</published>
-    <updated>2016-06-23T05:26:56.260Z</updated>
+    <updated>2016-07-05T08:44:42.000Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;https://www.openvzvps.cc/aff.php?aff=259
+    <content type="html">&lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;pre&gt;&lt;code&gt;https://www.openvzvps.cc/aff.php?aff=259
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;修改安装的系统并安装服务&quot;&gt;&lt;a href=&quot;#修改安装的系统并安装服务&quot; class=&quot;headerlink&quot; title=&quot;修改安装的系统并安装服务&quot;&gt;&lt;/a&gt;修改安装的系统并安装服务&lt;/h4&gt;&lt;p&gt;在 客户中心-&amp;gt;我的产品与服务 将预装的centos重装为ubunt&lt;br&gt;用xshell进入后台  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;apt-get update
 apt-get install python-gevent python-pip
@@ -708,8 +714,7 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
     
     <summary type="html">
     
-      &lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;https://www.openvzvps.cc/aff.php?aff=259
-&lt;/code&gt;&lt;/
+      &lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;
     
     </summary>
     
@@ -723,9 +728,10 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
     <link href="http://yoursite.com/2016/06/23/android-%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/"/>
     <id>http://yoursite.com/2016/06/23/android-系统权限/</id>
     <published>2016-06-22T16:07:25.000Z</published>
-    <updated>2016-06-27T06:50:14.760Z</updated>
+    <updated>2016-07-05T08:46:09.000Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;&lt;h5 id=&quot;确定app需要哪些权限&quot;&gt;&lt;a href=&quot;#确定app需要哪些权限&quot; class=&quot;headerlink&quot; title=&quot;确定app需要哪些权限&quot;&gt;&lt;/a&gt;确定app需要哪些权限&lt;/h5&gt;&lt;h5 id=&quot;在Manifest中添加权限&quot;&gt;&lt;a href=&quot;#在Manifest中添加权限&quot; class=&quot;headerlink&quot; title=&quot;在Manifest中添加权限&quot;&gt;&lt;/a&gt;在Manifest中添加权限&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
+    <content type="html">&lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h5 id=&quot;确定app需要哪些权限&quot;&gt;&lt;a href=&quot;#确定app需要哪些权限&quot; class=&quot;headerlink&quot; title=&quot;确定app需要哪些权限&quot;&gt;&lt;/a&gt;确定app需要哪些权限&lt;/h5&gt;&lt;h5 id=&quot;在Manifest中添加权限&quot;&gt;&lt;a href=&quot;#在Manifest中添加权限&quot; class=&quot;headerlink&quot; title=&quot;在Manifest中添加权限&quot;&gt;&lt;/a&gt;在Manifest中添加权限&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
         package=&amp;quot;com.example.snazzyapp&amp;quot;&amp;gt;
 
     &amp;lt;uses-permission android:name=&amp;quot;android.permission.SEND_SMS&amp;quot;/&amp;gt;
@@ -797,7 +803,7 @@ public void onRequestPermissionsResult(int requestCode,
     
     <summary type="html">
     
-      &lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;&lt;h5 id=&quot;确定app需要哪些权限&quot;&gt;&lt;a href=&quot;#确定app需要哪些权限&quot; class=&quot;headerlink&quot; ti
+      &lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;
     
     </summary>
     
@@ -813,9 +819,10 @@ public void onRequestPermissionsResult(int requestCode,
     <link href="http://yoursite.com/2016/06/22/android-%E4%B8%8E%E5%85%B6%E4%BB%96APP%E4%BA%92%E5%8A%A8/"/>
     <id>http://yoursite.com/2016/06/22/android-与其他APP互动/</id>
     <published>2016-06-22T15:26:17.000Z</published>
-    <updated>2016-06-27T06:50:19.244Z</updated>
+    <updated>2016-07-05T08:46:03.000Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;如何打开其他app&quot;&gt;&lt;a href=&quot;#如何打开其他app&quot; class=&quot;headerlink&quot; title=&quot;如何打开其他app&quot;&gt;&lt;/a&gt;如何打开其他app&lt;/h4&gt;&lt;h5 id=&quot;创建隐含的Intent&quot;&gt;&lt;a href=&quot;#创建隐含的Intent&quot; class=&quot;headerlink&quot; title=&quot;创建隐含的Intent&quot;&gt;&lt;/a&gt;创建隐含的Intent&lt;/h5&gt;&lt;h6 id=&quot;通过Uri创建Intent&quot;&gt;&lt;a href=&quot;#通过Uri创建Intent&quot; class=&quot;headerlink&quot; title=&quot;通过Uri创建Intent&quot;&gt;&lt;/a&gt;通过Uri创建Intent&lt;/h6&gt;&lt;p&gt;打电话  &lt;/p&gt;
+    <content type="html">&lt;h4 id=&quot;如何打开其他app&quot;&gt;&lt;a href=&quot;#如何打开其他app&quot; class=&quot;headerlink&quot; title=&quot;如何打开其他app&quot;&gt;&lt;/a&gt;如何打开其他app&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h5 id=&quot;创建隐含的Intent&quot;&gt;&lt;a href=&quot;#创建隐含的Intent&quot; class=&quot;headerlink&quot; title=&quot;创建隐含的Intent&quot;&gt;&lt;/a&gt;创建隐含的Intent&lt;/h5&gt;&lt;h6 id=&quot;通过Uri创建Intent&quot;&gt;&lt;a href=&quot;#通过Uri创建Intent&quot; class=&quot;headerlink&quot; title=&quot;通过Uri创建Intent&quot;&gt;&lt;/a&gt;通过Uri创建Intent&lt;/h6&gt;&lt;p&gt;打电话  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Uri number = Uri.parse(&amp;quot;tel:5551234&amp;quot;);
 Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;打开地图  &lt;/p&gt;
@@ -978,7 +985,7 @@ finish();
     
     <summary type="html">
     
-      &lt;h4 id=&quot;如何打开其他app&quot;&gt;&lt;a href=&quot;#如何打开其他app&quot; class=&quot;headerlink&quot; title=&quot;如何打开其他app&quot;&gt;&lt;/a&gt;如何打开其他app&lt;/h4&gt;&lt;h5 id=&quot;创建隐含的Intent&quot;&gt;&lt;a href=&quot;#创建隐含的Intent&quot; c
+      &lt;h4 id=&quot;如何打开其他app&quot;&gt;&lt;a href=&quot;#如何打开其他app&quot; class=&quot;headerlink&quot; title=&quot;如何打开其他app&quot;&gt;&lt;/a&gt;如何打开其他app&lt;/h4&gt;
     
     </summary>
     
@@ -1022,9 +1029,10 @@ finish();
     <link href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/19/android入门/</id>
     <published>2016-06-19T10:09:27.000Z</published>
-    <updated>2016-06-27T06:49:38.391Z</updated>
+    <updated>2016-07-05T08:44:22.000Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainActivity-&amp;gt;Main2Activity&lt;br&gt;MainActivity代码:  &lt;/p&gt;
+    <content type="html">&lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;MainActivity-&amp;gt;Main2Activity&lt;br&gt;MainActivity代码:  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;Intent intent = new Intent();
 intent.putExtra(&amp;quot;name&amp;quot;,&amp;quot;哈哈哈&amp;quot;);
 intent.setClass(MainActivity.this,Main2Activity.class);
@@ -1371,7 +1379,7 @@ int count = db.update(
     
     <summary type="html">
     
-      &lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;p&gt;MainAc
+      &lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;
     
     </summary>
     
@@ -1405,9 +1413,10 @@ int count = db.update(
     <link href="http://yoursite.com/2016/06/06/Markdown%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/06/Markdown入门/</id>
     <published>2016-06-06T02:28:51.000Z</published>
-    <updated>2016-06-06T05:24:46.652Z</updated>
+    <updated>2016-07-05T08:45:13.000Z</updated>
     
-    <content type="html">&lt;h1 id=&quot;段落和换行&quot;&gt;&lt;a href=&quot;#段落和换行&quot; class=&quot;headerlink&quot; title=&quot;段落和换行&quot;&gt;&lt;/a&gt;段落和换行&lt;/h1&gt;&lt;p&gt;一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行&lt;br&gt;如果你确实想要依赖 Markdown 来插入 &lt;br \=&quot;&quot;&gt; 标签的话，在插入处先按入两个以上的空格然后回车。  &lt;/p&gt;
+    <content type="html">&lt;h1 id=&quot;段落和换行&quot;&gt;&lt;a href=&quot;#段落和换行&quot; class=&quot;headerlink&quot; title=&quot;段落和换行&quot;&gt;&lt;/a&gt;段落和换行&lt;/h1&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行&lt;br&gt;如果你确实想要依赖 Markdown 来插入 &lt;br \=&quot;&quot;&gt; 标签的话，在插入处先按入两个以上的空格然后回车。  &lt;/p&gt;
 &lt;h1 id=&quot;标题&quot;&gt;&lt;a href=&quot;#标题&quot; class=&quot;headerlink&quot; title=&quot;标题&quot;&gt;&lt;/a&gt;标题&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# 一级标题  
 ## 二级标题  
 ### 三级标题  
@@ -1443,7 +1452,7 @@ int count = db.update(
     
     <summary type="html">
     
-      &lt;h1 id=&quot;段落和换行&quot;&gt;&lt;a href=&quot;#段落和换行&quot; class=&quot;headerlink&quot; title=&quot;段落和换行&quot;&gt;&lt;/a&gt;段落和换行&lt;/h1&gt;&lt;p&gt;一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行&lt;br&gt;如果你确实想要依赖 M
+      &lt;h1 id=&quot;段落和换行&quot;&gt;&lt;a href=&quot;#段落和换行&quot; class=&quot;headerlink&quot; title=&quot;段落和换行&quot;&gt;&lt;/a&gt;段落和换行&lt;/h1&gt;
     
     </summary>
     
@@ -1459,9 +1468,10 @@ int count = db.update(
     <link href="http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/04/express入门/</id>
     <published>2016-06-04T14:22:25.000Z</published>
-    <updated>2016-06-05T15:15:03.532Z</updated>
+    <updated>2016-07-05T08:45:31.000Z</updated>
     
-    <content type="html">&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;npm install express --save
+    <content type="html">&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;pre&gt;&lt;code&gt;npm install express --save
 &lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;Express-应用生成器&quot;&gt;&lt;a href=&quot;#Express-应用生成器&quot; class=&quot;headerlink&quot; title=&quot;Express 应用生成器&quot;&gt;&lt;/a&gt;Express 应用生成器&lt;/h1&gt;&lt;h3 id=&quot;安装-expres-sgenerator-：&quot;&gt;&lt;a href=&quot;#安装-expres-sgenerator-：&quot; class=&quot;headerlink&quot; title=&quot;安装 expres-sgenerator ：&quot;&gt;&lt;/a&gt;安装 expres-sgenerator ：&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;npm install express-generator -g
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;创建应用程序&quot;&gt;&lt;a href=&quot;#创建应用程序&quot; class=&quot;headerlink&quot; title=&quot;创建应用程序&quot;&gt;&lt;/a&gt;创建应用程序&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;express myapp
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;安装依赖项：&quot;&gt;&lt;a href=&quot;#安装依赖项：&quot; class=&quot;headerlink&quot; title=&quot;安装依赖项：&quot;&gt;&lt;/a&gt;安装依赖项：&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;cd myapp
@@ -1481,8 +1491,7 @@ Wdinwos:set DEBUG=myapp:* &amp;amp; npm start
     
     <summary type="html">
     
-      &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;npm install express --save
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;Express-应用生成器&quot;
+      &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;
     
     </summary>
     
@@ -1498,9 +1507,10 @@ Wdinwos:set DEBUG=myapp:* &amp;amp; npm start
     <link href="http://yoursite.com/2016/06/02/appcan%E4%B8%BB%E5%BA%94%E7%94%A8%E5%AD%90%E5%BA%94%E7%94%A8%E9%A1%B5%E9%9D%A2%E4%BA%92%E8%B0%83%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2016/06/02/appcan主应用子应用页面互调方法/</id>
     <published>2016-06-02T07:02:46.000Z</published>
-    <updated>2016-06-05T14:04:33.303Z</updated>
+    <updated>2016-07-05T08:45:50.000Z</updated>
     
-    <content type="html">&lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;&lt;p&gt;由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面&lt;/p&gt;
+    <content type="html">&lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面&lt;/p&gt;
 &lt;h3 id=&quot;子应用打开主应用页面&quot;&gt;&lt;a href=&quot;#子应用打开主应用页面&quot; class=&quot;headerlink&quot; title=&quot;子应用打开主应用页面&quot;&gt;&lt;/a&gt;子应用打开主应用页面&lt;/h3&gt;&lt;p&gt;将需要打开的公共页面放置在plugin文件夹下的子应用中，调用时调用这个子应用打开。&lt;/p&gt;
 &lt;p&gt;1.plugin子应用也是一个widget应用，在config.xml同级创建一个plugin目录，其中放入以appid命名的文件夹，里面防止子应用的config以及相关网页代码。&lt;/p&gt;
 &lt;p&gt;2.调用时也需要使用uexWidget.startWidget来调用，但是无需传入appkey。&lt;/p&gt;
@@ -1511,8 +1521,7 @@ Wdinwos:set DEBUG=myapp:* &amp;amp; npm start
     
     <summary type="html">
     
-      &lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;&lt;p&gt;由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面&lt;/p&gt;
-&lt;h3 id=&quot;子应用打开
+      &lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;
     
     </summary>
     
@@ -1520,33 +1529,6 @@ Wdinwos:set DEBUG=myapp:* &amp;amp; npm start
     
     
       <category term="appcan" scheme="http://yoursite.com/tags/appcan/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2016/05/31/hello-world/"/>
-    <id>http://yoursite.com/2016/05/31/hello-world/</id>
-    <published>2016-05-31T07:58:49.736Z</published>
-    <updated>2016-05-31T07:58:49.737Z</updated>
-    
-    <content type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Generate-static-files&quot;&gt;&lt;a href=&quot;#Generate-static-files&quot; class=&quot;headerlink&quot; title=&quot;Generate static files&quot;&gt;&lt;/a&gt;Generate static files&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo generate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/generating.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Generating&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Deploy-to-remote-sites&quot;&gt;&lt;a href=&quot;#Deploy-to-remote-sites&quot; class=&quot;headerlink&quot; title=&quot;Deploy to remote sites&quot;&gt;&lt;/a&gt;Deploy to remote sites&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo deploy&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/deployment.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Deployment&lt;/a&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-    
-    </summary>
-    
     
   </entry>
   

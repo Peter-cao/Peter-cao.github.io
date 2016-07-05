@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next pisces use-motion">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -101,7 +101,7 @@
 <script type="text/javascript" id="hexo.configuration">
   var NexT = window.NexT || {};
   var CONFIG = {
-    scheme: 'Mist',
+    scheme: 'Pisces',
     sidebar: {"position":"left","display":"always"},
     fancybox: true,
     motion: true,
@@ -354,234 +354,12 @@
 
       
         
-          
-            <h4 id="使用”wrap-content”和”match-parent”"><a href="#使用”wrap-content”和”match-parent”" class="headerlink" title="使用”wrap_content”和”match_parent”"></a>使用”wrap_content”和”match_parent”</h4><p>如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。例如：</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:orientation=&quot;vertical&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;&gt;
-    &lt;LinearLayout android:layout_width=&quot;match_parent&quot; 
-                  android:id=&quot;@+id/linearLayout1&quot;  
-                  android:gravity=&quot;center&quot;
-                  android:layout_height=&quot;50dp&quot;&gt;
-        &lt;ImageView android:id=&quot;@+id/imageView1&quot; 
-                   android:layout_height=&quot;wrap_content&quot;
-                   android:layout_width=&quot;wrap_content&quot;
-                   android:src=&quot;@drawable/logo&quot;
-                   android:paddingRight=&quot;30dp&quot;
-                   android:layout_gravity=&quot;left&quot;
-                   android:layout_weight=&quot;0&quot; /&gt;
-        &lt;View android:layout_height=&quot;wrap_content&quot; 
-              android:id=&quot;@+id/view1&quot;
-              android:layout_width=&quot;wrap_content&quot;
-              android:layout_weight=&quot;1&quot; /&gt;
-        &lt;Button android:id=&quot;@+id/categorybutton&quot;
-                android:background=&quot;@drawable/button_bg&quot;
-                android:layout_height=&quot;match_parent&quot;
-                android:layout_weight=&quot;0&quot;
-                android:layout_width=&quot;120dp&quot;
-                style=&quot;@style/CategoryButtonStyle&quot;/&gt;
-    &lt;/LinearLayout&gt;
-
-    &lt;fragment android:id=&quot;@+id/headlines&quot; 
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;match_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><h4 id="使用相对布局"><a href="#使用相对布局" class="headerlink" title="使用相对布局"></a>使用相对布局</h4><p>RelativeLayout        </p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;match_parent&quot;&gt;
-    &lt;TextView
-        android:id=&quot;@+id/label&quot;
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:text=&quot;Type here:&quot;/&gt;
-    &lt;EditText
-        android:id=&quot;@+id/entry&quot;
-        android:layout_width=&quot;match_parent&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_below=&quot;@id/label&quot;/&gt;
-    &lt;Button
-        android:id=&quot;@+id/ok&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_below=&quot;@id/entry&quot;
-        android:layout_alignParentRight=&quot;true&quot;
-        android:layout_marginLeft=&quot;10dp&quot;
-        android:text=&quot;OK&quot; /&gt;
-    &lt;Button
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:layout_toLeftOf=&quot;@id/ok&quot;
-        android:layout_alignTop=&quot;@id/ok&quot;
-        android:text=&quot;Cancel&quot; /&gt;
-&lt;/RelativeLayout&gt;
-</code></pre><h4 id="使用尺寸限定符"><a href="#使用尺寸限定符" class="headerlink" title="使用尺寸限定符"></a>使用尺寸限定符</h4><p>在较大的屏幕上实施’双面板’模式,小屏幕上显示’单面板’模式<br>res/layout/main.xml，单面板（默认）布局：</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:orientation=&quot;vertical&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;&gt;
-
-    &lt;fragment android:id=&quot;@+id/headlines&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;match_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><p>res/layout-large/main.xml，双面板布局：</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:layout_width=&quot;fill_parent&quot;
-android:layout_height=&quot;fill_parent&quot;
-android:orientation=&quot;horizontal&quot;&gt;
-    &lt;fragment android:id=&quot;@+id/headlines&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;400dp&quot;
-              android:layout_marginRight=&quot;10dp&quot;/&gt;
-    &lt;fragment android:id=&quot;@+id/article&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.ArticleFragment&quot;
-              android:layout_width=&quot;fill_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><h4 id="使用最小宽度限定符"><a href="#使用最小宽度限定符" class="headerlink" title="使用最小宽度限定符"></a>使用最小宽度限定符</h4><p>对于最小宽度大于等于 600 dp 的设备，系统会选择 layout-sw600dp/main.xml（双面板）布局，否则系统就会选择 layout/main.xml（单面板）布局<br>res/layout/main.xml，单面板（默认）布局：</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:orientation=&quot;vertical&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;&gt;
-
-    &lt;fragment android:id=&quot;@+id/headlines&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;match_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><p>res/layout-sw600dp/main.xml，双面板布局：</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:layout_width=&quot;fill_parent&quot;
-android:layout_height=&quot;fill_parent&quot;
-android:orientation=&quot;horizontal&quot;&gt;
-    &lt;fragment android:id=&quot;@+id/headlines&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;400dp&quot;
-              android:layout_marginRight=&quot;10dp&quot;/&gt;
-    &lt;fragment android:id=&quot;@+id/article&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.ArticleFragment&quot;
-              android:layout_width=&quot;fill_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><p>但 Android 版本低于 3.2 的设备不支持此技术，原因是这些设备无法将 sw600dp 识别为尺寸限定符，因此您仍需使用 large 限定符。这样一来，就会有一个名称为 res/layout-large/main.xml 的文件（与 res/layout-sw600dp/main.xml 一样）。下一教程中了解到避免此类布局文件出现重复的技术</p>
-<h4 id="使用布局别名"><a href="#使用布局别名" class="headerlink" title="使用布局别名"></a>使用布局别名</h4><ul>
-<li>res/layout/main.xml: 单面板布局</li>
-<li>res/layout-large: 多面板布局</li>
-<li>res/layout-sw600dp: 多面板布局</li>
-</ul>
-<p>后两个文件是相同的，因为其中一个用于和 Android 3.2 设备匹配，而另一个则是为使用较低版本 Android 的平板电脑和电视准备的。<br>为避免文件重复出现，可以使用别名。例如：</p>
-<ul>
-<li>res/layout/main.xml，单面板布局</li>
-<li>res/layout/main_twopanes.xml，双面板布局</li>
-</ul>
-<p>然后添加两个文件<br>res/values-large/layout.xml:</p>
-<pre><code>&lt;resources&gt;
-    &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_twopanes&lt;/item&gt;
-&lt;/resources&gt;
-</code></pre><p>res/values-sw600dp/layout.xml:</p>
-<pre><code>&lt;resources&gt;
-    &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_twopanes&lt;/item&gt;
-&lt;/resources&gt;
-</code></pre><h4 id="使用屏幕方向限定符"><a href="#使用屏幕方向限定符" class="headerlink" title="使用屏幕方向限定符"></a>使用屏幕方向限定符</h4><p>某些布局会同时支持横向模式和纵向模式，可以通过调整优化其中大部分布局的效果。    </p>
-<ul>
-<li>小屏幕，纵向：单面板，带徽标</li>
-<li>小屏幕，横向：单面板，带徽标</li>
-<li>7 英寸平板电脑，纵向：单面板，带操作栏</li>
-<li>7 英寸平板电脑，横向：双面板，宽，带操作栏</li>
-<li>10 英寸平板电脑，纵向：双面板，窄，带操作栏</li>
-<li>10 英寸平板电脑，横向：双面板，宽，带操作栏</li>
-<li>电视，横向：双面板，宽，带操作栏</li>
-</ul>
-<p>res/layout/onepane.xml:<br>    <linearlayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent"></linearlayout></p>
-<pre><code>    &lt;fragment android:id=&quot;@+id/headlines&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;match_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><p>res/layout/onepane_with_bar.xml:</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:orientation=&quot;vertical&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;&gt;
-    &lt;LinearLayout android:layout_width=&quot;match_parent&quot; 
-                  android:id=&quot;@+id/linearLayout1&quot;  
-                  android:gravity=&quot;center&quot;
-                  android:layout_height=&quot;50dp&quot;&gt;
-        &lt;ImageView android:id=&quot;@+id/imageView1&quot; 
-                   android:layout_height=&quot;wrap_content&quot;
-                   android:layout_width=&quot;wrap_content&quot;
-                   android:src=&quot;@drawable/logo&quot;
-                   android:paddingRight=&quot;30dp&quot;
-                   android:layout_gravity=&quot;left&quot;
-                   android:layout_weight=&quot;0&quot; /&gt;
-        &lt;View android:layout_height=&quot;wrap_content&quot; 
-              android:id=&quot;@+id/view1&quot;
-              android:layout_width=&quot;wrap_content&quot;
-              android:layout_weight=&quot;1&quot; /&gt;
-        &lt;Button android:id=&quot;@+id/categorybutton&quot;
-                android:background=&quot;@drawable/button_bg&quot;
-                android:layout_height=&quot;match_parent&quot;
-                android:layout_weight=&quot;0&quot;
-                android:layout_width=&quot;120dp&quot;
-                style=&quot;@style/CategoryButtonStyle&quot;/&gt;
-    &lt;/LinearLayout&gt;
-
-    &lt;fragment android:id=&quot;@+id/headlines&quot; 
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;match_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><p>res/layout/twopanes.xml:</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:layout_width=&quot;fill_parent&quot;
-android:layout_height=&quot;fill_parent&quot;
-android:orientation=&quot;horizontal&quot;&gt;
-    &lt;fragment android:id=&quot;@+id/headlines&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;400dp&quot;
-              android:layout_marginRight=&quot;10dp&quot;/&gt;
-    &lt;fragment android:id=&quot;@+id/article&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.ArticleFragment&quot;
-              android:layout_width=&quot;fill_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><p>res/layout/twopanes_narrow.xml:</p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:layout_width=&quot;fill_parent&quot;
-android:layout_height=&quot;fill_parent&quot;
-android:orientation=&quot;horizontal&quot;&gt;
-    &lt;fragment android:id=&quot;@+id/headlines&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
-              android:layout_width=&quot;200dp&quot;
-              android:layout_marginRight=&quot;10dp&quot;/&gt;
-    &lt;fragment android:id=&quot;@+id/article&quot;
-              android:layout_height=&quot;fill_parent&quot;
-              android:name=&quot;com.example.android.newsreader.ArticleFragment&quot;
-              android:layout_width=&quot;fill_parent&quot; /&gt;
-&lt;/LinearLayout&gt;
-</code></pre><p>定义好所有可能的布局，那就只需使用配置限定符将正确的布局映射到各种配置即可<br>res/values/layouts.xml:</p>
-<pre><code>&lt;resources&gt;
-    &lt;item name=&quot;main_layout&quot; type=&quot;layout&quot;&gt;@layout/onepane_with_bar&lt;/item&gt;
-    &lt;bool name=&quot;has_two_panes&quot;&gt;false&lt;/bool&gt;
-&lt;/resources&gt;
-</code></pre><p>res/values-sw600dp-land/layouts.xml:<br>    <resources><br>        <item name="main_layout" type="layout">@layout/twopanes</item><br>        <bool name="has_two_panes">true</bool><br>    </resources><br>res/values-sw600dp-port/layouts.xml:<br>    <resources><br>        <item name="main_layout" type="layout">@layout/twopanes</item><br>        <bool name="has_two_panes">true</bool><br>    </resources><br>res/values-large-port/layouts.xml:</p>
-<pre><code>&lt;resources&gt;
-    &lt;item name=&quot;main_layout&quot; type=&quot;layout&quot;&gt;@layout/twopanes_narrow&lt;/item&gt;
-    &lt;bool name=&quot;has_two_panes&quot;&gt;true&lt;/bool&gt;
-&lt;/resources&gt;
-</code></pre><h4 id="使用自动拉伸位图"><a href="#使用自动拉伸位图" class="headerlink" title="使用自动拉伸位图"></a>使用自动拉伸位图</h4><p>通过 SDK 的 draw9patch 实用工具（位于 tools/ 目录中）处理图片</p>
-<p>文档参考：<a href="https://developer.android.com/training/multiscreen/screensizes.html#TaskUse9Patch" target="_blank" rel="external">https://developer.android.com/training/multiscreen/screensizes.html#TaskUse9Patch</a></p>
-
-          
+          <h4 id="使用”wrap-content”和”match-parent”"><a href="#使用”wrap-content”和”match-parent”" class="headerlink" title="使用”wrap_content”和”match_parent”"></a>使用”wrap_content”和”match_parent”</h4><p>如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/02/android-支持各种屏幕尺寸/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -698,262 +476,12 @@ android:orientation=&quot;horizontal&quot;&gt;
 
       
         
-          
-            <h4 id="配置文件共享"><a href="#配置文件共享" class="headerlink" title="配置文件共享"></a>配置文件共享</h4><h5 id="定义FileProvider"><a href="#定义FileProvider" class="headerlink" title="定义FileProvider"></a>定义FileProvider</h5><pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; package=&quot;com.example.myapp&quot;&gt;
-    &lt;application
-        ...&gt;
-        &lt;provider
-            android:name=&quot;android.support.v4.content.FileProvider&quot;
-            android:authorities=&quot;com.example.myapp.fileprovider&quot;
-            android:grantUriPermissions=&quot;true&quot;
-            android:exported=&quot;false&quot;&gt;
-            &lt;meta-data
-                android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot;
-                android:resource=&quot;@xml/filepaths&quot; /&gt;
-        &lt;/provider&gt;
-        ...
-    &lt;/application&gt;
-&lt;/manifest&gt;
-</code></pre><h5 id="指定共享目录"><a href="#指定共享目录" class="headerlink" title="指定共享目录"></a>指定共享目录</h5><p>在res/xml/filepaths.xml中定义</p>
-<pre><code>&lt;paths&gt;
-    &lt;files-path path=&quot;images/&quot; name=&quot;myimages&quot; /&gt;
-&lt;/paths&gt;
-</code></pre><p>如果你请求default_image.jpg</p>
-<pre><code>content://com.example.myapp.fileprovider/myimages/default_image.jpg
-</code></pre><h4 id="共享文件"><a href="#共享文件" class="headerlink" title="共享文件"></a>共享文件</h4><h5 id="在配置中定义文件选择activity"><a href="#在配置中定义文件选择activity" class="headerlink" title="在配置中定义文件选择activity"></a>在配置中定义文件选择activity</h5><pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    ...
-        &lt;application&gt;
-        ...
-            &lt;activity
-                android:name=&quot;.FileSelectActivity&quot;
-                android:label=&quot;@File Selector&quot; &gt;
-                &lt;intent-filter&gt;
-                    &lt;action
-                        android:name=&quot;android.intent.action.PICK&quot;/&gt;
-                    &lt;category
-                        android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
-                    &lt;category
-                        android:name=&quot;android.intent.category.OPENABLE&quot;/&gt;
-                    &lt;data android:mimeType=&quot;text/plain&quot;/&gt;
-                    &lt;data android:mimeType=&quot;image/*&quot;/&gt;
-                &lt;/intent-filter&gt;
-            &lt;/activity&gt;
-</code></pre><h5 id="在代码中定义文件选择activity"><a href="#在代码中定义文件选择activity" class="headerlink" title="在代码中定义文件选择activity"></a>在代码中定义文件选择activity</h5><pre><code>public class MainActivity extends Activity {
-    // The path to the root of this app&apos;s internal storage
-    private File mPrivateRootDir;
-    // The path to the &quot;images&quot; subdirectory
-    private File mImagesDir;
-    // Array of files in the images subdirectory
-    File[] mImageFiles;
-    // Array of filenames corresponding to mImageFiles
-    String[] mImageFilenames;
-    // Initialize the Activity
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        ...
-        // Set up an Intent to send back to apps that request a file
-        mResultIntent =
-                new Intent(&quot;com.example.myapp.ACTION_RETURN_FILE&quot;);
-        // Get the files/ subdirectory of internal storage
-        mPrivateRootDir = getFilesDir();
-        // Get the files/images subdirectory;
-        mImagesDir = new File(mPrivateRootDir, &quot;images&quot;);
-        // Get the files in the images subdirectory
-        mImageFiles = mImagesDir.listFiles();
-        // Set the Activity&apos;s result to null to begin with
-        setResult(Activity.RESULT_CANCELED, null);
-        /*
-         * Display the file names in the ListView mFileListView.
-         * Back the ListView with the array mImageFilenames, which
-         * you can create by iterating through mImageFiles and
-         * calling File.getAbsolutePath() for each File
-         */
-         ...
-    }
-    ...
-}
-</code></pre><h5 id="指定文件选择后的响应"><a href="#指定文件选择后的响应" class="headerlink" title="指定文件选择后的响应"></a>指定文件选择后的响应</h5><pre><code>protected void onCreate(Bundle savedInstanceState) {
-    ...
-    // Define a listener that responds to clicks on a file in the ListView
-    mFileListView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-        @Override
-        /*
-         * When a filename in the ListView is clicked, get its
-         * content URI and send it to the requesting app
-         */
-        public void onItemClick(AdapterView&lt;?&gt; adapterView,
-                View view,
-                int position,
-                long rowId) {
-            /*
-             * Get a File for the selected file name.
-             * Assume that the file names are in the
-             * mImageFilename array.
-             */
-            File requestFile = new File(mImageFilename[position]);
-            /*
-             * Most file-related method calls need to be in
-             * try-catch blocks.
-             */
-            // Use the FileProvider to get a content URI
-            try {
-                fileUri = FileProvider.getUriForFile(
-                        MainActivity.this,
-                        &quot;com.example.myapp.fileprovider&quot;,
-                        requestFile);
-            } catch (IllegalArgumentException e) {
-                Log.e(&quot;File Selector&quot;,
-                      &quot;The selected file can&apos;t be shared: &quot; +
-                      clickedFilename);
-            }
-            ...
-        }
-    });
-    ...
-}
-</code></pre><h5 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h5><pre><code>protected void onCreate(Bundle savedInstanceState) {
-    ...
-    // Define a listener that responds to clicks in the ListView
-    mFileListView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView&lt;?&gt; adapterView,
-                View view,
-                int position,
-                long rowId) {
-            ...
-            if (fileUri != null) {
-                // Grant temporary read permission to the content URI
-                mResultIntent.addFlags(
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            }
-            ...
-         }
-         ...
-    });
-...
-}
-</code></pre><h5 id="共享文件给请求的app"><a href="#共享文件给请求的app" class="headerlink" title="共享文件给请求的app"></a>共享文件给请求的app</h5><pre><code>protected void onCreate(Bundle savedInstanceState) {
-    ...
-    // Define a listener that responds to clicks on a file in the ListView
-    mFileListView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView&lt;?&gt; adapterView,
-                View view,
-                int position,
-                long rowId) {
-            ...
-            if (fileUri != null) {
-                ...
-                // Put the Uri and MIME type in the result Intent
-                mResultIntent.setDataAndType(
-                        fileUri,
-                        getContentResolver().getType(fileUri));
-                // Set the result
-                MainActivity.this.setResult(Activity.RESULT_OK,
-                        mResultIntent);
-                } else {
-                    mResultIntent.setDataAndType(null, &quot;&quot;);
-                    MainActivity.this.setResult(RESULT_CANCELED,
-                            mResultIntent);
-                }
-            }
-    });
-</code></pre><p>一旦用户选择好文件以后，提供一个按钮返回app,点击调用finish（）<br>    public void onDoneClick(View v) {<br>        // Associate a method with the Done button<br>        finish();<br>    }</p>
-<h4 id="请求共享的文件"><a href="#请求共享的文件" class="headerlink" title="请求共享的文件"></a>请求共享的文件</h4><h5 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h5><pre><code>public class MainActivity extends Activity {
-    private Intent mRequestFileIntent;
-    private ParcelFileDescriptor mInputPFD;
-    ...
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        mRequestFileIntent = new Intent(Intent.ACTION_PICK);
-        mRequestFileIntent.setType(&quot;image/jpg&quot;);
-        ...
-    }
-    ...
-    protected void requestFile() {
-        /**
-         * When the user requests a file, send an Intent to the
-         * server app.
-         * files.
-         */
-            startActivityForResult(mRequestFileIntent, 0);
-        ...
-    }
-    ...
-}
-</code></pre><h5 id="接受文件"><a href="#接受文件" class="headerlink" title="接受文件"></a>接受文件</h5><pre><code> /*
- * When the Activity of the app that hosts files sets a result and calls
- * finish(), this method is invoked. The returned Intent contains the
- * content URI of a selected file. The result code indicates if the
- * selection worked or not.
- */
-@Override
-public void onActivityResult(int requestCode, int resultCode,
-        Intent returnIntent) {
-    // If the selection didn&apos;t work
-    if (resultCode != RESULT_OK) {
-        // Exit without doing anything else
-        return;
-    } else {
-        // Get the file&apos;s content URI from the incoming Intent
-        Uri returnUri = returnIntent.getData();
-        /*
-         * Try to open the file for &quot;read&quot; access using the
-         * returned URI. If the file isn&apos;t found, write to the
-         * error log and return.
-         */
-        try {
-            /*
-             * Get the content resolver instance for this context, and use it
-             * to get a ParcelFileDescriptor for the file.
-             */
-            mInputPFD = getContentResolver().openFileDescriptor(returnUri, &quot;r&quot;);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            Log.e(&quot;MainActivity&quot;, &quot;File not found.&quot;);
-            return;
-        }
-        // Get a regular file descriptor for the file
-        FileDescriptor fd = mInputPFD.getFileDescriptor();
-        ...
-    }
-}
-</code></pre><h4 id="取出文件信息"><a href="#取出文件信息" class="headerlink" title="取出文件信息"></a>取出文件信息</h4><h5 id="读取文件的MIME-Type"><a href="#读取文件的MIME-Type" class="headerlink" title="读取文件的MIME Type"></a>读取文件的MIME Type</h5><pre><code>...
-/*
- * Get the file&apos;s content URI from the incoming Intent, then
- * get the file&apos;s MIME type
- */
-Uri returnUri = returnIntent.getData();
-String mimeType = getContentResolver().getType(returnUri);
-</code></pre><h5 id="读取文件的名字和大小"><a href="#读取文件的名字和大小" class="headerlink" title="读取文件的名字和大小"></a>读取文件的名字和大小</h5><pre><code>...
-/*
- * Get the file&apos;s content URI from the incoming Intent,
- * then query the server app to get the file&apos;s display name
- * and size.
- */
-Uri returnUri = returnIntent.getData();
-Cursor returnCursor =
-        getContentResolver().query(returnUri, null, null, null, null);
-/*
- * Get the column indexes of the data in the Cursor,
- * move to the first row in the Cursor, get the data,
- * and display it.
- */
-int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-returnCursor.moveToFirst();
-TextView nameView = (TextView) findViewById(R.id.filename_text);
-TextView sizeView = (TextView) findViewById(R.id.filesize_text);
-nameView.setText(returnCursor.getString(nameIndex));
-sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
-...
-</code></pre>
-          
+          <h4 id="配置文件共享"><a href="#配置文件共享" class="headerlink" title="配置文件共享"></a>配置文件共享</h4>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/26/android-文件共享/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1070,128 +598,12 @@ sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
 
       
         
-          
-            <h4 id="向其他app发送简单数据"><a href="#向其他app发送简单数据" class="headerlink" title="向其他app发送简单数据"></a>向其他app发送简单数据</h4><h5 id="发送文本内容"><a href="#发送文本内容" class="headerlink" title="发送文本内容"></a>发送文本内容</h5><pre><code>Intent sendIntent = new Intent();
-sendIntent.setAction(Intent.ACTION_SEND);
-sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
-sendIntent.setType(&quot;text/plain&quot;);
-startActivity(sendIntent);
-</code></pre><p>Intent.createChooser()</p>
-<pre><code>Intent sendIntent = new Intent();
-sendIntent.setAction(Intent.ACTION_SEND);
-sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
-sendIntent.setType(&quot;text/plain&quot;);
-startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
-</code></pre><h5 id="发送二进制内容"><a href="#发送二进制内容" class="headerlink" title="发送二进制内容"></a>发送二进制内容</h5><pre><code>Intent shareIntent = new Intent();
-shareIntent.setAction(Intent.ACTION_SEND);
-shareIntent.putExtra(Intent.EXTRA_STREAM, uriToImage);
-shareIntent.setType(&quot;image/jpeg&quot;);
-startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
-</code></pre><h5 id="发送多个内容"><a href="#发送多个内容" class="headerlink" title="发送多个内容"></a>发送多个内容</h5><p>ACTION_SEND_MULTIPLE  </p>
-<pre><code>ArrayList&lt;Uri&gt; imageUris = new ArrayList&lt;Uri&gt;();
-imageUris.add(imageUri1); // Add your image URIs here
-imageUris.add(imageUri2);
-
-Intent shareIntent = new Intent();
-shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
-shareIntent.setType(&quot;image/*&quot;);
-startActivity(Intent.createChooser(shareIntent, &quot;Share images to..&quot;));
-</code></pre><h4 id="从其他app接收简单数据"><a href="#从其他app接收简单数据" class="headerlink" title="从其他app接收简单数据"></a>从其他app接收简单数据</h4><h5 id="更新Manifest"><a href="#更新Manifest" class="headerlink" title="更新Manifest"></a>更新Manifest</h5><pre><code>&lt;activity android:name=&quot;.ui.MyActivity&quot; &gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
-    &lt;/intent-filter&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;text/plain&quot; /&gt;
-    &lt;/intent-filter&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND_MULTIPLE&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/activity&gt;
-</code></pre><h5 id="处理接收到的内容"><a href="#处理接收到的内容" class="headerlink" title="处理接收到的内容"></a>处理接收到的内容</h5><pre><code>void onCreate (Bundle savedInstanceState) {
-    ...
-    // Get intent, action and MIME type
-    Intent intent = getIntent();
-    String action = intent.getAction();
-    String type = intent.getType();
-
-    if (Intent.ACTION_SEND.equals(action) &amp;&amp; type != null) {
-        if (&quot;text/plain&quot;.equals(type)) {
-            handleSendText(intent); // Handle text being sent
-        } else if (type.startsWith(&quot;image/&quot;)) {
-            handleSendImage(intent); // Handle single image being sent
-        }
-    } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) &amp;&amp; type != null) {
-        if (type.startsWith(&quot;image/&quot;)) {
-            handleSendMultipleImages(intent); // Handle multiple images being sent
-        }
-    } else {
-        // Handle other intents, such as being started from the home screen
-    }
-    ...
-}
-
-void handleSendText(Intent intent) {
-    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-    if (sharedText != null) {
-        // Update UI to reflect text being shared
-    }
-}
-
-void handleSendImage(Intent intent) {
-    Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    if (imageUri != null) {
-        // Update UI to reflect image being shared
-    }
-}
-
-void handleSendMultipleImages(Intent intent) {
-    ArrayList&lt;Uri&gt; imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-    if (imageUris != null) {
-        // Update UI to reflect multiple images being shared
-    }
-}
-</code></pre><h4 id="添加一个简单的分享action"><a href="#添加一个简单的分享action" class="headerlink" title="添加一个简单的分享action"></a>添加一个简单的分享action</h4><h5 id="更新菜单声明"><a href="#更新菜单声明" class="headerlink" title="更新菜单声明"></a>更新菜单声明</h5><pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    &lt;item
-            android:id=&quot;@+id/menu_item_share&quot;
-            android:showAsAction=&quot;ifRoom&quot;
-            android:title=&quot;Share&quot;
-            android:actionProviderClass=
-                &quot;android.widget.ShareActionProvider&quot; /&gt;
-    ...
-&lt;/menu&gt;
-</code></pre><h5 id="Set-the-Share-Intent"><a href="#Set-the-Share-Intent" class="headerlink" title="Set the Share Intent"></a>Set the Share Intent</h5><pre><code>private ShareActionProvider mShareActionProvider;
-...
-
-@Override
-public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate menu resource file.
-    getMenuInflater().inflate(R.menu.share_menu, menu);
-
-    // Locate MenuItem with ShareActionProvider
-    MenuItem item = menu.findItem(R.id.menu_item_share);
-
-    // Fetch and store ShareActionProvider
-    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-
-    // Return true to display menu
-    return true;
-}
-
-// Call to update the share intent
-private void setShareIntent(Intent shareIntent) {
-    if (mShareActionProvider != null) {
-        mShareActionProvider.setShareIntent(shareIntent);
-    }
-}
-</code></pre>
-          
+          <h4 id="向其他app发送简单数据"><a href="#向其他app发送简单数据" class="headerlink" title="向其他app发送简单数据"></a>向其他app发送简单数据</h4>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/23/android-简单数据的分享/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1289,28 +701,12 @@ private void setShareIntent(Intent shareIntent) {
 
       
         
-          
-            <h4 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h4><pre><code>https://www.openvzvps.cc/aff.php?aff=259
-</code></pre><h4 id="修改安装的系统并安装服务"><a href="#修改安装的系统并安装服务" class="headerlink" title="修改安装的系统并安装服务"></a>修改安装的系统并安装服务</h4><p>在 客户中心-&gt;我的产品与服务 将预装的centos重装为ubunt<br>用xshell进入后台  </p>
-<pre><code>apt-get update
-apt-get install python-gevent python-pip
-apt-get install python-m2crypto
-pip install shadowsocks
-</code></pre><h4 id="添加配置文件并启动服务"><a href="#添加配置文件并启动服务" class="headerlink" title="添加配置文件并启动服务"></a>添加配置文件并启动服务</h4><p>下载<a href="/uploads/shadowsocks.rar">shadowsocks.rar</a><br>修改里面的shadowsocks.json  </p>
-<pre><code>{
-    &quot;server&quot;:&quot;0.0.0.0&quot;,
-    &quot;server_port&quot;:xxxx,  //端口
-    &quot;password&quot;:&quot;xxxxxx&quot;, //密码
-    &quot;timeout&quot;:600,
-    &quot;method&quot;:&quot;aes-256-cfb&quot;
-} 
-</code></pre><p>将文件夹上传到root目录，然后</p>
-<pre><code>bash restart.sh
-bash check.sh
-</code></pre><h4 id="下载客户端"><a href="#下载客户端" class="headerlink" title="下载客户端"></a>下载客户端</h4><pre><code>windows: https://shadowsocks.org/en/download/clients.html
-android: https://github.com/shadowsocks/shadowsocks-android/releases
-</code></pre>
-          
+          <h4 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h4>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/23/翻墙方法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1427,77 +823,12 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
 
       
         
-          
-            <h4 id="声明权限"><a href="#声明权限" class="headerlink" title="声明权限"></a>声明权限</h4><h5 id="确定app需要哪些权限"><a href="#确定app需要哪些权限" class="headerlink" title="确定app需要哪些权限"></a>确定app需要哪些权限</h5><h5 id="在Manifest中添加权限"><a href="#在Manifest中添加权限" class="headerlink" title="在Manifest中添加权限"></a>在Manifest中添加权限</h5><pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-        package=&quot;com.example.snazzyapp&quot;&gt;
-
-    &lt;uses-permission android:name=&quot;android.permission.SEND_SMS&quot;/&gt;
-
-
-    &lt;application ...&gt;
-        ...
-    &lt;/application&gt;
-
-&lt;/manifest&gt;
-</code></pre><h4 id="在运行时请求权限"><a href="#在运行时请求权限" class="headerlink" title="在运行时请求权限"></a>在运行时请求权限</h4><p>在android6.0之后，在app运行时用户可以授予权限，而不是在app安装时确认</p>
-<h5 id="检查权限"><a href="#检查权限" class="headerlink" title="检查权限"></a>检查权限</h5><pre><code>// Assume thisActivity is the current activity
-int permissionCheck = ContextCompat.checkSelfPermission(thisActivity,
-        Manifest.permission.WRITE_CALENDAR);
-</code></pre><h5 id="请求权限"><a href="#请求权限" class="headerlink" title="请求权限"></a>请求权限</h5><h6 id="解释为什么要权限"><a href="#解释为什么要权限" class="headerlink" title="解释为什么要权限"></a>解释为什么要权限</h6><pre><code>shouldShowRequestPermissionRationale()    
-</code></pre><p>当app请求了对应权限，而用户拒绝了，此方法返回true</p>
-<h6 id="请求需要的权限"><a href="#请求需要的权限" class="headerlink" title="请求需要的权限"></a>请求需要的权限</h6><p>requestPermissions()</p>
-<pre><code>// Here, thisActivity is the current activity
-if (ContextCompat.checkSelfPermission(thisActivity,
-                Manifest.permission.READ_CONTACTS)
-        != PackageManager.PERMISSION_GRANTED) {
-
-    // Should we show an explanation?
-    if (ActivityCompat.shouldShowRequestPermissionRationale(thisActivity,
-            Manifest.permission.READ_CONTACTS)) {
-
-        // Show an expanation to the user *asynchronously* -- don&apos;t block
-        // this thread waiting for the user&apos;s response! After the user
-        // sees the explanation, try again to request the permission.
-
-    } else {
-
-        // No explanation needed, we can request the permission.
-
-        ActivityCompat.requestPermissions(thisActivity,
-                new String[]{Manifest.permission.READ_CONTACTS},
-                MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-
-        // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-        // app-defined int constant. The callback method gets the
-        // result of the request.
-    }
-}
-</code></pre><h6 id="处理权限请求响应"><a href="#处理权限请求响应" class="headerlink" title="处理权限请求响应"></a>处理权限请求响应</h6><pre><code>@Override
-public void onRequestPermissionsResult(int requestCode,
-        String permissions[], int[] grantResults) {
-    switch (requestCode) {
-        case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
-            // If request is cancelled, the result arrays are empty.
-            if (grantResults.length &gt; 0
-                &amp;&amp; grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                // permission was granted, yay! Do the
-                // contacts-related task you need to do.
-
-            } else {
-
-                // permission denied, boo! Disable the
-                // functionality that depends on this permission.
-            }
-            return;
-        }
-
-        // other &apos;case&apos; lines to check for other
-        // permissions this app might request
-    }
-}
-</code></pre><h4 id="权限的最佳实践"><a href="#权限的最佳实践" class="headerlink" title="权限的最佳实践"></a>权限的最佳实践</h4>
-          
+          <h4 id="声明权限"><a href="#声明权限" class="headerlink" title="声明权限"></a>声明权限</h4>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/23/android-系统权限/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -1614,168 +945,12 @@ public void onRequestPermissionsResult(int requestCode,
 
       
         
-          
-            <h4 id="如何打开其他app"><a href="#如何打开其他app" class="headerlink" title="如何打开其他app"></a>如何打开其他app</h4><h5 id="创建隐含的Intent"><a href="#创建隐含的Intent" class="headerlink" title="创建隐含的Intent"></a>创建隐含的Intent</h5><h6 id="通过Uri创建Intent"><a href="#通过Uri创建Intent" class="headerlink" title="通过Uri创建Intent"></a>通过Uri创建Intent</h6><p>打电话  </p>
-<pre><code>Uri number = Uri.parse(&quot;tel:5551234&quot;);
-Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
-</code></pre><p>打开地图  </p>
-<pre><code>// Map point based on address
-Uri location = Uri.parse(&quot;geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California&quot;);
-// Or map point based on latitude/longitude
-// Uri location = Uri.parse(&quot;geo:37.422219,-122.08364?z=14&quot;); // z param is zoom level
-Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-</code></pre><p>打开网页</p>
-<pre><code>Uri webpage = Uri.parse(&quot;http://www.android.com&quot;);
-Intent webIntent = new Intent(Intent.ACTION_VIEW, webpage);
-</code></pre><h6 id="通过添加-extra-data-来制定action"><a href="#通过添加-extra-data-来制定action" class="headerlink" title="通过添加 extra data 来制定action"></a>通过添加 extra data 来制定action</h6><p>发送邮件</p>
-<pre><code>Intent emailIntent = new Intent(Intent.ACTION_SEND);
-// The intent does not have a URI, so declare the &quot;text/plain&quot; MIME type
-emailIntent.setType(HTTP.PLAIN_TEXT_TYPE);
-emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {&quot;jon@example.com&quot;}); // recipients
-emailIntent.putExtra(Intent.EXTRA_SUBJECT, &quot;Email subject&quot;);
-emailIntent.putExtra(Intent.EXTRA_TEXT, &quot;Email message text&quot;);
-emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(&quot;content://path/to/email/attachment&quot;));
-// You can also attach multiple items by passing an ArrayList of Uris  
-</code></pre><p>创建一个日历标签</p>
-<pre><code>Intent calendarIntent = new Intent(Intent.ACTION_INSERT, Events.CONTENT_URI);
-Calendar beginTime = Calendar.getInstance().set(2012, 0, 19, 7, 30);
-Calendar endTime = Calendar.getInstance().set(2012, 0, 19, 10, 30);
-calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, beginTime.getTimeInMillis());
-calendarIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, endTime.getTimeInMillis());
-calendarIntent.putExtra(Events.TITLE, &quot;Ninja class&quot;);
-calendarIntent.putExtra(Events.EVENT_LOCATION, &quot;Secret dojo&quot;);
-</code></pre><h5 id="校验是否有app可以接收Intent"><a href="#校验是否有app可以接收Intent" class="headerlink" title="校验是否有app可以接收Intent"></a>校验是否有app可以接收Intent</h5><p>queryIntentActivities()</p>
-<pre><code>PackageManager packageManager = getPackageManager();
-List activities = packageManager.queryIntentActivities(intent,
-        PackageManager.MATCH_DEFAULT_ONLY);
-boolean isIntentSafe = activities.size() &gt; 0;
-</code></pre><h5 id="用Intent-启动activity"><a href="#用Intent-启动activity" class="headerlink" title="用Intent 启动activity"></a>用Intent 启动activity</h5><p>startActivity(intent);</p>
-<pre><code>// Build the intent
-Uri location = Uri.parse(&quot;geo:0,0?q=1600+Amphitheatre+Parkway,+Mountain+View,+California&quot;);
-Intent mapIntent = new Intent(Intent.ACTION_VIEW, location);
-
-// Verify it resolves
-PackageManager packageManager = getPackageManager();
-List&lt;ResolveInfo&gt; activities = packageManager.queryIntentActivities(mapIntent, 0);
-boolean isIntentSafe = activities.size() &gt; 0;
-
-// Start an activity if it&apos;s safe
-if (isIntentSafe) {
-    startActivity(mapIntent);
-}
-</code></pre><h5 id="创建一个app选择器"><a href="#创建一个app选择器" class="headerlink" title="创建一个app选择器"></a>创建一个app选择器</h5><p>通过用createChooser()创建Intent 然后调用 startActivity</p>
-<pre><code>Intent intent = new Intent(Intent.ACTION_SEND);
-...
-
-// Always use string resources for UI text.
-// This says something like &quot;Share this photo with&quot;
-String title = getResources().getString(R.string.chooser_title);
-// Create intent to show chooser
-Intent chooser = Intent.createChooser(intent, title);
-
-// Verify the intent will resolve to at least one activity
-if (intent.resolveActivity(getPackageManager()) != null) {
-    startActivity(chooser);
-}
-</code></pre><h4 id="从另外一个activity获得一个结果"><a href="#从另外一个activity获得一个结果" class="headerlink" title="从另外一个activity获得一个结果"></a>从另外一个activity获得一个结果</h4><h5 id="启动一个activity"><a href="#启动一个activity" class="headerlink" title="启动一个activity"></a>启动一个activity</h5><p> startActivityForResult() </p>
-<pre><code>static final int PICK_CONTACT_REQUEST = 1;  // The request code
-...
-private void pickContact() {
-    Intent pickContactIntent = new Intent(Intent.ACTION_PICK, Uri.parse(&quot;content://contacts&quot;));
-    pickContactIntent.setType(Phone.CONTENT_TYPE); // Show user only contacts w/ phone numbers
-    startActivityForResult(pickContactIntent, PICK_CONTACT_REQUEST);
-}
-</code></pre><h5 id="接收结果"><a href="#接收结果" class="headerlink" title="接收结果"></a>接收结果</h5><pre><code>@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    // Check which request we&apos;re responding to
-    if (requestCode == PICK_CONTACT_REQUEST) {
-        // Make sure the request was successful
-        if (resultCode == RESULT_OK) {
-            // The user picked a contact.
-            // The Intent&apos;s data Uri identifies which contact was selected.
-
-            // Do something with the contact here (bigger example below)
-        }
-    }
-}
-</code></pre><p>获取联系人数据</p>
-<pre><code>@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    // Check which request it is that we&apos;re responding to
-    if (requestCode == PICK_CONTACT_REQUEST) {
-        // Make sure the request was successful
-        if (resultCode == RESULT_OK) {
-            // Get the URI that points to the selected contact
-            Uri contactUri = data.getData();
-            // We only need the NUMBER column, because there will be only one row in the result
-            String[] projection = {Phone.NUMBER};
-
-            // Perform the query on the contact to get the NUMBER column
-            // We don&apos;t need a selection or sort order (there&apos;s only one result for the given URI)
-            // CAUTION: The query() method should be called from a separate thread to avoid blocking
-            // your app&apos;s UI thread. (For simplicity of the sample, this code doesn&apos;t do that.)
-            // Consider using CursorLoader to perform the query.
-            Cursor cursor = getContentResolver()
-                    .query(contactUri, projection, null, null, null);
-            cursor.moveToFirst();
-
-            // Retrieve the phone number from the NUMBER column
-            int column = cursor.getColumnIndex(Phone.NUMBER);
-            String number = cursor.getString(column);
-
-            // Do something with the phone number...
-        }
-    }
-}
-</code></pre><h4 id="允许其他app启动你的activity"><a href="#允许其他app启动你的activity" class="headerlink" title="允许其他app启动你的activity"></a>允许其他app启动你的activity</h4><h5 id="添加Intent过滤器"><a href="#添加Intent过滤器" class="headerlink" title="添加Intent过滤器"></a>添加Intent过滤器</h5><pre><code>&lt;activity android:name=&quot;ShareActivity&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND&quot;/&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
-        &lt;data android:mimeType=&quot;text/plain&quot;/&gt;
-        &lt;data android:mimeType=&quot;image/*&quot;/&gt;
-    &lt;/intent-filter&gt;
-&lt;/activity&gt;
-</code></pre><p>  or</p>
-<pre><code>&lt;activity android:name=&quot;ShareActivity&quot;&gt;
-    &lt;!-- filter for sending text; accepts SENDTO action with sms URI schemes --&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SENDTO&quot;/&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
-        &lt;data android:scheme=&quot;sms&quot; /&gt;
-        &lt;data android:scheme=&quot;smsto&quot; /&gt;
-    &lt;/intent-filter&gt;
-    &lt;!-- filter for sending text or images; accepts SEND action and text or image data --&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND&quot;/&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
-        &lt;data android:mimeType=&quot;image/*&quot;/&gt;
-        &lt;data android:mimeType=&quot;text/plain&quot;/&gt;
-    &lt;/intent-filter&gt;
-&lt;/activity&gt;
-</code></pre><h5 id="在activity中处理Intent"><a href="#在activity中处理Intent" class="headerlink" title="在activity中处理Intent"></a>在activity中处理Intent</h5><p> getIntent()</p>
-<pre><code>@Override
-protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-
-    setContentView(R.layout.main);
-
-    // Get the intent that started this activity
-    Intent intent = getIntent();
-    Uri data = intent.getData();
-
-    // Figure out what to do based on the intent type
-    if (intent.getType().indexOf(&quot;image/&quot;) != -1) {
-        // Handle intents with image data ...
-    } else if (intent.getType().equals(&quot;text/plain&quot;)) {
-        // Handle intents with text ...
-    }
-} 
-</code></pre><h5 id="返回结果"><a href="#返回结果" class="headerlink" title="返回结果"></a>返回结果</h5><pre><code>// Create intent to deliver some kind of result data
-Intent result = new Intent(&quot;com.example.RESULT_ACTION&quot;, Uri.parse(&quot;content://result_uri&quot;));
-setResult(Activity.RESULT_OK, result);
-finish();
-</code></pre>
-          
+          <h4 id="如何打开其他app"><a href="#如何打开其他app" class="headerlink" title="如何打开其他app"></a>如何打开其他app</h4>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/22/android-与其他APP互动/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -2016,352 +1191,12 @@ finish();
 
       
         
-          
-            <h4 id="activity之间的跳转和数据传递"><a href="#activity之间的跳转和数据传递" class="headerlink" title="activity之间的跳转和数据传递"></a>activity之间的跳转和数据传递</h4><p>MainActivity-&gt;Main2Activity<br>MainActivity代码:  </p>
-<pre><code>Intent intent = new Intent();
-intent.putExtra(&quot;name&quot;,&quot;哈哈哈&quot;);
-intent.setClass(MainActivity.this,Main2Activity.class);
-MainActivity.this.startActivity(intent);  
-</code></pre><p>Main2Activity代码:  </p>
-<pre><code>tv1 = (TextView) findViewById(R.id.main2text);
-String value = getIntent().getStringExtra(&quot;name&quot;);
-tv1.setText(value);  
-</code></pre><h4 id="activity生命周期"><a href="#activity生命周期" class="headerlink" title="activity生命周期"></a>activity生命周期</h4><p><img src="/uploads/activityLifecycle.PNG" alt="Activity Lifecycle">  </p>
-<h5 id="onCreate"><a href="#onCreate" class="headerlink" title="onCreate()"></a>onCreate()</h5><p>Called when the activity is first created<br>当activity第一次被创建的时候调用</p>
-<h5 id="onStart"><a href="#onStart" class="headerlink" title="onStart()"></a>onStart()</h5><p>Called when the activity is becoming visible to the user<br>当activity对用户可见时调用</p>
-<h4 id="onRestart"><a href="#onRestart" class="headerlink" title="onRestart()"></a>onRestart()</h4><p>Called after your activity has been stopped<br>当activity已经stoped过，恢复的时候调用</p>
-<h5 id="onResume"><a href="#onResume" class="headerlink" title="onResume()"></a>onResume()</h5><p>Called when the activity will start interacting with the user<br>当用户能获取activity焦点时调用</p>
-<h5 id="onPause"><a href="#onPause" class="headerlink" title="onPause()"></a>onPause()</h5><p>Called when the system is about to start resuming a previous activity<br>当系统恢复之前的activity时调用（失去焦点），通常用来在此方法里面持久化当前activity的数据等</p>
-<h5 id="onStop"><a href="#onStop" class="headerlink" title="onStop()"></a>onStop()</h5><p>Called when the activity is no longer visible to the use<br>当activity完全不可见时调用</p>
-<h5 id="onDestroy"><a href="#onDestroy" class="headerlink" title="onDestroy()"></a>onDestroy()</h5><p>The final call you receive before your activity is destroyed  </p>
-<h4 id="将activity设置为窗口模式"><a href="#将activity设置为窗口模式" class="headerlink" title="将activity设置为窗口模式"></a>将activity设置为窗口模式</h4><p>在AndroidManifest.xml中设置theme</p>
-<h4 id="设备兼容"><a href="#设备兼容" class="headerlink" title="设备兼容"></a>设备兼容</h4><h5 id="语言兼容"><a href="#语言兼容" class="headerlink" title="语言兼容"></a>语言兼容</h5><pre><code>MyProject/
-    res/
-       values/
-           strings.xml
-       values-es/
-           strings.xml
-       values-fr/
-           strings.xml  
-</code></pre><p>Android系统会基于当前系统的语言环境设置来选择对应的设置</p>
-<h5 id="屏幕兼容"><a href="#屏幕兼容" class="headerlink" title="屏幕兼容"></a>屏幕兼容</h5><p>创建不同的布局  </p>
-<pre><code>MyProject/
-    res/
-        layout/              # default (portrait)
-            main.xml
-        layout-land/         # landscape
-            main.xml
-        layout-large/        # large (portrait)
-            main.xml
-        layout-large-land/   # large landscape
-            main.xml
-</code></pre><p>创建不同的位图  </p>
-<ul>
-<li>xhdpi: 2.0</li>
-<li>hdpi: 1.5</li>
-<li>mdpi: 1.0 (baseline)</li>
-<li>ldpi: 0.75</li>
-</ul>
-<p>如果xhdpi的图像为200*200，则hdpi为150*150，mdpi为100*100,ldpi为75*75  </p>
-<pre><code>MyProject/
-    res/
-        drawable-xhdpi/
-            awesomeimage.png
-        drawable-hdpi/
-            awesomeimage.png
-        drawable-mdpi/
-            awesomeimage.png
-        drawable-ldpi/
-            awesomeimage.png  
-</code></pre><p>当引用 @drawable/awesomeimage时，系统会根据屏幕的分辨率选择对应的图片</p>
-<h5 id="版本兼容"><a href="#版本兼容" class="headerlink" title="版本兼容"></a>版本兼容</h5><p>指定最小和目标API级别  </p>
-<pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; ... &gt;
-    &lt;uses-sdk android:minSdkVersion=&quot;4&quot; android:targetSdkVersion=&quot;15&quot; /&gt;
-    ...
-&lt;/manifest&gt;  
-</code></pre><p>在运行时检查系统版本  </p>
-<pre><code>private void setUpActionBar() {
-    // Make sure we&apos;re running on Honeycomb or higher to use ActionBar APIs
-    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) {
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-    }
-}  
-</code></pre><p>使用平台的主题和样式<br>To make your activity look like a dialog box:</p>
-<pre><code>&lt;activity android:theme=&quot;@android:style/Theme.Dialog&quot;&gt;
-</code></pre><p>To make your activity have a transparent background:</p>
-<pre><code>&lt;activity android:theme=&quot;@android:style/Theme.Translucent&quot;&gt;
-</code></pre><p>To apply your own custom theme defined in /res/values/styles.xml:</p>
-<pre><code>&lt;activity android:theme=&quot;@style/CustomTheme&quot;&gt;
-</code></pre><p>To apply a theme to your entire app (all activities), add the android:theme attribute to the <application> element:</application></p>
-<pre><code>application android:theme=&quot;@style/CustomTheme&quot;&gt;  
-</code></pre><h4 id="Fragment的创建"><a href="#Fragment的创建" class="headerlink" title="Fragment的创建"></a>Fragment的创建</h4><p>1.Create a Fragment Class  </p>
-<pre><code>import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-
-public class ArticleFragment extends Fragment {
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-        Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.article_view, container, false);
-    }
-}
-</code></pre><p>2.Add a Fragment to an Activity using XML  </p>
-<p>res/layout-large/news_articles.xml  </p>
-<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    android:orientation=&quot;horizontal&quot;
-    android:layout_width=&quot;fill_parent&quot;
-    android:layout_height=&quot;fill_parent&quot;&gt;
-
-    &lt;fragment android:name=&quot;com.example.android.fragments.HeadlinesFragment&quot;
-              android:id=&quot;@+id/headlines_fragment&quot;
-              android:layout_weight=&quot;1&quot;
-              android:layout_width=&quot;0dp&quot;
-              android:layout_height=&quot;match_parent&quot; /&gt;
-
-    &lt;fragment android:name=&quot;com.example.android.fragments.ArticleFragment&quot;
-              android:id=&quot;@+id/article_fragment&quot;
-              android:layout_weight=&quot;2&quot;
-              android:layout_width=&quot;0dp&quot;
-              android:layout_height=&quot;match_parent&quot; /&gt;
-
-&lt;/LinearLayout&gt;
-</code></pre><p>3.Then apply the layout to your activity  </p>
-<pre><code>import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-
-public class MainActivity extends FragmentActivity {
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.news_articles);
-    }
-}
-</code></pre><p>更多内容参考<a href="http://blog.csdn.net/guolin_blog/article/details/8881711" target="_blank" rel="external">Android Fragment完全解析，关于碎片你所需知道的一切</a></p>
-<h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><h5 id="保存键值对"><a href="#保存键值对" class="headerlink" title="保存键值对"></a>保存键值对</h5><p>获取SharedPreferences     </p>
-<pre><code>1.通过R.string.preference_file_key获取对应的SharedPreferences
-    Context context = getActivity();
-    SharedPreferences sharedPref = context.getSharedPreferences(
-        getString(R.string.preference_file_key), Context.MODE_PRIVATE);  
-2.获取Activity的公共的SharedPreferences
-    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);  
-</code></pre><p>写入SharedPreferences </p>
-<pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-SharedPreferences.Editor editor = sharedPref.edit();
-editor.putInt(getString(R.string.saved_high_score), newHighScore);
-editor.commit();
-</code></pre><p>读取SharedPreferences </p>
-<pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
-long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
-</code></pre><h5 id="保存文件"><a href="#保存文件" class="headerlink" title="保存文件"></a>保存文件</h5><h6 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a>内部存储</h6><ul>
-<li>它始终可用  </li>
-<li>默认情况下只有您的应用可以访问此处保存的文件</li>
-<li>当用户卸载您的应用时，系统会从内部存储中删除您的应用的所有文件。</li>
-</ul>
-<p>获取应用的内部目录的 File  </p>
-<pre><code>getFilesDir()
-</code></pre><p>获取应用临时缓存文件的内部目录的 File  </p>
-<pre><code>getCacheDir()
-</code></pre><p>用法：</p>
-<pre><code>File file = new File(context.getFilesDir(), filename);
-</code></pre><p>或者 调用 openFileOutput() 获取写入到内部目录中的文件的 FileOutputStream</p>
-<pre><code>String filename = &quot;myfile&quot;;
-String string = &quot;Hello world!&quot;;
-FileOutputStream outputStream;
-
-try {
-  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
-  outputStream.write(string.getBytes());
-  outputStream.close();
-} catch (Exception e) {
-  e.printStackTrace();
-}  
-</code></pre><p>或者 缓存某些文件，您应改用 createTempFile()</p>
-<pre><code>public File getTempFile(Context context, String url) {
-    File file;
-    try {
-        String fileName = Uri.parse(url).getLastPathSegment();
-        file = File.createTempFile(fileName, null, context.getCacheDir());
-    catch (IOException e) {
-        // Error while creating file
-    }
-    return file;
-}
-</code></pre><h6 id="外部存储"><a href="#外部存储" class="headerlink" title="外部存储"></a>外部存储</h6><ul>
-<li>它并非始终可用，因为用户可采用 USB 存储的形式装载外部存储，并在某些情况下会从设备中将其删除</li>
-<li>它是全局可读的，因此此处保存的文件可能不受您控制地被读取</li>
-<li>当用户卸载您的应用时，只有在您通过 getExternalFilesDir() 将您的应用的文件保存在目录中时，系统才会从此处删除您的应用的文件</li>
-</ul>
-<p>1.获取权限  </p>
-<pre><code>&lt;manifest ...&gt;  
-    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
-     &lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot; /&gt;
-    ...
-&lt;/manifest&gt;
-</code></pre><p>通过调用 getExternalStorageState() 查询外部存储状态。 如果返回的状态为 MEDIA_MOUNTED，那么您可以对您的文件进行读写    </p>
-<pre><code>/* Checks if external storage is available for read and write */
-public boolean isExternalStorageWritable() {
-    String state = Environment.getExternalStorageState();
-    if (Environment.MEDIA_MOUNTED.equals(state)) {
-        return true;
-    }
-    return false;
-}
-
-/* Checks if external storage is available to at least read */
-public boolean isExternalStorageReadable() {
-    String state = Environment.getExternalStorageState();
-    if (Environment.MEDIA_MOUNTED.equals(state) ||
-        Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-        return true;
-    }
-    return false;
-}
-</code></pre><p>如果要使用外部存储上的公共文件，使用 getExternalStoragePublicDirectory() 方法获取表示外部存储上相应目录的 File 。该方法使用指定 您想要保存以便它们可以与其他公共文件在逻辑上组织在一起的文件类型的参数，比如 DIRECTORY_MUSIC 或 DIRECTORY_PICTURES  </p>
-<pre><code>public File getAlbumStorageDir(String albumName) {
-    // Get the directory for the user&apos;s public pictures directory. 
-    File file = new File(Environment.getExternalStoragePublicDirectory(
-            Environment.DIRECTORY_PICTURES), albumName);
-    if (!file.mkdirs()) {
-        Log.e(LOG_TAG, &quot;Directory not created&quot;);
-    }
-    return file;
-} 
-</code></pre><p>通过调用 getExternalFilesDir() 获取相应的目录并向其传递指示您想要的目录类型的名称。当用户卸载应用时，系统会删除这些文件</p>
-<pre><code>public File getAlbumStorageDir(Context context, String albumName) {
-    // Get the directory for the app&apos;s private pictures directory. 
-    File file = new File(context.getExternalFilesDir(
-            Environment.DIRECTORY_PICTURES), albumName);
-    if (!file.mkdirs()) {
-        Log.e(LOG_TAG, &quot;Directory not created&quot;);
-    }
-    return file;
-}
-</code></pre><h6 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h6><pre><code>myFile.delete();
-or
-myContext.deleteFile(fileName);
-</code></pre><h5 id="使用-SQLite-保存数据"><a href="#使用-SQLite-保存数据" class="headerlink" title="使用 SQLite 保存数据"></a>使用 SQLite 保存数据</h5><h6 id="Define-a-Schema-and-Contract"><a href="#Define-a-Schema-and-Contract" class="headerlink" title="Define a Schema and Contract"></a>Define a Schema and Contract</h6><p>通过实现 BaseColumns接口，能自动生成_ID 字段</p>
-<pre><code>public final class FeedReaderContract {
-    // To prevent someone from accidentally instantiating the contract class,
-    // give it an empty constructor.
-    public FeedReaderContract() {}
-
-    /* Inner class that defines the table contents */
-    public static abstract class FeedEntry implements BaseColumns {
-        public static final String TABLE_NAME = &quot;entry&quot;;
-        public static final String COLUMN_NAME_ENTRY_ID = &quot;entryid&quot;;
-        public static final String COLUMN_NAME_TITLE = &quot;title&quot;;
-        public static final String COLUMN_NAME_SUBTITLE = &quot;subtitle&quot;;
-        ...
-    }
-}
-</code></pre><h6 id="Create-a-Database-Using-a-SQL-Helper"><a href="#Create-a-Database-Using-a-SQL-Helper" class="headerlink" title="Create a Database Using a SQL Helper"></a>Create a Database Using a SQL Helper</h6><pre><code>private static final String TEXT_TYPE = &quot; TEXT&quot;;
-private static final String COMMA_SEP = &quot;,&quot;;
-private static final String SQL_CREATE_ENTRIES =
-    &quot;CREATE TABLE &quot; + FeedEntry.TABLE_NAME + &quot; (&quot; +
-    FeedEntry._ID + &quot; INTEGER PRIMARY KEY,&quot; +
-    FeedEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
-    FeedEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
-    ... // Any other options for the CREATE command
-    &quot; )&quot;;
-
-private static final String SQL_DELETE_ENTRIES =
-    &quot;DROP TABLE IF EXISTS &quot; + FeedEntry.TABLE_NAME; 
-</code></pre><p>Note: Because they can be long-running, be sure that you call getWritableDatabase() or getReadableDatabase() in a background thread, such as with AsyncTask or IntentService.</p>
-<pre><code>public class FeedReaderDbHelper extends SQLiteOpenHelper {
-    // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = &quot;FeedReader.db&quot;;
-
-    public FeedReaderDbHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-    public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_ENTRIES);
-    }
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // This database is only a cache for online data, so its upgrade policy is
-        // to simply to discard the data and start over
-        db.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(db);
-    }
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        onUpgrade(db, oldVersion, newVersion);
-    }
-}
-</code></pre><p>然后</p>
-<pre><code>FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(getContext())
-</code></pre><h6 id="Put-Information-into-a-Database"><a href="#Put-Information-into-a-Database" class="headerlink" title="Put Information into a Database"></a>Put Information into a Database</h6><pre><code>// Gets the data repository in write mode
-SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-// Create a new map of values, where column names are the keys
-ContentValues values = new ContentValues();
-values.put(FeedEntry.COLUMN_NAME_ENTRY_ID, id);
-values.put(FeedEntry.COLUMN_NAME_TITLE, title);
-values.put(FeedEntry.COLUMN_NAME_CONTENT, content);
-
-// Insert the new row, returning the primary key value of the new row
-long newRowId;
-newRowId = db.insert(
-         FeedEntry.TABLE_NAME,
-         FeedEntry.COLUMN_NAME_NULLABLE,
-         values);
-</code></pre><h6 id="Read-Information-from-a-Database"><a href="#Read-Information-from-a-Database" class="headerlink" title="Read Information from a Database"></a>Read Information from a Database</h6><pre><code>SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-// Define a projection that specifies which columns from the database
-// you will actually use after this query.
-String[] projection = {
-    FeedEntry._ID,
-    FeedEntry.COLUMN_NAME_TITLE,
-    FeedEntry.COLUMN_NAME_UPDATED,
-    ...
-    };
-
-// How you want the results sorted in the resulting Cursor
-String sortOrder =
-    FeedEntry.COLUMN_NAME_UPDATED + &quot; DESC&quot;;
-
-Cursor c = db.query(
-    FeedEntry.TABLE_NAME,  // The table to query
-    projection,                               // The columns to return
-    selection,                                // The columns for the WHERE clause
-    selectionArgs,                            // The values for the WHERE clause
-    null,                                     // don&apos;t group the rows
-    null,                                     // don&apos;t filter by row groups
-    sortOrder                                 // The sort order
-    );
-</code></pre><p>then</p>
-<pre><code>cursor.moveToFirst();
-long itemId = cursor.getLong(
-    cursor.getColumnIndexOrThrow(FeedEntry._ID)
-)
-</code></pre><h6 id="Delete-Information-from-a-Database"><a href="#Delete-Information-from-a-Database" class="headerlink" title="Delete Information from a Database"></a>Delete Information from a Database</h6><pre><code>// Define &apos;where&apos; part of query.
-String selection = FeedEntry.COLUMN_NAME_ENTRY_ID + &quot; LIKE ?&quot;;
-// Specify arguments in placeholder order.
-String[] selectionArgs = { String.valueOf(rowId) };
-// Issue SQL statement.
-db.delete(table_name, selection, selectionArgs)
-</code></pre><h6 id="Update-a-Database"><a href="#Update-a-Database" class="headerlink" title="Update a Database"></a>Update a Database</h6><pre><code>SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-// New value for one column
-ContentValues values = new ContentValues();
-values.put(FeedEntry.COLUMN_NAME_TITLE, title);
-
-// Which row to update, based on the ID
-String selection = FeedEntry.COLUMN_NAME_ENTRY_ID + &quot; LIKE ?&quot;;
-String[] selectionArgs = { String.valueOf(rowId) };
-
-int count = db.update(
-    FeedReaderDbHelper.FeedEntry.TABLE_NAME,
-    values,
-    selection,
-    selectionArgs);
-</code></pre>
-          
+          <h4 id="activity之间的跳转和数据传递"><a href="#activity之间的跳转和数据传递" class="headerlink" title="activity之间的跳转和数据传递"></a>activity之间的跳转和数据传递</h4>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/19/android入门/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -2578,41 +1413,12 @@ int count = db.update(
 
       
         
-          
-            <h1 id="段落和换行"><a href="#段落和换行" class="headerlink" title="段落和换行"></a>段落和换行</h1><p>一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行<br>如果你确实想要依赖 Markdown 来插入 <br \=""> 标签的话，在插入处先按入两个以上的空格然后回车。  </p>
-<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h1><pre><code># 一级标题  
-## 二级标题  
-### 三级标题  
-</code></pre><p>以此类推，总共六级标题</p>
-<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><p> 无序列表使用星号、加号或是减号作为列表标记: </p>
-<pre><code>*   Red
-*   Green
-*   Blue
-</code></pre><p>or  </p>
-<pre><code>+   Red
-+   Green
-+   Blue      
-</code></pre><p>or  </p>
-<pre><code>-   Red
--   Green
--   Blue
-</code></pre><p>有序列表则使用数字接着一个英文句点：</p>
-<pre><code>1.  Bird
-2.  McHale
-3.  Parish
-</code></pre><h1 id="区块引用-Blockquotes"><a href="#区块引用-Blockquotes" class="headerlink" title="区块引用 Blockquotes"></a>区块引用 Blockquotes</h1><p>只需要在文本前加入 <code>&gt;</code> 这种尖括号（大于号）即可</p>
-<blockquote>
-<p>例如这样  </p>
-</blockquote>
-<h1 id="代码区块"><a href="#代码区块" class="headerlink" title="代码区块"></a>代码区块</h1><p>缩进 4 个空格或是 1 个制表符就可,例如  </p>
-<pre><code>这是一个普通段落：
-    这是一个代码区块。  
-</code></pre><h1 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h1><p>在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。  </p>
-<pre><code>***
-</code></pre><h1 id="图片与链接"><a href="#图片与链接" class="headerlink" title="图片与链接"></a>图片与链接</h1><pre><code>连接 [an example](http://example.com/ &quot;Title&quot;)
-图片 ![Alt text](/path/to/img.jpg)
-</code></pre>
-          
+          <h1 id="段落和换行"><a href="#段落和换行" class="headerlink" title="段落和换行"></a>段落和换行</h1>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/06/06/Markdown入门/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -2684,7 +1490,7 @@ int count = db.update(
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -2759,7 +1565,7 @@ int count = db.update(
 <div class="theme-info">
   主题 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
+    NexT.Pisces
   </a>
 </div>
 
@@ -2824,6 +1630,13 @@ int count = db.update(
 
   
   
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
 
   
 
