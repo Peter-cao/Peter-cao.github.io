@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-07-05T08:40:53.000Z</updated>
+  <updated>2016-07-07T02:16:05.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,104 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SAX解析xml</title>
+    <link href="http://yoursite.com/2016/07/06/SAX%E8%A7%A3%E6%9E%90xml/"/>
+    <id>http://yoursite.com/2016/07/06/SAX解析xml/</id>
+    <published>2016-07-06T14:24:26.000Z</published>
+    <updated>2016-07-07T02:16:05.000Z</updated>
+    
+    <content type="html">&lt;p&gt;常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;DOM（文件对象模型）解析：解析器读入整个文档，然后构建一个驻留内存的树结构，然后代码就可以根据DOM接口来操作这个树结构了。  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;优点：整个文档读入内存，方便操作：支持修改、删除和重现排列等多种功能。
+缺点：将整个文档读入内存中，保留了过多的不需要的节点，浪费内存和空间。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;为了解决DOM解析存在的问题，就出现了SAX解析&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;优点：不用实现调入整个文档，占用资源少。尤其在嵌入式环境中，如android，极力推荐使用SAX解析。
+缺点：不像DOM解析一样将文档长期驻留在内存中，数据不是持久的。如果事件过后没有保存数据，数据就会丢失。
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用方法：  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先由SAXParserFactory这个工厂的实例生产一个SAXParser解析器；&lt;/li&gt;
+&lt;li&gt;然后根据读取的xml路径，传递给SAXParser这个解析器，再调用parse()方法；&lt;/li&gt;
+&lt;li&gt;在parse()方法中需要传递DefaultHandler这个类的扩展类的实例，因为它才会真正去一步步去解析xml文档的；&lt;/li&gt;
+&lt;li&gt;在DefaultHandler扩展类中需要重写startDocument()，endDocument()，startElement（），endElement（），characters（）等等方法，因为他们方法内部有返回的具体文档的结果。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;具体代码：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;File file = new File(Environment.getExternalStorageDirectory()+&amp;quot;channel.xml&amp;quot;);
+InputStream inputStream = new FileInputStream(file) ;
+SAXParserFactory factory = SAXParserFactory.newInstance();
+SAXParser parser = factory.newSAXParser();
+XMLReader reader = parser.getXMLReader();
+SAXHeaper handler = new SAXHeaper();
+parser.parse(inputStream,handler);  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;SAXHeaper类（继承DefaultHandler类）：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.ArrayList;
+
+/**
+ * Created by ck on 2016/7/6.
+ */
+public class SAXHeaper extends DefaultHandler {
+    private String TagName;
+    private channel channel;
+    private ArrayList&amp;lt;channel&amp;gt; channels;
+    //解析开始
+    @Override
+    public void startDocument() throws SAXException {
+        channels = new ArrayList&amp;lt;channel&amp;gt;();
+    }
+    //解析结束
+    @Override
+    public void endDocument() throws SAXException {
+        Log.i(&amp;quot;SAXHeaper&amp;quot;,channels.toString());
+    }
+    //标签开始
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        TagName = localName;
+        if(localName.equals(&amp;quot;item&amp;quot;)){
+            channel = new channel();
+        }
+    }
+    //标签结束
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+        TagName = null;
+        if(localName.equals(&amp;quot;item&amp;quot;)){
+            channels.add(channel);
+            channel = null;
+        }
+
+    }
+    //标签中的内容
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        String chars = new String(ch,start,length);
+        if(TagName.equals(&amp;quot;title&amp;quot;)){
+            channel.setTitle(chars);
+        }else if(TagName.equals(&amp;quot;link&amp;quot;)){
+            channel.setLink(chars);
+        }else if(TagName.equals(&amp;quot;category&amp;quot;)){
+            channel.setCategory(chars);
+        }else if(TagName.equals(&amp;quot;description&amp;quot;)){
+            channel.setDescription(chars);
+        }else if(TagName.equals(&amp;quot;pubDate&amp;quot;)){
+            channel.setPubDate(chars);
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="xml" scheme="http://yoursite.com/tags/xml/"/>
+    
+  </entry>
   
   <entry>
     <title>android_支持各种屏幕尺寸</title>
@@ -1001,7 +1099,7 @@ finish();
     <link href="http://yoursite.com/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2016/06/19/androidStudio快捷键整理/</id>
     <published>2016-06-19T10:25:35.000Z</published>
-    <updated>2016-06-27T06:49:18.931Z</updated>
+    <updated>2016-06-27T06:49:18.000Z</updated>
     
     <content type="html">&lt;h4 id=&quot;generate&quot;&gt;&lt;a href=&quot;#generate&quot; class=&quot;headerlink&quot; title=&quot;generate&quot;&gt;&lt;/a&gt;generate&lt;/h4&gt;&lt;p&gt;Alt + insert  &lt;/p&gt;
 &lt;h4 id=&quot;格式化代码&quot;&gt;&lt;a href=&quot;#格式化代码&quot; class=&quot;headerlink&quot; title=&quot;格式化代码&quot;&gt;&lt;/a&gt;格式化代码&lt;/h4&gt;&lt;p&gt;Ctrl+Alt+L &lt;/p&gt;
@@ -1395,7 +1493,7 @@ int count = db.update(
     <link href="http://yoursite.com/2016/06/13/Async/"/>
     <id>http://yoursite.com/2016/06/13/Async/</id>
     <published>2016-06-13T05:15:23.000Z</published>
-    <updated>2016-06-20T03:58:33.091Z</updated>
+    <updated>2016-06-20T03:58:33.000Z</updated>
     
     <content type="html"></content>
     

@@ -68,10 +68,12 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="xml," />
 
 
 
+
+  
 
 
   <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
@@ -86,15 +88,16 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/archives/2016/index.html">
+<meta name="description" content="常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SAX解析xml">
+<meta property="og:url" content="http://yoursite.com/2016/07/06/SAX解析xml/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description">
+<meta property="og:description" content="常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析">
+<meta property="og:updated_time" content="2016-07-07T02:16:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
-<meta name="twitter:description">
+<meta name="twitter:title" content="SAX解析xml">
+<meta name="twitter:description" content="常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析">
 
 
 
@@ -112,7 +115,7 @@
   };
 </script>
 
-  <title> 归档 | 个人博客 </title>
+  <title> SAX解析xml | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -143,7 +146,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,403 +264,232 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 13 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SAX解析xml
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-06T22:24:26+08:00" content="2016-07-06">
+              2016-07-06
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/06/SAX解析xml/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/06/SAX解析xml/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析<br><a id="more"></a><br>DOM（文件对象模型）解析：解析器读入整个文档，然后构建一个驻留内存的树结构，然后代码就可以根据DOM接口来操作这个树结构了。  </p>
+<pre><code>优点：整个文档读入内存，方便操作：支持修改、删除和重现排列等多种功能。
+缺点：将整个文档读入内存中，保留了过多的不需要的节点，浪费内存和空间。
+</code></pre><p>为了解决DOM解析存在的问题，就出现了SAX解析</p>
+<pre><code>优点：不用实现调入整个文档，占用资源少。尤其在嵌入式环境中，如android，极力推荐使用SAX解析。
+缺点：不像DOM解析一样将文档长期驻留在内存中，数据不是持久的。如果事件过后没有保存数据，数据就会丢失。
+</code></pre><p>使用方法：  </p>
+<ol>
+<li>先由SAXParserFactory这个工厂的实例生产一个SAXParser解析器；</li>
+<li>然后根据读取的xml路径，传递给SAXParser这个解析器，再调用parse()方法；</li>
+<li>在parse()方法中需要传递DefaultHandler这个类的扩展类的实例，因为它才会真正去一步步去解析xml文档的；</li>
+<li>在DefaultHandler扩展类中需要重写startDocument()，endDocument()，startElement（），endElement（），characters（）等等方法，因为他们方法内部有返回的具体文档的结果。</li>
+</ol>
+<p>具体代码：</p>
+<pre><code>File file = new File(Environment.getExternalStorageDirectory()+&quot;channel.xml&quot;);
+InputStream inputStream = new FileInputStream(file) ;
+SAXParserFactory factory = SAXParserFactory.newInstance();
+SAXParser parser = factory.newSAXParser();
+XMLReader reader = parser.getXMLReader();
+SAXHeaper handler = new SAXHeaper();
+parser.parse(inputStream,handler);  
+</code></pre><p>SAXHeaper类（继承DefaultHandler类）：</p>
+<pre><code>import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.ArrayList;
+
+/**
+ * Created by ck on 2016/7/6.
+ */
+public class SAXHeaper extends DefaultHandler {
+    private String TagName;
+    private channel channel;
+    private ArrayList&lt;channel&gt; channels;
+    //解析开始
+    @Override
+    public void startDocument() throws SAXException {
+        channels = new ArrayList&lt;channel&gt;();
+    }
+    //解析结束
+    @Override
+    public void endDocument() throws SAXException {
+        Log.i(&quot;SAXHeaper&quot;,channels.toString());
+    }
+    //标签开始
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        TagName = localName;
+        if(localName.equals(&quot;item&quot;)){
+            channel = new channel();
+        }
+    }
+    //标签结束
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+        TagName = null;
+        if(localName.equals(&quot;item&quot;)){
+            channels.add(channel);
+            channel = null;
+        }
+
+    }
+    //标签中的内容
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        String chars = new String(ch,start,length);
+        if(TagName.equals(&quot;title&quot;)){
+            channel.setTitle(chars);
+        }else if(TagName.equals(&quot;link&quot;)){
+            channel.setLink(chars);
+        }else if(TagName.equals(&quot;category&quot;)){
+            channel.setCategory(chars);
+        }else if(TagName.equals(&quot;description&quot;)){
+            channel.setDescription(chars);
+        }else if(TagName.equals(&quot;pubDate&quot;)){
+            channel.setPubDate(chars);
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Petercao WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Petercao Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
 
       
+    </div>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xml/" rel="tag">#xml</a>
+          
+        </div>
+      
 
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/07/06/SAX解析xml/" itemprop="url">
-              
-                <span itemprop="name">SAX解析xml</span>
-              
-            </a>
-        
-      </h1>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/02/android-支持各种屏幕尺寸/" rel="next" title="android_支持各种屏幕尺寸">
+                <i class="fa fa-chevron-left"></i> android_支持各种屏幕尺寸
+              </a>
+            
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-06T22:24:26+08:00"
-              content="2016-07-06" >
-          07-06
-        </time>
-      </div>
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
 
-    </header>
+      
+      
+    </footer>
   </article>
 
 
 
-    
-
+    <div class="post-spread">
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
         
-            <a class="post-title-link" href="/2016/07/02/android-支持各种屏幕尺寸/" itemprop="url">
-              
-                <span itemprop="name">android_支持各种屏幕尺寸</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-02T09:44:09+08:00"
-              content="2016-07-02" >
-          07-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 
       
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/26/android-文件共享/" itemprop="url">
-              
-                <span itemprop="name">android_文件共享</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-26T15:12:59+08:00"
-              content="2016-06-26" >
-          06-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/23/android-简单数据的分享/" itemprop="url">
-              
-                <span itemprop="name">android_简单数据的分享</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-23T22:25:22+08:00"
-              content="2016-06-23" >
-          06-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/23/翻墙方法/" itemprop="url">
-              
-                <span itemprop="name">shadowsocks搭建VPN</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-23T13:03:22+08:00"
-              content="2016-06-23" >
-          06-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/23/android-系统权限/" itemprop="url">
-              
-                <span itemprop="name">android_系统权限</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-23T00:07:25+08:00"
-              content="2016-06-23" >
-          06-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/22/android-与其他APP互动/" itemprop="url">
-              
-                <span itemprop="name">android_与其他APP互动</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-22T23:26:17+08:00"
-              content="2016-06-22" >
-          06-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/19/androidStudio快捷键整理/" itemprop="url">
-              
-                <span itemprop="name">androidStudio快捷键整理</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-19T18:25:35+08:00"
-              content="2016-06-19" >
-          06-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/19/android入门/" itemprop="url">
-              
-                <span itemprop="name">android学习记录</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-19T18:09:27+08:00"
-              content="2016-06-19" >
-          06-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/06/13/Async/" itemprop="url">
-              
-                <span itemprop="name">Async</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-13T13:15:23+08:00"
-              content="2016-06-13" >
-          06-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2016/page/2/">2</a><a class="extend next" rel="next" href="/archives/2016/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
-
+    </div>
+  </div>
 
 
           </div>
@@ -665,6 +497,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/06/SAX解析xml/"
+           data-title="SAX解析xml" data-url="http://yoursite.com/2016/07/06/SAX解析xml/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -684,8 +524,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/aaa.jpg"
@@ -742,6 +591,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -845,11 +705,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

@@ -4,6 +4,90 @@
   
     
     <entry>
+      <title><![CDATA[SAX解析xml]]></title>
+      <url>http://yoursite.com/2016/07/06/SAX%E8%A7%A3%E6%9E%90xml/</url>
+      <content type="html"><![CDATA[<p>常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析<br><a id="more"></a><br>DOM（文件对象模型）解析：解析器读入整个文档，然后构建一个驻留内存的树结构，然后代码就可以根据DOM接口来操作这个树结构了。  </p>
+<pre><code>优点：整个文档读入内存，方便操作：支持修改、删除和重现排列等多种功能。
+缺点：将整个文档读入内存中，保留了过多的不需要的节点，浪费内存和空间。
+</code></pre><p>为了解决DOM解析存在的问题，就出现了SAX解析</p>
+<pre><code>优点：不用实现调入整个文档，占用资源少。尤其在嵌入式环境中，如android，极力推荐使用SAX解析。
+缺点：不像DOM解析一样将文档长期驻留在内存中，数据不是持久的。如果事件过后没有保存数据，数据就会丢失。
+</code></pre><p>使用方法：  </p>
+<ol>
+<li>先由SAXParserFactory这个工厂的实例生产一个SAXParser解析器；</li>
+<li>然后根据读取的xml路径，传递给SAXParser这个解析器，再调用parse()方法；</li>
+<li>在parse()方法中需要传递DefaultHandler这个类的扩展类的实例，因为它才会真正去一步步去解析xml文档的；</li>
+<li>在DefaultHandler扩展类中需要重写startDocument()，endDocument()，startElement（），endElement（），characters（）等等方法，因为他们方法内部有返回的具体文档的结果。</li>
+</ol>
+<p>具体代码：</p>
+<pre><code>File file = new File(Environment.getExternalStorageDirectory()+&quot;channel.xml&quot;);
+InputStream inputStream = new FileInputStream(file) ;
+SAXParserFactory factory = SAXParserFactory.newInstance();
+SAXParser parser = factory.newSAXParser();
+XMLReader reader = parser.getXMLReader();
+SAXHeaper handler = new SAXHeaper();
+parser.parse(inputStream,handler);  
+</code></pre><p>SAXHeaper类（继承DefaultHandler类）：</p>
+<pre><code>import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.ArrayList;
+
+/**
+ * Created by ck on 2016/7/6.
+ */
+public class SAXHeaper extends DefaultHandler {
+    private String TagName;
+    private channel channel;
+    private ArrayList&lt;channel&gt; channels;
+    //解析开始
+    @Override
+    public void startDocument() throws SAXException {
+        channels = new ArrayList&lt;channel&gt;();
+    }
+    //解析结束
+    @Override
+    public void endDocument() throws SAXException {
+        Log.i(&quot;SAXHeaper&quot;,channels.toString());
+    }
+    //标签开始
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        TagName = localName;
+        if(localName.equals(&quot;item&quot;)){
+            channel = new channel();
+        }
+    }
+    //标签结束
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+        TagName = null;
+        if(localName.equals(&quot;item&quot;)){
+            channels.add(channel);
+            channel = null;
+        }
+
+    }
+    //标签中的内容
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        String chars = new String(ch,start,length);
+        if(TagName.equals(&quot;title&quot;)){
+            channel.setTitle(chars);
+        }else if(TagName.equals(&quot;link&quot;)){
+            channel.setLink(chars);
+        }else if(TagName.equals(&quot;category&quot;)){
+            channel.setCategory(chars);
+        }else if(TagName.equals(&quot;description&quot;)){
+            channel.setDescription(chars);
+        }else if(TagName.equals(&quot;pubDate&quot;)){
+            channel.setPubDate(chars);
+        }
+    }
+}
+</code></pre>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[android_支持各种屏幕尺寸]]></title>
       <url>http://yoursite.com/2016/07/02/android-%E6%94%AF%E6%8C%81%E5%90%84%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8/</url>
       <content type="html"><![CDATA[<h4 id="使用”wrap-content”和”match-parent”"><a href="#使用”wrap-content”和”match-parent”" class="headerlink" title="使用”wrap_content”和”match_parent”"></a>使用”wrap_content”和”match_parent”</h4><p>如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。</p>
