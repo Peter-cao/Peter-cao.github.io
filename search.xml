@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title><![CDATA[android_拍照]]></title>
+      <url>http://yoursite.com/2016/07/14/android-%E6%8B%8D%E7%85%A7/</url>
+      <content type="html"><![CDATA[<a id="more"></a>
+<h4 id="拍照"><a href="#拍照" class="headerlink" title="拍照"></a>拍照</h4><h5 id="请求相机权限"><a href="#请求相机权限" class="headerlink" title="请求相机权限"></a>请求相机权限</h5><p>如果拍照是app的一个必要的功能，可以在Google Play上设置为只对有相机的设备可见。</p>
+<pre><code>&lt;manifest ... &gt;
+    &lt;uses-feature android:name=&quot;android.hardware.camera&quot;
+                  android:required=&quot;true&quot; /&gt;
+    ...
+&lt;/manifest&gt;
+</code></pre><p>如果相机功能不是必须的，则android:required=”false”,然后调用<code>hasSystemFeature(PackageManager.FEATURE_CAMERA)</code>来判断相机是否可用</p>
+<h5 id="获得照片通过相机app"><a href="#获得照片通过相机app" class="headerlink" title="获得照片通过相机app"></a>获得照片通过相机app</h5><pre><code>static final int REQUEST_IMAGE_CAPTURE = 1;
+
+private void dispatchTakePictureIntent() {
+    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    }
+}
+</code></pre><p>startActivityForResult()方法被resolveActivity()（该方法返回能处理Intent的第一个Activity组件）方法保护了起来</p>
+<h5 id="获得缩略图"><a href="#获得缩略图" class="headerlink" title="获得缩略图"></a>获得缩略图</h5><pre><code>@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (requestCode == REQUEST_IMAGE_CAPTURE &amp;&amp; resultCode == RESULT_OK) {
+        Bundle extras = data.getExtras();
+        Bitmap imageBitmap = (Bitmap) extras.get(&quot;data&quot;);
+        mImageView.setImageBitmap(imageBitmap);
+    }
+}
+</code></pre><h5 id="保存全尺寸照片"><a href="#保存全尺寸照片" class="headerlink" title="保存全尺寸照片"></a>保存全尺寸照片</h5><h5 id="将图片添加到画廊"><a href="#将图片添加到画廊" class="headerlink" title="将图片添加到画廊"></a>将图片添加到画廊</h5><h5 id="解码缩放的图片"><a href="#解码缩放的图片" class="headerlink" title="解码缩放的图片"></a>解码缩放的图片</h5><h4 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h4><h4 id="控制摄像头"><a href="#控制摄像头" class="headerlink" title="控制摄像头"></a>控制摄像头</h4>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[SAX解析xml]]></title>
       <url>http://yoursite.com/2016/07/06/SAX%E8%A7%A3%E6%9E%90xml/</url>
       <content type="html"><![CDATA[<p>常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析<br><a id="more"></a><br>DOM（文件对象模型）解析：解析器读入整个文档，然后构建一个驻留内存的树结构，然后代码就可以根据DOM接口来操作这个树结构了。  </p>
@@ -20,13 +51,12 @@
 <li>在DefaultHandler扩展类中需要重写startDocument()，endDocument()，startElement（），endElement（），characters（）等等方法，因为他们方法内部有返回的具体文档的结果。</li>
 </ol>
 <p>具体代码：</p>
-<pre><code>File file = new File(Environment.getExternalStorageDirectory()+&quot;channel.xml&quot;);
+<pre><code>File file = new File(Environment.getExternalStorageDirectory()+&quot;/channel.xml&quot;);
 InputStream inputStream = new FileInputStream(file) ;
 SAXParserFactory factory = SAXParserFactory.newInstance();
 SAXParser parser = factory.newSAXParser();
-XMLReader reader = parser.getXMLReader();
 SAXHeaper handler = new SAXHeaper();
-parser.parse(inputStream,handler);  
+parser.parse(inputStream,handler);
 </code></pre><p>SAXHeaper类（继承DefaultHandler类）：</p>
 <pre><code>import org.xml.sax.helpers.DefaultHandler;
 
@@ -60,7 +90,7 @@ public class SAXHeaper extends DefaultHandler {
     //标签结束
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        TagName = null;
+        TagName = &quot;&quot;;
         if(localName.equals(&quot;item&quot;)){
             channels.add(channel);
             channel = null;
@@ -84,7 +114,8 @@ public class SAXHeaper extends DefaultHandler {
         }
     }
 }
-</code></pre>]]></content>
+</code></pre><p>代码：<a href="/uploads/SAXTest.zip">SAXTest.zip</a></p>
+]]></content>
     </entry>
     
     <entry>

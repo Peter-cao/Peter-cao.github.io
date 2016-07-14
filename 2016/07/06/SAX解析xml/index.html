@@ -73,8 +73,6 @@
 
 
 
-  
-
 
   <link rel="alternate" href="/atom.xml" title="个人博客" type="application/atom+xml" />
 
@@ -94,7 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/07/06/SAX解析xml/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析">
-<meta property="og:updated_time" content="2016-07-07T02:16:05.000Z">
+<meta property="og:updated_time" content="2016-07-14T11:52:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SAX解析xml">
 <meta name="twitter:description" content="常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析">
@@ -346,13 +344,12 @@
 <li>在DefaultHandler扩展类中需要重写startDocument()，endDocument()，startElement（），endElement（），characters（）等等方法，因为他们方法内部有返回的具体文档的结果。</li>
 </ol>
 <p>具体代码：</p>
-<pre><code>File file = new File(Environment.getExternalStorageDirectory()+&quot;channel.xml&quot;);
+<pre><code>File file = new File(Environment.getExternalStorageDirectory()+&quot;/channel.xml&quot;);
 InputStream inputStream = new FileInputStream(file) ;
 SAXParserFactory factory = SAXParserFactory.newInstance();
 SAXParser parser = factory.newSAXParser();
-XMLReader reader = parser.getXMLReader();
 SAXHeaper handler = new SAXHeaper();
-parser.parse(inputStream,handler);  
+parser.parse(inputStream,handler);
 </code></pre><p>SAXHeaper类（继承DefaultHandler类）：</p>
 <pre><code>import org.xml.sax.helpers.DefaultHandler;
 
@@ -386,7 +383,7 @@ public class SAXHeaper extends DefaultHandler {
     //标签结束
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        TagName = null;
+        TagName = &quot;&quot;;
         if(localName.equals(&quot;item&quot;)){
             channels.add(channel);
             channel = null;
@@ -410,7 +407,8 @@ public class SAXHeaper extends DefaultHandler {
         }
     }
 }
-</code></pre>
+</code></pre><p>代码：<a href="/uploads/SAXTest.zip">SAXTest.zip</a></p>
+
       
     </div>
 
@@ -468,6 +466,10 @@ public class SAXHeaper extends DefaultHandler {
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/14/android-拍照/" rel="prev" title="android_拍照">
+                android_拍照 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -545,7 +547,7 @@ public class SAXHeaper extends DefaultHandler {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
