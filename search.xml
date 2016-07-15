@@ -4,6 +4,242 @@
   
     
     <entry>
+      <title><![CDATA[android_AppWidget]]></title>
+      <url>http://yoursite.com/2016/07/15/android-AppWidget/</url>
+      <content type="html"><![CDATA[<p>AppWidget就是我们平常在桌面上见到的那种一个个的小窗口，利用这个小窗口可以给用户提供一些方便快捷的操作。<br><a id="more"></a></p>
+<h4 id="创建一个简单的AppWidget"><a href="#创建一个简单的AppWidget" class="headerlink" title="创建一个简单的AppWidget"></a>创建一个简单的AppWidget</h4><ol>
+<li><p>在res文件夹下新建一个名字为xml的文件夹，然后在xml目录下创建一个appwidget_info_info.xml文件</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;appwidget-provider xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:initialKeyguardLayout=&quot;@layout/appwidget_info&quot;
+    android:initialLayout=&quot;@layout/appwidget_info&quot;
+    android:minHeight=&quot;40dp&quot;
+    android:minWidth=&quot;250dp&quot;
+    android:previewImage=&quot;@drawable/example_appwidget_preview&quot;
+    android:resizeMode=&quot;horizontal|vertical&quot;
+    android:updatePeriodMillis=&quot;86400000&quot;
+    android:widgetCategory=&quot;home_screen&quot;&gt;&lt;/appwidget-provider&gt;
+</code></pre></li>
+<li><p>在layout文件夹下面新建一个appwidgetlayout.xml文件</p>
+</li>
+</ol>
+<pre><code>    &lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:padding=&quot;@dimen/widget_margin&quot;&gt;
+
+    &lt;TextView
+        android:id=&quot;@+id/appwidget_text&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:contentDescription=&quot;@string/appwidget_text&quot;
+        android:text=&quot;@string/appwidget_text&quot;
+        android:textSize=&quot;24sp&quot;
+        android:textStyle=&quot;bold|italic&quot;
+        android:layout_marginLeft=&quot;8dp&quot;
+        android:layout_marginRight=&quot;8dp&quot;
+        android:layout_alignParentTop=&quot;true&quot;
+        android:layout_alignParentStart=&quot;true&quot; /&gt;
+
+    &lt;Button
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;@string/btn_name&quot;
+        android:id=&quot;@+id/button&quot;
+        android:layout_below=&quot;@+id/appwidget_text&quot;
+        android:layout_alignStart=&quot;@+id/appwidget_text&quot; /&gt;
+
+
+
+&lt;/RelativeLayout&gt;
+</code></pre><ol>
+<li><p>继承AppWidgetProvider类</p>
+<pre><code>public class appwidgetInfo extends AppWidgetProvider {
+
+private  static  String broadCastString = &quot;com.caokai.broadCastString&quot;;
+static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                            int appWidgetId) {
+    //发送广播的PendingIntent
+    Intent intent = new Intent();
+    intent.setAction(broadCastString);
+    PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+
+    //启动activity的PendingIntent
+    Intent activityIntent =  new Intent(context,MainActivity.class);
+    PendingIntent pendingIntent1 = PendingIntent.getActivity(context,0,activityIntent,0);
+
+    CharSequence widgetText = &quot;test&quot;;
+    // 获取RemoteViews
+    RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget_info);
+    views.setTextViewText(R.id.appwidget_text, widgetText);
+
+    //设置点击事件
+    views.setOnClickPendingIntent(R.id.button,pendingIntent);
+    //设置点击事件
+    views.setOnClickPendingIntent(R.id.appwidget_text,pendingIntent1);
+
+    // Instruct the widget manager to update the widget
+    appWidgetManager.updateAppWidget(appWidgetId, views);
+}
+
+@Override
+public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    // There may be multiple widgets active, so update all of them
+    for (int appWidgetId : appWidgetIds) {
+        updateAppWidget(context, appWidgetManager, appWidgetId);
+    }
+}
+
+@Override
+public void onEnabled(Context context) {
+    // Enter relevant functionality for when the first widget is created
+}
+
+@Override
+public void onDisabled(Context context) {
+    // Enter relevant functionality for when the last widget is disabled
+}
+
+@Override
+public void onReceive(Context context, Intent intent) {
+    if(intent.getAction().equals(broadCastString)){
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.appwidget_info);
+        remoteViews.setTextViewText(R.id.appwidget_text,&quot;点击到了&quot;);
+
+        AppWidgetManager appWidgetManager =  AppWidgetManager.getInstance(context);
+
+        ComponentName componentName = new ComponentName(context,appwidgetInfo.class);
+        appWidgetManager.updateAppWidget(componentName,remoteViews);
+    }else{
+        super.onReceive(context, intent);
+    }
+
+}
+</code></pre><p> }</p>
+</li>
+</ol>
+<ol>
+<li><p>AndroidManifest.xml中申明</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    package=&quot;caokai.com.appwidgettest&quot;&gt;
+
+    &lt;application
+        android:allowBackup=&quot;true&quot;
+        android:icon=&quot;@mipmap/ic_launcher&quot;
+        android:label=&quot;@string/app_name&quot;
+        android:supportsRtl=&quot;true&quot;
+        android:theme=&quot;@style/AppTheme&quot;&gt;
+        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+            &lt;/intent-filter&gt;
+        &lt;/activity&gt;
+
+        &lt;receiver android:name=&quot;.appwidgetInfo&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_UPDATE&quot; /&gt;
+            &lt;/intent-filter&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;com.caokai.broadCastString&quot; /&gt;
+            &lt;/intent-filter&gt;
+
+            &lt;meta-data
+                android:name=&quot;android.appwidget.provider&quot;
+                android:resource=&quot;@xml/appwidget_info_info&quot; /&gt;
+        &lt;/receiver&gt;
+        &lt;receiver android:name=&quot;.NewAppWidget&quot;&gt;
+            &lt;intent-filter&gt;
+                &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_UPDATE&quot; /&gt;
+            &lt;/intent-filter&gt;
+
+            &lt;meta-data
+                android:name=&quot;android.appwidget.provider&quot;
+                android:resource=&quot;@xml/new_app_widget_info&quot; /&gt;
+        &lt;/receiver&gt;
+    &lt;/application&gt;
+
+&lt;/manifest&gt;
+</code></pre></li>
+</ol>
+<p>以上文件可在android studio中通过  New-&gt;Widget-&gt;AppWidget来自动生成</p>
+<h4 id="AppWidget与客户端程序交互"><a href="#AppWidget与客户端程序交互" class="headerlink" title="AppWidget与客户端程序交互"></a>AppWidget与客户端程序交互</h4><ol>
+<li><p>RemoteViews<br>因为appwidget运行的进程和我们创建的应用不在一个进程中，所以我们也就不能像平常引用控件那样来获得控件的实例。这个时候RemoteViews出场了。</p>
+<pre><code>RemoteViews remoteViews  = new RemoteViews(context.getPackageName(),R.layout.appwidgetlayout);
+
+remoteViews.setOnClickPendingIntent(R.id.btnSend, pendingIntent);  //为小工具上的按钮绑定事件
+</code></pre></li>
+<li><p>pendingIntent</p>
+<pre><code>//创建一个Intent对象
+Intent intent = new Intent();
+intent.setAction(broadCastString);
+
+//这一步相当于写信，说明这个信的作用到底是什么，在这里表示将发送一个广播
+PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+</code></pre></li>
+<li><p>在onUpdate()方法中绑定事件</p>
+<pre><code>/**
+* 到达指定的更新时间或者当用户向桌面添加AppWidget时被调用
+* */
+@Override
+public void onUpdate(Context context, AppWidgetManager appWidgetManager,
+        int[] appWidgetIds)
+        {
+
+                //创建一个Intent对象
+                Intent intent = new Intent();
+                intent.setAction(broadCastString);
+</code></pre></li>
+</ol>
+<pre><code>        //设置pendingIntent的作用
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        RemoteViews remoteViews  = new RemoteViews(context.getPackageName(),R.layout.appwidgetlayout);
+
+
+        //绑定事件
+        remoteViews.setOnClickPendingIntent(R.id.btnSend, pendingIntent);
+
+        //更新Appwidget
+        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+}
+</code></pre><ol>
+<li><p>在onReceive()方法中更新appwidget</p>
+<pre><code>/**
+ * 接受广播事件
+ * */
+@Override
+public void onReceive(Context context, Intent intent)
+{
+    if (intent.getAction().equals(broadCastString))
+    {               
+        //只能通过远程对象来设置appwidget中的控件状态
+        RemoteViews remoteViews  = new RemoteViews(context.getPackageName(),R.layout.appwidgetlayout);
+
+       //通过远程对象将按钮的文字设置为”hihi”
+        remoteViews.setTextViewText(R.id.btnSend, &quot;hihi&quot;);   
+
+        //获得appwidget管理实例，用于管理appwidget以便进行更新操作
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+
+        //相当于获得所有本程序创建的appwidget
+        ComponentName componentName = new ComponentName(context,AppWidget.class);
+
+        //更新appwidget
+        appWidgetManager.updateAppWidget(componentName, remoteViews);
+    }else{
+        super.onReceive(context, intent);
+    }
+
+}
+</code></pre></li>
+</ol>
+<p>代码：<a href="/uploads/AppWidgetTest.zip">AppWidgetTest.zip</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[android_拍照]]></title>
       <url>http://yoursite.com/2016/07/14/android-%E6%8B%8D%E7%85%A7/</url>
       <content type="html"><![CDATA[<a id="more"></a>
@@ -31,7 +267,54 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mImageView.setImageBitmap(imageBitmap);
     }
 }
-</code></pre><h5 id="保存全尺寸照片"><a href="#保存全尺寸照片" class="headerlink" title="保存全尺寸照片"></a>保存全尺寸照片</h5><h5 id="将图片添加到画廊"><a href="#将图片添加到画廊" class="headerlink" title="将图片添加到画廊"></a>将图片添加到画廊</h5><h5 id="解码缩放的图片"><a href="#解码缩放的图片" class="headerlink" title="解码缩放的图片"></a>解码缩放的图片</h5><h4 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h4><h4 id="控制摄像头"><a href="#控制摄像头" class="headerlink" title="控制摄像头"></a>控制摄像头</h4>]]></content>
+</code></pre><h5 id="保存全尺寸照片"><a href="#保存全尺寸照片" class="headerlink" title="保存全尺寸照片"></a>保存全尺寸照片</h5><pre><code>&lt;manifest ...&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+    ...
+&lt;/manifest&gt;  
+</code></pre><hr>
+<pre><code>String mCurrentPhotoPath;
+
+private File createImageFile() throws IOException {
+    // Create an image file name
+    String timeStamp = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;).format(new Date());
+    String imageFileName = &quot;JPEG_&quot; + timeStamp + &quot;_&quot;;
+    File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+    File image = File.createTempFile(
+        imageFileName,  /* prefix */
+        &quot;.jpg&quot;,         /* suffix */
+        storageDir      /* directory */
+    );
+
+    // Save a file: path for use with ACTION_VIEW intents
+    mCurrentPhotoPath = &quot;file:&quot; + image.getAbsolutePath();
+    return image;
+}
+</code></pre><hr>
+<pre><code>static final int REQUEST_TAKE_PHOTO = 1;
+
+private void dispatchTakePictureIntent() {
+    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    // Ensure that there&apos;s a camera activity to handle the intent
+    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        // Create the File where the photo should go
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+            ...
+        }
+        // Continue only if the File was successfully created
+        if (photoFile != null) {
+            Uri photoURI = FileProvider.getUriForFile(this,
+                                                  &quot;com.example.android.fileprovider&quot;,
+                                                  photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+        }
+    }
+}
+</code></pre><h5 id="将图片添加到画廊"><a href="#将图片添加到画廊" class="headerlink" title="将图片添加到画廊"></a>将图片添加到画廊</h5><h5 id="解码缩放的图片"><a href="#解码缩放的图片" class="headerlink" title="解码缩放的图片"></a>解码缩放的图片</h5><h4 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h4><h4 id="控制摄像头"><a href="#控制摄像头" class="headerlink" title="控制摄像头"></a>控制摄像头</h4>]]></content>
     </entry>
     
     <entry>

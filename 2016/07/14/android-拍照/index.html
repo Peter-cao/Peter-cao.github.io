@@ -98,7 +98,7 @@
 &amp;lt;manifest ... &amp;gt;
     &amp;lt;uses-feature android:name=&amp;quot;android.hardware.camera&amp;quot;
                   android:required=&amp;quot;true&amp;quot;">
-<meta property="og:updated_time" content="2016-07-14T08:38:53.000Z">
+<meta property="og:updated_time" content="2016-07-14T12:17:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android_拍照">
 <meta name="twitter:description" content="拍照请求相机权限如果拍照是app的一个必要的功能，可以在Google Play上设置为只对有相机的设备可见。
@@ -364,7 +364,54 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mImageView.setImageBitmap(imageBitmap);
     }
 }
-</code></pre><h5 id="保存全尺寸照片"><a href="#保存全尺寸照片" class="headerlink" title="保存全尺寸照片"></a>保存全尺寸照片</h5><h5 id="将图片添加到画廊"><a href="#将图片添加到画廊" class="headerlink" title="将图片添加到画廊"></a>将图片添加到画廊</h5><h5 id="解码缩放的图片"><a href="#解码缩放的图片" class="headerlink" title="解码缩放的图片"></a>解码缩放的图片</h5><h4 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h4><h4 id="控制摄像头"><a href="#控制摄像头" class="headerlink" title="控制摄像头"></a>控制摄像头</h4>
+</code></pre><h5 id="保存全尺寸照片"><a href="#保存全尺寸照片" class="headerlink" title="保存全尺寸照片"></a>保存全尺寸照片</h5><pre><code>&lt;manifest ...&gt;
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+    ...
+&lt;/manifest&gt;  
+</code></pre><hr>
+<pre><code>String mCurrentPhotoPath;
+
+private File createImageFile() throws IOException {
+    // Create an image file name
+    String timeStamp = new SimpleDateFormat(&quot;yyyyMMdd_HHmmss&quot;).format(new Date());
+    String imageFileName = &quot;JPEG_&quot; + timeStamp + &quot;_&quot;;
+    File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+    File image = File.createTempFile(
+        imageFileName,  /* prefix */
+        &quot;.jpg&quot;,         /* suffix */
+        storageDir      /* directory */
+    );
+
+    // Save a file: path for use with ACTION_VIEW intents
+    mCurrentPhotoPath = &quot;file:&quot; + image.getAbsolutePath();
+    return image;
+}
+</code></pre><hr>
+<pre><code>static final int REQUEST_TAKE_PHOTO = 1;
+
+private void dispatchTakePictureIntent() {
+    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    // Ensure that there&apos;s a camera activity to handle the intent
+    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+        // Create the File where the photo should go
+        File photoFile = null;
+        try {
+            photoFile = createImageFile();
+        } catch (IOException ex) {
+            // Error occurred while creating the File
+            ...
+        }
+        // Continue only if the File was successfully created
+        if (photoFile != null) {
+            Uri photoURI = FileProvider.getUriForFile(this,
+                                                  &quot;com.example.android.fileprovider&quot;,
+                                                  photoFile);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+        }
+    }
+}
+</code></pre><h5 id="将图片添加到画廊"><a href="#将图片添加到画廊" class="headerlink" title="将图片添加到画廊"></a>将图片添加到画廊</h5><h5 id="解码缩放的图片"><a href="#解码缩放的图片" class="headerlink" title="解码缩放的图片"></a>解码缩放的图片</h5><h4 id="录像"><a href="#录像" class="headerlink" title="录像"></a>录像</h4><h4 id="控制摄像头"><a href="#控制摄像头" class="headerlink" title="控制摄像头"></a>控制摄像头</h4>
       
     </div>
 
@@ -422,6 +469,10 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/15/android-AppWidget/" rel="prev" title="android_AppWidget">
+                android_AppWidget <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -499,7 +550,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
