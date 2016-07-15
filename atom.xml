@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-07-15T10:11:38.000Z</updated>
+  <updated>2016-07-15T10:18:29.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/07/15/android-AppWidget/"/>
     <id>http://yoursite.com/2016/07/15/android-AppWidget/</id>
     <published>2016-07-15T06:02:10.000Z</published>
-    <updated>2016-07-15T10:11:38.000Z</updated>
+    <updated>2016-07-15T10:18:29.000Z</updated>
     
     <content type="html">&lt;p&gt;AppWidget就是我们平常在桌面上见到的那种一个个的小窗口，利用这个小窗口可以给用户提供一些方便快捷的操作。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;创建一个简单的AppWidget&quot;&gt;&lt;a href=&quot;#创建一个简单的AppWidget&quot; class=&quot;headerlink&quot; title=&quot;创建一个简单的AppWidget&quot;&gt;&lt;/a&gt;创建一个简单的AppWidget&lt;/h4&gt;&lt;ol&gt;
@@ -37,12 +37,10 @@
     android:widgetCategory=&amp;quot;home_screen&amp;quot;&amp;gt;&amp;lt;/appwidget-provider&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;在layout文件夹下面新建一个appwidgetlayout.xml文件&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;    &amp;lt;RelativeLayout xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
-    android:layout_width=&amp;quot;match_parent&amp;quot;
-    android:layout_height=&amp;quot;match_parent&amp;quot;
-    android:padding=&amp;quot;@dimen/widget_margin&amp;quot;&amp;gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;RelativeLayout xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
+android:layout_width=&amp;quot;match_parent&amp;quot;
+android:layout_height=&amp;quot;match_parent&amp;quot;
+android:padding=&amp;quot;@dimen/widget_margin&amp;quot;&amp;gt;
 
     &amp;lt;TextView
         android:id=&amp;quot;@+id/appwidget_text&amp;quot;
@@ -65,76 +63,72 @@
         android:layout_below=&amp;quot;@+id/appwidget_text&amp;quot;
         android:layout_alignStart=&amp;quot;@+id/appwidget_text&amp;quot; /&amp;gt;
 
-
-
-&amp;lt;/RelativeLayout&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
+&amp;lt;/RelativeLayout&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;继承AppWidgetProvider类&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;public class appwidgetInfo extends AppWidgetProvider {
 
-private  static  String broadCastString = &amp;quot;com.caokai.broadCastString&amp;quot;;
-static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                            int appWidgetId) {
-    //发送广播的PendingIntent
-    Intent intent = new Intent();
-    intent.setAction(broadCastString);
-    PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
+    private  static  String broadCastString = &amp;quot;com.caokai.broadCastString&amp;quot;;
+    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                int appWidgetId) {
+        //发送广播的PendingIntent
+        Intent intent = new Intent();
+        intent.setAction(broadCastString);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
 
-    //启动activity的PendingIntent
-    Intent activityIntent =  new Intent(context,MainActivity.class);
-    PendingIntent pendingIntent1 = PendingIntent.getActivity(context,0,activityIntent,0);
+        //启动activity的PendingIntent
+        Intent activityIntent =  new Intent(context,MainActivity.class);
+        PendingIntent pendingIntent1 = PendingIntent.getActivity(context,0,activityIntent,0);
 
-    CharSequence widgetText = &amp;quot;test&amp;quot;;
-    // 获取RemoteViews
-    RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget_info);
-    views.setTextViewText(R.id.appwidget_text, widgetText);
+        CharSequence widgetText = &amp;quot;test&amp;quot;;
+        // 获取RemoteViews
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget_info);
+        views.setTextViewText(R.id.appwidget_text, widgetText);
 
-    //设置点击事件
-    views.setOnClickPendingIntent(R.id.button,pendingIntent);
-    //设置点击事件
-    views.setOnClickPendingIntent(R.id.appwidget_text,pendingIntent1);
+        //设置点击事件
+        views.setOnClickPendingIntent(R.id.button,pendingIntent);
+        //设置点击事件
+        views.setOnClickPendingIntent(R.id.appwidget_text,pendingIntent1);
 
-    // Instruct the widget manager to update the widget
-    appWidgetManager.updateAppWidget(appWidgetId, views);
-}
-
-@Override
-public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-    // There may be multiple widgets active, so update all of them
-    for (int appWidgetId : appWidgetIds) {
-        updateAppWidget(context, appWidgetManager, appWidgetId);
-    }
-}
-
-@Override
-public void onEnabled(Context context) {
-    // Enter relevant functionality for when the first widget is created
-}
-
-@Override
-public void onDisabled(Context context) {
-    // Enter relevant functionality for when the last widget is disabled
-}
-
-@Override
-public void onReceive(Context context, Intent intent) {
-    if(intent.getAction().equals(broadCastString)){
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.appwidget_info);
-        remoteViews.setTextViewText(R.id.appwidget_text,&amp;quot;点击到了&amp;quot;);
-
-        AppWidgetManager appWidgetManager =  AppWidgetManager.getInstance(context);
-
-        ComponentName componentName = new ComponentName(context,appwidgetInfo.class);
-        appWidgetManager.updateAppWidget(componentName,remoteViews);
-    }else{
-        super.onReceive(context, intent);
+        // Instruct the widget manager to update the widget
+        appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        // There may be multiple widgets active, so update all of them
+        for (int appWidgetId : appWidgetIds) {
+            updateAppWidget(context, appWidgetManager, appWidgetId);
+        }
+    }
+
+    @Override
+    public void onEnabled(Context context) {
+        // Enter relevant functionality for when the first widget is created
+    }
+
+    @Override
+    public void onDisabled(Context context) {
+        // Enter relevant functionality for when the last widget is disabled
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if(intent.getAction().equals(broadCastString)){
+            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.appwidget_info);
+            remoteViews.setTextViewText(R.id.appwidget_text,&amp;quot;点击到了&amp;quot;);
+
+            AppWidgetManager appWidgetManager =  AppWidgetManager.getInstance(context);
+
+            ComponentName componentName = new ComponentName(context,appwidgetInfo.class);
+            appWidgetManager.updateAppWidget(componentName,remoteViews);
+        }else{
+            super.onReceive(context, intent);
+        }
+
+    }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt; }&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;ol&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;AndroidManifest.xml中申明&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;utf-8&amp;quot;?&amp;gt;
 &amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
@@ -207,20 +201,18 @@ public void onUpdate(Context context, AppWidgetManager appWidgetManager,
                 //创建一个Intent对象
                 Intent intent = new Intent();
                 intent.setAction(broadCastString);
+
+                //设置pendingIntent的作用
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+                RemoteViews remoteViews  = new RemoteViews(context.getPackageName(),R.layout.appwidgetlayout);
+
+                //绑定事件
+                remoteViews.setOnClickPendingIntent(R.id.btnSend, pendingIntent);
+
+                //更新Appwidget
+                appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
+        }  
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code&gt;        //设置pendingIntent的作用
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        RemoteViews remoteViews  = new RemoteViews(context.getPackageName(),R.layout.appwidgetlayout);
-
-
-        //绑定事件
-        remoteViews.setOnClickPendingIntent(R.id.btnSend, pendingIntent);
-
-        //更新Appwidget
-        appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;在onReceive()方法中更新appwidget&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;/**
  * 接受广播事件
