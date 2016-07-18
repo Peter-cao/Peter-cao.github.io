@@ -234,8 +234,7 @@ public void onReceive(Context context, Intent intent)
     <entry>
       <title><![CDATA[android_拍照]]></title>
       <url>http://yoursite.com/2016/07/14/android-%E6%8B%8D%E7%85%A7/</url>
-      <content type="html"><![CDATA[<a id="more"></a>
-<h4 id="拍照"><a href="#拍照" class="headerlink" title="拍照"></a>拍照</h4><h5 id="请求相机权限"><a href="#请求相机权限" class="headerlink" title="请求相机权限"></a>请求相机权限</h5><p>如果拍照是app的一个必要的功能，可以在Google Play上设置为只对有相机的设备可见。</p>
+      <content type="html"><![CDATA[<h4 id="拍照"><a href="#拍照" class="headerlink" title="拍照"></a>拍照</h4><h5 id="请求相机权限"><a href="#请求相机权限" class="headerlink" title="请求相机权限"></a>请求相机权限</h5><p>如果拍照是app的一个必要的功能，可以在Google Play上设置为只对有相机的设备可见。</p>
 <pre><code>&lt;manifest ... &gt;
     &lt;uses-feature android:name=&quot;android.hardware.camera&quot;
                   android:required=&quot;true&quot; /&gt;
