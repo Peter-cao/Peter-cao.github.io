@@ -432,7 +432,8 @@ ReactDOM.render(
       }.bind(this)
     });
   },
-</code></pre>]]></content>
+</code></pre><h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://facebook.github.io/react/docs/tutorial.html" target="_blank" rel="external">https://facebook.github.io/react/docs/tutorial.html</a></p>
+]]></content>
     </entry>
     
     <entry>
