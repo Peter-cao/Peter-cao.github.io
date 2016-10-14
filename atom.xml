@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-07-15T10:18:29.000Z</updated>
+  <updated>2016-10-14T02:17:03.327Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,457 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>React笔记</title>
+    <link href="http://yoursite.com/2016/10/13/React%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2016/10/13/React笔记/</id>
+    <published>2016-10-13T08:42:35.000Z</published>
+    <updated>2016-10-14T02:17:03.327Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;一个用于构建用户界面的JavaScript库&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Hello-world&quot;&gt;&lt;a href=&quot;#Hello-world&quot; class=&quot;headerlink&quot; title=&quot;Hello world&quot;&gt;&lt;/a&gt;Hello world&lt;/h3&gt;&lt;p&gt;1.下载&lt;br&gt;&lt;a href=&quot;https://facebook.github.io/react/index.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://facebook.github.io/react/index.html&lt;/a&gt;  &lt;/p&gt;
+&lt;p&gt;2.解压后在根目录下创建 &lt;code&gt;helloworld.html&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot; /&amp;gt;
+    &amp;lt;title&amp;gt;Hello React!&amp;lt;/title&amp;gt;
+    &amp;lt;script src=&amp;quot;build/react.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;build/react-dom.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;https://unpkg.com/babel-core@5.8.38/browser.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;div id=&amp;quot;example&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+    &amp;lt;script type=&amp;quot;text/babel&amp;quot;&amp;gt;
+      ReactDOM.render(
+        &amp;lt;h1&amp;gt;Hello, world!&amp;lt;/h1&amp;gt;,
+        document.getElementById(&amp;apos;example&amp;apos;)
+      );
+    &amp;lt;/script&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在浏览器打开后  你应该能看到 Hello, world!&lt;/p&gt;
+&lt;h3 id=&quot;评论框的实现&quot;&gt;&lt;a href=&quot;#评论框的实现&quot; class=&quot;headerlink&quot; title=&quot;评论框的实现&quot;&gt;&lt;/a&gt;评论框的实现&lt;/h3&gt;&lt;h4 id=&quot;新建一个index-html&quot;&gt;&lt;a href=&quot;#新建一个index-html&quot; class=&quot;headerlink&quot; title=&quot;新建一个index.html&quot;&gt;&lt;/a&gt;新建一个index.html&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;!-- index.html --&amp;gt;
+&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;meta charset=&amp;quot;utf-8&amp;quot; /&amp;gt;
+    &amp;lt;title&amp;gt;React Tutorial&amp;lt;/title&amp;gt;
+    &amp;lt;script src=&amp;quot;https://unpkg.com/react@15.3.2/dist/react.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;https://unpkg.com/react-dom@15.3.2/dist/react-dom.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;https://unpkg.com/jquery@3.1.0/dist/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+    &amp;lt;script src=&amp;quot;https://unpkg.com/remarkable@1.7.1/dist/remarkable.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;div id=&amp;quot;content&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+
+    &amp;lt;script type=&amp;quot;text/babel&amp;quot;&amp;gt;
+
+    &amp;lt;/script&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;构建CommentBox&quot;&gt;&lt;a href=&quot;#构建CommentBox&quot; class=&quot;headerlink&quot; title=&quot;构建CommentBox&quot;&gt;&lt;/a&gt;构建CommentBox&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var CommentBox = React.createClass({
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentBox&amp;quot;&amp;gt;
+        Hello, world! I am a CommentBox.
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});
+ReactDOM.render(
+  &amp;lt;CommentBox /&amp;gt;,
+  document.getElementById(&amp;apos;content&amp;apos;)
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;构建CommentList、CommentForm，并组装&quot;&gt;&lt;a href=&quot;#构建CommentList、CommentForm，并组装&quot; class=&quot;headerlink&quot; title=&quot;构建CommentList、CommentForm，并组装&quot;&gt;&lt;/a&gt;构建CommentList、CommentForm，并组装&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var CommentList = React.createClass({
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentList&amp;quot;&amp;gt;
+        Hello, world! I am a CommentList.
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});
+
+var CommentForm = React.createClass({
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentForm&amp;quot;&amp;gt;
+        Hello, world! I am a CommentForm.
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;更新CommentBox，使用CommentList、CommentForm  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentBox = React.createClass({
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentBox&amp;quot;&amp;gt;
+        &amp;lt;h1&amp;gt;Comments&amp;lt;/h1&amp;gt;
+        &amp;lt;CommentList /&amp;gt;
+        &amp;lt;CommentForm /&amp;gt;
+      &amp;lt;/div&amp;gt;
+    );
+  }
+}); 
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;使用-props-构建Comment&quot;&gt;&lt;a href=&quot;#使用-props-构建Comment&quot; class=&quot;headerlink&quot; title=&quot;使用 props 构建Comment&quot;&gt;&lt;/a&gt;使用 props 构建Comment&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var Comment = React.createClass({
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;comment&amp;quot;&amp;gt;
+        &amp;lt;h2 className=&amp;quot;commentAuthor&amp;quot;&amp;gt;
+          {this.props.author}
+        &amp;lt;/h2&amp;gt;
+        {this.props.children}
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;通过this.props.author获取Comment节点的author属性，通过this.props.children获取Comment下的子节点&lt;br&gt;更新CommentList   &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentList = React.createClass({
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentList&amp;quot;&amp;gt;
+        &amp;lt;Comment author=&amp;quot;Pete Hunt&amp;quot;&amp;gt;This is one comment&amp;lt;/Comment&amp;gt;
+        &amp;lt;Comment author=&amp;quot;Jordan Walke&amp;quot;&amp;gt;This is *another* comment&amp;lt;/Comment&amp;gt;
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;####添加Markdown ####&lt;br&gt;使用第三方库remarkable来使评论支持Markdown，代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var Comment = React.createClass({
+  render: function() {
+    var md = new Remarkable();
+    return (
+      &amp;lt;div className=&amp;quot;comment&amp;quot;&amp;gt;
+        &amp;lt;h2 className=&amp;quot;commentAuthor&amp;quot;&amp;gt;
+          {this.props.author}
+        &amp;lt;/h2&amp;gt;
+        {md.render(this.props.children.toString())}
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样有个问题，评论会显示成&lt;code&gt;&amp;lt;p&amp;gt;This is &amp;lt;em&amp;gt;another&amp;lt;/em&amp;gt; comment&amp;lt;/p&amp;gt;&lt;/code&gt;,我们希望转化成HTML，方法如下  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var Comment = React.createClass({
+  rawMarkup: function() {
+    var md = new Remarkable();
+    var rawMarkup = md.render(this.props.children.toString());
+    return { __html: rawMarkup };
+  },
+
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;comment&amp;quot;&amp;gt;
+        &amp;lt;h2 className=&amp;quot;commentAuthor&amp;quot;&amp;gt;
+          {this.props.author}
+        &amp;lt;/h2&amp;gt;
+        &amp;lt;span dangerouslySetInnerHTML={this.rawMarkup()} /&amp;gt;
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;数据注入&quot;&gt;&lt;a href=&quot;#数据注入&quot; class=&quot;headerlink&quot; title=&quot;数据注入&quot;&gt;&lt;/a&gt;数据注入&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var data = [
+  {id: 1, author: &amp;quot;Pete Hunt&amp;quot;, text: &amp;quot;This is one comment&amp;quot;},
+  {id: 2, author: &amp;quot;Jordan Walke&amp;quot;, text: &amp;quot;This is *another* comment&amp;quot;}
+];  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;修改CommentBox和ReactDOM.render（）来传递数据到CommentList&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentBox = React.createClass({
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentBox&amp;quot;&amp;gt;
+        &amp;lt;h1&amp;gt;Comments&amp;lt;/h1&amp;gt;
+        &amp;lt;CommentList data={this.props.data} /&amp;gt;
+        &amp;lt;CommentForm /&amp;gt;
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});
+
+ReactDOM.render(
+  &amp;lt;CommentBox data={data} /&amp;gt;,
+  document.getElementById(&amp;apos;content&amp;apos;)
+);  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;动态显示CommentList数据  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentList = React.createClass({
+  render: function() {
+    var commentNodes = this.props.data.map(function(comment) {
+      return (
+        &amp;lt;Comment author={comment.author} key={comment.id}&amp;gt;
+          {comment.text}
+        &amp;lt;/Comment&amp;gt;
+      );
+    });
+    return (
+      &amp;lt;div className=&amp;quot;commentList&amp;quot;&amp;gt;
+        {commentNodes}
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;从服务器上获取数据&quot;&gt;&lt;a href=&quot;#从服务器上获取数据&quot; class=&quot;headerlink&quot; title=&quot;从服务器上获取数据&quot;&gt;&lt;/a&gt;从服务器上获取数据&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;ReactDOM.render(
+  &amp;lt;CommentBox url=&amp;quot;/api/comments&amp;quot; /&amp;gt;,
+  document.getElementById(&amp;apos;content&amp;apos;)
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;使用-state&quot;&gt;&lt;a href=&quot;#使用-state&quot; class=&quot;headerlink&quot; title=&quot;使用 state&quot;&gt;&lt;/a&gt;使用 state&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var CommentBox = React.createClass({
+  getInitialState: function() {//组件初始化函数
+    return {data: []};
+  },
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentBox&amp;quot;&amp;gt;
+        &amp;lt;h1&amp;gt;Comments&amp;lt;/h1&amp;gt;
+        &amp;lt;CommentList data={this.state.data} /&amp;gt;
+        &amp;lt;CommentForm /&amp;gt;
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;更新组件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentBox = React.createClass({
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {//当组件第一次render完成之后自动调用
+    $.ajax({
+      url: this.props.url,
+      dataType: &amp;apos;json&amp;apos;,
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentBox&amp;quot;&amp;gt;
+        &amp;lt;h1&amp;gt;Comments&amp;lt;/h1&amp;gt;
+        &amp;lt;CommentList data={this.state.data} /&amp;gt;
+        &amp;lt;CommentForm /&amp;gt;
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;通过调用this.setState();方法改变state，React会自动更新UI&lt;/p&gt;
+&lt;h4 id=&quot;提交评论&quot;&gt;&lt;a href=&quot;#提交评论&quot; class=&quot;headerlink&quot; title=&quot;提交评论&quot;&gt;&lt;/a&gt;提交评论&lt;/h4&gt;&lt;p&gt;更新CommentForm组件  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentForm = React.createClass({
+  render: function() {
+    return (
+      &amp;lt;form className=&amp;quot;commentForm&amp;quot;&amp;gt;
+        &amp;lt;input type=&amp;quot;text&amp;quot; placeholder=&amp;quot;Your name&amp;quot; /&amp;gt;
+        &amp;lt;input type=&amp;quot;text&amp;quot; placeholder=&amp;quot;Say something...&amp;quot; /&amp;gt;
+        &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Post&amp;quot; /&amp;gt;
+      &amp;lt;/form&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;处理用户输入，将author和text存入state,将input的value设置为&lt;code&gt;this.state.author&lt;/code&gt;，在onChange中调用this.setState（）修改author和text的值，这样input中的值将自动更新，更新代码如下&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentForm = React.createClass({
+  getInitialState: function() {//初始化author和text
+    return {author: &amp;apos;&amp;apos;, text: &amp;apos;&amp;apos;};
+  },
+  handleAuthorChange: function(e) {
+    this.setState({author: e.target.value});
+  },
+  handleTextChange: function(e) {
+    this.setState({text: e.target.value});
+  },
+  render: function() {
+    return (
+      &amp;lt;form className=&amp;quot;commentForm&amp;quot;&amp;gt;
+        &amp;lt;input
+          type=&amp;quot;text&amp;quot;
+          placeholder=&amp;quot;Your name&amp;quot;
+          value={this.state.author}
+          onChange={this.handleAuthorChange}
+        /&amp;gt;
+        &amp;lt;input
+          type=&amp;quot;text&amp;quot;
+          placeholder=&amp;quot;Say something...&amp;quot;
+          value={this.state.text}
+          onChange={this.handleTextChange}
+        /&amp;gt;
+        &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Post&amp;quot; /&amp;gt;
+      &amp;lt;/form&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;提交评论-1&quot;&gt;&lt;a href=&quot;#提交评论-1&quot; class=&quot;headerlink&quot; title=&quot;提交评论&quot;&gt;&lt;/a&gt;提交评论&lt;/h4&gt;&lt;p&gt;将form的 &lt;code&gt;onSubmit={this.handleSubmit}&lt;/code&gt;,点提交按钮触发handleSubmit方法，提交数据，并将数据清空&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentForm = React.createClass({
+  getInitialState: function() {
+    return {author: &amp;apos;&amp;apos;, text: &amp;apos;&amp;apos;};
+  },
+  handleAuthorChange: function(e) {
+    this.setState({author: e.target.value});
+  },
+  handleTextChange: function(e) {
+    this.setState({text: e.target.value});
+  },
+  handleSubmit: function(e) {
+    e.preventDefault();//阻止浏览器默认的提交表单事件
+    var author = this.state.author.trim();
+    var text = this.state.text.trim();
+    if (!text || !author) {
+      return;
+    }
+    // TODO: 提交数据
+    this.setState({author: &amp;apos;&amp;apos;, text: &amp;apos;&amp;apos;});
+  },
+  render: function() {
+    return (
+      &amp;lt;form className=&amp;quot;commentForm&amp;quot; onSubmit={this.handleSubmit}&amp;gt;
+        &amp;lt;input
+          type=&amp;quot;text&amp;quot;
+          placeholder=&amp;quot;Your name&amp;quot;
+          value={this.state.author}
+          onChange={this.handleAuthorChange}
+        /&amp;gt;
+        &amp;lt;input
+          type=&amp;quot;text&amp;quot;
+          placeholder=&amp;quot;Say something...&amp;quot;
+          value={this.state.text}
+          onChange={this.handleTextChange}
+        /&amp;gt;
+        &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Post&amp;quot; /&amp;gt;
+      &amp;lt;/form&amp;gt;
+    );
+  }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;使用props调用组件的方法&quot;&gt;&lt;a href=&quot;#使用props调用组件的方法&quot; class=&quot;headerlink&quot; title=&quot;使用props调用组件的方法&quot;&gt;&lt;/a&gt;使用props调用组件的方法&lt;/h4&gt;&lt;p&gt;当用户提交一条评论后，需要刷新列表。这个逻辑应该在CommentBox中做完，因为CommentBox组件的state中含有列表的data.&lt;br&gt;我们需要将子组件的数据传递到父组件。方法如下：在CommentBox的render方法中为CommentForm添加&lt;code&gt;onCommentSubmit={this.handleCommentSubmit}&lt;/code&gt;方法，将handleCommentSubmit和onCommentSubmit方法绑定&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentBox = React.createClass({
+  loadCommentsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: &amp;apos;json&amp;apos;,
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  handleCommentSubmit: function(comment) {//添加新方法
+    // TODO: 提交数据
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+  },
+  render: function() {
+    return (
+      &amp;lt;div className=&amp;quot;commentBox&amp;quot;&amp;gt;
+        &amp;lt;h1&amp;gt;Comments&amp;lt;/h1&amp;gt;
+        &amp;lt;CommentList data={this.state.data} /&amp;gt;
+        &amp;lt;CommentForm onCommentSubmit={this.handleCommentSubmit} /&amp;gt;//添加onCommentSubmit触发handleCommentSubmit
+      &amp;lt;/div&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在CommentForm 的handleSubmit中调用&lt;code&gt;this.props.onCommentSubmit({author: author, text: text});&lt;/code&gt;触发handleCommentSubmit方法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var CommentForm = React.createClass({
+  getInitialState: function() {
+    return {author: &amp;apos;&amp;apos;, text: &amp;apos;&amp;apos;};
+  },
+  handleAuthorChange: function(e) {
+    this.setState({author: e.target.value});
+  },
+  handleTextChange: function(e) {
+    this.setState({text: e.target.value});
+  },
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var author = this.state.author.trim();
+    var text = this.state.text.trim();
+    if (!text || !author) {
+      return;
+    }
+    this.props.onCommentSubmit({author: author, text: text});//调用onCommentSubmit({author: author, text: text})
+    this.setState({author: &amp;apos;&amp;apos;, text: &amp;apos;&amp;apos;});
+  },
+  render: function() {
+    return (
+      &amp;lt;form className=&amp;quot;commentForm&amp;quot; onSubmit={this.handleSubmit}&amp;gt;
+        &amp;lt;input
+          type=&amp;quot;text&amp;quot;
+          placeholder=&amp;quot;Your name&amp;quot;
+          value={this.state.author}
+          onChange={this.handleAuthorChange}
+        /&amp;gt;
+        &amp;lt;input
+          type=&amp;quot;text&amp;quot;
+          placeholder=&amp;quot;Say something...&amp;quot;
+          value={this.state.text}
+          onChange={this.handleTextChange}
+        /&amp;gt;
+        &amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Post&amp;quot; /&amp;gt;
+      &amp;lt;/form&amp;gt;
+    );
+  }
+});  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;然后在CommentBox 的handleCommentSubmit方法中发送请求&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;handleCommentSubmit: function(comment) {
+   $.ajax({
+     url: this.props.url,
+     dataType: &amp;apos;json&amp;apos;,
+     type: &amp;apos;POST&amp;apos;,
+     data: comment,
+     success: function(data) {
+       this.setState({data: data});
+     }.bind(this),
+     error: function(xhr, status, err) {
+       console.error(this.props.url, status, err.toString());
+     }.bind(this)
+   });
+ },    
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;提前更新&quot;&gt;&lt;a href=&quot;#提前更新&quot; class=&quot;headerlink&quot; title=&quot;提前更新&quot;&gt;&lt;/a&gt;提前更新&lt;/h4&gt;&lt;p&gt;到目前为止功能已经完成，但是当提交评论时，总会先发送请求，等请求成功后才显示数据，显示比较慢。&lt;br&gt;更改方法：在发送请求之前，将提交的评论添加到this.state.data中，然后调用 this.setState(),先将数据显示出来，在请求成功的回调用再次调用this.setState({data: data})，确保数据和服务器同步&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;handleCommentSubmit: function(comment) {
+    var comments = this.state.data;
+    // Optimistically set an id on the new comment. It will be replaced by an
+    // id generated by the server. In a production application you would likely
+    // not use Date.now() for this and would have a more robust system in place.
+    comment.id = Date.now();
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
+    $.ajax({
+      url: this.props.url,
+      dataType: &amp;apos;json&amp;apos;,
+      type: &amp;apos;POST&amp;apos;,
+      data: comment,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.setState({data: comments});
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;一个用于构建用户界面的JavaScript库&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="React" scheme="http://yoursite.com/tags/React/"/>
+    
+  </entry>
+  
+  <entry>
     <title>android_AppWidget</title>
     <link href="http://yoursite.com/2016/07/15/android-AppWidget/"/>
     <id>http://yoursite.com/2016/07/15/android-AppWidget/</id>
     <published>2016-07-15T06:02:10.000Z</published>
-    <updated>2016-07-15T10:18:29.000Z</updated>
+    <updated>2016-07-15T10:18:29.969Z</updated>
     
     <content type="html">&lt;p&gt;AppWidget就是我们平常在桌面上见到的那种一个个的小窗口，利用这个小窗口可以给用户提供一些方便快捷的操作。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;创建一个简单的AppWidget&quot;&gt;&lt;a href=&quot;#创建一个简单的AppWidget&quot; class=&quot;headerlink&quot; title=&quot;创建一个简单的AppWidget&quot;&gt;&lt;/a&gt;创建一个简单的AppWidget&lt;/h4&gt;&lt;ol&gt;
@@ -353,7 +799,7 @@ private void dispatchTakePictureIntent() {
     <link href="http://yoursite.com/2016/07/06/SAX%E8%A7%A3%E6%9E%90xml/"/>
     <id>http://yoursite.com/2016/07/06/SAX解析xml/</id>
     <published>2016-07-06T14:24:26.000Z</published>
-    <updated>2016-07-14T11:52:40.000Z</updated>
+    <updated>2016-07-14T11:52:40.978Z</updated>
     
     <content type="html">&lt;p&gt;常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;br&gt;DOM（文件对象模型）解析：解析器读入整个文档，然后构建一个驻留内存的树结构，然后代码就可以根据DOM接口来操作这个树结构了。  &lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;优点：整个文档读入内存，方便操作：支持修改、删除和重现排列等多种功能。
@@ -451,7 +897,7 @@ public class SAXHeaper extends DefaultHandler {
     <link href="http://yoursite.com/2016/07/02/android-%E6%94%AF%E6%8C%81%E5%90%84%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8/"/>
     <id>http://yoursite.com/2016/07/02/android-支持各种屏幕尺寸/</id>
     <published>2016-07-02T01:44:09.000Z</published>
-    <updated>2016-07-05T08:40:53.000Z</updated>
+    <updated>2016-07-05T08:40:53.485Z</updated>
     
     <content type="html">&lt;h4 id=&quot;使用”wrap-content”和”match-parent”&quot;&gt;&lt;a href=&quot;#使用”wrap-content”和”match-parent”&quot; class=&quot;headerlink&quot; title=&quot;使用”wrap_content”和”match_parent”&quot;&gt;&lt;/a&gt;使用”wrap_content”和”match_parent”&lt;/h4&gt;&lt;p&gt;如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
@@ -700,7 +1146,7 @@ android:orientation=&amp;quot;horizontal&amp;quot;&amp;gt;
     <link href="http://yoursite.com/2016/06/26/android-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/"/>
     <id>http://yoursite.com/2016/06/26/android-文件共享/</id>
     <published>2016-06-26T07:12:59.000Z</published>
-    <updated>2016-07-05T08:46:27.000Z</updated>
+    <updated>2016-07-05T08:46:27.155Z</updated>
     
     <content type="html">&lt;h4 id=&quot;配置文件共享&quot;&gt;&lt;a href=&quot;#配置文件共享&quot; class=&quot;headerlink&quot; title=&quot;配置文件共享&quot;&gt;&lt;/a&gt;配置文件共享&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h5 id=&quot;定义FileProvider&quot;&gt;&lt;a href=&quot;#定义FileProvider&quot; class=&quot;headerlink&quot; title=&quot;定义FileProvider&quot;&gt;&lt;/a&gt;定义FileProvider&lt;/h5&gt;&lt;!--more--&gt;
@@ -977,7 +1423,7 @@ sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
     <link href="http://yoursite.com/2016/06/23/android-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E4%BA%AB/"/>
     <id>http://yoursite.com/2016/06/23/android-简单数据的分享/</id>
     <published>2016-06-23T14:25:22.000Z</published>
-    <updated>2016-07-05T08:44:01.000Z</updated>
+    <updated>2016-07-05T08:44:01.446Z</updated>
     
     <content type="html">&lt;h4 id=&quot;向其他app发送简单数据&quot;&gt;&lt;a href=&quot;#向其他app发送简单数据&quot; class=&quot;headerlink&quot; title=&quot;向其他app发送简单数据&quot;&gt;&lt;/a&gt;向其他app发送简单数据&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h5 id=&quot;发送文本内容&quot;&gt;&lt;a href=&quot;#发送文本内容&quot; class=&quot;headerlink&quot; title=&quot;发送文本内容&quot;&gt;&lt;/a&gt;发送文本内容&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;Intent sendIntent = new Intent();
@@ -1119,7 +1565,7 @@ private void setShareIntent(Intent shareIntent) {
     <link href="http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2016/06/23/翻墙方法/</id>
     <published>2016-06-23T05:03:22.000Z</published>
-    <updated>2016-07-05T08:44:42.000Z</updated>
+    <updated>2016-07-05T08:44:42.438Z</updated>
     
     <content type="html">&lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;pre&gt;&lt;code&gt;https://www.openvzvps.cc/aff.php?aff=259
@@ -1159,7 +1605,7 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
     <link href="http://yoursite.com/2016/06/23/android-%E7%B3%BB%E7%BB%9F%E6%9D%83%E9%99%90/"/>
     <id>http://yoursite.com/2016/06/23/android-系统权限/</id>
     <published>2016-06-22T16:07:25.000Z</published>
-    <updated>2016-07-05T08:46:09.000Z</updated>
+    <updated>2016-07-05T08:46:09.591Z</updated>
     
     <content type="html">&lt;h4 id=&quot;声明权限&quot;&gt;&lt;a href=&quot;#声明权限&quot; class=&quot;headerlink&quot; title=&quot;声明权限&quot;&gt;&lt;/a&gt;声明权限&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h5 id=&quot;确定app需要哪些权限&quot;&gt;&lt;a href=&quot;#确定app需要哪些权限&quot; class=&quot;headerlink&quot; title=&quot;确定app需要哪些权限&quot;&gt;&lt;/a&gt;确定app需要哪些权限&lt;/h5&gt;&lt;h5 id=&quot;在Manifest中添加权限&quot;&gt;&lt;a href=&quot;#在Manifest中添加权限&quot; class=&quot;headerlink&quot; title=&quot;在Manifest中添加权限&quot;&gt;&lt;/a&gt;在Manifest中添加权限&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;manifest xmlns:android=&amp;quot;http://schemas.android.com/apk/res/android&amp;quot;
@@ -1250,7 +1696,7 @@ public void onRequestPermissionsResult(int requestCode,
     <link href="http://yoursite.com/2016/06/22/android-%E4%B8%8E%E5%85%B6%E4%BB%96APP%E4%BA%92%E5%8A%A8/"/>
     <id>http://yoursite.com/2016/06/22/android-与其他APP互动/</id>
     <published>2016-06-22T15:26:17.000Z</published>
-    <updated>2016-07-05T08:46:03.000Z</updated>
+    <updated>2016-07-05T08:46:03.398Z</updated>
     
     <content type="html">&lt;h4 id=&quot;如何打开其他app&quot;&gt;&lt;a href=&quot;#如何打开其他app&quot; class=&quot;headerlink&quot; title=&quot;如何打开其他app&quot;&gt;&lt;/a&gt;如何打开其他app&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;h5 id=&quot;创建隐含的Intent&quot;&gt;&lt;a href=&quot;#创建隐含的Intent&quot; class=&quot;headerlink&quot; title=&quot;创建隐含的Intent&quot;&gt;&lt;/a&gt;创建隐含的Intent&lt;/h5&gt;&lt;h6 id=&quot;通过Uri创建Intent&quot;&gt;&lt;a href=&quot;#通过Uri创建Intent&quot; class=&quot;headerlink&quot; title=&quot;通过Uri创建Intent&quot;&gt;&lt;/a&gt;通过Uri创建Intent&lt;/h6&gt;&lt;p&gt;打电话  &lt;/p&gt;
@@ -1432,7 +1878,7 @@ finish();
     <link href="http://yoursite.com/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2016/06/19/androidStudio快捷键整理/</id>
     <published>2016-06-19T10:25:35.000Z</published>
-    <updated>2016-06-27T06:49:18.000Z</updated>
+    <updated>2016-06-27T06:49:18.931Z</updated>
     
     <content type="html">&lt;h4 id=&quot;generate&quot;&gt;&lt;a href=&quot;#generate&quot; class=&quot;headerlink&quot; title=&quot;generate&quot;&gt;&lt;/a&gt;generate&lt;/h4&gt;&lt;p&gt;Alt + insert  &lt;/p&gt;
 &lt;h4 id=&quot;格式化代码&quot;&gt;&lt;a href=&quot;#格式化代码&quot; class=&quot;headerlink&quot; title=&quot;格式化代码&quot;&gt;&lt;/a&gt;格式化代码&lt;/h4&gt;&lt;p&gt;Ctrl+Alt+L &lt;/p&gt;
@@ -1460,7 +1906,7 @@ finish();
     <link href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/19/android入门/</id>
     <published>2016-06-19T10:09:27.000Z</published>
-    <updated>2016-07-05T08:44:22.000Z</updated>
+    <updated>2016-07-05T08:44:22.960Z</updated>
     
     <content type="html">&lt;h4 id=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;a href=&quot;#activity之间的跳转和数据传递&quot; class=&quot;headerlink&quot; title=&quot;activity之间的跳转和数据传递&quot;&gt;&lt;/a&gt;activity之间的跳转和数据传递&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;MainActivity-&amp;gt;Main2Activity&lt;br&gt;MainActivity代码:  &lt;/p&gt;
@@ -1826,7 +2272,7 @@ int count = db.update(
     <link href="http://yoursite.com/2016/06/13/Async/"/>
     <id>http://yoursite.com/2016/06/13/Async/</id>
     <published>2016-06-13T05:15:23.000Z</published>
-    <updated>2016-06-20T03:58:33.000Z</updated>
+    <updated>2016-06-20T03:58:33.091Z</updated>
     
     <content type="html"></content>
     
@@ -1844,7 +2290,7 @@ int count = db.update(
     <link href="http://yoursite.com/2016/06/06/Markdown%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/06/Markdown入门/</id>
     <published>2016-06-06T02:28:51.000Z</published>
-    <updated>2016-07-05T08:45:13.000Z</updated>
+    <updated>2016-07-05T08:45:13.406Z</updated>
     
     <content type="html">&lt;h1 id=&quot;段落和换行&quot;&gt;&lt;a href=&quot;#段落和换行&quot; class=&quot;headerlink&quot; title=&quot;段落和换行&quot;&gt;&lt;/a&gt;段落和换行&lt;/h1&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行&lt;br&gt;如果你确实想要依赖 Markdown 来插入 &lt;br \=&quot;&quot;&gt; 标签的话，在插入处先按入两个以上的空格然后回车。  &lt;/p&gt;
@@ -1899,7 +2345,7 @@ int count = db.update(
     <link href="http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/"/>
     <id>http://yoursite.com/2016/06/04/express入门/</id>
     <published>2016-06-04T14:22:25.000Z</published>
-    <updated>2016-07-05T08:45:31.000Z</updated>
+    <updated>2016-07-05T08:45:31.353Z</updated>
     
     <content type="html">&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;pre&gt;&lt;code&gt;npm install express --save
@@ -1938,7 +2384,7 @@ Wdinwos:set DEBUG=myapp:* &amp;amp; npm start
     <link href="http://yoursite.com/2016/06/02/appcan%E4%B8%BB%E5%BA%94%E7%94%A8%E5%AD%90%E5%BA%94%E7%94%A8%E9%A1%B5%E9%9D%A2%E4%BA%92%E8%B0%83%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2016/06/02/appcan主应用子应用页面互调方法/</id>
     <published>2016-06-02T07:02:46.000Z</published>
-    <updated>2016-07-05T08:45:50.000Z</updated>
+    <updated>2016-07-05T08:45:50.576Z</updated>
     
     <content type="html">&lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面&lt;/p&gt;

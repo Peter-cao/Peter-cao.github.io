@@ -4,6 +4,438 @@
   
     
     <entry>
+      <title><![CDATA[React笔记]]></title>
+      <url>http://yoursite.com/2016/10/13/React%E7%AC%94%E8%AE%B0/</url>
+      <content type="html"><![CDATA[<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>一个用于构建用户界面的JavaScript库<br><a id="more"></a></p>
+<h3 id="Hello-world"><a href="#Hello-world" class="headerlink" title="Hello world"></a>Hello world</h3><p>1.下载<br><a href="https://facebook.github.io/react/index.html" target="_blank" rel="external">https://facebook.github.io/react/index.html</a>  </p>
+<p>2.解压后在根目录下创建 <code>helloworld.html</code></p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;title&gt;Hello React!&lt;/title&gt;
+    &lt;script src=&quot;build/react.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;build/react-dom.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/babel-core@5.8.38/browser.min.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;example&quot;&gt;&lt;/div&gt;
+    &lt;script type=&quot;text/babel&quot;&gt;
+      ReactDOM.render(
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;,
+        document.getElementById(&apos;example&apos;)
+      );
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;  
+</code></pre><p>在浏览器打开后  你应该能看到 Hello, world!</p>
+<h3 id="评论框的实现"><a href="#评论框的实现" class="headerlink" title="评论框的实现"></a>评论框的实现</h3><h4 id="新建一个index-html"><a href="#新建一个index-html" class="headerlink" title="新建一个index.html"></a>新建一个index.html</h4><pre><code>&lt;!-- index.html --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot; /&gt;
+    &lt;title&gt;React Tutorial&lt;/title&gt;
+    &lt;script src=&quot;https://unpkg.com/react@15.3.2/dist/react.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/react-dom@15.3.2/dist/react-dom.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/babel-standalone@6.15.0/babel.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/jquery@3.1.0/dist/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;https://unpkg.com/remarkable@1.7.1/dist/remarkable.min.js&quot;&gt;&lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+
+    &lt;script type=&quot;text/babel&quot;&gt;
+
+    &lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h4 id="构建CommentBox"><a href="#构建CommentBox" class="headerlink" title="构建CommentBox"></a>构建CommentBox</h4><pre><code>var CommentBox = React.createClass({
+  render: function() {
+    return (
+      &lt;div className=&quot;commentBox&quot;&gt;
+        Hello, world! I am a CommentBox.
+      &lt;/div&gt;
+    );
+  }
+});
+ReactDOM.render(
+  &lt;CommentBox /&gt;,
+  document.getElementById(&apos;content&apos;)
+);
+</code></pre><h4 id="构建CommentList、CommentForm，并组装"><a href="#构建CommentList、CommentForm，并组装" class="headerlink" title="构建CommentList、CommentForm，并组装"></a>构建CommentList、CommentForm，并组装</h4><pre><code>var CommentList = React.createClass({
+  render: function() {
+    return (
+      &lt;div className=&quot;commentList&quot;&gt;
+        Hello, world! I am a CommentList.
+      &lt;/div&gt;
+    );
+  }
+});
+
+var CommentForm = React.createClass({
+  render: function() {
+    return (
+      &lt;div className=&quot;commentForm&quot;&gt;
+        Hello, world! I am a CommentForm.
+      &lt;/div&gt;
+    );
+  }
+});  
+</code></pre><p>更新CommentBox，使用CommentList、CommentForm  </p>
+<pre><code>var CommentBox = React.createClass({
+  render: function() {
+    return (
+      &lt;div className=&quot;commentBox&quot;&gt;
+        &lt;h1&gt;Comments&lt;/h1&gt;
+        &lt;CommentList /&gt;
+        &lt;CommentForm /&gt;
+      &lt;/div&gt;
+    );
+  }
+}); 
+</code></pre><h4 id="使用-props-构建Comment"><a href="#使用-props-构建Comment" class="headerlink" title="使用 props 构建Comment"></a>使用 props 构建Comment</h4><pre><code>var Comment = React.createClass({
+  render: function() {
+    return (
+      &lt;div className=&quot;comment&quot;&gt;
+        &lt;h2 className=&quot;commentAuthor&quot;&gt;
+          {this.props.author}
+        &lt;/h2&gt;
+        {this.props.children}
+      &lt;/div&gt;
+    );
+  }
+});  
+</code></pre><p>通过this.props.author获取Comment节点的author属性，通过this.props.children获取Comment下的子节点<br>更新CommentList   </p>
+<pre><code>var CommentList = React.createClass({
+  render: function() {
+    return (
+      &lt;div className=&quot;commentList&quot;&gt;
+        &lt;Comment author=&quot;Pete Hunt&quot;&gt;This is one comment&lt;/Comment&gt;
+        &lt;Comment author=&quot;Jordan Walke&quot;&gt;This is *another* comment&lt;/Comment&gt;
+      &lt;/div&gt;
+    );
+  }
+});
+</code></pre><p>####添加Markdown ####<br>使用第三方库remarkable来使评论支持Markdown，代码如下</p>
+<pre><code>var Comment = React.createClass({
+  render: function() {
+    var md = new Remarkable();
+    return (
+      &lt;div className=&quot;comment&quot;&gt;
+        &lt;h2 className=&quot;commentAuthor&quot;&gt;
+          {this.props.author}
+        &lt;/h2&gt;
+        {md.render(this.props.children.toString())}
+      &lt;/div&gt;
+    );
+  }
+});  
+</code></pre><p>这样有个问题，评论会显示成<code>&lt;p&gt;This is &lt;em&gt;another&lt;/em&gt; comment&lt;/p&gt;</code>,我们希望转化成HTML，方法如下  </p>
+<pre><code>var Comment = React.createClass({
+  rawMarkup: function() {
+    var md = new Remarkable();
+    var rawMarkup = md.render(this.props.children.toString());
+    return { __html: rawMarkup };
+  },
+
+  render: function() {
+    return (
+      &lt;div className=&quot;comment&quot;&gt;
+        &lt;h2 className=&quot;commentAuthor&quot;&gt;
+          {this.props.author}
+        &lt;/h2&gt;
+        &lt;span dangerouslySetInnerHTML={this.rawMarkup()} /&gt;
+      &lt;/div&gt;
+    );
+  }
+});
+</code></pre><h4 id="数据注入"><a href="#数据注入" class="headerlink" title="数据注入"></a>数据注入</h4><pre><code>var data = [
+  {id: 1, author: &quot;Pete Hunt&quot;, text: &quot;This is one comment&quot;},
+  {id: 2, author: &quot;Jordan Walke&quot;, text: &quot;This is *another* comment&quot;}
+];  
+</code></pre><p>修改CommentBox和ReactDOM.render（）来传递数据到CommentList</p>
+<pre><code>var CommentBox = React.createClass({
+  render: function() {
+    return (
+      &lt;div className=&quot;commentBox&quot;&gt;
+        &lt;h1&gt;Comments&lt;/h1&gt;
+        &lt;CommentList data={this.props.data} /&gt;
+        &lt;CommentForm /&gt;
+      &lt;/div&gt;
+    );
+  }
+});
+
+ReactDOM.render(
+  &lt;CommentBox data={data} /&gt;,
+  document.getElementById(&apos;content&apos;)
+);  
+</code></pre><p>动态显示CommentList数据  </p>
+<pre><code>var CommentList = React.createClass({
+  render: function() {
+    var commentNodes = this.props.data.map(function(comment) {
+      return (
+        &lt;Comment author={comment.author} key={comment.id}&gt;
+          {comment.text}
+        &lt;/Comment&gt;
+      );
+    });
+    return (
+      &lt;div className=&quot;commentList&quot;&gt;
+        {commentNodes}
+      &lt;/div&gt;
+    );
+  }
+});  
+</code></pre><h4 id="从服务器上获取数据"><a href="#从服务器上获取数据" class="headerlink" title="从服务器上获取数据"></a>从服务器上获取数据</h4><pre><code>ReactDOM.render(
+  &lt;CommentBox url=&quot;/api/comments&quot; /&gt;,
+  document.getElementById(&apos;content&apos;)
+);
+</code></pre><h4 id="使用-state"><a href="#使用-state" class="headerlink" title="使用 state"></a>使用 state</h4><pre><code>var CommentBox = React.createClass({
+  getInitialState: function() {//组件初始化函数
+    return {data: []};
+  },
+  render: function() {
+    return (
+      &lt;div className=&quot;commentBox&quot;&gt;
+        &lt;h1&gt;Comments&lt;/h1&gt;
+        &lt;CommentList data={this.state.data} /&gt;
+        &lt;CommentForm /&gt;
+      &lt;/div&gt;
+    );
+  }
+});  
+</code></pre><p>更新组件</p>
+<pre><code>var CommentBox = React.createClass({
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {//当组件第一次render完成之后自动调用
+    $.ajax({
+      url: this.props.url,
+      dataType: &apos;json&apos;,
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  render: function() {
+    return (
+      &lt;div className=&quot;commentBox&quot;&gt;
+        &lt;h1&gt;Comments&lt;/h1&gt;
+        &lt;CommentList data={this.state.data} /&gt;
+        &lt;CommentForm /&gt;
+      &lt;/div&gt;
+    );
+  }
+});
+</code></pre><p>通过调用this.setState();方法改变state，React会自动更新UI</p>
+<h4 id="提交评论"><a href="#提交评论" class="headerlink" title="提交评论"></a>提交评论</h4><p>更新CommentForm组件  </p>
+<pre><code>var CommentForm = React.createClass({
+  render: function() {
+    return (
+      &lt;form className=&quot;commentForm&quot;&gt;
+        &lt;input type=&quot;text&quot; placeholder=&quot;Your name&quot; /&gt;
+        &lt;input type=&quot;text&quot; placeholder=&quot;Say something...&quot; /&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Post&quot; /&gt;
+      &lt;/form&gt;
+    );
+  }
+});  
+</code></pre><p>处理用户输入，将author和text存入state,将input的value设置为<code>this.state.author</code>，在onChange中调用this.setState（）修改author和text的值，这样input中的值将自动更新，更新代码如下</p>
+<pre><code>var CommentForm = React.createClass({
+  getInitialState: function() {//初始化author和text
+    return {author: &apos;&apos;, text: &apos;&apos;};
+  },
+  handleAuthorChange: function(e) {
+    this.setState({author: e.target.value});
+  },
+  handleTextChange: function(e) {
+    this.setState({text: e.target.value});
+  },
+  render: function() {
+    return (
+      &lt;form className=&quot;commentForm&quot;&gt;
+        &lt;input
+          type=&quot;text&quot;
+          placeholder=&quot;Your name&quot;
+          value={this.state.author}
+          onChange={this.handleAuthorChange}
+        /&gt;
+        &lt;input
+          type=&quot;text&quot;
+          placeholder=&quot;Say something...&quot;
+          value={this.state.text}
+          onChange={this.handleTextChange}
+        /&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Post&quot; /&gt;
+      &lt;/form&gt;
+    );
+  }
+});  
+</code></pre><h4 id="提交评论-1"><a href="#提交评论-1" class="headerlink" title="提交评论"></a>提交评论</h4><p>将form的 <code>onSubmit={this.handleSubmit}</code>,点提交按钮触发handleSubmit方法，提交数据，并将数据清空</p>
+<pre><code>var CommentForm = React.createClass({
+  getInitialState: function() {
+    return {author: &apos;&apos;, text: &apos;&apos;};
+  },
+  handleAuthorChange: function(e) {
+    this.setState({author: e.target.value});
+  },
+  handleTextChange: function(e) {
+    this.setState({text: e.target.value});
+  },
+  handleSubmit: function(e) {
+    e.preventDefault();//阻止浏览器默认的提交表单事件
+    var author = this.state.author.trim();
+    var text = this.state.text.trim();
+    if (!text || !author) {
+      return;
+    }
+    // TODO: 提交数据
+    this.setState({author: &apos;&apos;, text: &apos;&apos;});
+  },
+  render: function() {
+    return (
+      &lt;form className=&quot;commentForm&quot; onSubmit={this.handleSubmit}&gt;
+        &lt;input
+          type=&quot;text&quot;
+          placeholder=&quot;Your name&quot;
+          value={this.state.author}
+          onChange={this.handleAuthorChange}
+        /&gt;
+        &lt;input
+          type=&quot;text&quot;
+          placeholder=&quot;Say something...&quot;
+          value={this.state.text}
+          onChange={this.handleTextChange}
+        /&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Post&quot; /&gt;
+      &lt;/form&gt;
+    );
+  }
+});
+</code></pre><h4 id="使用props调用组件的方法"><a href="#使用props调用组件的方法" class="headerlink" title="使用props调用组件的方法"></a>使用props调用组件的方法</h4><p>当用户提交一条评论后，需要刷新列表。这个逻辑应该在CommentBox中做完，因为CommentBox组件的state中含有列表的data.<br>我们需要将子组件的数据传递到父组件。方法如下：在CommentBox的render方法中为CommentForm添加<code>onCommentSubmit={this.handleCommentSubmit}</code>方法，将handleCommentSubmit和onCommentSubmit方法绑定</p>
+<pre><code>var CommentBox = React.createClass({
+  loadCommentsFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: &apos;json&apos;,
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  handleCommentSubmit: function(comment) {//添加新方法
+    // TODO: 提交数据
+  },
+  getInitialState: function() {
+    return {data: []};
+  },
+  componentDidMount: function() {
+    this.loadCommentsFromServer();
+    setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+  },
+  render: function() {
+    return (
+      &lt;div className=&quot;commentBox&quot;&gt;
+        &lt;h1&gt;Comments&lt;/h1&gt;
+        &lt;CommentList data={this.state.data} /&gt;
+        &lt;CommentForm onCommentSubmit={this.handleCommentSubmit} /&gt;//添加onCommentSubmit触发handleCommentSubmit
+      &lt;/div&gt;
+    );
+  }
+});  
+</code></pre><p>在CommentForm 的handleSubmit中调用<code>this.props.onCommentSubmit({author: author, text: text});</code>触发handleCommentSubmit方法</p>
+<pre><code>var CommentForm = React.createClass({
+  getInitialState: function() {
+    return {author: &apos;&apos;, text: &apos;&apos;};
+  },
+  handleAuthorChange: function(e) {
+    this.setState({author: e.target.value});
+  },
+  handleTextChange: function(e) {
+    this.setState({text: e.target.value});
+  },
+  handleSubmit: function(e) {
+    e.preventDefault();
+    var author = this.state.author.trim();
+    var text = this.state.text.trim();
+    if (!text || !author) {
+      return;
+    }
+    this.props.onCommentSubmit({author: author, text: text});//调用onCommentSubmit({author: author, text: text})
+    this.setState({author: &apos;&apos;, text: &apos;&apos;});
+  },
+  render: function() {
+    return (
+      &lt;form className=&quot;commentForm&quot; onSubmit={this.handleSubmit}&gt;
+        &lt;input
+          type=&quot;text&quot;
+          placeholder=&quot;Your name&quot;
+          value={this.state.author}
+          onChange={this.handleAuthorChange}
+        /&gt;
+        &lt;input
+          type=&quot;text&quot;
+          placeholder=&quot;Say something...&quot;
+          value={this.state.text}
+          onChange={this.handleTextChange}
+        /&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Post&quot; /&gt;
+      &lt;/form&gt;
+    );
+  }
+});  
+</code></pre><p>然后在CommentBox 的handleCommentSubmit方法中发送请求</p>
+<pre><code>handleCommentSubmit: function(comment) {
+   $.ajax({
+     url: this.props.url,
+     dataType: &apos;json&apos;,
+     type: &apos;POST&apos;,
+     data: comment,
+     success: function(data) {
+       this.setState({data: data});
+     }.bind(this),
+     error: function(xhr, status, err) {
+       console.error(this.props.url, status, err.toString());
+     }.bind(this)
+   });
+ },    
+</code></pre><h4 id="提前更新"><a href="#提前更新" class="headerlink" title="提前更新"></a>提前更新</h4><p>到目前为止功能已经完成，但是当提交评论时，总会先发送请求，等请求成功后才显示数据，显示比较慢。<br>更改方法：在发送请求之前，将提交的评论添加到this.state.data中，然后调用 this.setState(),先将数据显示出来，在请求成功的回调用再次调用this.setState({data: data})，确保数据和服务器同步</p>
+<pre><code>handleCommentSubmit: function(comment) {
+    var comments = this.state.data;
+    // Optimistically set an id on the new comment. It will be replaced by an
+    // id generated by the server. In a production application you would likely
+    // not use Date.now() for this and would have a more robust system in place.
+    comment.id = Date.now();
+    var newComments = comments.concat([comment]);
+    this.setState({data: newComments});
+    $.ajax({
+      url: this.props.url,
+      dataType: &apos;json&apos;,
+      type: &apos;POST&apos;,
+      data: comment,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.setState({data: comments});
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+</code></pre>]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[android_AppWidget]]></title>
       <url>http://yoursite.com/2016/07/15/android-AppWidget/</url>
       <content type="html"><![CDATA[<p>AppWidget就是我们平常在桌面上见到的那种一个个的小窗口，利用这个小窗口可以给用户提供一些方便快捷的操作。<br><a id="more"></a></p>
