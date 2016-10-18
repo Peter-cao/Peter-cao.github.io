@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/10/18/RxJava入门/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="RxJava 是什么Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库">
-<meta property="og:updated_time" content="2016-10-18T08:25:07.890Z">
+<meta property="og:updated_time" content="2016-10-18T15:52:28.799Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava入门">
 <meta name="twitter:description" content="RxJava 是什么Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库">
@@ -564,6 +564,7 @@ public void getUser(@Query(&quot;userId&quot;) String userId, Callback&lt;User&g
 public Observable&lt;User&gt; getUser(@Query(&quot;userId&quot;) String userId);
 </code></pre><p>使用的时候是这样的：</p>
 <pre><code>getUser(userId)
+    .subscribeOn(Schedulers.newThread())
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe(new Observer&lt;User&gt;() {
         @Override
@@ -645,7 +646,8 @@ getToken()
             ...
         }
     });  
-</code></pre><p>参考：<br><a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">http://gank.io/post/560e15be2dca930e00da1083</a><br><a href="http://gold.xitu.io/post/580103f20e3dd90057fc3e6d" target="_blank" rel="external">http://gold.xitu.io/post/580103f20e3dd90057fc3e6d</a></p>
+</code></pre><p>参考：<br><a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">http://gank.io/post/560e15be2dca930e00da1083</a><br><a href="http://gold.xitu.io/post/580103f20e3dd90057fc3e6d" target="_blank" rel="external">http://gold.xitu.io/post/580103f20e3dd90057fc3e6d</a>  </p>
+<p>Demo:<a href="/uploads/RxjavaTest.rar">RxjavaTest.rar</a></p>
 
       
     </div>

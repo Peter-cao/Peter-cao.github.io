@@ -240,6 +240,7 @@ public void getUser(@Query(&quot;userId&quot;) String userId, Callback&lt;User&g
 public Observable&lt;User&gt; getUser(@Query(&quot;userId&quot;) String userId);
 </code></pre><p>使用的时候是这样的：</p>
 <pre><code>getUser(userId)
+    .subscribeOn(Schedulers.newThread())
     .observeOn(AndroidSchedulers.mainThread())
     .subscribe(new Observer&lt;User&gt;() {
         @Override
@@ -321,7 +322,8 @@ getToken()
             ...
         }
     });  
-</code></pre><p>参考：<br><a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">http://gank.io/post/560e15be2dca930e00da1083</a><br><a href="http://gold.xitu.io/post/580103f20e3dd90057fc3e6d" target="_blank" rel="external">http://gold.xitu.io/post/580103f20e3dd90057fc3e6d</a></p>
+</code></pre><p>参考：<br><a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">http://gank.io/post/560e15be2dca930e00da1083</a><br><a href="http://gold.xitu.io/post/580103f20e3dd90057fc3e6d" target="_blank" rel="external">http://gold.xitu.io/post/580103f20e3dd90057fc3e6d</a>  </p>
+<p>Demo:<a href="/uploads/RxjavaTest.rar">RxjavaTest.rar</a></p>
 ]]></content>
     </entry>
     
