@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/10/18/RxJava入门/index.html">
 <meta property="og:site_name" content="个人博客">
 <meta property="og:description" content="RxJava 是什么Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库">
-<meta property="og:updated_time" content="2016-10-18T06:45:43.991Z">
+<meta property="og:updated_time" content="2016-10-18T08:25:07.890Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava入门">
 <meta name="twitter:description" content="RxJava 是什么Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库">
@@ -534,6 +534,14 @@ Observable.from(students)
 <ul>
 <li>subscribeOn（）它指示Observable在一个指定的调度器上创建（只作用于被观察者创建阶段）。只能指定一次，如果指定多次则以第一次为准</li>
 <li>observeOn（）指定在事件传递（加工变换）和最终被处理（观察者）的发生在哪一个调度器。可指定多次，每次指定完都在下一步生效。</li>
+</ul>
+<p>RxJava已经为我们提供了一下几个Scheduler</p>
+<ul>
+<li>Schedulers.immediate()：直接在当前线程运行，相当于不指定线程。这是默认的 Scheduler。</li>
+<li>Schedulers.newThread()：总是启用新线程，并在新线程执行操作。</li>
+<li>Schedulers.io()： I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。行为模式和 newThread() 差不多，区别在于 io() 的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 io() 比 newThread() 更有效率。不要把计算工作放在 io() 中，可以避免创建不必要的线程。</li>
+<li>Schedulers.computation()：计算所使用的 Scheduler。这个计算指的是 CPU 密集型计算，即不会被 I/O 等操作限制性能的操作，例如图形的计算。这个 Scheduler 使用的固定的线程池，大小为 CPU 核数。不要把 I/O 操作放在 computation() 中，否则 I/O 操作的等待时间会浪费 CPU。</li>
+<li>AndroidSchedulers.mainThread()：它指定的操作将在 Android 主线程运行。</li>
 </ul>
 <h4 id="与-Retrofit-的结合"><a href="#与-Retrofit-的结合" class="headerlink" title="与 Retrofit 的结合"></a>与 Retrofit 的结合</h4><p>以获取一个 User 对象的接口作为例子。使用Retrofit 的传统 API，你可以用这样的方式来定义请求：</p>
 <pre><code>@GET(&quot;/user&quot;)
