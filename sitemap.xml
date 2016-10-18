@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2016/10/18/RxJava%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2016-10-18T06:45:43.991Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2016-10-14T08:14:05.128Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/10/13/React%E7%AC%94%E8%AE%B0/</loc>
     
     <lastmod>2016-10-14T03:02:04.910Z</lastmod>
@@ -68,13 +82,6 @@
     <loc>http://yoursite.com/2016/06/06/Markdown%E5%85%A5%E9%97%A8/</loc>
     
     <lastmod>2016-07-05T08:45:13.406Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/</loc>
-    
-    <lastmod>2016-07-05T08:44:42.438Z</lastmod>
     
   </url>
   

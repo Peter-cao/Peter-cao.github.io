@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-14T03:02:04.910Z</updated>
+  <updated>2016-10-18T06:45:43.991Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,334 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>RxJava入门</title>
+    <link href="http://yoursite.com/2016/10/18/RxJava%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2016/10/18/RxJava入门/</id>
+    <published>2016-10-18T02:04:32.000Z</published>
+    <updated>2016-10-18T06:45:43.991Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;RxJava-是什么&quot;&gt;&lt;a href=&quot;#RxJava-是什么&quot; class=&quot;headerlink&quot; title=&quot;RxJava 是什么&quot;&gt;&lt;/a&gt;RxJava 是什么&lt;/h4&gt;&lt;p&gt;Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.&lt;br&gt;一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;观察者模式举例&quot;&gt;&lt;a href=&quot;#观察者模式举例&quot; class=&quot;headerlink&quot; title=&quot;观察者模式举例&quot;&gt;&lt;/a&gt;观察者模式举例&lt;/h4&gt;&lt;p&gt;举例：按下开关，台灯灯亮&lt;br&gt;在这个事件中，台灯作为观察者，开关作为被观察者，台灯透过电线来观察开关的状态来并做出相应的处理&lt;/p&gt;
+&lt;h4 id=&quot;创建被观察者（开关）&quot;&gt;&lt;a href=&quot;#创建被观察者（开关）&quot; class=&quot;headerlink&quot; title=&quot;创建被观察者（开关）&quot;&gt;&lt;/a&gt;创建被观察者（开关）&lt;/h4&gt;&lt;p&gt;正常模式：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Observable switcher=Observable.create(new Observable.OnSubscribe&amp;lt;String&amp;gt;(){
+
+    @Override
+    public void call(Subscriber&amp;lt;? super String&amp;gt; subscriber) {
+        subscriber.onNext(&amp;quot;On&amp;quot;);
+        subscriber.onNext(&amp;quot;Off&amp;quot;);
+        subscriber.onNext(&amp;quot;On&amp;quot;);
+        subscriber.onNext(&amp;quot;On&amp;quot;);
+        subscriber.onCompleted();
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;偷懒模式1&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Observable switcher=Observable.just(&amp;quot;On&amp;quot;,&amp;quot;Off&amp;quot;,&amp;quot;On&amp;quot;,&amp;quot;On&amp;quot;);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;偷懒模式2&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;String [] kk={&amp;quot;On&amp;quot;,&amp;quot;Off&amp;quot;,&amp;quot;On&amp;quot;,&amp;quot;On&amp;quot;};
+Observable switcher=Observable.from(kk);
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;创建观察者（台灯）&quot;&gt;&lt;a href=&quot;#创建观察者（台灯）&quot; class=&quot;headerlink&quot; title=&quot;创建观察者（台灯）&quot;&gt;&lt;/a&gt;创建观察者（台灯）&lt;/h4&gt;&lt;p&gt;正常模式&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Subscriber light=new Subscriber&amp;lt;String&amp;gt;() {
+    @Override
+    public void onCompleted() {
+        //被观察者的onCompleted()事件会走到这里;
+        Log.d(&amp;quot;DDDDDD&amp;quot;,&amp;quot;结束观察...\n&amp;quot;);
+    }
+
+    @Override
+    public void onError(Throwable e) {
+            //出现错误会调用这个方法
+    }
+    @Override
+    public void onNext(String s) {
+        //处理传过来的onNext事件
+        Log.d(&amp;quot;DDDDD&amp;quot;,&amp;quot;handle this---&amp;quot;+s)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;偷懒模式&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Action1 light=new Action1&amp;lt;String&amp;gt;() {
+       @Override
+       public void call(String s) {
+           Log.d(&amp;quot;DDDDD&amp;quot;,&amp;quot;handle this---&amp;quot;+s)
+       }
+   }
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;订阅&quot;&gt;&lt;a href=&quot;#订阅&quot; class=&quot;headerlink&quot; title=&quot;订阅&quot;&gt;&lt;/a&gt;订阅&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;switcher.subscribe(light);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;基本骨架：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;//创建被观察者，是事件传递的起点
+Observable.just(&amp;quot;On&amp;quot;,&amp;quot;Off&amp;quot;,&amp;quot;On&amp;quot;,&amp;quot;On&amp;quot;)
+//这就是在传递过程中对事件进行过滤操作
+ .filter(new Func1&amp;lt;String, Boolean&amp;gt;() {
+            @Override
+            public Boolean call(String s) {
+                return s！=null;
+            }
+        })
+//实现订阅
+.subscribe(
+    //创建观察者，作为事件传递的终点处理事件    
+      new Subscriber&amp;lt;String&amp;gt;() {
+        @Override
+        public void onCompleted() {
+            Log.d(&amp;quot;DDDDDD&amp;quot;,&amp;quot;结束观察...\n&amp;quot;);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            //出现错误会调用这个方法
+        }
+        @Override
+        public void onNext(String s) {
+            //处理事件
+            Log.d(&amp;quot;DDDDD&amp;quot;,&amp;quot;handle this---&amp;quot;+s)
+        }
+    }
+);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;总结：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;创建被观察者，产生事件&lt;/li&gt;
+&lt;li&gt;设置事件传递过程中的过滤，合并，变换等加工操作。&lt;/li&gt;
+&lt;li&gt;订阅一个观察者对象，实现事件最终的处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Tips: 当调用订阅操作（即调用Observer.subscribe()方法）的时候，被观察者才真正开始发出事件。  &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4 id=&quot;Map操作&quot;&gt;&lt;a href=&quot;#Map操作&quot; class=&quot;headerlink&quot; title=&quot;Map操作&quot;&gt;&lt;/a&gt;Map操作&lt;/h4&gt;&lt;p&gt;例子：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Observable.just(&amp;quot;images/logo.png&amp;quot;) // 输入类型 String
+.map(new Func1&amp;lt;String, Bitmap&amp;gt;() {
+    @Override
+    public Bitmap call(String filePath) { // 参数类型 String
+        return getBitmapFromPath(filePath); // 返回类型 Bitmap
+    }
+})
+.subscribe(new Action1&amp;lt;Bitmap&amp;gt;() {
+    @Override
+    public void call(Bitmap bitmap) { // 参数类型 Bitmap
+        showBitmap(bitmap);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;实际上在使用map操作时，new Func1() 就对应了类型的转你方向，String是原类型，Bitmap是转换后的类型。在call()方法中，输入的是原类型，返回转换后的类型 &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;读取文件，创建bitmap可能是一个耗时操作，那么就应该在子线程中执行，主线程应该仅仅做展示。那么线程切换一般就会是比较复杂的事情了。但是在Rxjava中，是非常方便的。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Observable.create(new Observable.just(getFilePath())
+   //指定了被观察者执行的线程环境
+  .subscribeOn(Schedulers.newThread())
+  //将接下来执行的线程环境指定为io线程
+  .observeOn(Schedulers.io())
+    //使用map操作来完成类型转换
+    .map(new Func1&amp;lt;String, Bitmap&amp;gt;() {
+      @Override
+      public Bitmap call(String s) {
+        //显然自定义的createBitmapFromPath(s)方法，是一个极其耗时的操作
+          return createBitmapFromPath(s);
+      }
+  })
+    //将后面执行的线程环境切换为主线程
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(
+         //创建观察者，作为事件传递的终点处理事件    
+          new Subscriber&amp;lt;Bitmap&amp;gt;() {
+                @Override
+                public void onCompleted() {
+                    Log.d(&amp;quot;DDDDDD&amp;quot;,&amp;quot;结束观察...\n&amp;quot;);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                    //出现错误会调用这个方法
+                }
+                @Override
+                public void onNext(Bitmap s) {
+                    //处理事件
+                    showBitmap(s)
+                }
+            );
+    }
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;flatMap-操作&quot;&gt;&lt;a href=&quot;#flatMap-操作&quot; class=&quot;headerlink&quot; title=&quot;flatMap()操作&quot;&gt;&lt;/a&gt;flatMap()操作&lt;/h4&gt;&lt;p&gt;假设这么一种需求：假设有一个数据结构『学生』，现在需要打印出一组学生的名字。实现方式很简单：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Student[] students = ...;
+Subscriber&amp;lt;String&amp;gt; subscriber = new Subscriber&amp;lt;String&amp;gt;() {
+    @Override
+    public void onNext(String name) {
+        Log.d(tag, name);
+    }
+    ...
+};
+Observable.from(students)
+    .map(new Func1&amp;lt;Student, String&amp;gt;() {
+        @Override
+        public String call(Student student) {
+            return student.getName();
+        }
+    })
+.subscribe(subscriber);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;很简单。那么再假设：如果要打印出每个学生所需要修的所有课程的名称呢？（需求的区别在于，每个学生只有一个名字，但却有多个课程。）首先可以这样实现：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Student[] students = ...;
+Subscriber&amp;lt;Student&amp;gt; subscriber = new Subscriber&amp;lt;Student&amp;gt;() {
+    @Override
+    public void onNext(Student student) {
+        List&amp;lt;Course&amp;gt; courses = student.getCourses();
+        for (int i = 0; i &amp;lt; courses.size(); i++) {
+            Course course = courses.get(i);
+            Log.d(tag, course.getName());
+        }
+    }
+    ...
+};
+Observable.from(students)
+.subscribe(subscriber);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;依然很简单。那么如果我不想在 Subscriber 中使用 for 循环，而是希望 Subscriber 中直接传入单个的 Course 对象呢（这对于代码复用很重要）？用 map() 显然是不行的，因为 map() 是一对一的转化，而我现在的要求是一对多的转化。那怎么才能把一个 Student 转化成多个 Course 呢？&lt;br&gt;这个时候，就需要用 &lt;code&gt;flatMap()&lt;/code&gt; 了：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Student[] students = ...;
+Subscriber&amp;lt;Course&amp;gt; subscriber = new Subscriber&amp;lt;Course&amp;gt;() {
+    @Override
+    public void onNext(Course course) {
+        Log.d(tag, course.getName());
+    }
+    ...
+};
+Observable.from(students)
+    .flatMap(new Func1&amp;lt;Student, Observable&amp;lt;Course&amp;gt;&amp;gt;() {
+        @Override
+        public Observable&amp;lt;Course&amp;gt; call(Student student) {
+            return Observable.from(student.getCourses());
+        }
+    })
+.subscribe(subscriber);
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;异步（线程调度）&quot;&gt;&lt;a href=&quot;#异步（线程调度）&quot; class=&quot;headerlink&quot; title=&quot;异步（线程调度）&quot;&gt;&lt;/a&gt;异步（线程调度）&lt;/h4&gt;&lt;p&gt;在讲解Map操作符时，已经提到了线程调度，在这里我用更加简介的代码代替：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Observable.create(new Observable.just(getFilePath())
+      //指定在新线程中创建被观察者
+     .subscribeOn(Schedulers.newThread())
+     //将接下来执行的线程环境指定为io线程
+     .observeOn(Schedulers.io())
+       //map就处在io线程
+     .map(mMapOperater)
+       //将后面执行的线程环境切换为主线程，
+       //但是这一句依然执行在io线程
+     .observeOn(AndroidSchedulers.mainThread())
+     //指定线程无效，但这句代码本身执行在主线程
+     .subscribeOn(Schedulers.io())
+     //执行在主线程
+     .subscribe(mSubscriber);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;实际上线程调度只有subscribeOn（）和observeOn（）两个方法。对于初学者，只需要掌握两点：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;subscribeOn（）它指示Observable在一个指定的调度器上创建（只作用于被观察者创建阶段）。只能指定一次，如果指定多次则以第一次为准&lt;/li&gt;
+&lt;li&gt;observeOn（）指定在事件传递（加工变换）和最终被处理（观察者）的发生在哪一个调度器。可指定多次，每次指定完都在下一步生效。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&quot;与-Retrofit-的结合&quot;&gt;&lt;a href=&quot;#与-Retrofit-的结合&quot; class=&quot;headerlink&quot; title=&quot;与 Retrofit 的结合&quot;&gt;&lt;/a&gt;与 Retrofit 的结合&lt;/h4&gt;&lt;p&gt;以获取一个 User 对象的接口作为例子。使用Retrofit 的传统 API，你可以用这样的方式来定义请求：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@GET(&amp;quot;/user&amp;quot;)
+public void getUser(@Query(&amp;quot;userId&amp;quot;) String userId, Callback&amp;lt;User&amp;gt; callback);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在程序的构建过程中， Retrofit 会把自动把方法实现并生成代码，然后开发者就可以利用下面的方法来获取特定用户并处理响应：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;getUser(userId, new Callback&amp;lt;User&amp;gt;() {
+    @Override
+    public void success(User user) {
+        userView.setUser(user);
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        // Error handling
+        ...
+    }
+};
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;而使用 RxJava 形式的 API，定义同样的请求是这样的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@GET(&amp;quot;/user&amp;quot;)
+public Observable&amp;lt;User&amp;gt; getUser(@Query(&amp;quot;userId&amp;quot;) String userId);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;使用的时候是这样的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;getUser(userId)
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(new Observer&amp;lt;User&amp;gt;() {
+        @Override
+        public void onNext(User user) {
+            userView.setUser(user);
+        }
+
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable error) {
+            // Error handling
+            ...
+        }
+    });
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;再举一个例子：假设 /user 接口并不能直接访问，而需要填入一个在线获取的 token ，代码应该怎么写？&lt;br&gt;Callback 方式，可以使用嵌套的 Callback：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@GET(&amp;quot;/token&amp;quot;)
+public void getToken(Callback&amp;lt;String&amp;gt; callback);
+
+@GET(&amp;quot;/user&amp;quot;)
+public void getUser(@Query(&amp;quot;token&amp;quot;) String token, @Query(&amp;quot;userId&amp;quot;) String userId, Callback&amp;lt;User&amp;gt; callback);
+
+...
+
+getToken(new Callback&amp;lt;String&amp;gt;() {
+    @Override
+    public void success(String token) {
+        getUser(token, userId, new Callback&amp;lt;User&amp;gt;() {
+            @Override
+            public void success(User user) {
+                userView.setUser(user);
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                // Error handling
+                ...
+            }
+        };
+    }
+
+    @Override
+    public void failure(RetrofitError error) {
+        // Error handling
+        ...
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;倒是没有什么性能问题，可是迷之缩进毁一生，你懂我也懂，做过大项目的人应该更懂。&lt;br&gt;而使用 RxJava 的话，代码是这样的：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;@GET(&amp;quot;/token&amp;quot;)
+public Observable&amp;lt;String&amp;gt; getToken();
+
+@GET(&amp;quot;/user&amp;quot;)
+public Observable&amp;lt;User&amp;gt; getUser(@Query(&amp;quot;token&amp;quot;) String token, @Query(&amp;quot;userId&amp;quot;) String userId);
+
+...
+
+getToken()
+    .flatMap(new Func1&amp;lt;String, Observable&amp;lt;User&amp;gt;&amp;gt;() {
+        @Override
+        public Observable&amp;lt;User&amp;gt; onNext(String token) {
+            return getUser(token, userId);
+        })
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(new Observer&amp;lt;User&amp;gt;() {
+        @Override
+        public void onNext(User user) {
+            userView.setUser(user);
+        }
+
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable error) {
+            // Error handling
+            ...
+        }
+    });  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;参考：&lt;br&gt;&lt;a href=&quot;http://gank.io/post/560e15be2dca930e00da1083&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://gank.io/post/560e15be2dca930e00da1083&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://gold.xitu.io/post/580103f20e3dd90057fc3e6d&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://gold.xitu.io/post/580103f20e3dd90057fc3e6d&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;RxJava-是什么&quot;&gt;&lt;a href=&quot;#RxJava-是什么&quot; class=&quot;headerlink&quot; title=&quot;RxJava 是什么&quot;&gt;&lt;/a&gt;RxJava 是什么&lt;/h4&gt;&lt;p&gt;Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.&lt;br&gt;一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
   
   <entry>
     <title>React笔记</title>
@@ -1566,7 +1894,7 @@ private void setShareIntent(Intent shareIntent) {
     <link href="http://yoursite.com/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/"/>
     <id>http://yoursite.com/2016/06/23/翻墙方法/</id>
     <published>2016-06-23T05:03:22.000Z</published>
-    <updated>2016-07-05T08:44:42.438Z</updated>
+    <updated>2016-10-14T08:14:05.128Z</updated>
     
     <content type="html">&lt;h4 id=&quot;购买服务器&quot;&gt;&lt;a href=&quot;#购买服务器&quot; class=&quot;headerlink&quot; title=&quot;购买服务器&quot;&gt;&lt;/a&gt;购买服务器&lt;/h4&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;pre&gt;&lt;code&gt;https://www.openvzvps.cc/aff.php?aff=259
