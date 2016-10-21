@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-18T15:52:28.799Z</updated>
+  <updated>2016-10-21T08:36:47.447Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,44 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CNode-android笔记</title>
+    <link href="http://yoursite.com/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2016/10/21/CNode-android笔记/</id>
+    <published>2016-10-21T01:12:13.000Z</published>
+    <updated>2016-10-21T08:36:47.447Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;day1&quot;&gt;&lt;a href=&quot;#day1&quot; class=&quot;headerlink&quot; title=&quot;day1&quot;&gt;&lt;/a&gt;day1&lt;/h4&gt;&lt;p&gt;ListView的使用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt;  dataList = new ArrayList&amp;lt;&amp;gt;();
+ topicsList = (ListView) findViewById(R.id.topicsList);
+topicsAdapter = new SimpleAdapter(this,dataList,R.layout.topic_item,new String[]{&amp;quot;title&amp;quot;,&amp;quot;loginname&amp;quot;,&amp;quot;reply_count&amp;quot;,&amp;quot;visit_count&amp;quot;,&amp;quot;last_reply_at&amp;quot;,&amp;quot;getCreate_at&amp;quot;}
+        ,new int[]{R.id.topicLitle,R.id.author_name,R.id.reply_count,R.id.visit_count,R.id.last_reply,R.id.create_at});
+topicsList.setAdapter(topicsAdapter);
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Retrofit的使用  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;compile &amp;apos;com.squareup.retrofit2:retrofit:2.1.0&amp;apos;
+compile &amp;apos;com.squareup.retrofit2:converter-gson:2.1.0&amp;apos;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;com.squareup.retrofit2:converter-gson:2.1.0不能漏掉，否则会报错，也可以用其他库，参考&lt;a href=&quot;http://square.github.io/retrofit/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Retrofit官网&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Retrofit retrofit = new Retrofit.Builder()
+.baseUrl(&amp;quot;https://api.github.com&amp;quot;)
+.addConverterFactory(GsonConverterFactory.create())
+.build();
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;调用的时候不能漏掉&lt;code&gt;.addConverterFactory(GsonConverterFactory.create())&lt;/code&gt;&lt;br&gt;“2016-10-12T05:36:31.914Z”类似字符串转化为Date方法:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;SimpleDateFormat sdf = new SimpleDateFormat(&amp;quot;yyyy-MM-dd&amp;apos;T&amp;apos;HH:mm:ss.SSS&amp;apos;Z&amp;apos;&amp;quot;);
+Date last_reply_date = sdf.parse(last_reply_at);
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;day1&quot;&gt;&lt;a href=&quot;#day1&quot; class=&quot;headerlink&quot; title=&quot;day1&quot;&gt;&lt;/a&gt;day1&lt;/h4&gt;&lt;p&gt;ListView的使用&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private List&amp;lt;Map&amp;lt;String, Obje
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
   
   <entry>
     <title>RxJava入门</title>

@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="android," />
 
 
 
@@ -86,15 +86,25 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/categories/nodejs/index.html">
+<meta name="description" content="day1ListView的使用
+private List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt;  dataList = new ArrayList&amp;lt;&amp;gt;();
+ topicsList = (ListView) findViewById(R.id.topicsList);
+topicsAdapter = new SimpleAdapter(this,dataLi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNode-android笔记">
+<meta property="og:url" content="http://yoursite.com/2016/10/21/CNode-android笔记/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description">
+<meta property="og:description" content="day1ListView的使用
+private List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt;  dataList = new ArrayList&amp;lt;&amp;gt;();
+ topicsList = (ListView) findViewById(R.id.topicsList);
+topicsAdapter = new SimpleAdapter(this,dataLi">
+<meta property="og:updated_time" content="2016-10-21T08:36:47.447Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
-<meta name="twitter:description">
+<meta name="twitter:title" content="CNode-android笔记">
+<meta name="twitter:description" content="day1ListView的使用
+private List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt;  dataList = new ArrayList&amp;lt;&amp;gt;();
+ topicsList = (ListView) findViewById(R.id.topicsList);
+topicsAdapter = new SimpleAdapter(this,dataLi">
 
 
 
@@ -112,7 +122,7 @@
   };
 </script>
 
-  <title> 分类: nodejs | 个人博客 </title>
+  <title> CNode-android笔记 | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -143,7 +153,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,47 +271,171 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        nodejs
-        <small>分类</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CNode-android笔记
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-21T09:12:13+08:00" content="2016-10-21">
+              2016-10-21
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/21/CNode-android笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/21/CNode-android笔记/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h4 id="day1"><a href="#day1" class="headerlink" title="day1"></a>day1</h4><p>ListView的使用</p>
+<pre><code>private List&lt;Map&lt;String, Object&gt;&gt;  dataList = new ArrayList&lt;&gt;();
+ topicsList = (ListView) findViewById(R.id.topicsList);
+topicsAdapter = new SimpleAdapter(this,dataList,R.layout.topic_item,new String[]{&quot;title&quot;,&quot;loginname&quot;,&quot;reply_count&quot;,&quot;visit_count&quot;,&quot;last_reply_at&quot;,&quot;getCreate_at&quot;}
+        ,new int[]{R.id.topicLitle,R.id.author_name,R.id.reply_count,R.id.visit_count,R.id.last_reply,R.id.create_at});
+topicsList.setAdapter(topicsAdapter);
+</code></pre><p>Retrofit的使用  </p>
+<pre><code>compile &apos;com.squareup.retrofit2:retrofit:2.1.0&apos;
+compile &apos;com.squareup.retrofit2:converter-gson:2.1.0&apos;
+</code></pre><p>com.squareup.retrofit2:converter-gson:2.1.0不能漏掉，否则会报错，也可以用其他库，参考<a href="http://square.github.io/retrofit/" target="_blank" rel="external">Retrofit官网</a></p>
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+.baseUrl(&quot;https://api.github.com&quot;)
+.addConverterFactory(GsonConverterFactory.create())
+.build();
+</code></pre><p>调用的时候不能漏掉<code>.addConverterFactory(GsonConverterFactory.create())</code><br>“2016-10-12T05:36:31.914Z”类似字符串转化为Date方法:</p>
+<pre><code>SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;&quot;);
+Date last_reply_date = sdf.parse(last_reply_at);
+</code></pre>
+      
+    </div>
 
-      <h1 class="post-title">
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/06/04/express入门/" itemprop="url">
-              
-                <span itemprop="name">express入门</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Petercao WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Petercao Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-04T22:22:25+08:00"
-              content="2016-06-04" >
-          06-04
-        </time>
-      </div>
 
-    </header>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag">#android</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/18/RxJava入门/" rel="next" title="RxJava入门">
+                <i class="fa fa-chevron-left"></i> RxJava入门
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 
+      
+    </div>
+  </div>
 
 
           </div>
@@ -309,6 +443,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/21/CNode-android笔记/"
+           data-title="CNode-android笔记" data-url="http://yoursite.com/2016/10/21/CNode-android笔记/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -328,8 +470,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/aaa.jpg"
@@ -386,6 +537,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#day1"><span class="nav-number">1.</span> <span class="nav-text">day1</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -489,6 +651,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
