@@ -335,26 +335,12 @@
 
       
         
-          
-            <h4 id="day1"><a href="#day1" class="headerlink" title="day1"></a>day1</h4><p>ListView的使用</p>
-<pre><code>private List&lt;Map&lt;String, Object&gt;&gt;  dataList = new ArrayList&lt;&gt;();
- topicsList = (ListView) findViewById(R.id.topicsList);
-topicsAdapter = new SimpleAdapter(this,dataList,R.layout.topic_item,new String[]{&quot;title&quot;,&quot;loginname&quot;,&quot;reply_count&quot;,&quot;visit_count&quot;,&quot;last_reply_at&quot;,&quot;getCreate_at&quot;}
-        ,new int[]{R.id.topicLitle,R.id.author_name,R.id.reply_count,R.id.visit_count,R.id.last_reply,R.id.create_at});
-topicsList.setAdapter(topicsAdapter);
-</code></pre><p>Retrofit的使用  </p>
-<pre><code>compile &apos;com.squareup.retrofit2:retrofit:2.1.0&apos;
-compile &apos;com.squareup.retrofit2:converter-gson:2.1.0&apos;
-</code></pre><p>com.squareup.retrofit2:converter-gson:2.1.0不能漏掉，否则会报错，也可以用其他库，参考<a href="http://square.github.io/retrofit/" target="_blank" rel="external">Retrofit官网</a></p>
-<pre><code>Retrofit retrofit = new Retrofit.Builder()
-.baseUrl(&quot;https://api.github.com&quot;)
-.addConverterFactory(GsonConverterFactory.create())
-.build();
-</code></pre><p>调用的时候不能漏掉<code>.addConverterFactory(GsonConverterFactory.create())</code><br>“2016-10-12T05:36:31.914Z”类似字符串转化为Date方法:</p>
-<pre><code>SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;&quot;);
-Date last_reply_date = sdf.parse(last_reply_at);
-</code></pre>
-          
+          <p>开发CNode-android的笔记，供以后开发参考<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/21/CNode-android笔记/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

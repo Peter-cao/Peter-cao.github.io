@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-21T08:36:47.447Z</updated>
+  <updated>2016-10-21T08:40:07.237Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="http://yoursite.com/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2016/10/21/CNode-android笔记/</id>
     <published>2016-10-21T01:12:13.000Z</published>
-    <updated>2016-10-21T08:36:47.447Z</updated>
+    <updated>2016-10-21T08:40:07.237Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;day1&quot;&gt;&lt;a href=&quot;#day1&quot; class=&quot;headerlink&quot; title=&quot;day1&quot;&gt;&lt;/a&gt;day1&lt;/h4&gt;&lt;p&gt;ListView的使用&lt;/p&gt;
+    <content type="html">&lt;p&gt;开发CNode-android的笔记，供以后开发参考&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;day1&quot;&gt;&lt;a href=&quot;#day1&quot; class=&quot;headerlink&quot; title=&quot;day1&quot;&gt;&lt;/a&gt;day1&lt;/h4&gt;&lt;p&gt;ListView的使用&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;private List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt;  dataList = new ArrayList&amp;lt;&amp;gt;();
  topicsList = (ListView) findViewById(R.id.topicsList);
 topicsAdapter = new SimpleAdapter(this,dataList,R.layout.topic_item,new String[]{&amp;quot;title&amp;quot;,&amp;quot;loginname&amp;quot;,&amp;quot;reply_count&amp;quot;,&amp;quot;visit_count&amp;quot;,&amp;quot;last_reply_at&amp;quot;,&amp;quot;getCreate_at&amp;quot;}
@@ -43,8 +44,7 @@ Date last_reply_date = sdf.parse(last_reply_at);
     
     <summary type="html">
     
-      &lt;h4 id=&quot;day1&quot;&gt;&lt;a href=&quot;#day1&quot; class=&quot;headerlink&quot; title=&quot;day1&quot;&gt;&lt;/a&gt;day1&lt;/h4&gt;&lt;p&gt;ListView的使用&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;private List&amp;lt;Map&amp;lt;String, Obje
+      &lt;p&gt;开发CNode-android的笔记，供以后开发参考&lt;br&gt;
     
     </summary>
     

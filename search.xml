@@ -6,7 +6,8 @@
     <entry>
       <title><![CDATA[CNode-android笔记]]></title>
       <url>http://yoursite.com/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/</url>
-      <content type="html"><![CDATA[<h4 id="day1"><a href="#day1" class="headerlink" title="day1"></a>day1</h4><p>ListView的使用</p>
+      <content type="html"><![CDATA[<p>开发CNode-android的笔记，供以后开发参考<br><a id="more"></a></p>
+<h4 id="day1"><a href="#day1" class="headerlink" title="day1"></a>day1</h4><p>ListView的使用</p>
 <pre><code>private List&lt;Map&lt;String, Object&gt;&gt;  dataList = new ArrayList&lt;&gt;();
  topicsList = (ListView) findViewById(R.id.topicsList);
 topicsAdapter = new SimpleAdapter(this,dataList,R.layout.topic_item,new String[]{&quot;title&quot;,&quot;loginname&quot;,&quot;reply_count&quot;,&quot;visit_count&quot;,&quot;last_reply_at&quot;,&quot;getCreate_at&quot;}
