@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/404.html</loc>
+    
+    <lastmod>2016-11-02T08:34:45.175Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/</loc>
     
-    <lastmod>2016-11-02T05:54:42.315Z</lastmod>
+    <lastmod>2016-11-02T07:58:14.040Z</lastmod>
     
   </url>
   
@@ -138,13 +145,6 @@
     <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2016-06-05T14:16:56.371Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/404.html</loc>
-    
-    <lastmod>2016-06-05T13:54:08.146Z</lastmod>
     
   </url>
   

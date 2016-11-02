@@ -257,7 +257,7 @@ setColorScheme(): 设置进度条的颜色主题，最多能设置四种
     drawer.closeDrawer(GravityCompat.START);
     return true;
     }
-});
+});1
 </code></pre>]]></content>
     </entry>
     
