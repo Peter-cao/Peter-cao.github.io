@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="开发CNode-android的笔记，供以后开发参考">
+<meta name="description" content="本文为开发CNode-android的笔记，供以后开发参考">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CNode-android笔记">
 <meta property="og:url" content="http://yoursite.com/2016/10/21/CNode-android笔记/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="开发CNode-android的笔记，供以后开发参考">
-<meta property="og:updated_time" content="2016-10-21T08:40:07.237Z">
+<meta property="og:description" content="本文为开发CNode-android的笔记，供以后开发参考">
+<meta property="og:updated_time" content="2016-11-02T05:54:42.315Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNode-android笔记">
-<meta name="twitter:description" content="开发CNode-android的笔记，供以后开发参考">
+<meta name="twitter:description" content="本文为开发CNode-android的笔记，供以后开发参考">
 
 
 
@@ -330,8 +330,8 @@
       
 
       
-        <p>开发CNode-android的笔记，供以后开发参考<br><a id="more"></a></p>
-<h4 id="day1"><a href="#day1" class="headerlink" title="day1"></a>day1</h4><p>ListView的使用</p>
+        <p>本文为开发CNode-android的笔记，供以后开发参考<br><a id="more"></a></p>
+<h4 id="主页列表显示"><a href="#主页列表显示" class="headerlink" title="主页列表显示"></a>主页列表显示</h4><p>ListView的使用</p>
 <pre><code>private List&lt;Map&lt;String, Object&gt;&gt;  dataList = new ArrayList&lt;&gt;();
  topicsList = (ListView) findViewById(R.id.topicsList);
 topicsAdapter = new SimpleAdapter(this,dataList,R.layout.topic_item,new String[]{&quot;title&quot;,&quot;loginname&quot;,&quot;reply_count&quot;,&quot;visit_count&quot;,&quot;last_reply_at&quot;,&quot;getCreate_at&quot;}
@@ -348,6 +348,240 @@ compile &apos;com.squareup.retrofit2:converter-gson:2.1.0&apos;
 </code></pre><p>调用的时候不能漏掉<code>.addConverterFactory(GsonConverterFactory.create())</code><br>“2016-10-12T05:36:31.914Z”类似字符串转化为Date方法:</p>
 <pre><code>SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&apos;T&apos;HH:mm:ss.SSS&apos;Z&apos;&quot;);
 Date last_reply_date = sdf.parse(last_reply_at);
+</code></pre><h4 id="列表图片加载"><a href="#列表图片加载" class="headerlink" title="列表图片加载"></a>列表图片加载</h4><p>新建TopicListAdapter代替SimpleAdapter，TopicListAdapter继承BaseAdapter，主要重写getView方法，在getView中使用viewHolder，使listview滑动更加顺畅</p>
+<pre><code>@Override
+public View getView(int position, View convertView, ViewGroup parent) {
+    ViewHolder viewHolder;
+    if (convertView == null) {
+        viewHolder = new ViewHolder();
+        convertView = mInflater.inflate(R.layout.topic_item, null);
+        viewHolder.author_image = (ImageView) convertView.findViewById(R.id.author_image);
+        viewHolder.author_name = (TextView) convertView.findViewById(R.id.author_name);
+        viewHolder.top = (LinearLayout) convertView.findViewById(R.id.top);
+        viewHolder.good = (LinearLayout) convertView.findViewById(R.id.good);
+        viewHolder.last_reply = (TextView) convertView.findViewById(R.id.last_reply);
+        viewHolder.topicLitle = (TextView) convertView.findViewById(R.id.topicLitle);
+        viewHolder.create_at = (TextView) convertView.findViewById(R.id.create_at);
+        viewHolder.visit_count = (TextView) convertView.findViewById(R.id.visit_count);
+        viewHolder.reply_count = (TextView) convertView.findViewById(R.id.reply_count);
+        convertView.setTag(viewHolder);
+    } else {
+        viewHolder = (ViewHolder) convertView.getTag();
+    }
+    Topic topic = dataList.get(position);
+    viewHolder.author_name.setText(topic.getAuthor().getLoginname());
+    viewHolder.top.setVisibility(topic.isTop() ? View.VISIBLE : View.GONE);
+    viewHolder.good.setVisibility(topic.isGood() ? View.VISIBLE : View.GONE);
+    viewHolder.last_reply.setText(Utils.getDateDiff(topic.getLast_reply_at()));
+    viewHolder.topicLitle.setText(topic.getTitle());
+    viewHolder.create_at.setText(Utils.formatDate(topic.getCreate_at()));
+    viewHolder.visit_count.setText(topic.getVisit_count() + &quot;&quot;);
+    viewHolder.reply_count.setText(topic.getReply_count() + &quot;&quot;);
+
+    viewHolder.author_image.setImageResource(R.mipmap.ic_launcher);
+
+    String authorImageUrl = topic.getAuthor().getAvatar_url().contains(&quot;http&quot;) ? topic.getAuthor().getAvatar_url() : &quot;https:&quot; + topic.getAuthor().getAvatar_url();
+    viewHolder.author_image.setTag(authorImageUrl);
+    showImageByAsyncTask(authorImageUrl, viewHolder.author_image);
+    return convertView;
+}
+</code></pre><p>使用AsyncTask实现图片的异步加载</p>
+<pre><code>public class AuthorImageLoader extends AsyncTask &lt;String,Void,Bitmap&gt;{
+    ...
+}
+</code></pre><p>AsyncTask是抽象类.AsyncTask定义了三种泛型类型 Params，Progress和Result。<br>　　1.Params 启动任务执行的输入参数，比如HTTP请求的URL。<br>　　2.Progress 后台任务执行的百分比。<br>　　3.Result 后台执行任务最终返回的结果，比如String。<br>主要重写doInBackground和onPostExecute方法</p>
+<pre><code>@Override
+protected Bitmap doInBackground(String... params) {
+    String url = params[0];
+    Bitmap bitmap = getBitmapFromUrl(params[0]);
+    return bitmap;
+}
+
+@Override
+protected void onPostExecute(Bitmap bitmap) {
+    super.onPostExecute(bitmap);
+    if(mImageView.getTag().equals(mUrl)){
+        mImageView.setImageBitmap(bitmap);
+    }
+}
+</code></pre><p>通过url获取bitmap</p>
+<pre><code>public Bitmap getBitmapFromUrl(String url){
+    Bitmap bitmap;
+    InputStream is = null;
+    try{
+        URL mUrl = new URL(url);
+        HttpURLConnection mHttpURLConnection = (HttpURLConnection) mUrl.openConnection();
+        is = new BufferedInputStream(mHttpURLConnection.getInputStream());
+        bitmap = BitmapFactory.decodeStream(is);
+        mHttpURLConnection.disconnect();
+        return  bitmap;
+    }catch (Exception e){
+        e.printStackTrace();
+    }finally {
+        try {
+            is.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    return null;
+}
+</code></pre><p>参考：<a href="http://blog.csdn.net/dmk877/article/details/49366421" target="_blank" rel="external">http://blog.csdn.net/dmk877/article/details/49366421</a></p>
+<h4 id="上拉加载-下拉刷新"><a href="#上拉加载-下拉刷新" class="headerlink" title="上拉加载  下拉刷新"></a>上拉加载  下拉刷新</h4><p>下拉刷新，使用SwipeRefreshLayout，布局文件如下</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v4.widget.SwipeRefreshLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/content_main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;
+    tools:context=&quot;com.demo.cnode_android.MainActivity&quot;
+    tools:showIn=&quot;@layout/app_bar_main&quot;&gt;
+
+
+    &lt;ListView
+        android:id=&quot;@+id/topicsList&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_alignParentEnd=&quot;true&quot;
+        android:layout_alignParentTop=&quot;true&quot; /&gt;
+&lt;/android.support.v4.widget.SwipeRefreshLayout&gt;
+</code></pre><p>主要方法</p>
+<pre><code>setOnRefreshListener(OnRefreshListener): 为布局添加一个Listener
+setRefreshing(boolean): 显示或隐藏刷新进度条
+isRefreshing(): 检查是否处于刷新状态
+setColorScheme(): 设置进度条的颜色主题，最多能设置四种
+</code></pre><p>上拉加载，为ListView添加setOnScrollListener，判断是否滑倒了底部</p>
+<pre><code>topicsList.setOnScrollListener(new AbsListView.OnScrollListener() {
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+       if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE){
+            if(view.getLastVisiblePosition() == view.getCount()-1){
+                page++;
+                getList(false);
+            }
+       }
+
+    }
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+    }
+});
+</code></pre><h4 id="导航抽屉NavigationView"><a href="#导航抽屉NavigationView" class="headerlink" title="导航抽屉NavigationView"></a>导航抽屉NavigationView</h4><p>布局：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v4.widget.DrawerLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/drawer_layout&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:fitsSystemWindows=&quot;true&quot;
+    tools:openDrawer=&quot;start&quot;&gt;
+
+    &lt;include
+        layout=&quot;@layout/app_bar_main&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot; /&gt;
+
+    &lt;android.support.design.widget.NavigationView
+        android:id=&quot;@+id/nav_view&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_gravity=&quot;start&quot;
+        android:fitsSystemWindows=&quot;true&quot;
+        app:headerLayout=&quot;@layout/nav_header_main&quot;
+        app:menu=&quot;@menu/activity_main_drawer&quot; /&gt;
+
+&lt;/android.support.v4.widget.DrawerLayout&gt;
+</code></pre><p>app:headerLayout接收一个layout，作为导航菜单顶部的Header。<br>app:menu接收一个menu，作为导航菜单的菜单项。activity_main_drawer如下：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+
+    &lt;group android:checkableBehavior=&quot;single&quot;&gt;
+        &lt;item
+            android:id=&quot;@+id/all&quot;
+            android:checked=&quot;true&quot;
+            android:icon=&quot;@drawable/main_nav_ic_all&quot;
+            android:title=&quot;全部&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/good&quot;
+            android:icon=&quot;@drawable/main_nav_ic_good&quot;
+            android:title=&quot;精华&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/share&quot;
+            android:icon=&quot;@drawable/main_nav_ic_share&quot;
+            android:title=&quot;分享&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/ask&quot;
+            android:icon=&quot;@drawable/main_nav_ic_ask&quot;
+            android:title=&quot;问答&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/job&quot;
+            android:icon=&quot;@drawable/main_nav_ic_job&quot;
+            android:title=&quot;招聘&quot; /&gt;
+    &lt;/group&gt;
+
+
+    &lt;group  android:id=&quot;@+id/group2&quot;&gt;
+        &lt;item
+            android:id=&quot;@+id/msg&quot;
+            android:icon=&quot;@mipmap/ic_notifications_grey600_24dp&quot;
+            android:title=&quot;消息&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/setting&quot;
+            android:icon=&quot;@mipmap/ic_settings_grey600_24dp&quot;
+            android:title=&quot;设置&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/about&quot;
+            android:icon=&quot;@mipmap/ic_info_grey600_24dp&quot;
+            android:title=&quot;关于&quot; /&gt;
+    &lt;/group&gt;
+
+
+&lt;/menu&gt;
+</code></pre><p>分为两个group后，会多一条横线分割，checkableBehavior=”single”表示是单选，android:checked=”true”表示已选中。<br>用setNavigationItemSelectedListener方法来设置当导航项被点击时的回调：</p>
+<pre><code>mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+         // Handle navigation view item clicks here.
+    int id = item.getItemId();
+
+    if (id == R.id.all) {
+        page = 1;
+        tab = &quot;&quot;;
+        getList(true);
+    } else if (id == R.id.ask) {
+        page = 1;
+        tab = &quot;ask&quot;;
+        getList(true);
+    } else if (id == R.id.share) {
+        page = 1;
+        tab = &quot;share&quot;;
+        getList(true);
+    } else if (id == R.id.job) {
+        page = 1;
+        tab = &quot;job&quot;;
+        getList(true);
+    } else if (id == R.id.good) {
+        page = 1;
+        tab = &quot;good&quot;;
+        getList(true);
+    } else if (id == R.id.msg) {
+
+    } else if (id == R.id.setting) {
+
+    }else if(id == R.id.about){
+
+    }
+
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    drawer.closeDrawer(GravityCompat.START);
+    return true;
+    }
+});
 </code></pre>
       
     </div>
@@ -536,7 +770,7 @@ Date last_reply_date = sdf.parse(last_reply_at);
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#day1"><span class="nav-number">1.</span> <span class="nav-text">day1</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#主页列表显示"><span class="nav-number">1.</span> <span class="nav-text">主页列表显示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#列表图片加载"><span class="nav-number">2.</span> <span class="nav-text">列表图片加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上拉加载-下拉刷新"><span class="nav-number">3.</span> <span class="nav-text">上拉加载  下拉刷新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#导航抽屉NavigationView"><span class="nav-number">4.</span> <span class="nav-text">导航抽屉NavigationView</span></a></li></ol></div>
             
           </div>
         </section>
