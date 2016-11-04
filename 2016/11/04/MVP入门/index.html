@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="android mvp," />
 
 
 
@@ -86,15 +86,16 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="个人博客">
-<meta property="og:url" content="http://yoursite.com/tags/shadowsocks/index.html">
+<meta name="description" content="MVP是什么MVP 是从经典的模式MVC演变而来，它们的基本思想有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MV">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MVP入门">
+<meta property="og:url" content="http://yoursite.com/2016/11/04/MVP入门/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description">
+<meta property="og:description" content="MVP是什么MVP 是从经典的模式MVC演变而来，它们的基本思想有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MV">
+<meta property="og:updated_time" content="2016-11-04T09:24:39.435Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="个人博客">
-<meta name="twitter:description">
+<meta name="twitter:title" content="MVP入门">
+<meta name="twitter:description" content="MVP是什么MVP 是从经典的模式MVC演变而来，它们的基本思想有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MV">
 
 
 
@@ -112,7 +113,7 @@
   };
 </script>
 
-  <title> 标签: shadowsocks | 个人博客 </title>
+  <title> MVP入门 | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -144,7 +145,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -262,46 +263,278 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        shadowsocks
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                MVP入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-04T17:21:30+08:00" content="2016-11-04">
+              2016-11-04
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/04/MVP入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/04/MVP入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h4 id="MVP是什么"><a href="#MVP是什么" class="headerlink" title="MVP是什么"></a>MVP是什么</h4><p>MVP 是从经典的模式MVC演变而来，它们的基本思想有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会从直接Model中读取数据而不是通过 Controller。<br><a id="more"></a></p>
+<h4 id="MVP的优点"><a href="#MVP的优点" class="headerlink" title="MVP的优点"></a>MVP的优点</h4><ol>
+<li>模型与视图完全分离，我们可以修改视图而不影响模型</li>
+<li>可以更高效地使用模型，因为所有的交互都发生在一个地方——Presenter内部</li>
+<li>我们可以将一个Presenter用于多个视图，而不需要改变Presenter的逻辑。这个特性非常的有用，因为视图的变化总是比模型的变化频繁。</li>
+<li>如果我们把逻辑放在Presenter中，那么我们就可以脱离用户接口来测试这些逻辑（单元测试）  </li>
+</ol>
+<h4 id="Demo解析"><a href="#Demo解析" class="headerlink" title="Demo解析"></a>Demo解析</h4><p>Demo地址：<a href="https://github.com/Peter-cao/MvpDemo" target="_blank" rel="external">https://github.com/Peter-cao/MvpDemo</a> </p>
+<h5 id="基类BasePresenter"><a href="#基类BasePresenter" class="headerlink" title="基类BasePresenter"></a>基类BasePresenter</h5><pre><code>public interface BasePresenter {
+    void start();
+}
+</code></pre><p>BasePresenter中含有方法start(),该方法的作用是presenter开始获取数据并调用view中方法改变界面显示，其调用时机是在activity类的onResume方法中。</p>
+<h5 id="契约类MainContract"><a href="#契约类MainContract" class="headerlink" title="契约类MainContract"></a>契约类MainContract</h5><p>统一管理view与presenter的所有的接口，使得view与presenter中有哪些功能，一目了然，维护起来也方便</p>
+<pre><code>public interface MainContract {
+    interface View  {
+        void showLoading();//显示loading
+        void hideLoading();//隐藏loading
+        void showList(List&lt;Topic&gt; list);//显示列表
+        void showError(String msg);//显示错误信息
 
-      <h1 class="post-title">
+    }
+    interface Presenter extends BasePresenter {
+        void showList();//发送列表请求
+    }
+}
+</code></pre><h5 id="MainActivity"><a href="#MainActivity" class="headerlink" title="MainActivity"></a>MainActivity</h5><p>实现了MainContract.View接口，MainActivity包含了MainPresenter的引用，当用户执行动作时, View截获事件, 通过Presenter接口传递事件给Presenter处理.<br>在onResume()方法中调用mPresenter的start()方法</p>
+<pre><code>public class MainActivity extends AppCompatActivity implements MainContract.View {
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ListView mListView;
+    private MainContract.Presenter mPresenter;
+    private SimpleAdapter mSimpleAdapter;
+    private List&lt;Map&lt;String, Object&gt;&gt; listData = new ArrayList&lt;&gt;();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.activity_main);
+        mListView = (ListView)findViewById(R.id.listview);
+        mSimpleAdapter = new SimpleAdapter(this,listData,android.R.layout.simple_list_item_2,new String[] { &quot;title&quot; },new int[]{android.R.id.text1});
+        mListView.setAdapter(mSimpleAdapter);
+        mPresenter = new MainPresenter(this);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
+    public void showLoading() {
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+
+    }
+
+    @Override
+    public void hideLoading() {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showList(List&lt;Topic&gt; list) {
+        for(Topic topic : list){
+            HashMap map = new HashMap();
+            map.put(&quot;title&quot;,topic.getTitle());
+            listData.add(map);
+        }
+        mSimpleAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError(String msg) {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+    }
+}
+</code></pre><h5 id="MainPresenter"><a href="#MainPresenter" class="headerlink" title="MainPresenter"></a>MainPresenter</h5><p>实现了MainContract.Presenter接口，MainPresenter包含了MainContract.View的引用mMainActivity，在View需要更新时，调用mMainActivity的对应方法</p>
+<pre><code>public class MainPresenter implements MainContract.Presenter {
+    private MainContract.View mMainActivity;
+
+    public MainPresenter(MainContract.View mainActivity) {
+        mMainActivity = mainActivity;
+    }
+
+    @Override
+    public void start() {
+        showList();
+    }
+    @Override
+    public void showList(){
+        mMainActivity.showLoading();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(&quot;https://cnodejs.org/api/v1/&quot;)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService service = retrofit.create(ApiService.class);
+        Call&lt;TopicRsp&gt; call = service.listRepos();
+        call.enqueue(new Callback&lt;TopicRsp&gt;() {
+            @Override
+            public void onResponse(Call&lt;TopicRsp&gt; call, Response&lt;TopicRsp&gt; response) {
+                mMainActivity.hideLoading();
+                if(response.body().isSuccess()){
+                    mMainActivity.showList(response.body().getData());
+                }else{
+                    mMainActivity.showError(&quot;接口异常&quot;);
+                }
+            }
+
+            @Override
+            public void onFailure(Call&lt;TopicRsp&gt; call, Throwable t) {
+                mMainActivity.hideLoading();
+                mMainActivity.showError(&quot;网络异常&quot;);
+            }
+        });
+
+    }
+}
+</code></pre><p>参考：<a href="https://github.com/googlesamples/android-architecture" target="_blank" rel="external">https://github.com/googlesamples/android-architecture</a></p>
+
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/06/23/翻墙方法/" itemprop="url">
-              
-                <span itemprop="name">shadowsocks搭建VPN</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Petercao WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Petercao Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-06-23T13:03:22+08:00"
-              content="2016-06-23" >
-          06-23
-        </time>
-      </div>
 
-    </header>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android-mvp/" rel="tag">#android mvp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/21/CNode-android笔记/" rel="next" title="CNode-android笔记">
+                <i class="fa fa-chevron-left"></i> CNode-android笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -309,6 +542,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/04/MVP入门/"
+           data-title="MVP入门" data-url="http://yoursite.com/2016/11/04/MVP入门/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -328,8 +569,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/aaa.jpg"
@@ -386,6 +636,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MVP是什么"><span class="nav-number">1.</span> <span class="nav-text">MVP是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MVP的优点"><span class="nav-number">2.</span> <span class="nav-text">MVP的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Demo解析"><span class="nav-number">3.</span> <span class="nav-text">Demo解析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基类BasePresenter"><span class="nav-number">3.1.</span> <span class="nav-text">基类BasePresenter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#契约类MainContract"><span class="nav-number">3.2.</span> <span class="nav-text">契约类MainContract</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MainActivity"><span class="nav-number">3.3.</span> <span class="nav-text">MainActivity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MainPresenter"><span class="nav-number">3.4.</span> <span class="nav-text">MainPresenter</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -489,6 +750,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

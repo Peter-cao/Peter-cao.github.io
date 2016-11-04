@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-02T07:58:14.040Z</updated>
+  <updated>2016-11-04T09:24:39.435Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,150 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MVP入门</title>
+    <link href="http://yoursite.com/2016/11/04/MVP%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2016/11/04/MVP入门/</id>
+    <published>2016-11-04T09:21:30.000Z</published>
+    <updated>2016-11-04T09:24:39.435Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;MVP是什么&quot;&gt;&lt;a href=&quot;#MVP是什么&quot; class=&quot;headerlink&quot; title=&quot;MVP是什么&quot;&gt;&lt;/a&gt;MVP是什么&lt;/h4&gt;&lt;p&gt;MVP 是从经典的模式MVC演变而来，它们的基本思想有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会从直接Model中读取数据而不是通过 Controller。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;MVP的优点&quot;&gt;&lt;a href=&quot;#MVP的优点&quot; class=&quot;headerlink&quot; title=&quot;MVP的优点&quot;&gt;&lt;/a&gt;MVP的优点&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;模型与视图完全分离，我们可以修改视图而不影响模型&lt;/li&gt;
+&lt;li&gt;可以更高效地使用模型，因为所有的交互都发生在一个地方——Presenter内部&lt;/li&gt;
+&lt;li&gt;我们可以将一个Presenter用于多个视图，而不需要改变Presenter的逻辑。这个特性非常的有用，因为视图的变化总是比模型的变化频繁。&lt;/li&gt;
+&lt;li&gt;如果我们把逻辑放在Presenter中，那么我们就可以脱离用户接口来测试这些逻辑（单元测试）  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id=&quot;Demo解析&quot;&gt;&lt;a href=&quot;#Demo解析&quot; class=&quot;headerlink&quot; title=&quot;Demo解析&quot;&gt;&lt;/a&gt;Demo解析&lt;/h4&gt;&lt;p&gt;Demo地址：&lt;a href=&quot;https://github.com/Peter-cao/MvpDemo&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/Peter-cao/MvpDemo&lt;/a&gt; &lt;/p&gt;
+&lt;h5 id=&quot;基类BasePresenter&quot;&gt;&lt;a href=&quot;#基类BasePresenter&quot; class=&quot;headerlink&quot; title=&quot;基类BasePresenter&quot;&gt;&lt;/a&gt;基类BasePresenter&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;public interface BasePresenter {
+    void start();
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;BasePresenter中含有方法start(),该方法的作用是presenter开始获取数据并调用view中方法改变界面显示，其调用时机是在activity类的onResume方法中。&lt;/p&gt;
+&lt;h5 id=&quot;契约类MainContract&quot;&gt;&lt;a href=&quot;#契约类MainContract&quot; class=&quot;headerlink&quot; title=&quot;契约类MainContract&quot;&gt;&lt;/a&gt;契约类MainContract&lt;/h5&gt;&lt;p&gt;统一管理view与presenter的所有的接口，使得view与presenter中有哪些功能，一目了然，维护起来也方便&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public interface MainContract {
+    interface View  {
+        void showLoading();//显示loading
+        void hideLoading();//隐藏loading
+        void showList(List&amp;lt;Topic&amp;gt; list);//显示列表
+        void showError(String msg);//显示错误信息
+
+    }
+    interface Presenter extends BasePresenter {
+        void showList();//发送列表请求
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;MainActivity&quot;&gt;&lt;a href=&quot;#MainActivity&quot; class=&quot;headerlink&quot; title=&quot;MainActivity&quot;&gt;&lt;/a&gt;MainActivity&lt;/h5&gt;&lt;p&gt;实现了MainContract.View接口，MainActivity包含了MainPresenter的引用，当用户执行动作时, View截获事件, 通过Presenter接口传递事件给Presenter处理.&lt;br&gt;在onResume()方法中调用mPresenter的start()方法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MainActivity extends AppCompatActivity implements MainContract.View {
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private ListView mListView;
+    private MainContract.Presenter mPresenter;
+    private SimpleAdapter mSimpleAdapter;
+    private List&amp;lt;Map&amp;lt;String, Object&amp;gt;&amp;gt; listData = new ArrayList&amp;lt;&amp;gt;();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mSwipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.activity_main);
+        mListView = (ListView)findViewById(R.id.listview);
+        mSimpleAdapter = new SimpleAdapter(this,listData,android.R.layout.simple_list_item_2,new String[] { &amp;quot;title&amp;quot; },new int[]{android.R.id.text1});
+        mListView.setAdapter(mSimpleAdapter);
+        mPresenter = new MainPresenter(this);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.start();
+    }
+
+    @Override
+    public void showLoading() {
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(true);
+            }
+        });
+
+    }
+
+    @Override
+    public void hideLoading() {
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void showList(List&amp;lt;Topic&amp;gt; list) {
+        for(Topic topic : list){
+            HashMap map = new HashMap();
+            map.put(&amp;quot;title&amp;quot;,topic.getTitle());
+            listData.add(map);
+        }
+        mSimpleAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError(String msg) {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;MainPresenter&quot;&gt;&lt;a href=&quot;#MainPresenter&quot; class=&quot;headerlink&quot; title=&quot;MainPresenter&quot;&gt;&lt;/a&gt;MainPresenter&lt;/h5&gt;&lt;p&gt;实现了MainContract.Presenter接口，MainPresenter包含了MainContract.View的引用mMainActivity，在View需要更新时，调用mMainActivity的对应方法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class MainPresenter implements MainContract.Presenter {
+    private MainContract.View mMainActivity;
+
+    public MainPresenter(MainContract.View mainActivity) {
+        mMainActivity = mainActivity;
+    }
+
+    @Override
+    public void start() {
+        showList();
+    }
+    @Override
+    public void showList(){
+        mMainActivity.showLoading();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(&amp;quot;https://cnodejs.org/api/v1/&amp;quot;)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService service = retrofit.create(ApiService.class);
+        Call&amp;lt;TopicRsp&amp;gt; call = service.listRepos();
+        call.enqueue(new Callback&amp;lt;TopicRsp&amp;gt;() {
+            @Override
+            public void onResponse(Call&amp;lt;TopicRsp&amp;gt; call, Response&amp;lt;TopicRsp&amp;gt; response) {
+                mMainActivity.hideLoading();
+                if(response.body().isSuccess()){
+                    mMainActivity.showList(response.body().getData());
+                }else{
+                    mMainActivity.showError(&amp;quot;接口异常&amp;quot;);
+                }
+            }
+
+            @Override
+            public void onFailure(Call&amp;lt;TopicRsp&amp;gt; call, Throwable t) {
+                mMainActivity.hideLoading();
+                mMainActivity.showError(&amp;quot;网络异常&amp;quot;);
+            }
+        });
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;参考：&lt;a href=&quot;https://github.com/googlesamples/android-architecture&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/googlesamples/android-architecture&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;MVP是什么&quot;&gt;&lt;a href=&quot;#MVP是什么&quot; class=&quot;headerlink&quot; title=&quot;MVP是什么&quot;&gt;&lt;/a&gt;MVP是什么&lt;/h4&gt;&lt;p&gt;MVP 是从经典的模式MVC演变而来，它们的基本思想有相通的地方：Controller/Presenter负责逻辑的处理，Model提供数据，View负责显示。作为一种新的模式，MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会从直接Model中读取数据而不是通过 Controller。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="android mvp" scheme="http://yoursite.com/tags/android-mvp/"/>
+    
+  </entry>
   
   <entry>
     <title>CNode-android笔记</title>
