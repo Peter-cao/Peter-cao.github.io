@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -86,16 +86,15 @@
 
 
 
-<meta name="description" content="向其他app发送简单数据">
-<meta property="og:type" content="article">
-<meta property="og:title" content="android_简单数据的分享">
-<meta property="og:url" content="http://yoursite.com/2016/06/23/android-简单数据的分享/index.html">
+<meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="个人博客">
+<meta property="og:url" content="http://yoursite.com/categories/常用捷键整/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="向其他app发送简单数据">
-<meta property="og:updated_time" content="2016-07-05T08:44:01.446Z">
+<meta property="og:description">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="android_简单数据的分享">
-<meta name="twitter:description" content="向其他app发送简单数据">
+<meta name="twitter:title" content="个人博客">
+<meta name="twitter:description">
 
 
 
@@ -113,7 +112,7 @@
   };
 </script>
 
-  <title> android_简单数据的分享 | 个人博客 </title>
+  <title> 分类: 常用捷键整 | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -144,7 +143,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -262,297 +261,47 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <section id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        常用捷键整
+        <small>分类</small>
+      </h2>
+    </div>
 
     
-      <header class="post-header">
+      
 
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h1 class="post-title">
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
+            <a class="post-title-link" href="/2016/12/08/快捷键整理/" itemprop="url">
               
-                android_简单数据的分享
+                <span itemprop="name">快捷键整理</span>
               
-            
-          </h1>
+            </a>
         
+      </h1>
 
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-23T22:25:22+08:00" content="2016-06-23">
-              2016-06-23
-            </time>
-          </span>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-12-08T09:20:35+08:00"
+              content="2016-12-08" >
+          12-08
+        </time>
+      </div>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/23/android-简单数据的分享/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/23/android-简单数据的分享/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h4 id="向其他app发送简单数据"><a href="#向其他app发送简单数据" class="headerlink" title="向其他app发送简单数据"></a>向其他app发送简单数据</h4><a id="more"></a>
-<h5 id="发送文本内容"><a href="#发送文本内容" class="headerlink" title="发送文本内容"></a>发送文本内容</h5><pre><code>Intent sendIntent = new Intent();
-sendIntent.setAction(Intent.ACTION_SEND);
-sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
-sendIntent.setType(&quot;text/plain&quot;);
-startActivity(sendIntent);
-</code></pre><p>Intent.createChooser()</p>
-<pre><code>Intent sendIntent = new Intent();
-sendIntent.setAction(Intent.ACTION_SEND);
-sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
-sendIntent.setType(&quot;text/plain&quot;);
-startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
-</code></pre><h5 id="发送二进制内容"><a href="#发送二进制内容" class="headerlink" title="发送二进制内容"></a>发送二进制内容</h5><pre><code>Intent shareIntent = new Intent();
-shareIntent.setAction(Intent.ACTION_SEND);
-shareIntent.putExtra(Intent.EXTRA_STREAM, uriToImage);
-shareIntent.setType(&quot;image/jpeg&quot;);
-startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
-</code></pre><h5 id="发送多个内容"><a href="#发送多个内容" class="headerlink" title="发送多个内容"></a>发送多个内容</h5><p>ACTION_SEND_MULTIPLE  </p>
-<pre><code>ArrayList&lt;Uri&gt; imageUris = new ArrayList&lt;Uri&gt;();
-imageUris.add(imageUri1); // Add your image URIs here
-imageUris.add(imageUri2);
-
-Intent shareIntent = new Intent();
-shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
-shareIntent.setType(&quot;image/*&quot;);
-startActivity(Intent.createChooser(shareIntent, &quot;Share images to..&quot;));
-</code></pre><h4 id="从其他app接收简单数据"><a href="#从其他app接收简单数据" class="headerlink" title="从其他app接收简单数据"></a>从其他app接收简单数据</h4><h5 id="更新Manifest"><a href="#更新Manifest" class="headerlink" title="更新Manifest"></a>更新Manifest</h5><pre><code>&lt;activity android:name=&quot;.ui.MyActivity&quot; &gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
-    &lt;/intent-filter&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;text/plain&quot; /&gt;
-    &lt;/intent-filter&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND_MULTIPLE&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/activity&gt;
-</code></pre><h5 id="处理接收到的内容"><a href="#处理接收到的内容" class="headerlink" title="处理接收到的内容"></a>处理接收到的内容</h5><pre><code>void onCreate (Bundle savedInstanceState) {
-    ...
-    // Get intent, action and MIME type
-    Intent intent = getIntent();
-    String action = intent.getAction();
-    String type = intent.getType();
-
-    if (Intent.ACTION_SEND.equals(action) &amp;&amp; type != null) {
-        if (&quot;text/plain&quot;.equals(type)) {
-            handleSendText(intent); // Handle text being sent
-        } else if (type.startsWith(&quot;image/&quot;)) {
-            handleSendImage(intent); // Handle single image being sent
-        }
-    } else if (Intent.ACTION_SEND_MULTIPLE.equals(action) &amp;&amp; type != null) {
-        if (type.startsWith(&quot;image/&quot;)) {
-            handleSendMultipleImages(intent); // Handle multiple images being sent
-        }
-    } else {
-        // Handle other intents, such as being started from the home screen
-    }
-    ...
-}
-
-void handleSendText(Intent intent) {
-    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-    if (sharedText != null) {
-        // Update UI to reflect text being shared
-    }
-}
-
-void handleSendImage(Intent intent) {
-    Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    if (imageUri != null) {
-        // Update UI to reflect image being shared
-    }
-}
-
-void handleSendMultipleImages(Intent intent) {
-    ArrayList&lt;Uri&gt; imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-    if (imageUris != null) {
-        // Update UI to reflect multiple images being shared
-    }
-}
-</code></pre><h4 id="添加一个简单的分享action"><a href="#添加一个简单的分享action" class="headerlink" title="添加一个简单的分享action"></a>添加一个简单的分享action</h4><h5 id="更新菜单声明"><a href="#更新菜单声明" class="headerlink" title="更新菜单声明"></a>更新菜单声明</h5><pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    &lt;item
-            android:id=&quot;@+id/menu_item_share&quot;
-            android:showAsAction=&quot;ifRoom&quot;
-            android:title=&quot;Share&quot;
-            android:actionProviderClass=
-                &quot;android.widget.ShareActionProvider&quot; /&gt;
-    ...
-&lt;/menu&gt;
-</code></pre><h5 id="Set-the-Share-Intent"><a href="#Set-the-Share-Intent" class="headerlink" title="Set the Share Intent"></a>Set the Share Intent</h5><pre><code>private ShareActionProvider mShareActionProvider;
-...
-
-@Override
-public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate menu resource file.
-    getMenuInflater().inflate(R.menu.share_menu, menu);
-
-    // Locate MenuItem with ShareActionProvider
-    MenuItem item = menu.findItem(R.id.menu_item_share);
-
-    // Fetch and store ShareActionProvider
-    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-
-    // Return true to display menu
-    return true;
-}
-
-// Call to update the share intent
-private void setShareIntent(Intent shareIntent) {
-    if (mShareActionProvider != null) {
-        mShareActionProvider.setShareIntent(shareIntent);
-    }
-}
-</code></pre>
-      
-    </div>
-
-    <div>
-      
-        
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/uploads/weixin.png" alt="Petercao WeChat Pay"/>
-          <p>微信打赏</p>
-        </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Petercao Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
-  </div>
-
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/android/" rel="tag">#android</a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/06/23/翻墙方法/" rel="next" title="shadowsocks搭建VPN">
-                <i class="fa fa-chevron-left"></i> shadowsocks搭建VPN
-              </a>
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/26/android-文件共享/" rel="prev" title="android_文件共享">
-                android_文件共享 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-        
-<script>
-  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-</script>
+  
 
-      
-    </div>
-  </div>
 
 
           </div>
@@ -560,14 +309,6 @@ private void setShareIntent(Intent shareIntent) {
 
 
           
-  <div class="comments" id="comments">
-    
-      <div class="ds-thread" data-thread-key="2016/06/23/android-简单数据的分享/"
-           data-title="android_简单数据的分享" data-url="http://yoursite.com/2016/06/23/android-简单数据的分享/">
-      </div>
-    
-  </div>
-
 
         </div>
         
@@ -587,17 +328,8 @@ private void setShareIntent(Intent shareIntent) {
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/aaa.jpg"
@@ -654,17 +386,6 @@ private void setShareIntent(Intent shareIntent) {
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#向其他app发送简单数据"><span class="nav-number">1.</span> <span class="nav-text">向其他app发送简单数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#发送文本内容"><span class="nav-number">1.1.</span> <span class="nav-text">发送文本内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发送二进制内容"><span class="nav-number">1.2.</span> <span class="nav-text">发送二进制内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发送多个内容"><span class="nav-number">1.3.</span> <span class="nav-text">发送多个内容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#从其他app接收简单数据"><span class="nav-number">2.</span> <span class="nav-text">从其他app接收简单数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#更新Manifest"><span class="nav-number">2.1.</span> <span class="nav-text">更新Manifest</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#处理接收到的内容"><span class="nav-number">2.2.</span> <span class="nav-text">处理接收到的内容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加一个简单的分享action"><span class="nav-number">3.</span> <span class="nav-text">添加一个简单的分享action</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#更新菜单声明"><span class="nav-number">3.1.</span> <span class="nav-text">更新菜单声明</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Set-the-Share-Intent"><span class="nav-number">3.2.</span> <span class="nav-text">Set the Share Intent</span></a></li></ol></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -768,10 +489,6 @@ private void setShareIntent(Intent shareIntent) {
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 
