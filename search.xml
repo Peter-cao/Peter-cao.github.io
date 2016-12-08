@@ -387,7 +387,63 @@ setColorScheme(): 设置进度条的颜色主题，最多能设置四种
     drawer.closeDrawer(GravityCompat.START);
     return true;
     }
-});1
+});
+</code></pre><h4 id="使用Picasso实现圆形头像"><a href="#使用Picasso实现圆形头像" class="headerlink" title="使用Picasso实现圆形头像"></a>使用Picasso实现圆形头像</h4><p>官网例子（截取矩形图片中间部分为正方形）：</p>
+<pre><code>public class CropSquareTransformation implements Transformation {
+  @Override public Bitmap transform(Bitmap source) {
+    int size = Math.min(source.getWidth(), source.getHeight());
+    int x = (source.getWidth() - size) / 2;
+    int y = (source.getHeight() - size) / 2;
+    Bitmap result = Bitmap.createBitmap(source, x, y, size, size);
+    if (result != source) {
+      source.recycle();
+    }
+    return result;
+  }
+
+  @Override public String key() { return &quot;square()&quot;; }
+}
+</code></pre><p>参考官网例子，定义圆形转换器类</p>
+<pre><code>public class CircleTransform implements Transformation {
+    @Override
+    public Bitmap transform(Bitmap source) {
+         //获取Bitmap的宽度
+        int width = source.getWidth();
+        //返回一个正方形的Bitmap对象
+        Bitmap mBitmap = Bitmap.createBitmap(width,width, Bitmap.Config.ARGB_8888);
+        //定义指定宽高的canvas
+        Canvas mCanvas = new Canvas(mBitmap);
+        //定义画笔
+        Paint mPaint = new Paint();
+        //设置抗锯齿
+        mPaint.setAntiAlias(true);
+        //背景：在画布上绘制一个圆
+        mCanvas.drawCircle(width/2,width/2,width/2,mPaint);
+        //设置图片相交情况下的处理方式
+        //setXfermode：设置当绘制的图像出现相交情况时候的处理方式的,它包含的常用模式有哪几种
+        //PorterDuff.Mode.SRC_IN 取两层图像交集部门,只显示上层图像,注意这里是指取相交叉的部分,然后显示上层图像
+        //PorterDuff.Mode.DST_IN 取两层图像交集部门,只显示下层图像
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        //前景：在画布上绘制一个bitmap
+        mCanvas.drawBitmap(source,0,0,mPaint);
+        //必须要回收source，否则会报错
+        source.recycle();
+        return mBitmap;
+    }
+
+    @Override
+    public String key() {
+        return &quot;square()&quot;;
+    }
+}
+</code></pre><p>调用：</p>
+<pre><code> private CircleTransform mCircleTransform = new CircleTransform();
+Picasso.with(context)
+            .load(authorImageUrl)
+            .resize(100, 100)
+            .centerCrop()
+            .transform(mCircleTransform)
+            .into(viewHolder.author_image);
 </code></pre>]]></content>
     </entry>
     
@@ -2425,14 +2481,27 @@ finish();
     </entry>
     
     <entry>
-      <title><![CDATA[androidStudio快捷键整理]]></title>
-      <url>http://yoursite.com/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/</url>
-      <content type="html"><![CDATA[<h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><p>Alt + insert  </p>
-<h4 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h4><p>Ctrl+Alt+L </p>
-<h4 id="大小写切换"><a href="#大小写切换" class="headerlink" title="大小写切换"></a>大小写切换</h4><p>Ctrl+Shift+U </p>
-<h4 id="代码提示"><a href="#代码提示" class="headerlink" title="代码提示"></a>代码提示</h4><p>shift+ space(自己设置)<br>设置方法：File-&gt;setting-&gt;Keymap-&gt;Main menu-&gt;Code-&gt;Completion</p>
-<h4 id="导入包"><a href="#导入包" class="headerlink" title="导入包"></a>导入包</h4><p>Alt + Enter</p>
-]]></content>
+      <title><![CDATA[快捷键整理]]></title>
+      <url>http://yoursite.com/2016/06/19/%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/</url>
+      <content type="html"><![CDATA[<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>记录各种工具下常用的快捷键，提升效率<br><a id="more"></a></p>
+<h4 id="android-studio"><a href="#android-studio" class="headerlink" title="android studio"></a>android studio</h4><pre><code>generate = Alt + insert  
+格式化代码 = Ctrl+Alt+L 
+大小写切换 = Ctrl+Shift+U  
+代码提示 = shift+ space(自己设置)  
+设置方法 = File-&gt;setting-&gt;Keymap-&gt;Main menu-&gt;Code-&gt;Completion  
+导入包 = Alt + Enter
+</code></pre><h4 id="sublime-Text3"><a href="#sublime-Text3" class="headerlink" title="sublime Text3"></a>sublime Text3</h4><pre><code>Package Control = ctrl+Shift+P  
+格式化 = Ctrl+Alt+F  
+Jump to definition = Alt+Click  
+Jump to definition = Control+Windows+Alt+Up  
+Go back = Control+Windows+Alt+Left  
+Manual Code Intelligence = Control+Shift+space  
+Open Terminal at File = ctrl+shift+t   
+Open Terminal at Project Folder  =   ctrl+alt+shift+t
+</code></pre><h4 id="Chrome"><a href="#Chrome" class="headerlink" title="Chrome"></a>Chrome</h4><pre><code>vpn开关 = alt+shift+o
+</code></pre><h4 id="eclipse"><a href="#eclipse" class="headerlink" title="eclipse"></a>eclipse</h4><pre><code>ctrl+shift+x   转为大写  
+ctrl+shift+y   转为小写
+</code></pre>]]></content>
     </entry>
     
     <entry>

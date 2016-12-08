@@ -164,7 +164,7 @@
     <link href="http://yoursite.com/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2016/10/21/CNode-android笔记/</id>
     <published>2016-10-21T01:12:13.000Z</published>
-    <updated>2016-11-02T07:58:14.040Z</updated>
+    <updated>2016-11-22T07:01:15.439Z</updated>
     
     <content type="html">&lt;p&gt;本文为开发CNode-android的笔记，供以后开发参考&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;主页列表显示&quot;&gt;&lt;a href=&quot;#主页列表显示&quot; class=&quot;headerlink&quot; title=&quot;主页列表显示&quot;&gt;&lt;/a&gt;主页列表显示&lt;/h4&gt;&lt;p&gt;ListView的使用&lt;/p&gt;
@@ -417,7 +417,63 @@ setColorScheme(): 设置进度条的颜色主题，最多能设置四种
     drawer.closeDrawer(GravityCompat.START);
     return true;
     }
-});1
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;使用Picasso实现圆形头像&quot;&gt;&lt;a href=&quot;#使用Picasso实现圆形头像&quot; class=&quot;headerlink&quot; title=&quot;使用Picasso实现圆形头像&quot;&gt;&lt;/a&gt;使用Picasso实现圆形头像&lt;/h4&gt;&lt;p&gt;官网例子（截取矩形图片中间部分为正方形）：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class CropSquareTransformation implements Transformation {
+  @Override public Bitmap transform(Bitmap source) {
+    int size = Math.min(source.getWidth(), source.getHeight());
+    int x = (source.getWidth() - size) / 2;
+    int y = (source.getHeight() - size) / 2;
+    Bitmap result = Bitmap.createBitmap(source, x, y, size, size);
+    if (result != source) {
+      source.recycle();
+    }
+    return result;
+  }
+
+  @Override public String key() { return &amp;quot;square()&amp;quot;; }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;参考官网例子，定义圆形转换器类&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;public class CircleTransform implements Transformation {
+    @Override
+    public Bitmap transform(Bitmap source) {
+         //获取Bitmap的宽度
+        int width = source.getWidth();
+        //返回一个正方形的Bitmap对象
+        Bitmap mBitmap = Bitmap.createBitmap(width,width, Bitmap.Config.ARGB_8888);
+        //定义指定宽高的canvas
+        Canvas mCanvas = new Canvas(mBitmap);
+        //定义画笔
+        Paint mPaint = new Paint();
+        //设置抗锯齿
+        mPaint.setAntiAlias(true);
+        //背景：在画布上绘制一个圆
+        mCanvas.drawCircle(width/2,width/2,width/2,mPaint);
+        //设置图片相交情况下的处理方式
+        //setXfermode：设置当绘制的图像出现相交情况时候的处理方式的,它包含的常用模式有哪几种
+        //PorterDuff.Mode.SRC_IN 取两层图像交集部门,只显示上层图像,注意这里是指取相交叉的部分,然后显示上层图像
+        //PorterDuff.Mode.DST_IN 取两层图像交集部门,只显示下层图像
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        //前景：在画布上绘制一个bitmap
+        mCanvas.drawBitmap(source,0,0,mPaint);
+        //必须要回收source，否则会报错
+        source.recycle();
+        return mBitmap;
+    }
+
+    @Override
+    public String key() {
+        return &amp;quot;square()&amp;quot;;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;调用：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt; private CircleTransform mCircleTransform = new CircleTransform();
+Picasso.with(context)
+            .load(authorImageUrl)
+            .resize(100, 100)
+            .centerCrop()
+            .transform(mCircleTransform)
+            .into(viewHolder.author_image);
 &lt;/code&gt;&lt;/pre&gt;</content>
     
     <summary type="html">
@@ -2629,23 +2685,35 @@ finish();
   </entry>
   
   <entry>
-    <title>androidStudio快捷键整理</title>
-    <link href="http://yoursite.com/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
-    <id>http://yoursite.com/2016/06/19/androidStudio快捷键整理/</id>
+    <title>快捷键整理</title>
+    <link href="http://yoursite.com/2016/06/19/%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
+    <id>http://yoursite.com/2016/06/19/快捷键整理/</id>
     <published>2016-06-19T10:25:35.000Z</published>
-    <updated>2016-06-27T06:49:18.931Z</updated>
+    <updated>2016-12-08T01:03:37.906Z</updated>
     
-    <content type="html">&lt;h4 id=&quot;generate&quot;&gt;&lt;a href=&quot;#generate&quot; class=&quot;headerlink&quot; title=&quot;generate&quot;&gt;&lt;/a&gt;generate&lt;/h4&gt;&lt;p&gt;Alt + insert  &lt;/p&gt;
-&lt;h4 id=&quot;格式化代码&quot;&gt;&lt;a href=&quot;#格式化代码&quot; class=&quot;headerlink&quot; title=&quot;格式化代码&quot;&gt;&lt;/a&gt;格式化代码&lt;/h4&gt;&lt;p&gt;Ctrl+Alt+L &lt;/p&gt;
-&lt;h4 id=&quot;大小写切换&quot;&gt;&lt;a href=&quot;#大小写切换&quot; class=&quot;headerlink&quot; title=&quot;大小写切换&quot;&gt;&lt;/a&gt;大小写切换&lt;/h4&gt;&lt;p&gt;Ctrl+Shift+U &lt;/p&gt;
-&lt;h4 id=&quot;代码提示&quot;&gt;&lt;a href=&quot;#代码提示&quot; class=&quot;headerlink&quot; title=&quot;代码提示&quot;&gt;&lt;/a&gt;代码提示&lt;/h4&gt;&lt;p&gt;shift+ space(自己设置)&lt;br&gt;设置方法：File-&amp;gt;setting-&amp;gt;Keymap-&amp;gt;Main menu-&amp;gt;Code-&amp;gt;Completion&lt;/p&gt;
-&lt;h4 id=&quot;导入包&quot;&gt;&lt;a href=&quot;#导入包&quot; class=&quot;headerlink&quot; title=&quot;导入包&quot;&gt;&lt;/a&gt;导入包&lt;/h4&gt;&lt;p&gt;Alt + Enter&lt;/p&gt;
-</content>
+    <content type="html">&lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;记录各种工具下常用的快捷键，提升效率&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;android-studio&quot;&gt;&lt;a href=&quot;#android-studio&quot; class=&quot;headerlink&quot; title=&quot;android studio&quot;&gt;&lt;/a&gt;android studio&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;generate = Alt + insert  
+格式化代码 = Ctrl+Alt+L 
+大小写切换 = Ctrl+Shift+U  
+代码提示 = shift+ space(自己设置)  
+设置方法 = File-&amp;gt;setting-&amp;gt;Keymap-&amp;gt;Main menu-&amp;gt;Code-&amp;gt;Completion  
+导入包 = Alt + Enter
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;sublime-Text3&quot;&gt;&lt;a href=&quot;#sublime-Text3&quot; class=&quot;headerlink&quot; title=&quot;sublime Text3&quot;&gt;&lt;/a&gt;sublime Text3&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;Package Control = ctrl+Shift+P  
+格式化 = Ctrl+Alt+F  
+Jump to definition = Alt+Click  
+Jump to definition = Control+Windows+Alt+Up  
+Go back = Control+Windows+Alt+Left  
+Manual Code Intelligence = Control+Shift+space  
+Open Terminal at File = ctrl+shift+t   
+Open Terminal at Project Folder  =   ctrl+alt+shift+t
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Chrome&quot;&gt;&lt;a href=&quot;#Chrome&quot; class=&quot;headerlink&quot; title=&quot;Chrome&quot;&gt;&lt;/a&gt;Chrome&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;vpn开关 = alt+shift+o
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;eclipse&quot;&gt;&lt;a href=&quot;#eclipse&quot; class=&quot;headerlink&quot; title=&quot;eclipse&quot;&gt;&lt;/a&gt;eclipse&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;ctrl+shift+x   转为大写  
+ctrl+shift+y   转为小写
+&lt;/code&gt;&lt;/pre&gt;</content>
     
     <summary type="html">
     
-      &lt;h4 id=&quot;generate&quot;&gt;&lt;a href=&quot;#generate&quot; class=&quot;headerlink&quot; title=&quot;generate&quot;&gt;&lt;/a&gt;generate&lt;/h4&gt;&lt;p&gt;Alt + insert  &lt;/p&gt;
-&lt;h4 id=&quot;格式化代码&quot;&gt;&lt;a href=&quot;#格式
+      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;记录各种工具下常用的快捷键，提升效率&lt;br&gt;
     
     </summary>
     
