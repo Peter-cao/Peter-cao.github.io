@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-08T01:23:03.664Z</updated>
+  <updated>2016-11-04T09:24:39.435Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,46 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>快捷键整理</title>
-    <link href="http://yoursite.com/2016/12/08/%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
-    <id>http://yoursite.com/2016/12/08/快捷键整理/</id>
-    <published>2016-12-08T01:20:35.000Z</published>
-    <updated>2016-12-08T01:23:03.664Z</updated>
-    
-    <content type="html">&lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;记录各种工具下常用的快捷键，提升效率&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;h4 id=&quot;android-studio&quot;&gt;&lt;a href=&quot;#android-studio&quot; class=&quot;headerlink&quot; title=&quot;android studio&quot;&gt;&lt;/a&gt;android studio&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;generate = Alt + insert  
-格式化代码 = Ctrl+Alt+L 
-大小写切换 = Ctrl+Shift+U  
-代码提示 = shift+ space(自己设置)  
-设置方法 = File-&amp;gt;setting-&amp;gt;Keymap-&amp;gt;Main menu-&amp;gt;Code-&amp;gt;Completion  
-导入包 = Alt + Enter
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;sublime-Text3&quot;&gt;&lt;a href=&quot;#sublime-Text3&quot; class=&quot;headerlink&quot; title=&quot;sublime Text3&quot;&gt;&lt;/a&gt;sublime Text3&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;Package Control = ctrl+Shift+P  
-格式化 = Ctrl+Alt+F  
-Jump to definition = Alt+Click  
-Jump to definition = Control+Windows+Alt+Up  
-Go back = Control+Windows+Alt+Left  
-Manual Code Intelligence = Control+Shift+space  
-Open Terminal at File = ctrl+shift+t   
-Open Terminal at Project Folder  =   ctrl+alt+shift+t
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Chrome&quot;&gt;&lt;a href=&quot;#Chrome&quot; class=&quot;headerlink&quot; title=&quot;Chrome&quot;&gt;&lt;/a&gt;Chrome&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;vpn开关 = alt+shift+o
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;eclipse&quot;&gt;&lt;a href=&quot;#eclipse&quot; class=&quot;headerlink&quot; title=&quot;eclipse&quot;&gt;&lt;/a&gt;eclipse&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;ctrl+shift+x   转为大写  
-ctrl+shift+y   转为小写
-&lt;/code&gt;&lt;/pre&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;记录各种工具下常用的快捷键，提升效率&lt;br&gt;
-    
-    </summary>
-    
-      <category term="常用捷键整" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8%E6%8D%B7%E9%94%AE%E6%95%B4/"/>
-    
-    
-      <category term="常用捷键整" scheme="http://yoursite.com/tags/%E5%B8%B8%E7%94%A8%E6%8D%B7%E9%94%AE%E6%95%B4/"/>
-    
-  </entry>
   
   <entry>
     <title>MVP入门</title>
@@ -2721,6 +2681,46 @@ finish();
     
     
       <category term="android" scheme="http://yoursite.com/tags/android/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>快捷键整理</title>
+    <link href="http://yoursite.com/2016/06/19/%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
+    <id>http://yoursite.com/2016/06/19/快捷键整理/</id>
+    <published>2016-06-19T10:25:35.000Z</published>
+    <updated>2016-12-08T01:24:19.254Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;记录各种工具下常用的快捷键，提升效率&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;android-studio&quot;&gt;&lt;a href=&quot;#android-studio&quot; class=&quot;headerlink&quot; title=&quot;android studio&quot;&gt;&lt;/a&gt;android studio&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;generate = Alt + insert  
+格式化代码 = Ctrl+Alt+L 
+大小写切换 = Ctrl+Shift+U  
+代码提示 = shift+ space(自己设置)  
+设置方法 = File-&amp;gt;setting-&amp;gt;Keymap-&amp;gt;Main menu-&amp;gt;Code-&amp;gt;Completion  
+导入包 = Alt + Enter
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;sublime-Text3&quot;&gt;&lt;a href=&quot;#sublime-Text3&quot; class=&quot;headerlink&quot; title=&quot;sublime Text3&quot;&gt;&lt;/a&gt;sublime Text3&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;Package Control = ctrl+Shift+P  
+格式化 = Ctrl+Alt+F  
+Jump to definition = Alt+Click  
+Jump to definition = Control+Windows+Alt+Up  
+Go back = Control+Windows+Alt+Left  
+Manual Code Intelligence = Control+Shift+space  
+Open Terminal at File = ctrl+shift+t   
+Open Terminal at Project Folder  =   ctrl+alt+shift+t
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Chrome&quot;&gt;&lt;a href=&quot;#Chrome&quot; class=&quot;headerlink&quot; title=&quot;Chrome&quot;&gt;&lt;/a&gt;Chrome&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;vpn开关 = alt+shift+o
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;eclipse&quot;&gt;&lt;a href=&quot;#eclipse&quot; class=&quot;headerlink&quot; title=&quot;eclipse&quot;&gt;&lt;/a&gt;eclipse&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;ctrl+shift+x   转为大写  
+ctrl+shift+y   转为小写
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;记录各种工具下常用的快捷键，提升效率&lt;br&gt;
+    
+    </summary>
+    
+      <category term="常用" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8/"/>
+    
+    
+      <category term="常用" scheme="http://yoursite.com/tags/%E5%B8%B8%E7%94%A8/"/>
     
   </entry>
   
