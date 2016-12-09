@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-09T02:02:13.469Z</updated>
+  <updated>2016-12-09T08:56:11.394Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,61 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前端测试相关</title>
+    <link href="http://yoursite.com/2016/12/09/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3/"/>
+    <id>http://yoursite.com/2016/12/09/测试相关/</id>
+    <published>2016-12-09T07:52:34.000Z</published>
+    <updated>2016-12-09T08:56:11.394Z</updated>
+    
+    <content type="html">&lt;h3 id=&quot;Mocha&quot;&gt;&lt;a href=&quot;#Mocha&quot; class=&quot;headerlink&quot; title=&quot;Mocha&quot;&gt;&lt;/a&gt;Mocha&lt;/h3&gt;&lt;p&gt;Mocha是一个功能丰富的JavaScript测试框架，在Node.js和浏览器上运行，使异步测试简单而有趣.&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;npm install --global mocha
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;使用入门&quot;&gt;&lt;a href=&quot;#使用入门&quot; class=&quot;headerlink&quot; title=&quot;使用入门&quot;&gt;&lt;/a&gt;使用入门&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var assert = require(&amp;apos;assert&amp;apos;);
+describe(&amp;apos;Array&amp;apos;, function() {
+  describe(&amp;apos;#indexOf()&amp;apos;, function() {
+    it(&amp;apos;should return -1 when the value is not present&amp;apos;, function() {
+      assert.equal(-1, [1,2,3].indexOf(4));
+    });
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;执行&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;mocha test.js
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;输出  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Array
+    #indexOf()
+      â should return -1 when the value is not present
+
+
+  1 passing (7ms)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;参考：  &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://mochajs.org/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://mochajs.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&quot;JSHint&quot;&gt;&lt;a href=&quot;#JSHint&quot; class=&quot;headerlink&quot; title=&quot;JSHint&quot;&gt;&lt;/a&gt;JSHint&lt;/h3&gt;&lt;p&gt;JSHint是一个JavaScript代码质量检测工具&lt;/p&gt;
+&lt;h4 id=&quot;安装-1&quot;&gt;&lt;a href=&quot;#安装-1&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;npm install -g jshint
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;使用&quot;&gt;&lt;a href=&quot;#使用&quot; class=&quot;headerlink&quot; title=&quot;使用&quot;&gt;&lt;/a&gt;使用&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;jshint test.js
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;例如，如果test.js中含有如下代码&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;if( app.thing == null ) console.log( &amp;apos;bleat!&amp;apos; );
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;会提示应该使用’===’而不是’==’&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Use &amp;apos;===&amp;apos; to compare with &amp;apos;null&amp;apos;.
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;编辑器集成&quot;&gt;&lt;a href=&quot;#编辑器集成&quot; class=&quot;headerlink&quot; title=&quot;编辑器集成&quot;&gt;&lt;/a&gt;编辑器集成&lt;/h4&gt;&lt;p&gt;jshint提供了很多插件来集成到编辑器中&lt;br&gt;参考：&lt;a href=&quot;http://jshint.com/install/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://jshint.com/install/&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;GRUNT&quot;&gt;&lt;a href=&quot;#GRUNT&quot; class=&quot;headerlink&quot; title=&quot;GRUNT&quot;&gt;&lt;/a&gt;GRUNT&lt;/h3&gt;&lt;p&gt;参考:&lt;a href=&quot;http://www.gruntjs.net/getting-started&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www.gruntjs.net/getting-started&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;Mocha&quot;&gt;&lt;a href=&quot;#Mocha&quot; class=&quot;headerlink&quot; title=&quot;Mocha&quot;&gt;&lt;/a&gt;Mocha&lt;/h3&gt;&lt;p&gt;Mocha是一个功能丰富的JavaScript测试框架，在Node.js和浏览器上运行，使异步测试简单而有趣.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="nodejs" scheme="http://yoursite.com/categories/nodejs/"/>
+    
+    
+      <category term="nodejs" scheme="http://yoursite.com/tags/nodejs/"/>
+    
+  </entry>
   
   <entry>
     <title>Promise入门</title>
@@ -3313,45 +3368,6 @@ int count = db.update(
     
     
       <category term="Markdown" scheme="http://yoursite.com/tags/Markdown/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>express入门</title>
-    <link href="http://yoursite.com/2016/06/04/express%E5%85%A5%E9%97%A8/"/>
-    <id>http://yoursite.com/2016/06/04/express入门/</id>
-    <published>2016-06-04T14:22:25.000Z</published>
-    <updated>2016-07-05T08:45:31.353Z</updated>
-    
-    <content type="html">&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;pre&gt;&lt;code&gt;npm install express --save
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;Express-应用生成器&quot;&gt;&lt;a href=&quot;#Express-应用生成器&quot; class=&quot;headerlink&quot; title=&quot;Express 应用生成器&quot;&gt;&lt;/a&gt;Express 应用生成器&lt;/h1&gt;&lt;h3 id=&quot;安装-expres-sgenerator-：&quot;&gt;&lt;a href=&quot;#安装-expres-sgenerator-：&quot; class=&quot;headerlink&quot; title=&quot;安装 expres-sgenerator ：&quot;&gt;&lt;/a&gt;安装 expres-sgenerator ：&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;npm install express-generator -g
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;创建应用程序&quot;&gt;&lt;a href=&quot;#创建应用程序&quot; class=&quot;headerlink&quot; title=&quot;创建应用程序&quot;&gt;&lt;/a&gt;创建应用程序&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;express myapp
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;安装依赖项：&quot;&gt;&lt;a href=&quot;#安装依赖项：&quot; class=&quot;headerlink&quot; title=&quot;安装依赖项：&quot;&gt;&lt;/a&gt;安装依赖项：&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;cd myapp
-npm install
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&quot;启动&quot;&gt;&lt;a href=&quot;#启动&quot; class=&quot;headerlink&quot; title=&quot;启动&quot;&gt;&lt;/a&gt;启动&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;MacOS or Linux :* npm start
-Wdinwos:set DEBUG=myapp:* &amp;amp; npm start
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;基本路由&quot;&gt;&lt;a href=&quot;#基本路由&quot; class=&quot;headerlink&quot; title=&quot;基本路由&quot;&gt;&lt;/a&gt;基本路由&lt;/h1&gt;&lt;h3 id=&quot;路由结构&quot;&gt;&lt;a href=&quot;#路由结构&quot; class=&quot;headerlink&quot; title=&quot;路由结构&quot;&gt;&lt;/a&gt;路由结构&lt;/h3&gt;&lt;pre&gt;&lt;code&gt;app.METHOD(PATH, HANDLER)
-&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;
-&lt;li&gt;app 是 express 的实例。&lt;/li&gt;
-&lt;li&gt;METHOD 是 HTTP 请求方法。&lt;/li&gt;
-&lt;li&gt;PATH 是服务器上的路径。&lt;/li&gt;
-&lt;li&gt;HANDLER 是在路由匹配时执行的函数。&lt;h3 id=&quot;例子&quot;&gt;&lt;a href=&quot;#例子&quot; class=&quot;headerlink&quot; title=&quot;例子&quot;&gt;&lt;/a&gt;例子&lt;/h3&gt;  app.get(‘/‘, function (req, res) {&lt;pre&gt;&lt;code&gt;res.send(&amp;apos;Hello World!&amp;apos;);
-&lt;/code&gt;&lt;/pre&gt;  });&lt;br&gt;  app.post(‘/‘, function (req, res) {&lt;pre&gt;&lt;code&gt;res.send(&amp;apos;Got a POST request&amp;apos;);
-&lt;/code&gt;&lt;/pre&gt;  });&lt;h1 id=&quot;静态文件&quot;&gt;&lt;a href=&quot;#静态文件&quot; class=&quot;headerlink&quot; title=&quot;静态文件&quot;&gt;&lt;/a&gt;静态文件&lt;/h1&gt;&lt;h3 id=&quot;使用-Express-中的-express-static-内置中间件函数&quot;&gt;&lt;a href=&quot;#使用-Express-中的-express-static-内置中间件函数&quot; class=&quot;headerlink&quot; title=&quot;使用 Express 中的 express.static 内置中间件函数&quot;&gt;&lt;/a&gt;使用 Express 中的 express.static 内置中间件函数&lt;/h3&gt;  app.use(express.static(‘public’));&lt;br&gt;  app.use(express.static(‘files’));&lt;/li&gt;
-&lt;/ul&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;
-    
-    </summary>
-    
-      <category term="nodejs" scheme="http://yoursite.com/categories/nodejs/"/>
-    
-    
-      <category term="express" scheme="http://yoursite.com/tags/express/"/>
     
   </entry>
   

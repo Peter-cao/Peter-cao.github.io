@@ -4,6 +4,45 @@
   
     
     <entry>
+      <title><![CDATA[前端测试相关]]></title>
+      <url>http://yoursite.com/2016/12/09/%E6%B5%8B%E8%AF%95%E7%9B%B8%E5%85%B3/</url>
+      <content type="html"><![CDATA[<h3 id="Mocha"><a href="#Mocha" class="headerlink" title="Mocha"></a>Mocha</h3><p>Mocha是一个功能丰富的JavaScript测试框架，在Node.js和浏览器上运行，使异步测试简单而有趣.<br><a id="more"></a></p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><pre><code>npm install --global mocha
+</code></pre><h4 id="使用入门"><a href="#使用入门" class="headerlink" title="使用入门"></a>使用入门</h4><pre><code>var assert = require(&apos;assert&apos;);
+describe(&apos;Array&apos;, function() {
+  describe(&apos;#indexOf()&apos;, function() {
+    it(&apos;should return -1 when the value is not present&apos;, function() {
+      assert.equal(-1, [1,2,3].indexOf(4));
+    });
+  });
+});
+</code></pre><p>执行</p>
+<pre><code>mocha test.js
+</code></pre><p>输出  </p>
+<pre><code>Array
+    #indexOf()
+      â should return -1 when the value is not present
+
+
+  1 passing (7ms)
+</code></pre><p>参考：  </p>
+<ul>
+<li><a href="http://mochajs.org/" target="_blank" rel="external">http://mochajs.org/</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html</a></li>
+</ul>
+<h3 id="JSHint"><a href="#JSHint" class="headerlink" title="JSHint"></a>JSHint</h3><p>JSHint是一个JavaScript代码质量检测工具</p>
+<h4 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h4><pre><code>npm install -g jshint
+</code></pre><h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><pre><code>jshint test.js
+</code></pre><p>例如，如果test.js中含有如下代码</p>
+<pre><code>if( app.thing == null ) console.log( &apos;bleat!&apos; );
+</code></pre><p>会提示应该使用’===’而不是’==’</p>
+<pre><code>Use &apos;===&apos; to compare with &apos;null&apos;.
+</code></pre><h4 id="编辑器集成"><a href="#编辑器集成" class="headerlink" title="编辑器集成"></a>编辑器集成</h4><p>jshint提供了很多插件来集成到编辑器中<br>参考：<a href="http://jshint.com/install/" target="_blank" rel="external">http://jshint.com/install/</a></p>
+<h3 id="GRUNT"><a href="#GRUNT" class="headerlink" title="GRUNT"></a>GRUNT</h3><p>参考:<a href="http://www.gruntjs.net/getting-started" target="_blank" rel="external">http://www.gruntjs.net/getting-started</a></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Promise入门]]></title>
       <url>http://yoursite.com/2016/12/08/Promise/</url>
       <content type="html"><![CDATA[<h4 id="什么是Promise"><a href="#什么是Promise" class="headerlink" title="什么是Promise"></a>什么是Promise</h4><p>Promise是抽象异步处理对象以及对其进行各种操作的组件<br><a id="more"></a></p>
