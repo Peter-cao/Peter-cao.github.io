@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="nodejs JavaScript," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+<meta name="description" content="什么是PromisePromise是抽象异步处理对象以及对其进行各种操作的组件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise入门">
+<meta property="og:url" content="http://yoursite.com/2016/12/08/Promise/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description">
-<meta property="og:updated_time" content="2016-06-05T14:16:56.371Z">
+<meta property="og:description" content="什么是PromisePromise是抽象异步处理对象以及对其进行各种操作的组件">
+<meta property="og:updated_time" content="2016-12-09T02:02:13.469Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Promise入门">
+<meta name="twitter:description" content="什么是PromisePromise是抽象异步处理对象以及对其进行各种操作的组件">
 
 
 
@@ -113,13 +113,7 @@
   };
 </script>
 
-  <title>
-  
-
-  
-    分类 | 个人博客
-  
-</title>
+  <title> Promise入门 | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -150,7 +144,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -270,16 +264,274 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-      <div class="category-all-page">
-        <div class="category-all-title">
-            目前共计 6 个分类
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Promise入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-08T17:01:52+08:00" content="2016-12-08">
+              2016-12-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/08/Promise/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/08/Promise/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
         </div>
-        <div class="category-all">
-          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Markdown/">Markdown</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/appcan/">appcan</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/常用/">常用</a><span class="category-list-count">2</span></li></ul>
-        </div>
-      </div>
+      </header>
     
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="什么是Promise"><a href="#什么是Promise" class="headerlink" title="什么是Promise"></a>什么是Promise</h4><p>Promise是抽象异步处理对象以及对其进行各种操作的组件<br><a id="more"></a></p>
+<h4 id="为什么要用Promise"><a href="#为什么要用Promise" class="headerlink" title="为什么要用Promise"></a>为什么要用Promise</h4><p>常用的异步处理方式（使用回调函数）：    </p>
+<pre><code>getAsync(&quot;fileA.txt&quot;, function(error, result){
+    if(error){// 取得失败时的处理
+        throw error;
+    }
+    // 取得成功时的处理
+});
+</code></pre><p>在业务逻辑复杂时，容易出现回调地狱，不易于阅读维护<br>使用Promise进行异步处理：</p>
+<pre><code>var promise = getAsyncPromise(&quot;fileA.txt&quot;); 
+promise.then(function(result){
+    // 获取文件内容成功时的处理
+}).catch(function(error){
+    // 获取文件内容失败时的处理
+});
+</code></pre><p>当逻辑复杂时，代码类似如下：</p>
+<pre><code>var aPromise = Promise.resolve();
+aPromise.then(function taskA(value){
+// task A
+}).then(function taskB(vaue){
+// task B
+}).catch(function onRejected(error){
+    console.log(error);
+});
+</code></pre><p>以方法链的形式编写异步代码，便于阅读维护。        </p>
+<h4 id="编写Promise代码"><a href="#编写Promise代码" class="headerlink" title="编写Promise代码"></a>编写Promise代码</h4><p>创建promise对象的流程如下所示：  </p>
+<ol>
+<li>new Promise(fn) 返回一个promise对象</li>
+<li><p>在fn 中指定异步等处理</p>
+<ul>
+<li>处理结果正常的话，调用resolve(处理结果值)</li>
+<li>处理结果错误的话，调用reject(Error对象)</li>
+</ul>
+</li>
+</ol>
+<p>例子：  </p>
+<pre><code>function getURL(URL) {
+    return new Promise(function (resolve, reject) {
+        var req = new XMLHttpRequest();
+        req.open(&apos;GET&apos;, URL, true);
+        req.onload = function () {
+            if (req.status === 200) {
+                resolve(req.responseText);
+            } else {
+                reject(new Error(req.statusText));
+            }
+        };
+        req.onerror = function () {
+            reject(new Error(req.statusText));
+        };
+        req.send();
+    });
+}
+// 运行示例
+var URL = &quot;http://httpbin.org/get&quot;;
+getURL(URL).then(function onFulfilled(value){
+    console.log(value);
+}).catch(function onRejected(error){
+    console.error(error);
+});
+</code></pre><h4 id="Promise-resolve-与-Promise-reject"><a href="#Promise-resolve-与-Promise-reject" class="headerlink" title="Promise.resolve 与 Promise.reject"></a>Promise.resolve 与 Promise.reject</h4><p>静态方法Promise.resolve(value) 和 Promise.resolve(value)是 new Promise() 方法的快捷方式。<br>Promise.resolve(42);等同于  </p>
+<pre><code>new Promise(function(resolve){
+    resolve(42);
+});
+</code></pre><p>Promise.reject(new Error(“出错了”))等同于</p>
+<pre><code>new Promise(function(resolve,reject){
+    reject(new Error(&quot;出错了&quot;));
+});
+</code></pre><h4 id="Promise-all与Promise-race"><a href="#Promise-all与Promise-race" class="headerlink" title="Promise.all与Promise.race"></a>Promise.all与Promise.race</h4><p>Promise.all 接收一个 promise对象的数组作为参数，数组中的方法同时执行，且当这个数组里的所有promise对象全部变为resolve或reject状态的时候，它才会去调用 .then 方法。<br>使用场景：<br>    同时发送两个请求，两个请求完成后，处理结果 </p>
+<pre><code>var request = {
+    comment: function getComment() {
+        return getURL(url1).then(JSON.parse);
+    },
+    people: function getPeople() {
+        return getURL(url2).then(JSON.parse);
+    }
+};
+Promise.all([request.comment(), request.people()])
+.then(function (results) {
+    console.log(results); // 按照[comment, people]的顺序
+}).catch(function(error){
+    console.log(error);
+});
+</code></pre><p>在上面的代码中，request.comment() 和 request.people() 会同时开始执行，而且每个promise的结果（resolve或reject时传递的参数值），和传递给 Promise.all 的promise数组的顺序是一致的。</p>
+<p>Promise.race 与Promise.all类似，但只要有一个promise对象进入 FulFilled 或者 Rejected 状态的话，就会继续进行后面的处理。</p>
+<pre><code>// `delay`毫秒后执行resolve
+function timerPromisefy(delay) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve(delay);
+        }, delay);
+    });
+}
+// 任何一个promise变为resolve或reject 的话程序就停止运行
+Promise.race([
+    timerPromisefy(1),
+    timerPromisefy(32),
+    timerPromisefy(64),
+    timerPromisefy(128)
+]).then(function (value) {
+    console.log(value);    // =&gt; 1
+});
+</code></pre><p>Promise.race 在第一个promise对象变为Fulfilled之后，并不会取消其他promise对象的执行</p>
+<p>参考链接：<a href="http://liubin.org/promises-book/" target="_blank" rel="external">http://liubin.org/promises-book/</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/uploads/weixin.png" alt="Petercao WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/uploads/zhifubao.png" alt="Petercao Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs-JavaScript/" rel="tag">#nodejs JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/08/Nodejs命令整理/" rel="next" title="Nodejs命令整理">
+                <i class="fa fa-chevron-left"></i> Nodejs命令整理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
   </div>
 
 
@@ -288,6 +540,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/08/Promise/"
+           data-title="Promise入门" data-url="http://yoursite.com/2016/12/08/Promise/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -307,8 +567,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/aaa.jpg"
@@ -365,6 +634,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是Promise"><span class="nav-number">1.</span> <span class="nav-text">什么是Promise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么要用Promise"><span class="nav-number">2.</span> <span class="nav-text">为什么要用Promise</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写Promise代码"><span class="nav-number">3.</span> <span class="nav-text">编写Promise代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Promise-resolve-与-Promise-reject"><span class="nav-number">4.</span> <span class="nav-text">Promise.resolve 与 Promise.reject</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Promise-all与Promise-race"><span class="nav-number">5.</span> <span class="nav-text">Promise.all与Promise.race</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -468,6 +748,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

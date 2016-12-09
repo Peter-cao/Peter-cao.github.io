@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-04T09:24:39.435Z</updated>
+  <updated>2016-12-09T02:02:13.469Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,158 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Promise入门</title>
+    <link href="http://yoursite.com/2016/12/08/Promise/"/>
+    <id>http://yoursite.com/2016/12/08/Promise/</id>
+    <published>2016-12-08T09:01:52.000Z</published>
+    <updated>2016-12-09T02:02:13.469Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;什么是Promise&quot;&gt;&lt;a href=&quot;#什么是Promise&quot; class=&quot;headerlink&quot; title=&quot;什么是Promise&quot;&gt;&lt;/a&gt;什么是Promise&lt;/h4&gt;&lt;p&gt;Promise是抽象异步处理对象以及对其进行各种操作的组件&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id=&quot;为什么要用Promise&quot;&gt;&lt;a href=&quot;#为什么要用Promise&quot; class=&quot;headerlink&quot; title=&quot;为什么要用Promise&quot;&gt;&lt;/a&gt;为什么要用Promise&lt;/h4&gt;&lt;p&gt;常用的异步处理方式（使用回调函数）：    &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;getAsync(&amp;quot;fileA.txt&amp;quot;, function(error, result){
+    if(error){// 取得失败时的处理
+        throw error;
+    }
+    // 取得成功时的处理
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在业务逻辑复杂时，容易出现回调地狱，不易于阅读维护&lt;br&gt;使用Promise进行异步处理：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var promise = getAsyncPromise(&amp;quot;fileA.txt&amp;quot;); 
+promise.then(function(result){
+    // 获取文件内容成功时的处理
+}).catch(function(error){
+    // 获取文件内容失败时的处理
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当逻辑复杂时，代码类似如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var aPromise = Promise.resolve();
+aPromise.then(function taskA(value){
+// task A
+}).then(function taskB(vaue){
+// task B
+}).catch(function onRejected(error){
+    console.log(error);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以方法链的形式编写异步代码，便于阅读维护。        &lt;/p&gt;
+&lt;h4 id=&quot;编写Promise代码&quot;&gt;&lt;a href=&quot;#编写Promise代码&quot; class=&quot;headerlink&quot; title=&quot;编写Promise代码&quot;&gt;&lt;/a&gt;编写Promise代码&lt;/h4&gt;&lt;p&gt;创建promise对象的流程如下所示：  &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;new Promise(fn) 返回一个promise对象&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;在fn 中指定异步等处理&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;处理结果正常的话，调用resolve(处理结果值)&lt;/li&gt;
+&lt;li&gt;处理结果错误的话，调用reject(Error对象)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;例子：  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;function getURL(URL) {
+    return new Promise(function (resolve, reject) {
+        var req = new XMLHttpRequest();
+        req.open(&amp;apos;GET&amp;apos;, URL, true);
+        req.onload = function () {
+            if (req.status === 200) {
+                resolve(req.responseText);
+            } else {
+                reject(new Error(req.statusText));
+            }
+        };
+        req.onerror = function () {
+            reject(new Error(req.statusText));
+        };
+        req.send();
+    });
+}
+// 运行示例
+var URL = &amp;quot;http://httpbin.org/get&amp;quot;;
+getURL(URL).then(function onFulfilled(value){
+    console.log(value);
+}).catch(function onRejected(error){
+    console.error(error);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Promise-resolve-与-Promise-reject&quot;&gt;&lt;a href=&quot;#Promise-resolve-与-Promise-reject&quot; class=&quot;headerlink&quot; title=&quot;Promise.resolve 与 Promise.reject&quot;&gt;&lt;/a&gt;Promise.resolve 与 Promise.reject&lt;/h4&gt;&lt;p&gt;静态方法Promise.resolve(value) 和 Promise.resolve(value)是 new Promise() 方法的快捷方式。&lt;br&gt;Promise.resolve(42);等同于  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;new Promise(function(resolve){
+    resolve(42);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Promise.reject(new Error(“出错了”))等同于&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;new Promise(function(resolve,reject){
+    reject(new Error(&amp;quot;出错了&amp;quot;));
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Promise-all与Promise-race&quot;&gt;&lt;a href=&quot;#Promise-all与Promise-race&quot; class=&quot;headerlink&quot; title=&quot;Promise.all与Promise.race&quot;&gt;&lt;/a&gt;Promise.all与Promise.race&lt;/h4&gt;&lt;p&gt;Promise.all 接收一个 promise对象的数组作为参数，数组中的方法同时执行，且当这个数组里的所有promise对象全部变为resolve或reject状态的时候，它才会去调用 .then 方法。&lt;br&gt;使用场景：&lt;br&gt;    同时发送两个请求，两个请求完成后，处理结果 &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var request = {
+    comment: function getComment() {
+        return getURL(url1).then(JSON.parse);
+    },
+    people: function getPeople() {
+        return getURL(url2).then(JSON.parse);
+    }
+};
+Promise.all([request.comment(), request.people()])
+.then(function (results) {
+    console.log(results); // 按照[comment, people]的顺序
+}).catch(function(error){
+    console.log(error);
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在上面的代码中，request.comment() 和 request.people() 会同时开始执行，而且每个promise的结果（resolve或reject时传递的参数值），和传递给 Promise.all 的promise数组的顺序是一致的。&lt;/p&gt;
+&lt;p&gt;Promise.race 与Promise.all类似，但只要有一个promise对象进入 FulFilled 或者 Rejected 状态的话，就会继续进行后面的处理。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// `delay`毫秒后执行resolve
+function timerPromisefy(delay) {
+    return new Promise(function (resolve) {
+        setTimeout(function () {
+            resolve(delay);
+        }, delay);
+    });
+}
+// 任何一个promise变为resolve或reject 的话程序就停止运行
+Promise.race([
+    timerPromisefy(1),
+    timerPromisefy(32),
+    timerPromisefy(64),
+    timerPromisefy(128)
+]).then(function (value) {
+    console.log(value);    // =&amp;gt; 1
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Promise.race 在第一个promise对象变为Fulfilled之后，并不会取消其他promise对象的执行&lt;/p&gt;
+&lt;p&gt;参考链接：&lt;a href=&quot;http://liubin.org/promises-book/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://liubin.org/promises-book/&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;什么是Promise&quot;&gt;&lt;a href=&quot;#什么是Promise&quot; class=&quot;headerlink&quot; title=&quot;什么是Promise&quot;&gt;&lt;/a&gt;什么是Promise&lt;/h4&gt;&lt;p&gt;Promise是抽象异步处理对象以及对其进行各种操作的组件&lt;br&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="http://yoursite.com/categories/JavaScript/"/>
+    
+    
+      <category term="nodejs JavaScript" scheme="http://yoursite.com/tags/nodejs-JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nodejs命令整理</title>
+    <link href="http://yoursite.com/2016/12/08/Nodejs%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/"/>
+    <id>http://yoursite.com/2016/12/08/Nodejs命令整理/</id>
+    <published>2016-12-08T01:27:44.000Z</published>
+    <updated>2016-12-08T01:31:46.781Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;开启关闭MongoDB&quot;&gt;&lt;a href=&quot;#开启关闭MongoDB&quot; class=&quot;headerlink&quot; title=&quot;开启关闭MongoDB&quot;&gt;&lt;/a&gt;开启关闭MongoDB&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;net start MongoDB
+net stop MongoDB
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;自动重启&quot;&gt;&lt;a href=&quot;#自动重启&quot; class=&quot;headerlink&quot; title=&quot;自动重启&quot;&gt;&lt;/a&gt;自动重启&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;supervisor --harmony index
+&lt;/code&gt;&lt;/pre&gt;</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;开启关闭MongoDB&quot;&gt;&lt;a href=&quot;#开启关闭MongoDB&quot; class=&quot;headerlink&quot; title=&quot;开启关闭MongoDB&quot;&gt;&lt;/a&gt;开启关闭MongoDB&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;net start MongoDB
+net stop
+    
+    </summary>
+    
+      <category term="常用" scheme="http://yoursite.com/categories/%E5%B8%B8%E7%94%A8/"/>
+    
+    
+      <category term="nodeJs" scheme="http://yoursite.com/tags/nodeJs/"/>
+    
+  </entry>
   
   <entry>
     <title>MVP入门</title>
@@ -2689,7 +2841,7 @@ finish();
     <link href="http://yoursite.com/2016/06/19/%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2016/06/19/快捷键整理/</id>
     <published>2016-06-19T10:25:35.000Z</published>
-    <updated>2016-12-08T01:24:19.254Z</updated>
+    <updated>2016-12-08T05:34:32.946Z</updated>
     
     <content type="html">&lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;记录各种工具下常用的快捷键，提升效率&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;android-studio&quot;&gt;&lt;a href=&quot;#android-studio&quot; class=&quot;headerlink&quot; title=&quot;android studio&quot;&gt;&lt;/a&gt;android studio&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;generate = Alt + insert  
@@ -2706,6 +2858,7 @@ Go back = Control+Windows+Alt+Left
 Manual Code Intelligence = Control+Shift+space  
 Open Terminal at File = ctrl+shift+t   
 Open Terminal at Project Folder  =   ctrl+alt+shift+t
+替换  Ctrl+h
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Chrome&quot;&gt;&lt;a href=&quot;#Chrome&quot; class=&quot;headerlink&quot; title=&quot;Chrome&quot;&gt;&lt;/a&gt;Chrome&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;vpn开关 = alt+shift+o
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;eclipse&quot;&gt;&lt;a href=&quot;#eclipse&quot; class=&quot;headerlink&quot; title=&quot;eclipse&quot;&gt;&lt;/a&gt;eclipse&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;ctrl+shift+x   转为大写  
 ctrl+shift+y   转为小写
@@ -3199,36 +3352,6 @@ Wdinwos:set DEBUG=myapp:* &amp;amp; npm start
     
     
       <category term="express" scheme="http://yoursite.com/tags/express/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>appcan主应用子应用页面互调方法</title>
-    <link href="http://yoursite.com/2016/06/02/appcan%E4%B8%BB%E5%BA%94%E7%94%A8%E5%AD%90%E5%BA%94%E7%94%A8%E9%A1%B5%E9%9D%A2%E4%BA%92%E8%B0%83%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/2016/06/02/appcan主应用子应用页面互调方法/</id>
-    <published>2016-06-02T07:02:46.000Z</published>
-    <updated>2016-07-05T08:45:50.576Z</updated>
-    
-    <content type="html">&lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;由于子应用和主应用页面文件的位置不一样，导致使用window.open难以打开对应的页面&lt;/p&gt;
-&lt;h3 id=&quot;子应用打开主应用页面&quot;&gt;&lt;a href=&quot;#子应用打开主应用页面&quot; class=&quot;headerlink&quot; title=&quot;子应用打开主应用页面&quot;&gt;&lt;/a&gt;子应用打开主应用页面&lt;/h3&gt;&lt;p&gt;将需要打开的公共页面放置在plugin文件夹下的子应用中，调用时调用这个子应用打开。&lt;/p&gt;
-&lt;p&gt;1.plugin子应用也是一个widget应用，在config.xml同级创建一个plugin目录，其中放入以appid命名的文件夹，里面防止子应用的config以及相关网页代码。&lt;/p&gt;
-&lt;p&gt;2.调用时也需要使用uexWidget.startWidget来调用，但是无需传入appkey。&lt;/p&gt;
-&lt;p&gt;3.此应用无需在EMM注册，升级时跟随主应用升级。&lt;/p&gt;
-&lt;h3 id=&quot;主应用打开子应用页面&quot;&gt;&lt;a href=&quot;#主应用打开子应用页面&quot; class=&quot;headerlink&quot; title=&quot;主应用打开子应用页面&quot;&gt;&lt;/a&gt;主应用打开子应用页面&lt;/h3&gt;&lt;p&gt;1.使用uexWidget.startWidget启动应用，openInfo中携带字符串，例如：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;uexWidget.startWidget(&amp;quot;aaaao20031&amp;quot;, &amp;quot;5&amp;quot;, &amp;quot;pluginCallback&amp;quot;, &amp;quot;plugin123123&amp;quot;, &amp;quot;200&amp;quot;, &amp;quot;cfec6312-2584-4916-bfba-1a8239421c6f&amp;quot;);&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-&lt;p&gt;2.在A应用中接收openInfo,之后在A应用内部跳转到a页面。(A页面背景色最好设置为透明)&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;uexWidget.cbGetOpenerInfo=function(opId,dataType,data)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if(data==&amp;apos;xxx&amp;apos;)&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        appcan.window.open();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;else&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        appcan.window.open();&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;uexWidget.getOpenerInfo();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
-</content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;问题原因&quot;&gt;&lt;a href=&quot;#问题原因&quot; class=&quot;headerlink&quot; title=&quot;问题原因&quot;&gt;&lt;/a&gt;问题原因&lt;/h3&gt;
-    
-    </summary>
-    
-      <category term="appcan" scheme="http://yoursite.com/categories/appcan/"/>
-    
-    
-      <category term="appcan" scheme="http://yoursite.com/tags/appcan/"/>
     
   </entry>
   
