@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-12-09T08:56:11.394Z</updated>
+  <updated>2017-02-10T08:18:08.325Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,143 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>《JavaScript权威指南》阅读笔记</title>
+    <link href="http://yoursite.com/2017/02/07/JavaScript%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/"/>
+    <id>http://yoursite.com/2017/02/07/JavaScript权威指南笔记/</id>
+    <published>2017-02-07T02:27:12.000Z</published>
+    <updated>2017-02-10T08:18:08.325Z</updated>
+    
+    <content type="html">&lt;h4 id=&quot;通过-访问对象属性&quot;&gt;&lt;a href=&quot;#通过-访问对象属性&quot; class=&quot;headerlink&quot; title=&quot;通过[]访问对象属性&quot;&gt;&lt;/a&gt;通过[]访问对象属性&lt;/h4&gt;&lt;p&gt;当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出现在JavaScript程序中，他们不是数据类型，程序无法直接修改它们。  &lt;/p&gt;
+&lt;p&gt;当通过[]来访问对象的属性时，属性名通过字符串来表示，字符串是JavaScript的数据类型，在程序运行时可以修改和创建它们。代码如下  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var addr = &amp;quot;&amp;quot;;
+for(var i =0; i &amp;lt; 4 ; i++){
+    addr += customer[&amp;quot;address&amp;quot;+i]+&amp;apos;\n&amp;apos;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这段代码读取customer对象的address0,address1,address2和address3属性，并将它们连接起来。&lt;/p&gt;
+&lt;h4 id=&quot;属性getter和setter&quot;&gt;&lt;a href=&quot;#属性getter和setter&quot; class=&quot;headerlink&quot; title=&quot;属性getter和setter&quot;&gt;&lt;/a&gt;属性getter和setter&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var serialnum = {
+    $n:0,
+    get next(){return this.$n++;},
+    set next(n){
+        if(n &amp;gt;= this.$n){ this.$n = n}
+        else throw &amp;quot;序列号的值不能比当前值小&amp;quot;
+    }
+}
+serialnum.next   // ==&amp;gt;0
+serialnum.next   // ==&amp;gt;1
+serialnum.next = 3;
+serialnum.next   // ==&amp;gt;3
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;数组方法&quot;&gt;&lt;a href=&quot;#数组方法&quot; class=&quot;headerlink&quot; title=&quot;数组方法&quot;&gt;&lt;/a&gt;数组方法&lt;/h4&gt;&lt;p&gt;ECMAScript3中的方法：&lt;/p&gt;
+&lt;h5 id=&quot;join&quot;&gt;&lt;a href=&quot;#join&quot; class=&quot;headerlink&quot; title=&quot;join()&quot;&gt;&lt;/a&gt;join()&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;var a = [1,2,3];
+a.join(&amp;quot; &amp;quot;)         // ==&amp;gt;&amp;quot;1 2 3&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;reverse&quot;&gt;&lt;a href=&quot;#reverse&quot; class=&quot;headerlink&quot; title=&quot;reverse()&quot;&gt;&lt;/a&gt;reverse()&lt;/h5&gt;&lt;p&gt;数组倒序&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [1,2,3];
+a.reverse();           // =&amp;gt;a为[3,2,1]
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;sort&quot;&gt;&lt;a href=&quot;#sort&quot; class=&quot;headerlink&quot; title=&quot;sort()&quot;&gt;&lt;/a&gt;sort()&lt;/h5&gt;&lt;p&gt;数组排序&lt;br&gt;不带参数调用sort()时，数组元素以字母表顺序排序&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [33,4,1111,222];
+a.sort();                // 字母表顺序为1111,222,33,4
+a.sort(function(a,b){   //数值顺序4,33,22,1111
+    return a-b;
+});
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;concat&quot;&gt;&lt;a href=&quot;#concat&quot; class=&quot;headerlink&quot; title=&quot;concat()&quot;&gt;&lt;/a&gt;concat()&lt;/h5&gt;&lt;p&gt;创建并返回一个新数组，它的元素包括调用concat()的原始数组的元素和concat()的每个参数。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [1,2,3];
+a.concat(4,5);            //返回[1,2,3,4,5]
+a.concat([4,5]);        //返回[1,2,3,4,5]
+a.concat([4,5],[6,7])    //返回[1,2,3,4,5,6,7]
+a.concat(4,[5,[6,7]])    //返回[1,2,3,4,5[6,7]]
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;slice&quot;&gt;&lt;a href=&quot;#slice&quot; class=&quot;headerlink&quot; title=&quot;slice()&quot;&gt;&lt;/a&gt;slice()&lt;/h5&gt;&lt;p&gt;返回指定数组的一个片段或字数组。返回的数组包含第一个参数指定的位置和所有到但不包含第二个参数指定的位置之间的所有数组元素。且不会修改调用的数组。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [1,2,3,4,5];
+a.slice(0,3);            //返回[1,2,3]
+a.slice(3);                //返回[4,5]
+a.slice(1,-1);            //返回[2,3,4](当出现负数时,用负数加上数组的length，此处相当于a.slice(1,4))
+a.slice(-3,-2);            //返回[3](相当于a.slice(2,3))
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;splice&quot;&gt;&lt;a href=&quot;#splice&quot; class=&quot;headerlink&quot; title=&quot;splice()&quot;&gt;&lt;/a&gt;splice()&lt;/h5&gt;&lt;p&gt;在数组中插入或删除元素的通用方法，且会修改调用的数组。&lt;br&gt;splice()的第一个参数指定了插入或删除的其实位置，第二个参数指定了应从数组中删除的元素个数。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [1,2,3,4,5,6,7,8];
+a.splice(4);        //返回[5,6,7,8];a是[1,2,3,4]
+a.splice(1,2);        //返回[2,3];a是[1,4]
+a.splice(1,1);        //返回[4];a是[1]    
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;splice()前两个参数之后的参数指定了需要插入到数组中的元素，从第一个参数指定的位置开始插入。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [1,2,3,4,5];
+a.splice(2,0,&amp;apos;a&amp;apos;,&amp;apos;&amp;apos;b);    //返回[];a是[1,2,a,b,3,4,5]
+a.splice(2,2,[1,2],3);  //返回[a,b];a是[1,2,[1,2],3,3,4,5]
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;push-和pop&quot;&gt;&lt;a href=&quot;#push-和pop&quot; class=&quot;headerlink&quot; title=&quot;push()和pop()&quot;&gt;&lt;/a&gt;push()和pop()&lt;/h5&gt;&lt;p&gt;push()在数组末尾添加一个或多个元素，返回数组新的长度。pop()则相反。&lt;/p&gt;
+&lt;h5 id=&quot;unshift-和shift&quot;&gt;&lt;a href=&quot;#unshift-和shift&quot; class=&quot;headerlink&quot; title=&quot;unshift()和shift()&quot;&gt;&lt;/a&gt;unshift()和shift()&lt;/h5&gt;&lt;p&gt;unshift()在数组的头部添加一个或多个元素，返回数组新的长度。shift()删除数组的第一个元素并将其返回。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [];            //a:[]
+a.unshift(1);        //a:[1]返回1
+a.unshift(22);        //a:[22,1]返回2
+a.shift();            //a:[1]返回22
+a.unshift(3,[4,5]);    //a:[3,[4,5],1]返回3
+a.shift();            //a:[[4,5],1]返回3
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;ECMAScript5中的方法：&lt;/p&gt;
+&lt;h5 id=&quot;forEach&quot;&gt;&lt;a href=&quot;#forEach&quot; class=&quot;headerlink&quot; title=&quot;forEach()&quot;&gt;&lt;/a&gt;forEach()&lt;/h5&gt;&lt;p&gt;从头至尾偏离数组，为每个元素调用指定的函数。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var data = [1,2,3,4,5];
+var sum = 0;
+data.forEach(function(v){ sum += v;});//累加
+sum            // ==&amp;gt;15
+data.forEach(function(v,i,a){ a[i] = v+1;});//三个参数代表：数组元素、元素的索引、数组本身
+data         //==&amp;gt;[2,3,4,5,6]
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;map&quot;&gt;&lt;a href=&quot;#map&quot; class=&quot;headerlink&quot; title=&quot;map()&quot;&gt;&lt;/a&gt;map()&lt;/h5&gt;&lt;p&gt;调用数组的每个元素传递给指定的函数，并返回一个数组。不修改调用的数组。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [1,2,3];
+var b = a.map(function(x){return x*x;});//b是[1,4,9]
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;filter&quot;&gt;&lt;a href=&quot;#filter&quot; class=&quot;headerlink&quot; title=&quot;filter()&quot;&gt;&lt;/a&gt;filter()&lt;/h5&gt;&lt;p&gt;filter()方法返回的数组元素是调用的数组的一个子集。&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var a = [5,4,3,2,1];
+smallvalues = a.filter(function(x){return x &amp;lt; 3;});//返回[2,1]
+other = a.filter(function(x,i){return i%2 == 0}); //返回[5,3,1]
+&lt;/code&gt;&lt;/pre&gt;&lt;h5 id=&quot;every-和some&quot;&gt;&lt;a href=&quot;#every-和some&quot; class=&quot;headerlink&quot; title=&quot;every()和some()&quot;&gt;&lt;/a&gt;every()和some()&lt;/h5&gt;&lt;p&gt;every():当且仅当数组中的所有元素调用判定函数都返回true时，返回true&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;a = [1,2,3,4,5];
+a.every(function(x){ return x &amp;lt; 10;});//返回true
+a.every(function(x){ return x%2 ===0; })//返回false
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;some():只要有一个元素调用判定函数返回true，则返回true&lt;/p&gt;
+&lt;h5 id=&quot;reduce-和reduceRight&quot;&gt;&lt;a href=&quot;#reduce-和reduceRight&quot; class=&quot;headerlink&quot; title=&quot;reduce()和reduceRight()&quot;&gt;&lt;/a&gt;reduce()和reduceRight()&lt;/h5&gt;&lt;p&gt;使用指定的函数将数组元素进行组合，生成单个值。&lt;/p&gt;
+&lt;h5 id=&quot;indexOf-和lastIndexOf&quot;&gt;&lt;a href=&quot;#indexOf-和lastIndexOf&quot; class=&quot;headerlink&quot; title=&quot;indexOf()和lastIndexOf()&quot;&gt;&lt;/a&gt;indexOf()和lastIndexOf()&lt;/h5&gt;&lt;p&gt;搜索整个数组中具有给定值的元素，返回找到的第一个元素的索引，若没找到返回-1&lt;/p&gt;
+&lt;h5 id=&quot;Array-isArray&quot;&gt;&lt;a href=&quot;#Array-isArray&quot; class=&quot;headerlink&quot; title=&quot;Array.isArray()&quot;&gt;&lt;/a&gt;Array.isArray()&lt;/h5&gt;&lt;pre&gt;&lt;code&gt;Array.isArray([])      //=&amp;gt;true
+Array.isArray({})    //=&amp;gt;false
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;用闭包模拟私有方法&quot;&gt;&lt;a href=&quot;#用闭包模拟私有方法&quot; class=&quot;headerlink&quot; title=&quot;用闭包模拟私有方法&quot;&gt;&lt;/a&gt;用闭包模拟私有方法&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var Counter = (function() {
+    var privateCounter = 0;
+    function changeBy(val) {
+        privateCounter += val;
+    }
+    return {
+        increment: function() {
+          changeBy(1);
+        },
+        decrement: function() {
+          changeBy(-1);
+        },
+        value: function() {
+          return privateCounter;
+        }
+    }   
+})();
+console.log(Counter.value()); // logs 0 
+Counter.increment();
+Counter.increment();
+console.log(Counter.value()); // logs 2 
+Counter.decrement();
+console.log(Counter.value()); // logs 1 
+var Counter1 = makeCounter();
+var Counter2 = makeCounter();
+console.log(Counter1.value()); /* logs 0 */
+Counter1.increment();
+Counter1.increment();
+console.log(Counter1.value()); /* logs 2 */
+Counter1.decrement();
+console.log(Counter1.value()); /* logs 1 */
+console.log(Counter2.value()); /* logs 0 */
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Counter创建于一个匿名函数体内，该函数一经定义立刻执行。环境中包含两个私有项：名为 privateCounter 的变量和名为 changeBy 的函数。 这两项都无法在匿名函数外部直接访问。必须通过匿名包装器返回的三个公共函数(increment、decrement、value)访问。&lt;br&gt;每次调用 makeCounter() 函数期间，其环境是不同的。每次调用中， privateCounter 中含有不同的实例。&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;通过-访问对象属性&quot;&gt;&lt;a href=&quot;#通过-访问对象属性&quot; class=&quot;headerlink&quot; title=&quot;通过[]访问对象属性&quot;&gt;&lt;/a&gt;通过[]访问对象属性&lt;/h4&gt;&lt;p&gt;当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://yoursite.com/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>前端测试相关</title>
@@ -201,12 +338,13 @@ Promise.race([
     <link href="http://yoursite.com/2016/12/08/Nodejs%E5%91%BD%E4%BB%A4%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2016/12/08/Nodejs命令整理/</id>
     <published>2016-12-08T01:27:44.000Z</published>
-    <updated>2016-12-08T01:31:46.781Z</updated>
+    <updated>2016-12-12T06:19:52.089Z</updated>
     
     <content type="html">&lt;h4 id=&quot;开启关闭MongoDB&quot;&gt;&lt;a href=&quot;#开启关闭MongoDB&quot; class=&quot;headerlink&quot; title=&quot;开启关闭MongoDB&quot;&gt;&lt;/a&gt;开启关闭MongoDB&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;net start MongoDB
 net stop MongoDB
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;自动重启&quot;&gt;&lt;a href=&quot;#自动重启&quot; class=&quot;headerlink&quot; title=&quot;自动重启&quot;&gt;&lt;/a&gt;自动重启&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;supervisor --harmony index
-&lt;/code&gt;&lt;/pre&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;404：请求的网页不存在&lt;br&gt;500：服务器遇到错误,无法完成请求&lt;/p&gt;
+</content>
     
     <summary type="html">
     
@@ -2896,7 +3034,7 @@ finish();
     <link href="http://yoursite.com/2016/06/19/%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/"/>
     <id>http://yoursite.com/2016/06/19/快捷键整理/</id>
     <published>2016-06-19T10:25:35.000Z</published>
-    <updated>2016-12-08T05:34:32.946Z</updated>
+    <updated>2016-12-10T09:45:53.151Z</updated>
     
     <content type="html">&lt;h4 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h4&gt;&lt;p&gt;记录各种工具下常用的快捷键，提升效率&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;android-studio&quot;&gt;&lt;a href=&quot;#android-studio&quot; class=&quot;headerlink&quot; title=&quot;android studio&quot;&gt;&lt;/a&gt;android studio&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;generate = Alt + insert  
@@ -2914,10 +3052,14 @@ Manual Code Intelligence = Control+Shift+space
 Open Terminal at File = ctrl+shift+t   
 Open Terminal at Project Folder  =   ctrl+alt+shift+t
 替换  Ctrl+h
-&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Chrome&quot;&gt;&lt;a href=&quot;#Chrome&quot; class=&quot;headerlink&quot; title=&quot;Chrome&quot;&gt;&lt;/a&gt;Chrome&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;vpn开关 = alt+shift+o
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;Chrome&quot;&gt;&lt;a href=&quot;#Chrome&quot; class=&quot;headerlink&quot; title=&quot;Chrome&quot;&gt;&lt;/a&gt;Chrome&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;vpn开关 = alt+shift+o（switchyomega插件）
 &lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;eclipse&quot;&gt;&lt;a href=&quot;#eclipse&quot; class=&quot;headerlink&quot; title=&quot;eclipse&quot;&gt;&lt;/a&gt;eclipse&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;ctrl+shift+x   转为大写  
 ctrl+shift+y   转为小写
-&lt;/code&gt;&lt;/pre&gt;</content>
+&lt;/code&gt;&lt;/pre&gt;&lt;h4 id=&quot;win10&quot;&gt;&lt;a href=&quot;#win10&quot; class=&quot;headerlink&quot; title=&quot;win10&quot;&gt;&lt;/a&gt;win10&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;shift+win+c   打开小娜
+ctrl +win+d   打开虚拟桌面
+ctrl +win+f4  关闭虚拟桌面
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;在 Explorer 的地址栏中执行 cmd 或 powershell 可以快速打开并跳转至该目录&lt;/p&gt;
+</content>
     
     <summary type="html">
     
@@ -3313,61 +3455,6 @@ int count = db.update(
     
     
       <category term="nodejs" scheme="http://yoursite.com/tags/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Markdown</title>
-    <link href="http://yoursite.com/2016/06/06/Markdown%E5%85%A5%E9%97%A8/"/>
-    <id>http://yoursite.com/2016/06/06/Markdown入门/</id>
-    <published>2016-06-06T02:28:51.000Z</published>
-    <updated>2016-07-05T08:45:13.406Z</updated>
-    
-    <content type="html">&lt;h1 id=&quot;段落和换行&quot;&gt;&lt;a href=&quot;#段落和换行&quot; class=&quot;headerlink&quot; title=&quot;段落和换行&quot;&gt;&lt;/a&gt;段落和换行&lt;/h1&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;一个 Markdown 段落是由一个或多个连续的文本行组成，它的前后要有一个以上的空行&lt;br&gt;如果你确实想要依赖 Markdown 来插入 &lt;br \=&quot;&quot;&gt; 标签的话，在插入处先按入两个以上的空格然后回车。  &lt;/p&gt;
-&lt;h1 id=&quot;标题&quot;&gt;&lt;a href=&quot;#标题&quot; class=&quot;headerlink&quot; title=&quot;标题&quot;&gt;&lt;/a&gt;标题&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# 一级标题  
-## 二级标题  
-### 三级标题  
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;以此类推，总共六级标题&lt;/p&gt;
-&lt;h1 id=&quot;列表&quot;&gt;&lt;a href=&quot;#列表&quot; class=&quot;headerlink&quot; title=&quot;列表&quot;&gt;&lt;/a&gt;列表&lt;/h1&gt;&lt;p&gt; 无序列表使用星号、加号或是减号作为列表标记: &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;*   Red
-*   Green
-*   Blue
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or  &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;+   Red
-+   Green
-+   Blue      
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;or  &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;-   Red
--   Green
--   Blue
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;有序列表则使用数字接着一个英文句点：&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;1.  Bird
-2.  McHale
-3.  Parish
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;区块引用-Blockquotes&quot;&gt;&lt;a href=&quot;#区块引用-Blockquotes&quot; class=&quot;headerlink&quot; title=&quot;区块引用 Blockquotes&quot;&gt;&lt;/a&gt;区块引用 Blockquotes&lt;/h1&gt;&lt;p&gt;只需要在文本前加入 &lt;code&gt;&amp;gt;&lt;/code&gt; 这种尖括号（大于号）即可&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;例如这样  &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;代码区块&quot;&gt;&lt;a href=&quot;#代码区块&quot; class=&quot;headerlink&quot; title=&quot;代码区块&quot;&gt;&lt;/a&gt;代码区块&lt;/h1&gt;&lt;p&gt;缩进 4 个空格或是 1 个制表符就可,例如  &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;这是一个普通段落：
-    这是一个代码区块。  
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;分隔线&quot;&gt;&lt;a href=&quot;#分隔线&quot; class=&quot;headerlink&quot; title=&quot;分隔线&quot;&gt;&lt;/a&gt;分隔线&lt;/h1&gt;&lt;p&gt;在一行中用三个以上的星号、减号、底线来建立一个分隔线，行内不能有其他东西。  &lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;***
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;图片与链接&quot;&gt;&lt;a href=&quot;#图片与链接&quot; class=&quot;headerlink&quot; title=&quot;图片与链接&quot;&gt;&lt;/a&gt;图片与链接&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;连接 [an example](http://example.com/ &amp;quot;Title&amp;quot;)
-图片 ![Alt text](/path/to/img.jpg)
-&lt;/code&gt;&lt;/pre&gt;</content>
-    
-    <summary type="html">
-    
-      &lt;h1 id=&quot;段落和换行&quot;&gt;&lt;a href=&quot;#段落和换行&quot; class=&quot;headerlink&quot; title=&quot;段落和换行&quot;&gt;&lt;/a&gt;段落和换行&lt;/h1&gt;
-    
-    </summary>
-    
-      <category term="Markdown" scheme="http://yoursite.com/categories/Markdown/"/>
-    
-    
-      <category term="Markdown" scheme="http://yoursite.com/tags/Markdown/"/>
     
   </entry>
   

@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android," />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -86,16 +86,25 @@
 
 
 
-<meta name="description" content="AppWidget就是我们平常在桌面上见到的那种一个个的小窗口，利用这个小窗口可以给用户提供一些方便快捷的操作。">
+<meta name="description" content="通过[]访问对象属性当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出现在JavaScript程序中，他们不是数据类型，程序无法直接修改它们。  
+当通过[]来访问对象的属性时，属性名通过字符串来表示，字符串是JavaScript的数据类型，在程序运行时可以修改和创建它们。代码如下  
+var addr = &amp;quot;&amp;quot;;
+for(var i =0; i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="android_AppWidget">
-<meta property="og:url" content="http://yoursite.com/2016/07/15/android-AppWidget/index.html">
+<meta property="og:title" content="《JavaScript权威指南》阅读笔记">
+<meta property="og:url" content="http://yoursite.com/2017/02/07/JavaScript权威指南笔记/index.html">
 <meta property="og:site_name" content="个人博客">
-<meta property="og:description" content="AppWidget就是我们平常在桌面上见到的那种一个个的小窗口，利用这个小窗口可以给用户提供一些方便快捷的操作。">
-<meta property="og:updated_time" content="2016-07-15T10:18:29.969Z">
+<meta property="og:description" content="通过[]访问对象属性当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出现在JavaScript程序中，他们不是数据类型，程序无法直接修改它们。  
+当通过[]来访问对象的属性时，属性名通过字符串来表示，字符串是JavaScript的数据类型，在程序运行时可以修改和创建它们。代码如下  
+var addr = &amp;quot;&amp;quot;;
+for(var i =0; i">
+<meta property="og:updated_time" content="2017-02-10T08:18:08.325Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="android_AppWidget">
-<meta name="twitter:description" content="AppWidget就是我们平常在桌面上见到的那种一个个的小窗口，利用这个小窗口可以给用户提供一些方便快捷的操作。">
+<meta name="twitter:title" content="《JavaScript权威指南》阅读笔记">
+<meta name="twitter:description" content="通过[]访问对象属性当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出现在JavaScript程序中，他们不是数据类型，程序无法直接修改它们。  
+当通过[]来访问对象的属性时，属性名通过字符串来表示，字符串是JavaScript的数据类型，在程序运行时可以修改和创建它们。代码如下  
+var addr = &amp;quot;&amp;quot;;
+for(var i =0; i">
 
 
 
@@ -113,7 +122,7 @@
   };
 </script>
 
-  <title> android_AppWidget | 个人博客 </title>
+  <title> 《JavaScript权威指南》阅读笔记 | 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +292,7 @@
             
             
               
-                android_AppWidget
+                《JavaScript权威指南》阅读笔记
               
             
           </h1>
@@ -295,8 +304,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-15T14:02:10+08:00" content="2016-07-15">
-              2016-07-15
+            <time itemprop="dateCreated" datetime="2017-02-07T10:27:12+08:00" content="2017-02-07">
+              2017-02-07
             </time>
           </span>
 
@@ -306,8 +315,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/15/android-AppWidget/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/15/android-AppWidget/" itemprop="commentsCount"></span>
+                <a href="/2017/02/07/JavaScript权威指南笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/07/JavaScript权威指南笔记/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -330,228 +339,123 @@
       
 
       
-        <p>AppWidget就是我们平常在桌面上见到的那种一个个的小窗口，利用这个小窗口可以给用户提供一些方便快捷的操作。<br><a id="more"></a></p>
-<h4 id="创建一个简单的AppWidget"><a href="#创建一个简单的AppWidget" class="headerlink" title="创建一个简单的AppWidget"></a>创建一个简单的AppWidget</h4><ol>
-<li><p>在res文件夹下新建一个名字为xml的文件夹，然后在xml目录下创建一个appwidget_info_info.xml文件</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;appwidget-provider xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    android:initialKeyguardLayout=&quot;@layout/appwidget_info&quot;
-    android:initialLayout=&quot;@layout/appwidget_info&quot;
-    android:minHeight=&quot;40dp&quot;
-    android:minWidth=&quot;250dp&quot;
-    android:previewImage=&quot;@drawable/example_appwidget_preview&quot;
-    android:resizeMode=&quot;horizontal|vertical&quot;
-    android:updatePeriodMillis=&quot;86400000&quot;
-    android:widgetCategory=&quot;home_screen&quot;&gt;&lt;/appwidget-provider&gt;
-</code></pre></li>
-<li><p>在layout文件夹下面新建一个appwidgetlayout.xml文件</p>
-<pre><code>&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-android:layout_width=&quot;match_parent&quot;
-android:layout_height=&quot;match_parent&quot;
-android:padding=&quot;@dimen/widget_margin&quot;&gt;
-
-    &lt;TextView
-        android:id=&quot;@+id/appwidget_text&quot;
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:contentDescription=&quot;@string/appwidget_text&quot;
-        android:text=&quot;@string/appwidget_text&quot;
-        android:textSize=&quot;24sp&quot;
-        android:textStyle=&quot;bold|italic&quot;
-        android:layout_marginLeft=&quot;8dp&quot;
-        android:layout_marginRight=&quot;8dp&quot;
-        android:layout_alignParentTop=&quot;true&quot;
-        android:layout_alignParentStart=&quot;true&quot; /&gt;
-
-    &lt;Button
-        android:layout_width=&quot;wrap_content&quot;
-        android:layout_height=&quot;wrap_content&quot;
-        android:text=&quot;@string/btn_name&quot;
-        android:id=&quot;@+id/button&quot;
-        android:layout_below=&quot;@+id/appwidget_text&quot;
-        android:layout_alignStart=&quot;@+id/appwidget_text&quot; /&gt;
-
-&lt;/RelativeLayout&gt;  
-</code></pre></li>
-<li><p>继承AppWidgetProvider类</p>
-<pre><code>public class appwidgetInfo extends AppWidgetProvider {
-
-    private  static  String broadCastString = &quot;com.caokai.broadCastString&quot;;
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-        //发送广播的PendingIntent
-        Intent intent = new Intent();
-        intent.setAction(broadCastString);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context,0,intent,0);
-
-        //启动activity的PendingIntent
-        Intent activityIntent =  new Intent(context,MainActivity.class);
-        PendingIntent pendingIntent1 = PendingIntent.getActivity(context,0,activityIntent,0);
-
-        CharSequence widgetText = &quot;test&quot;;
-        // 获取RemoteViews
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.appwidget_info);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
-
-        //设置点击事件
-        views.setOnClickPendingIntent(R.id.button,pendingIntent);
-        //设置点击事件
-        views.setOnClickPendingIntent(R.id.appwidget_text,pendingIntent1);
-
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
-    }
-
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
-    }
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        if(intent.getAction().equals(broadCastString)){
-            RemoteViews remoteViews = new RemoteViews(context.getPackageName(),R.layout.appwidget_info);
-            remoteViews.setTextViewText(R.id.appwidget_text,&quot;点击到了&quot;);
-
-            AppWidgetManager appWidgetManager =  AppWidgetManager.getInstance(context);
-
-            ComponentName componentName = new ComponentName(context,appwidgetInfo.class);
-            appWidgetManager.updateAppWidget(componentName,remoteViews);
-        }else{
-            super.onReceive(context, intent);
-        }
-
+        <h4 id="通过-访问对象属性"><a href="#通过-访问对象属性" class="headerlink" title="通过[]访问对象属性"></a>通过[]访问对象属性</h4><p>当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出现在JavaScript程序中，他们不是数据类型，程序无法直接修改它们。  </p>
+<p>当通过[]来访问对象的属性时，属性名通过字符串来表示，字符串是JavaScript的数据类型，在程序运行时可以修改和创建它们。代码如下  </p>
+<pre><code>var addr = &quot;&quot;;
+for(var i =0; i &lt; 4 ; i++){
+    addr += customer[&quot;address&quot;+i]+&apos;\n&apos;;
+}
+</code></pre><p>这段代码读取customer对象的address0,address1,address2和address3属性，并将它们连接起来。</p>
+<h4 id="属性getter和setter"><a href="#属性getter和setter" class="headerlink" title="属性getter和setter"></a>属性getter和setter</h4><pre><code>var serialnum = {
+    $n:0,
+    get next(){return this.$n++;},
+    set next(n){
+        if(n &gt;= this.$n){ this.$n = n}
+        else throw &quot;序列号的值不能比当前值小&quot;
     }
 }
-</code></pre></li>
-<li><p>AndroidManifest.xml中申明</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
-&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
-    package=&quot;caokai.com.appwidgettest&quot;&gt;
-
-    &lt;application
-        android:allowBackup=&quot;true&quot;
-        android:icon=&quot;@mipmap/ic_launcher&quot;
-        android:label=&quot;@string/app_name&quot;
-        android:supportsRtl=&quot;true&quot;
-        android:theme=&quot;@style/AppTheme&quot;&gt;
-        &lt;activity android:name=&quot;.MainActivity&quot;&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
-
-                &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
-            &lt;/intent-filter&gt;
-        &lt;/activity&gt;
-
-        &lt;receiver android:name=&quot;.appwidgetInfo&quot;&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_UPDATE&quot; /&gt;
-            &lt;/intent-filter&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name=&quot;com.caokai.broadCastString&quot; /&gt;
-            &lt;/intent-filter&gt;
-
-            &lt;meta-data
-                android:name=&quot;android.appwidget.provider&quot;
-                android:resource=&quot;@xml/appwidget_info_info&quot; /&gt;
-        &lt;/receiver&gt;
-        &lt;receiver android:name=&quot;.NewAppWidget&quot;&gt;
-            &lt;intent-filter&gt;
-                &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_UPDATE&quot; /&gt;
-            &lt;/intent-filter&gt;
-
-            &lt;meta-data
-                android:name=&quot;android.appwidget.provider&quot;
-                android:resource=&quot;@xml/new_app_widget_info&quot; /&gt;
-        &lt;/receiver&gt;
-    &lt;/application&gt;
-
-&lt;/manifest&gt;
-</code></pre></li>
-</ol>
-<p>以上文件可在android studio中通过  New-&gt;Widget-&gt;AppWidget来自动生成</p>
-<h4 id="AppWidget与客户端程序交互"><a href="#AppWidget与客户端程序交互" class="headerlink" title="AppWidget与客户端程序交互"></a>AppWidget与客户端程序交互</h4><ol>
-<li><p>RemoteViews<br>因为appwidget运行的进程和我们创建的应用不在一个进程中，所以我们也就不能像平常引用控件那样来获得控件的实例。这个时候RemoteViews出场了。</p>
-<pre><code>RemoteViews remoteViews  = new RemoteViews(context.getPackageName(),R.layout.appwidgetlayout);
-
-remoteViews.setOnClickPendingIntent(R.id.btnSend, pendingIntent);  //为小工具上的按钮绑定事件
-</code></pre></li>
-<li><p>pendingIntent</p>
-<pre><code>//创建一个Intent对象
-Intent intent = new Intent();
-intent.setAction(broadCastString);
-
-//这一步相当于写信，说明这个信的作用到底是什么，在这里表示将发送一个广播
-PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-</code></pre></li>
-<li><p>在onUpdate()方法中绑定事件</p>
-<pre><code>/**
-* 到达指定的更新时间或者当用户向桌面添加AppWidget时被调用
-* */
-@Override
-public void onUpdate(Context context, AppWidgetManager appWidgetManager,
-        int[] appWidgetIds)
-        {
-
-                //创建一个Intent对象
-                Intent intent = new Intent();
-                intent.setAction(broadCastString);
-
-                //设置pendingIntent的作用
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-                RemoteViews remoteViews  = new RemoteViews(context.getPackageName(),R.layout.appwidgetlayout);
-
-                //绑定事件
-                remoteViews.setOnClickPendingIntent(R.id.btnSend, pendingIntent);
-
-                //更新Appwidget
-                appWidgetManager.updateAppWidget(appWidgetIds, remoteViews);
-        }  
-</code></pre></li>
-<li><p>在onReceive()方法中更新appwidget</p>
-<pre><code>/**
- * 接受广播事件
- * */
-@Override
-public void onReceive(Context context, Intent intent)
-{
-    if (intent.getAction().equals(broadCastString))
-    {               
-        //只能通过远程对象来设置appwidget中的控件状态
-        RemoteViews remoteViews  = new RemoteViews(context.getPackageName(),R.layout.appwidgetlayout);
-
-       //通过远程对象将按钮的文字设置为”hihi”
-        remoteViews.setTextViewText(R.id.btnSend, &quot;hihi&quot;);   
-
-        //获得appwidget管理实例，用于管理appwidget以便进行更新操作
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-
-        //相当于获得所有本程序创建的appwidget
-        ComponentName componentName = new ComponentName(context,AppWidget.class);
-
-        //更新appwidget
-        appWidgetManager.updateAppWidget(componentName, remoteViews);
-    }else{
-        super.onReceive(context, intent);
+serialnum.next   // ==&gt;0
+serialnum.next   // ==&gt;1
+serialnum.next = 3;
+serialnum.next   // ==&gt;3
+</code></pre><h4 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h4><p>ECMAScript3中的方法：</p>
+<h5 id="join"><a href="#join" class="headerlink" title="join()"></a>join()</h5><pre><code>var a = [1,2,3];
+a.join(&quot; &quot;)         // ==&gt;&quot;1 2 3&quot;
+</code></pre><h5 id="reverse"><a href="#reverse" class="headerlink" title="reverse()"></a>reverse()</h5><p>数组倒序</p>
+<pre><code>var a = [1,2,3];
+a.reverse();           // =&gt;a为[3,2,1]
+</code></pre><h5 id="sort"><a href="#sort" class="headerlink" title="sort()"></a>sort()</h5><p>数组排序<br>不带参数调用sort()时，数组元素以字母表顺序排序</p>
+<pre><code>var a = [33,4,1111,222];
+a.sort();                // 字母表顺序为1111,222,33,4
+a.sort(function(a,b){   //数值顺序4,33,22,1111
+    return a-b;
+});
+</code></pre><h5 id="concat"><a href="#concat" class="headerlink" title="concat()"></a>concat()</h5><p>创建并返回一个新数组，它的元素包括调用concat()的原始数组的元素和concat()的每个参数。</p>
+<pre><code>var a = [1,2,3];
+a.concat(4,5);            //返回[1,2,3,4,5]
+a.concat([4,5]);        //返回[1,2,3,4,5]
+a.concat([4,5],[6,7])    //返回[1,2,3,4,5,6,7]
+a.concat(4,[5,[6,7]])    //返回[1,2,3,4,5[6,7]]
+</code></pre><h5 id="slice"><a href="#slice" class="headerlink" title="slice()"></a>slice()</h5><p>返回指定数组的一个片段或字数组。返回的数组包含第一个参数指定的位置和所有到但不包含第二个参数指定的位置之间的所有数组元素。且不会修改调用的数组。</p>
+<pre><code>var a = [1,2,3,4,5];
+a.slice(0,3);            //返回[1,2,3]
+a.slice(3);                //返回[4,5]
+a.slice(1,-1);            //返回[2,3,4](当出现负数时,用负数加上数组的length，此处相当于a.slice(1,4))
+a.slice(-3,-2);            //返回[3](相当于a.slice(2,3))
+</code></pre><h5 id="splice"><a href="#splice" class="headerlink" title="splice()"></a>splice()</h5><p>在数组中插入或删除元素的通用方法，且会修改调用的数组。<br>splice()的第一个参数指定了插入或删除的其实位置，第二个参数指定了应从数组中删除的元素个数。</p>
+<pre><code>var a = [1,2,3,4,5,6,7,8];
+a.splice(4);        //返回[5,6,7,8];a是[1,2,3,4]
+a.splice(1,2);        //返回[2,3];a是[1,4]
+a.splice(1,1);        //返回[4];a是[1]    
+</code></pre><p>splice()前两个参数之后的参数指定了需要插入到数组中的元素，从第一个参数指定的位置开始插入。</p>
+<pre><code>var a = [1,2,3,4,5];
+a.splice(2,0,&apos;a&apos;,&apos;&apos;b);    //返回[];a是[1,2,a,b,3,4,5]
+a.splice(2,2,[1,2],3);  //返回[a,b];a是[1,2,[1,2],3,3,4,5]
+</code></pre><h5 id="push-和pop"><a href="#push-和pop" class="headerlink" title="push()和pop()"></a>push()和pop()</h5><p>push()在数组末尾添加一个或多个元素，返回数组新的长度。pop()则相反。</p>
+<h5 id="unshift-和shift"><a href="#unshift-和shift" class="headerlink" title="unshift()和shift()"></a>unshift()和shift()</h5><p>unshift()在数组的头部添加一个或多个元素，返回数组新的长度。shift()删除数组的第一个元素并将其返回。</p>
+<pre><code>var a = [];            //a:[]
+a.unshift(1);        //a:[1]返回1
+a.unshift(22);        //a:[22,1]返回2
+a.shift();            //a:[1]返回22
+a.unshift(3,[4,5]);    //a:[3,[4,5],1]返回3
+a.shift();            //a:[[4,5],1]返回3
+</code></pre><p>ECMAScript5中的方法：</p>
+<h5 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h5><p>从头至尾偏离数组，为每个元素调用指定的函数。</p>
+<pre><code>var data = [1,2,3,4,5];
+var sum = 0;
+data.forEach(function(v){ sum += v;});//累加
+sum            // ==&gt;15
+data.forEach(function(v,i,a){ a[i] = v+1;});//三个参数代表：数组元素、元素的索引、数组本身
+data         //==&gt;[2,3,4,5,6]
+</code></pre><h5 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h5><p>调用数组的每个元素传递给指定的函数，并返回一个数组。不修改调用的数组。</p>
+<pre><code>var a = [1,2,3];
+var b = a.map(function(x){return x*x;});//b是[1,4,9]
+</code></pre><h5 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h5><p>filter()方法返回的数组元素是调用的数组的一个子集。</p>
+<pre><code>var a = [5,4,3,2,1];
+smallvalues = a.filter(function(x){return x &lt; 3;});//返回[2,1]
+other = a.filter(function(x,i){return i%2 == 0}); //返回[5,3,1]
+</code></pre><h5 id="every-和some"><a href="#every-和some" class="headerlink" title="every()和some()"></a>every()和some()</h5><p>every():当且仅当数组中的所有元素调用判定函数都返回true时，返回true</p>
+<pre><code>a = [1,2,3,4,5];
+a.every(function(x){ return x &lt; 10;});//返回true
+a.every(function(x){ return x%2 ===0; })//返回false
+</code></pre><p>some():只要有一个元素调用判定函数返回true，则返回true</p>
+<h5 id="reduce-和reduceRight"><a href="#reduce-和reduceRight" class="headerlink" title="reduce()和reduceRight()"></a>reduce()和reduceRight()</h5><p>使用指定的函数将数组元素进行组合，生成单个值。</p>
+<h5 id="indexOf-和lastIndexOf"><a href="#indexOf-和lastIndexOf" class="headerlink" title="indexOf()和lastIndexOf()"></a>indexOf()和lastIndexOf()</h5><p>搜索整个数组中具有给定值的元素，返回找到的第一个元素的索引，若没找到返回-1</p>
+<h5 id="Array-isArray"><a href="#Array-isArray" class="headerlink" title="Array.isArray()"></a>Array.isArray()</h5><pre><code>Array.isArray([])      //=&gt;true
+Array.isArray({})    //=&gt;false
+</code></pre><h4 id="用闭包模拟私有方法"><a href="#用闭包模拟私有方法" class="headerlink" title="用闭包模拟私有方法"></a>用闭包模拟私有方法</h4><pre><code>var Counter = (function() {
+    var privateCounter = 0;
+    function changeBy(val) {
+        privateCounter += val;
     }
-
-}
-</code></pre></li>
-</ol>
-<p>代码：<a href="/uploads/AppWidgetTest.zip">AppWidgetTest.zip</a></p>
+    return {
+        increment: function() {
+          changeBy(1);
+        },
+        decrement: function() {
+          changeBy(-1);
+        },
+        value: function() {
+          return privateCounter;
+        }
+    }   
+})();
+console.log(Counter.value()); // logs 0 
+Counter.increment();
+Counter.increment();
+console.log(Counter.value()); // logs 2 
+Counter.decrement();
+console.log(Counter.value()); // logs 1 
+var Counter1 = makeCounter();
+var Counter2 = makeCounter();
+console.log(Counter1.value()); /* logs 0 */
+Counter1.increment();
+Counter1.increment();
+console.log(Counter1.value()); /* logs 2 */
+Counter1.decrement();
+console.log(Counter1.value()); /* logs 1 */
+console.log(Counter2.value()); /* logs 0 */
+</code></pre><p>Counter创建于一个匿名函数体内，该函数一经定义立刻执行。环境中包含两个私有项：名为 privateCounter 的变量和名为 changeBy 的函数。 这两项都无法在匿名函数外部直接访问。必须通过匿名包装器返回的三个公共函数(increment、decrement、value)访问。<br>每次调用 makeCounter() 函数期间，其环境是不同的。每次调用中， privateCounter 中含有不同的实例。</p>
 
       
     </div>
@@ -594,7 +498,7 @@ public void onReceive(Context context, Intent intent)
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag">#android</a>
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
           
         </div>
       
@@ -603,17 +507,13 @@ public void onReceive(Context context, Intent intent)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/14/android-拍照/" rel="next" title="android_拍照">
-                <i class="fa fa-chevron-left"></i> android_拍照
+              <a href="/2016/12/09/测试相关/" rel="next" title="前端测试相关">
+                <i class="fa fa-chevron-left"></i> 前端测试相关
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/13/React笔记/" rel="prev" title="React笔记">
-                React笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -645,8 +545,8 @@ public void onReceive(Context context, Intent intent)
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/15/android-AppWidget/"
-           data-title="android_AppWidget" data-url="http://yoursite.com/2016/07/15/android-AppWidget/">
+      <div class="ds-thread" data-thread-key="2017/02/07/JavaScript权威指南笔记/"
+           data-title="《JavaScript权威指南》阅读笔记" data-url="http://yoursite.com/2017/02/07/JavaScript权威指南笔记/">
       </div>
     
   </div>
@@ -744,7 +644,7 @@ public void onReceive(Context context, Intent intent)
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建一个简单的AppWidget"><span class="nav-number">1.</span> <span class="nav-text">创建一个简单的AppWidget</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AppWidget与客户端程序交互"><span class="nav-number">2.</span> <span class="nav-text">AppWidget与客户端程序交互</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#通过-访问对象属性"><span class="nav-number">1.</span> <span class="nav-text">通过[]访问对象属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性getter和setter"><span class="nav-number">2.</span> <span class="nav-text">属性getter和setter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数组方法"><span class="nav-number">3.</span> <span class="nav-text">数组方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#join"><span class="nav-number">3.1.</span> <span class="nav-text">join()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reverse"><span class="nav-number">3.2.</span> <span class="nav-text">reverse()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#sort"><span class="nav-number">3.3.</span> <span class="nav-text">sort()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#concat"><span class="nav-number">3.4.</span> <span class="nav-text">concat()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#slice"><span class="nav-number">3.5.</span> <span class="nav-text">slice()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#splice"><span class="nav-number">3.6.</span> <span class="nav-text">splice()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#push-和pop"><span class="nav-number">3.7.</span> <span class="nav-text">push()和pop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unshift-和shift"><span class="nav-number">3.8.</span> <span class="nav-text">unshift()和shift()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#forEach"><span class="nav-number">3.9.</span> <span class="nav-text">forEach()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#map"><span class="nav-number">3.10.</span> <span class="nav-text">map()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#filter"><span class="nav-number">3.11.</span> <span class="nav-text">filter()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#every-和some"><span class="nav-number">3.12.</span> <span class="nav-text">every()和some()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce-和reduceRight"><span class="nav-number">3.13.</span> <span class="nav-text">reduce()和reduceRight()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#indexOf-和lastIndexOf"><span class="nav-number">3.14.</span> <span class="nav-text">indexOf()和lastIndexOf()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Array-isArray"><span class="nav-number">3.15.</span> <span class="nav-text">Array.isArray()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用闭包模拟私有方法"><span class="nav-number">4.</span> <span class="nav-text">用闭包模拟私有方法</span></a></li></ol></div>
             
           </div>
         </section>
