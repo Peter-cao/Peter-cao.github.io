@@ -12,7 +12,7 @@
 for(var i =0; i &lt; 4 ; i++){
     addr += customer[&quot;address&quot;+i]+&apos;\n&apos;;
 }
-</code></pre><p>这段代码读取customer对象的address0,address1,address2和address3属性，并将它们连接起来。</p>
+</code></pre><p>这段代码读取customer对象的address0,address1,address2和address3属性，并将它们连接起来。<br><a id="more"></a></p>
 <h4 id="属性getter和setter"><a href="#属性getter和setter" class="headerlink" title="属性getter和setter"></a>属性getter和setter</h4><pre><code>var serialnum = {
     $n:0,
     get next(){return this.$n++;},

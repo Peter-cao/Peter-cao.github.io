@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-02-10T08:18:08.325Z</updated>
+  <updated>2017-02-10T08:28:47.412Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/02/07/JavaScript%E6%9D%83%E5%A8%81%E6%8C%87%E5%8D%97%E7%AC%94%E8%AE%B0/"/>
     <id>http://yoursite.com/2017/02/07/JavaScript权威指南笔记/</id>
     <published>2017-02-07T02:27:12.000Z</published>
-    <updated>2017-02-10T08:18:08.325Z</updated>
+    <updated>2017-02-10T08:28:47.412Z</updated>
     
     <content type="html">&lt;h4 id=&quot;通过-访问对象属性&quot;&gt;&lt;a href=&quot;#通过-访问对象属性&quot; class=&quot;headerlink&quot; title=&quot;通过[]访问对象属性&quot;&gt;&lt;/a&gt;通过[]访问对象属性&lt;/h4&gt;&lt;p&gt;当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出现在JavaScript程序中，他们不是数据类型，程序无法直接修改它们。  &lt;/p&gt;
 &lt;p&gt;当通过[]来访问对象的属性时，属性名通过字符串来表示，字符串是JavaScript的数据类型，在程序运行时可以修改和创建它们。代码如下  &lt;/p&gt;
@@ -28,7 +28,7 @@
 for(var i =0; i &amp;lt; 4 ; i++){
     addr += customer[&amp;quot;address&amp;quot;+i]+&amp;apos;\n&amp;apos;;
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这段代码读取customer对象的address0,address1,address2和address3属性，并将它们连接起来。&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这段代码读取customer对象的address0,address1,address2和address3属性，并将它们连接起来。&lt;br&gt;&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;h4 id=&quot;属性getter和setter&quot;&gt;&lt;a href=&quot;#属性getter和setter&quot; class=&quot;headerlink&quot; title=&quot;属性getter和setter&quot;&gt;&lt;/a&gt;属性getter和setter&lt;/h4&gt;&lt;pre&gt;&lt;code&gt;var serialnum = {
     $n:0,
     get next(){return this.$n++;},
@@ -143,7 +143,13 @@ console.log(Counter2.value()); /* logs 0 */
     
     <summary type="html">
     
-      &lt;h4 id=&quot;通过-访问对象属性&quot;&gt;&lt;a href=&quot;#通过-访问对象属性&quot; class=&quot;headerlink&quot; title=&quot;通过[]访问对象属性&quot;&gt;&lt;/a&gt;通过[]访问对象属性&lt;/h4&gt;&lt;p&gt;当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出
+      &lt;h4 id=&quot;通过-访问对象属性&quot;&gt;&lt;a href=&quot;#通过-访问对象属性&quot; class=&quot;headerlink&quot; title=&quot;通过[]访问对象属性&quot;&gt;&lt;/a&gt;通过[]访问对象属性&lt;/h4&gt;&lt;p&gt;当通过点运算符(.)访问对象的属性时，属性名用一个标识符来表示，标识符必须直接出现在JavaScript程序中，他们不是数据类型，程序无法直接修改它们。  &lt;/p&gt;
+&lt;p&gt;当通过[]来访问对象的属性时，属性名通过字符串来表示，字符串是JavaScript的数据类型，在程序运行时可以修改和创建它们。代码如下  &lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;var addr = &amp;quot;&amp;quot;;
+for(var i =0; i &amp;lt; 4 ; i++){
+    addr += customer[&amp;quot;address&amp;quot;+i]+&amp;apos;\n&amp;apos;;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这段代码读取customer对象的address0,address1,address2和address3属性，并将它们连接起来。&lt;br&gt;
     
     </summary>
     
