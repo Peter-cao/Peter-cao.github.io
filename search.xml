@@ -381,6 +381,44 @@ Picasso.with(context)
       </tags>
   </entry>
   <entry>
+    <title>ES6语法</title>
+    <url>/2021/08/17/ES6%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<p>ES6常用语法整理<span id="more"></span></p>
+<h1 id="let-const"><a href="#let-const" class="headerlink" title="let/const"></a>let/const</h1><h1 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h1><ol>
+<li>箭头函数没有arguments</li>
+<li>箭头函数没有prototype属性，不能用作构造函数</li>
+<li>箭头函数没有自己this，它的this是词法的，引用的是上下文的this</li>
+</ol>
+<h1 id="iterator迭代器"><a href="#iterator迭代器" class="headerlink" title="iterator迭代器"></a>iterator迭代器</h1><p>是另外4个ES6常用特性的实现基础（解构赋值，剩余/扩展运算符，生成器，for of循环）</p>
+<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><h1 id="剩余-扩展运算符"><a href="#剩余-扩展运算符" class="headerlink" title="剩余/扩展运算符"></a>剩余/扩展运算符</h1><h1 id="对象属性-方法简写"><a href="#对象属性-方法简写" class="headerlink" title="对象属性/方法简写"></a>对象属性/方法简写</h1><h1 id="for-…-of循环"><a href="#for-…-of循环" class="headerlink" title="for … of循环"></a>for … of循环</h1><ol>
+<li>for … of只能用在可迭代对象上,获取的是迭代器返回的value值,for … in 可以获取所有对象的键名</li>
+<li>for … in会遍历对象的整个原型链,性能非常差不推荐使用,而for … of只遍历当前对象不会遍历它的原型链</li>
+<li>对于数组的遍历,for … in会返回数组中所有可枚举的属性(包括原型链上可枚举的属性),for … of只返回数组的下标对应的属性值</li>
+</ol>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><h1 id="ES6-Module"><a href="#ES6-Module" class="headerlink" title="ES6 Module"></a>ES6 Module</h1><p><a href="/2021/07/08/JavaScript%E6%A8%A1%E5%9D%97%E5%8C%96">JavaScript模块化</a>。</p>
+<h1 id="函数默认值"><a href="#函数默认值" class="headerlink" title="函数默认值"></a>函数默认值</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">&#123;x=<span class="number">10</span>&#125;=&#123;&#125;,&#123;y&#125;=&#123;y: <span class="number">10</span>&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>. log(x,y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func(&#123;&#125;,&#123;&#125;) <span class="comment">//10, undefined  </span></span><br><span class="line"><span class="comment">//传入了2个空对象,所以函数的第一第二个参数都不会使用函数默认值.第一个参数会尝试解构对象,提取变量x,因为第一个参数传入了一个空对象,所以解构不出变量x,但是这里又在内层设置了一个默认值,所以x的值为10,而第二个参数同样传了一个空对象,不会使用函数默认值,然后会尝试解构出变量y,发现空对象中也没有变量y,但是y没有设置默认值所以解构后y的值为undefined</span></span><br><span class="line"></span><br><span class="line">func (<span class="literal">undefined</span>,&#123;&#125;) <span class="comment">//10,undefined </span></span><br><span class="line"><span class="comment">//第一个参数显式的传入了一个undefined,所以会使用函数默认值为一个空对象,随后和第一行一样尝试解构x发现x为undefined,但是设置了默认值所以x的值为10,而y和上文一样为undefined</span></span><br><span class="line">func(<span class="literal">undefined</span>, <span class="literal">undefined</span>) <span class="comment">//10.10 </span></span><br><span class="line"><span class="comment">//2个参数都会undefined,第一个参数和上文一样,第二个参数会调用函数默认值,赋值为&#123;y:10&#125;,然后尝试解构出变量y,即y为10</span></span><br><span class="line">func() <span class="comment">//10,10</span></span><br><span class="line"><span class="comment">//跟上一个相同 一个是显式传入undefined,一个是隐式不传参数</span></span><br><span class="line">func(&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;,&#123;<span class="attr">y</span>:<span class="number">2</span>&#125;) <span class="comment">//1,2</span></span><br><span class="line"><span class="comment">//直接使用传入的参数,不会使用函数默认值,并且能够顺利的解构出变量x,y</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h1><h2 id="handler-apply"><a href="#handler-apply" class="headerlink" title="handler.apply"></a>handler.apply</h2><p>节流</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="function">(<span class="params">func, time</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> previous =<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">0</span>).getTime()</span><br><span class="line">    <span class="keyword">let</span> handler =&#123;</span><br><span class="line">        <span class="function"><span class="title">apply</span>(<span class="params">target, context, args</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> now =<span class="keyword">new</span> <span class="built_in">Date</span>().getTime(); </span><br><span class="line">            <span class="keyword">if</span> (now - previous&gt;time) &#123; </span><br><span class="line">                previous =now</span><br><span class="line">                <span class="built_in">Reflect</span>.apply(func, context, args)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(func, handler)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DOM.addEventListener(<span class="string">&#x27;mousemove&#x27;</span>,proxy(func,<span class="number">1000</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="handler-contruct"><a href="#handler-contruct" class="headerlink" title="handler.contruct"></a>handler.contruct</h2><p>单例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="function">(<span class="params">func</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> instance;</span><br><span class="line">    <span class="keyword">let</span> handler =&#123;</span><br><span class="line">        <span class="function"><span class="title">contruct</span>(<span class="params">target, args</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(!instance)&#123;</span><br><span class="line">                instance = <span class="built_in">Reflect</span>.contruct(func,args)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(func, handler)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> singlePerson = proxy(Person);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p1 = singlePerson(<span class="string">&#x27;zhangsan&#x27;</span>,<span class="number">21</span>)</span><br><span class="line"><span class="keyword">let</span> p2 = singlePerson(<span class="string">&#x27;lisi&#x27;</span>,<span class="number">21</span>)</span><br><span class="line"><span class="built_in">console</span>.log(p1 === p2)</span><br></pre></td></tr></table></figure>
+
+<h2 id="handler-defineProperty"><a href="#handler-defineProperty" class="headerlink" title="handler.defineProperty"></a>handler.defineProperty</h2><h1 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h1><ol>
+<li>从 Reflect 对象上可以拿到语言内部的方法。</li>
+<li>操作对象出现报错时返回 false</li>
+<li>让操作对象都变为函数式编程</li>
+<li>保持和 proxy 对象的方法一一对应</li>
+</ol>
+]]></content>
+      <categories>
+        <category>javascript基础</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Flutter生命周期</title>
     <url>/2021/03/31/Flutter%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
     <content><![CDATA[<ul>
@@ -1240,6 +1278,98 @@ ReactDOM.render(
       </tags>
   </entry>
   <entry>
+    <title>SAX解析xml</title>
+    <url>/2016/07/06/SAX%E8%A7%A3%E6%9E%90xml/</url>
+    <content><![CDATA[<p>常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析</p>
+<span id="more"></span>
+<p>DOM（文件对象模型）解析：解析器读入整个文档，然后构建一个驻留内存的树结构，然后代码就可以根据DOM接口来操作这个树结构了。  </p>
+<pre><code>优点：整个文档读入内存，方便操作：支持修改、删除和重现排列等多种功能。
+缺点：将整个文档读入内存中，保留了过多的不需要的节点，浪费内存和空间。
+</code></pre>
+<p>为了解决DOM解析存在的问题，就出现了SAX解析</p>
+<pre><code>优点：不用实现调入整个文档，占用资源少。尤其在嵌入式环境中，如android，极力推荐使用SAX解析。
+缺点：不像DOM解析一样将文档长期驻留在内存中，数据不是持久的。如果事件过后没有保存数据，数据就会丢失。
+</code></pre>
+<p>使用方法：  </p>
+<ol>
+<li>先由SAXParserFactory这个工厂的实例生产一个SAXParser解析器；</li>
+<li>然后根据读取的xml路径，传递给SAXParser这个解析器，再调用parse()方法；</li>
+<li>在parse()方法中需要传递DefaultHandler这个类的扩展类的实例，因为它才会真正去一步步去解析xml文档的；</li>
+<li>在DefaultHandler扩展类中需要重写startDocument()，endDocument()，startElement（），endElement（），characters（）等等方法，因为他们方法内部有返回的具体文档的结果。</li>
+</ol>
+<p>具体代码：</p>
+<pre><code>File file = new File(Environment.getExternalStorageDirectory()+&quot;/channel.xml&quot;);
+InputStream inputStream = new FileInputStream(file) ;
+SAXParserFactory factory = SAXParserFactory.newInstance();
+SAXParser parser = factory.newSAXParser();
+SAXHeaper handler = new SAXHeaper();
+parser.parse(inputStream,handler);
+</code></pre>
+<p>SAXHeaper类（继承DefaultHandler类）：</p>
+<pre><code>import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.ArrayList;
+
+/**
+ * Created by ck on 2016/7/6.
+ */
+public class SAXHeaper extends DefaultHandler &#123;
+    private String TagName;
+    private channel channel;
+    private ArrayList&lt;channel&gt; channels;
+    //解析开始
+    @Override
+    public void startDocument() throws SAXException &#123;
+        channels = new ArrayList&lt;channel&gt;();
+    &#125;
+    //解析结束
+    @Override
+    public void endDocument() throws SAXException &#123;
+        Log.i(&quot;SAXHeaper&quot;,channels.toString());
+    &#125;
+    //标签开始
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException &#123;
+        TagName = localName;
+        if(localName.equals(&quot;item&quot;))&#123;
+            channel = new channel();
+        &#125;
+    &#125;
+    //标签结束
+    @Override
+    public void endElement(String uri, String localName, String qName) throws SAXException &#123;
+        TagName = &quot;&quot;;
+        if(localName.equals(&quot;item&quot;))&#123;
+            channels.add(channel);
+            channel = null;
+        &#125;
+
+    &#125;
+    //标签中的内容
+    @Override
+    public void characters(char[] ch, int start, int length) throws SAXException &#123;
+        String chars = new String(ch,start,length);
+        if(TagName.equals(&quot;title&quot;))&#123;
+            channel.setTitle(chars);
+        &#125;else if(TagName.equals(&quot;link&quot;))&#123;
+            channel.setLink(chars);
+        &#125;else if(TagName.equals(&quot;category&quot;))&#123;
+            channel.setCategory(chars);
+        &#125;else if(TagName.equals(&quot;description&quot;))&#123;
+            channel.setDescription(chars);
+        &#125;else if(TagName.equals(&quot;pubDate&quot;))&#123;
+            channel.setPubDate(chars);
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<p>代码：<a href="/uploads/SAXTest.zip">SAXTest.zip</a></p>
+]]></content>
+      <tags>
+        <tag>xml</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>RxJava入门</title>
     <url>/2016/10/18/RxJava%E5%85%A5%E9%97%A8/</url>
     <content><![CDATA[<h4 id="RxJava-是什么"><a href="#RxJava-是什么" class="headerlink" title="RxJava 是什么"></a>RxJava 是什么</h4><p>Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.<br>一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库</p>
@@ -1586,98 +1716,6 @@ getToken()
       </tags>
   </entry>
   <entry>
-    <title>SAX解析xml</title>
-    <url>/2016/07/06/SAX%E8%A7%A3%E6%9E%90xml/</url>
-    <content><![CDATA[<p>常见的xml解析方式有ＤＯＭ解析和ＳＡＸ解析</p>
-<span id="more"></span>
-<p>DOM（文件对象模型）解析：解析器读入整个文档，然后构建一个驻留内存的树结构，然后代码就可以根据DOM接口来操作这个树结构了。  </p>
-<pre><code>优点：整个文档读入内存，方便操作：支持修改、删除和重现排列等多种功能。
-缺点：将整个文档读入内存中，保留了过多的不需要的节点，浪费内存和空间。
-</code></pre>
-<p>为了解决DOM解析存在的问题，就出现了SAX解析</p>
-<pre><code>优点：不用实现调入整个文档，占用资源少。尤其在嵌入式环境中，如android，极力推荐使用SAX解析。
-缺点：不像DOM解析一样将文档长期驻留在内存中，数据不是持久的。如果事件过后没有保存数据，数据就会丢失。
-</code></pre>
-<p>使用方法：  </p>
-<ol>
-<li>先由SAXParserFactory这个工厂的实例生产一个SAXParser解析器；</li>
-<li>然后根据读取的xml路径，传递给SAXParser这个解析器，再调用parse()方法；</li>
-<li>在parse()方法中需要传递DefaultHandler这个类的扩展类的实例，因为它才会真正去一步步去解析xml文档的；</li>
-<li>在DefaultHandler扩展类中需要重写startDocument()，endDocument()，startElement（），endElement（），characters（）等等方法，因为他们方法内部有返回的具体文档的结果。</li>
-</ol>
-<p>具体代码：</p>
-<pre><code>File file = new File(Environment.getExternalStorageDirectory()+&quot;/channel.xml&quot;);
-InputStream inputStream = new FileInputStream(file) ;
-SAXParserFactory factory = SAXParserFactory.newInstance();
-SAXParser parser = factory.newSAXParser();
-SAXHeaper handler = new SAXHeaper();
-parser.parse(inputStream,handler);
-</code></pre>
-<p>SAXHeaper类（继承DefaultHandler类）：</p>
-<pre><code>import org.xml.sax.helpers.DefaultHandler;
-
-import java.util.ArrayList;
-
-/**
- * Created by ck on 2016/7/6.
- */
-public class SAXHeaper extends DefaultHandler &#123;
-    private String TagName;
-    private channel channel;
-    private ArrayList&lt;channel&gt; channels;
-    //解析开始
-    @Override
-    public void startDocument() throws SAXException &#123;
-        channels = new ArrayList&lt;channel&gt;();
-    &#125;
-    //解析结束
-    @Override
-    public void endDocument() throws SAXException &#123;
-        Log.i(&quot;SAXHeaper&quot;,channels.toString());
-    &#125;
-    //标签开始
-    @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException &#123;
-        TagName = localName;
-        if(localName.equals(&quot;item&quot;))&#123;
-            channel = new channel();
-        &#125;
-    &#125;
-    //标签结束
-    @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException &#123;
-        TagName = &quot;&quot;;
-        if(localName.equals(&quot;item&quot;))&#123;
-            channels.add(channel);
-            channel = null;
-        &#125;
-
-    &#125;
-    //标签中的内容
-    @Override
-    public void characters(char[] ch, int start, int length) throws SAXException &#123;
-        String chars = new String(ch,start,length);
-        if(TagName.equals(&quot;title&quot;))&#123;
-            channel.setTitle(chars);
-        &#125;else if(TagName.equals(&quot;link&quot;))&#123;
-            channel.setLink(chars);
-        &#125;else if(TagName.equals(&quot;category&quot;))&#123;
-            channel.setCategory(chars);
-        &#125;else if(TagName.equals(&quot;description&quot;))&#123;
-            channel.setDescription(chars);
-        &#125;else if(TagName.equals(&quot;pubDate&quot;))&#123;
-            channel.setPubDate(chars);
-        &#125;
-    &#125;
-&#125;
-</code></pre>
-<p>代码：<a href="/uploads/SAXTest.zip">SAXTest.zip</a></p>
-]]></content>
-      <tags>
-        <tag>xml</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Vue双向绑定</title>
     <url>/2021/05/27/Vue%E5%8F%8C%E5%90%91%E7%BB%91%E5%AE%9A/</url>
     <content><![CDATA[<p>vue.js 采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。</p>
@@ -1772,90 +1810,6 @@ public class SAXHeaper extends DefaultHandler &#123;
 <h2 id="Redux-和-Vuex-的设计思想"><a href="#Redux-和-Vuex-的设计思想" class="headerlink" title="Redux 和 Vuex 的设计思想"></a>Redux 和 Vuex 的设计思想</h2><p>共同点：<br>首先两者都是处理全局状态的工具库，大致实现思想都是：全局state保存状态—-&gt;dispatch(action) ——&gt;reducer(vuex里的mutation)—-&gt; 生成newState; 整个状态为同步操作；</p>
 <p>区别：<br>最大的区别在于处理异步的不同，vuex里面多了一步commit操作，在action之后commit(mutation)之前处理异步，而redux里面则是通过中间件处理</p>
 <h2 id="为什么-Vuex-的-mutation-和-Redux-的-reducer-中不能做异步操作？"><a href="#为什么-Vuex-的-mutation-和-Redux-的-reducer-中不能做异步操作？" class="headerlink" title="为什么 Vuex 的 mutation 和 Redux 的 reducer 中不能做异步操作？"></a>为什么 Vuex 的 mutation 和 Redux 的 reducer 中不能做异步操作？</h2><p>同步的意义在于这样每一个 mutation 执行完成后都可以对应到一个新的状态（和 reducer 一样），这样 devtools 就可以打个 snapshot 存下来，然后就可以随便 time-travel 了。如果你开着 devtool 调用一个异步的 action，你可以清楚地看到它所调用的 mutation 是何时被记录下来的，并且可以立刻查看它们对应的状态。</p>
-]]></content>
-      <categories>
-        <category>vue</category>
-      </categories>
-      <tags>
-        <tag>vue</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Vue的diff算法</title>
-    <url>/2021/05/27/Vue%E7%9A%84diff%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="传统diff"><a href="#传统diff" class="headerlink" title="传统diff"></a>传统diff</h1><p>传统Diff算法需要找到两个树的最小更新方式，所以需要[两两]对比每个叶子节点是否相同，对比就需要O(n^2)次了，比较之后还得计算最小转化方式，所以综合复杂度就是 O(n^3)。</p>
-<span id="more"></span>
-
-<h1 id="框架中的diff"><a href="#框架中的diff" class="headerlink" title="框架中的diff"></a>框架中的diff</h1><p>大前提：Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。</p>
-<p>框架中的diff，只对同层节点进行比较，忽略跨层节点的复用</p>
-<p>同层节点的比较也不会两两进行，而是按照一定的顺序比较，或通过 key 属性判断，所以只需要遍历一次新节点，因此算法的复杂度就降低到了O(n)</p>
-<h1 id="vue-实例代码分析"><a href="#vue-实例代码分析" class="headerlink" title="vue 实例代码分析"></a>vue 实例代码分析</h1><h2 id="虚拟节点"><a href="#虚拟节点" class="headerlink" title="虚拟节点"></a>虚拟节点</h2><p>在 vue 中会维护一个和 DOM 节点对应的 vnode 对象<br>例如：</p>
-<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&quot;1&quot;</span>&gt;</span>123<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  elm: el, <span class="comment">// 对应真实的DOM节点</span></span><br><span class="line">  tag: <span class="string">&#x27;div&#x27;</span>,</span><br><span class="line">  key: <span class="number">1</span>,</span><br><span class="line">  text: <span class="string">&#x27;123&#x27;</span>,</span><br><span class="line">  children: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="patch函数"><a href="#patch函数" class="headerlink" title="patch函数"></a>patch函数</h2><p>patch函数是 diff 流程的入口函数</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// some code</span></span><br><span class="line">  <span class="keyword">if</span> (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">    <span class="comment">// patch existing root node</span></span><br><span class="line">    patchVnode(oldVnode, vnode)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// replacing existing element</span></span><br><span class="line">    <span class="keyword">const</span> oldElm = oldVnode.elm</span><br><span class="line">    <span class="keyword">const</span> parentElm = nodeOps.parentNode(oldElm)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// create new node</span></span><br><span class="line">    createElm(</span><br><span class="line">      vnode,</span><br><span class="line">      <span class="literal">null</span>,</span><br><span class="line">      parentElm,</span><br><span class="line">      nodeOps.nextSibling(oldElm)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// destroy old node</span></span><br><span class="line">    <span class="keyword">if</span> (isDef(parentElm)) &#123;</span><br><span class="line">      removeVnodes([oldVnode], <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> vnode.elm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>patch函数的逻辑比较简单：</p>
-<ol>
-<li><p>判断节点是否可以复用，可以复用则对节点打补丁</p>
-</li>
-<li><p>节点不可复用，创建新的节点插入到旧节点之后，同时删除旧节点</p>
-</li>
-</ol>
-<p>如果节点不可复用，直接创建新节点替换，旧的子节点也将不再考虑复用。这就是对应了 diff 的假设，Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。</p>
-<h2 id="sameVnode函数"><a href="#sameVnode函数" class="headerlink" title="sameVnode函数"></a>sameVnode函数</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sameVnode</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    a.key === b.key &amp;&amp; (</span><br><span class="line">      (</span><br><span class="line">        a.tag === b.tag &amp;&amp;</span><br><span class="line">        a.isComment === b.isComment &amp;&amp;</span><br><span class="line">        isDef(a.data) === isDef(b.data) &amp;&amp;</span><br><span class="line">        sameInputType(a, b)</span><br><span class="line">      ) || (</span><br><span class="line">        isTrue(a.isAsyncPlaceholder) &amp;&amp;</span><br><span class="line">        a.asyncFactory === b.asyncFactory &amp;&amp;</span><br><span class="line">        isUndef(b.asyncFactory.error)</span><br><span class="line">      )</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可大致理解为，当 tag key inputType 完全相同时，我们认定节点可复用。</p>
-<h2 id="patchVnode函数"><a href="#patchVnode函数" class="headerlink" title="patchVnode函数"></a>patchVnode函数</h2><p>对可复用节点进行打补丁</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patchVnode</span>(<span class="params">oldVnode, vnode</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// some code</span></span><br><span class="line">  <span class="keyword">if</span> (oldVnode === vnode) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> elm = (vnode.elm = oldVnode.elm);</span><br><span class="line">  <span class="keyword">const</span> oldCh = oldVnode.children;</span><br><span class="line">  <span class="keyword">const</span> ch = vnode.children;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 非文本节点</span></span><br><span class="line">  <span class="keyword">if</span> (isUndef(vnode.text)) &#123;</span><br><span class="line">    <span class="comment">// 新旧节点都有子节点</span></span><br><span class="line">    <span class="keyword">if</span> (isDef(oldCh) &amp;&amp; isDef(ch)) &#123;</span><br><span class="line">      <span class="comment">// 子节点的同层比较</span></span><br><span class="line">      <span class="keyword">if</span> (oldCh !== ch)</span><br><span class="line">        updateChildren(elm, oldCh, ch);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(ch)) &#123;</span><br><span class="line">      <span class="comment">// 仅新元素有子节点</span></span><br><span class="line">      <span class="keyword">if</span> (isDef(oldVnode.text)) nodeOps.setTextContent(elm, <span class="string">&quot;&quot;</span>);</span><br><span class="line">      addVnodes(elm, <span class="literal">null</span>, ch, <span class="number">0</span>, ch.length - <span class="number">1</span>, <span class="literal">null</span>);</span><br><span class="line">      <span class="comment">// 仅旧元素有子节点</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(oldCh)) &#123;</span><br><span class="line">      removeVnodes(oldCh, <span class="number">0</span>, oldCh.length - <span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(oldVnode.text)) &#123;</span><br><span class="line">      <span class="comment">// 清空文本</span></span><br><span class="line">      nodeOps.setTextContent(elm, <span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 文本节点，更新文本即可</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (oldVnode.text !== vnode.text) &#123;</span><br><span class="line">    nodeOps.setTextContent(elm, vnode.text);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>patchVnode函数的逻辑:</p>
-<ol>
-<li>找到对应的 dom 节点 elm，并且赋值给 vnode.elm</li>
-<li>判断新节点类型（vnode.text），如果是文本节点，更新 elm 文本即可</li>
-<li>非文本节点下，判断新老节点的子节点</li>
-<li>如果新老节点都有子节点，走子节点的同层比较流程 updateChildren</li>
-<li>如果只有新节点有子节点，直接使用 addVnodes 为 elm 添加子节点（先删除文本）</li>
-<li>如果只有旧节点有子节点，使用 removeVnodes 移除即可</li>
-<li>如果都没有子节点，判断旧数据是否有文本节点，有则清空</li>
-</ol>
-<h2 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a>updateChildren</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateChildren</span>(<span class="params">parentElm, oldCh, newCh</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> oldStartIdx = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> newStartIdx = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> oldEndIdx = oldCh.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> oldStartVnode = oldCh[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">let</span> oldEndVnode = oldCh[oldEndIdx];</span><br><span class="line">  <span class="keyword">let</span> newEndIdx = newCh.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> newStartVnode = newCh[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">let</span> newEndVnode = newCh[newEndIdx];</span><br><span class="line">  <span class="keyword">let</span> oldKeyToIdx, idxInOld, vnodeToMove, refElm;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isUndef(oldStartVnode)) &#123;</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx]; <span class="comment">// Vnode has been moved left</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isUndef(oldEndVnode)) &#123;</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">      patchVnode(oldStartVnode, newStartVnode);</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx];</span><br><span class="line">      newStartVnode = newCh[++newStartIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">      patchVnode(oldEndVnode, newEndVnode);</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx];</span><br><span class="line">      newEndVnode = newCh[--newEndIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldStartVnode, newEndVnode)) &#123;</span><br><span class="line">      <span class="comment">// Vnode moved right</span></span><br><span class="line">      patchVnode(oldStartVnode, newEndVnode);</span><br><span class="line">      nodeOps.insertBefore(</span><br><span class="line">        parentElm,</span><br><span class="line">        oldStartVnode.elm,</span><br><span class="line">        nodeOps.nextSibling(oldEndVnode.elm)</span><br><span class="line">      );</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx];</span><br><span class="line">      newEndVnode = newCh[--newEndIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldEndVnode, newStartVnode)) &#123;</span><br><span class="line">      <span class="comment">// Vnode moved left</span></span><br><span class="line">      patchVnode(oldEndVnode, newStartVnode);</span><br><span class="line">      nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx];</span><br><span class="line">      newStartVnode = newCh[++newStartIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (isUndef(oldKeyToIdx))</span><br><span class="line">        oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);</span><br><span class="line"></span><br><span class="line">      idxInOld = isDef(newStartVnode.key)</span><br><span class="line">        ? oldKeyToIdx[newStartVnode.key]</span><br><span class="line">        : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isUndef(idxInOld)) &#123;</span><br><span class="line">        <span class="comment">// New element</span></span><br><span class="line">        createElm(</span><br><span class="line">          newStartVnode,</span><br><span class="line">          <span class="literal">null</span>,</span><br><span class="line">          parentElm,</span><br><span class="line">          oldStartVnode.elm</span><br><span class="line">        );</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        vnodeToMove = oldCh[idxInOld];</span><br><span class="line">        <span class="keyword">if</span> (sameVnode(vnodeToMove, newStartVnode)) &#123;</span><br><span class="line">          patchVnode(vnodeToMove, newStartVnode);</span><br><span class="line">          oldCh[idxInOld] = <span class="literal">undefined</span>;</span><br><span class="line">          nodeOps.insertBefore(</span><br><span class="line">            parentElm,</span><br><span class="line">            vnodeToMove.elm,</span><br><span class="line">            oldStartVnode.elm</span><br><span class="line">          );</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// same key but different element. treat as new element</span></span><br><span class="line">          createElm(newStartVnode, insertedVnodeQueue, parentElm);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      newStartVnode = newCh[++newStartIdx];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (oldStartIdx &gt; oldEndIdx) &#123;</span><br><span class="line">    refElm = isUndef(newCh[newEndIdx + <span class="number">1</span>])</span><br><span class="line">      ? <span class="literal">null</span></span><br><span class="line">      : newCh[newEndIdx + <span class="number">1</span>].elm;</span><br><span class="line">    addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (newStartIdx &gt; newEndIdx) &#123;</span><br><span class="line">    removeVnodes(oldCh, oldStartIdx, oldEndIdx);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>startIdx endIdx 称为左指针，右指针，相应的 startVnode，endVnode 我们称其为左节点，右节点</p>
-<p>updateChildren逻辑：</p>
-<ol>
-<li>当左指针小于等于右指针循环遍历</li>
-<li>判断老节点边界为null的情况，向内移动指针</li>
-<li>判断左节点是否可以复用，可以则为节点打补丁（递归调用 patchVnode，下同），向右移动指针</li>
-<li>否则，判断右节点是否可以复用，可以则为节点打补丁，向左移动指针</li>
-<li>否则，判断新右节点和旧左节点是否可以复用，可以则为节点打补丁，同时将旧左节点移动到旧右节点后面，再向内移动指针</li>
-<li>否则，判断新左节点和旧右节点是否可以复用，可以则为节点打补丁，同时将旧右节点移动到旧左节点前，向内移动指针</li>
-<li>否则 若oldKeyToIdx没有定义，则通过createKeyToOldIdx来得到旧节点索引和 key 属性的映射</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createKeyToOldIdx</span> (<span class="params">children, beginIdx, endIdx</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i, key</span><br><span class="line">  <span class="keyword">const</span> map = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> (i = beginIdx; i &lt;= endIdx; ++i) &#123;</span><br><span class="line">    key = children[i].key</span><br><span class="line">    <span class="keyword">if</span> (isDef(key)) map[key] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> map</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol start="8">
-<li>查找左新节点的key在旧节点的位置idxInOld，若新左节点的key不存在，则调用findIdxInOld获取<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findIdxInOld</span> (<span class="params">node, oldCh, start, end</span>) </span>&#123;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = start; i &lt; end; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> c = oldCh[i]</span><br><span class="line">    <span class="keyword">if</span> (isDef(c) &amp;&amp; sameVnode(node, c)) <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-<li>若idxInOld不存在，则在旧左节点插入新建点</li>
-<li>若idxInOld存在，判断是否是相同节点，若是，则为idxInOld对应的旧节点做补丁，将此节点插入到旧左节点前，内移动指针</li>
-<li>若节点不同，创建新节点，插入旧左节点前，内移动指针</li>
-<li>若旧节点已遍历完，则批量向后添加剩余新节点</li>
-<li>若新节点已遍历完，则批量删除剩余旧节点</li>
-</ol>
-<h1 id="写-React-Vue-项目时为什么要在列表组件中写-key，其作用是什么？"><a href="#写-React-Vue-项目时为什么要在列表组件中写-key，其作用是什么？" class="headerlink" title="写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？"></a>写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？</h1><h2 id="不用-key："><a href="#不用-key：" class="headerlink" title="不用 key："></a>不用 key：</h2><ol>
-<li><p>就地复用节点。在比较新旧两个节点是否是同一个节点的过程中会判断成新旧两个节点是同一个节点，因为 a.key 和 b.key 都是 undefined。所以不会重新创建节点和删除节点，只会在节点的属性层面上进行比较和更新。所以可能在某种程度上（创建和删除节点方面）会有渲染性能上的提升</p>
-</li>
-<li><p>无法维持组件的状态。由于就地复用节点的关系，可能在维持组件状态方面会导致不可预知的错误，比如无法维持改组件的动画效果、开关等状态；</p>
-</li>
-<li><p>也有可能会带来性能下降。因为是直接就地复用节点，如果修改的组件，需要复用的很多节点，顺序又和原来的完全不同的话，那么创建和删除的节点数量就会比带 key 的时候增加很多，性能就会有所下降（对应前面的findIdxInOld而不是用map）</p>
-</li>
-</ol>
-<h2 id="用key"><a href="#用key" class="headerlink" title="用key:"></a>用key:</h2><ol>
-<li><p>维持组件的状态，保证组件的复用。因为有 key 唯一标识了组件，不会在每次比较新旧两个节点是否是同一个节点的时候直接判断为同一个节点，而是会继续在接下来的节点中找到 key 相同的节点去比较，能找到相同的 key 的话就复用节点，不能找到的话就增加或者删除节点。</p>
-</li>
-<li><p>查找性能上的提升。有 key 的时候，会生成 hash，这样在查找的时候就是 hash 查找了，基本上就是 O(1) 的复杂度。（使用map 而不是 findIdxInOld）</p>
-</li>
-</ol>
 ]]></content>
       <categories>
         <category>vue</category>
@@ -2101,6 +2055,90 @@ public class SAXHeaper extends DefaultHandler &#123;
 ]]></content>
       <tags>
         <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Vue的diff算法</title>
+    <url>/2021/05/27/Vue%E7%9A%84diff%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="传统diff"><a href="#传统diff" class="headerlink" title="传统diff"></a>传统diff</h1><p>传统Diff算法需要找到两个树的最小更新方式，所以需要[两两]对比每个叶子节点是否相同，对比就需要O(n^2)次了，比较之后还得计算最小转化方式，所以综合复杂度就是 O(n^3)。</p>
+<span id="more"></span>
+
+<h1 id="框架中的diff"><a href="#框架中的diff" class="headerlink" title="框架中的diff"></a>框架中的diff</h1><p>大前提：Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。</p>
+<p>框架中的diff，只对同层节点进行比较，忽略跨层节点的复用</p>
+<p>同层节点的比较也不会两两进行，而是按照一定的顺序比较，或通过 key 属性判断，所以只需要遍历一次新节点，因此算法的复杂度就降低到了O(n)</p>
+<h1 id="vue-实例代码分析"><a href="#vue-实例代码分析" class="headerlink" title="vue 实例代码分析"></a>vue 实例代码分析</h1><h2 id="虚拟节点"><a href="#虚拟节点" class="headerlink" title="虚拟节点"></a>虚拟节点</h2><p>在 vue 中会维护一个和 DOM 节点对应的 vnode 对象<br>例如：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&quot;1&quot;</span>&gt;</span>123<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  elm: el, <span class="comment">// 对应真实的DOM节点</span></span><br><span class="line">  tag: <span class="string">&#x27;div&#x27;</span>,</span><br><span class="line">  key: <span class="number">1</span>,</span><br><span class="line">  text: <span class="string">&#x27;123&#x27;</span>,</span><br><span class="line">  children: []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="patch函数"><a href="#patch函数" class="headerlink" title="patch函数"></a>patch函数</h2><p>patch函数是 diff 流程的入口函数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patch</span> (<span class="params">oldVnode, vnode</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// some code</span></span><br><span class="line">  <span class="keyword">if</span> (sameVnode(oldVnode, vnode)) &#123;</span><br><span class="line">    <span class="comment">// patch existing root node</span></span><br><span class="line">    patchVnode(oldVnode, vnode)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// replacing existing element</span></span><br><span class="line">    <span class="keyword">const</span> oldElm = oldVnode.elm</span><br><span class="line">    <span class="keyword">const</span> parentElm = nodeOps.parentNode(oldElm)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// create new node</span></span><br><span class="line">    createElm(</span><br><span class="line">      vnode,</span><br><span class="line">      <span class="literal">null</span>,</span><br><span class="line">      parentElm,</span><br><span class="line">      nodeOps.nextSibling(oldElm)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// destroy old node</span></span><br><span class="line">    <span class="keyword">if</span> (isDef(parentElm)) &#123;</span><br><span class="line">      removeVnodes([oldVnode], <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> vnode.elm</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>patch函数的逻辑比较简单：</p>
+<ol>
+<li><p>判断节点是否可以复用，可以复用则对节点打补丁</p>
+</li>
+<li><p>节点不可复用，创建新的节点插入到旧节点之后，同时删除旧节点</p>
+</li>
+</ol>
+<p>如果节点不可复用，直接创建新节点替换，旧的子节点也将不再考虑复用。这就是对应了 diff 的假设，Web UI 中 DOM 节点跨层级的移动操作特别少，可以忽略不计。</p>
+<h2 id="sameVnode函数"><a href="#sameVnode函数" class="headerlink" title="sameVnode函数"></a>sameVnode函数</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sameVnode</span> (<span class="params">a, b</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    a.key === b.key &amp;&amp; (</span><br><span class="line">      (</span><br><span class="line">        a.tag === b.tag &amp;&amp;</span><br><span class="line">        a.isComment === b.isComment &amp;&amp;</span><br><span class="line">        isDef(a.data) === isDef(b.data) &amp;&amp;</span><br><span class="line">        sameInputType(a, b)</span><br><span class="line">      ) || (</span><br><span class="line">        isTrue(a.isAsyncPlaceholder) &amp;&amp;</span><br><span class="line">        a.asyncFactory === b.asyncFactory &amp;&amp;</span><br><span class="line">        isUndef(b.asyncFactory.error)</span><br><span class="line">      )</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可大致理解为，当 tag key inputType 完全相同时，我们认定节点可复用。</p>
+<h2 id="patchVnode函数"><a href="#patchVnode函数" class="headerlink" title="patchVnode函数"></a>patchVnode函数</h2><p>对可复用节点进行打补丁</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">patchVnode</span>(<span class="params">oldVnode, vnode</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// some code</span></span><br><span class="line">  <span class="keyword">if</span> (oldVnode === vnode) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> elm = (vnode.elm = oldVnode.elm);</span><br><span class="line">  <span class="keyword">const</span> oldCh = oldVnode.children;</span><br><span class="line">  <span class="keyword">const</span> ch = vnode.children;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 非文本节点</span></span><br><span class="line">  <span class="keyword">if</span> (isUndef(vnode.text)) &#123;</span><br><span class="line">    <span class="comment">// 新旧节点都有子节点</span></span><br><span class="line">    <span class="keyword">if</span> (isDef(oldCh) &amp;&amp; isDef(ch)) &#123;</span><br><span class="line">      <span class="comment">// 子节点的同层比较</span></span><br><span class="line">      <span class="keyword">if</span> (oldCh !== ch)</span><br><span class="line">        updateChildren(elm, oldCh, ch);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(ch)) &#123;</span><br><span class="line">      <span class="comment">// 仅新元素有子节点</span></span><br><span class="line">      <span class="keyword">if</span> (isDef(oldVnode.text)) nodeOps.setTextContent(elm, <span class="string">&quot;&quot;</span>);</span><br><span class="line">      addVnodes(elm, <span class="literal">null</span>, ch, <span class="number">0</span>, ch.length - <span class="number">1</span>, <span class="literal">null</span>);</span><br><span class="line">      <span class="comment">// 仅旧元素有子节点</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(oldCh)) &#123;</span><br><span class="line">      removeVnodes(oldCh, <span class="number">0</span>, oldCh.length - <span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isDef(oldVnode.text)) &#123;</span><br><span class="line">      <span class="comment">// 清空文本</span></span><br><span class="line">      nodeOps.setTextContent(elm, <span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 文本节点，更新文本即可</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (oldVnode.text !== vnode.text) &#123;</span><br><span class="line">    nodeOps.setTextContent(elm, vnode.text);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>patchVnode函数的逻辑:</p>
+<ol>
+<li>找到对应的 dom 节点 elm，并且赋值给 vnode.elm</li>
+<li>判断新节点类型（vnode.text），如果是文本节点，更新 elm 文本即可</li>
+<li>非文本节点下，判断新老节点的子节点</li>
+<li>如果新老节点都有子节点，走子节点的同层比较流程 updateChildren</li>
+<li>如果只有新节点有子节点，直接使用 addVnodes 为 elm 添加子节点（先删除文本）</li>
+<li>如果只有旧节点有子节点，使用 removeVnodes 移除即可</li>
+<li>如果都没有子节点，判断旧数据是否有文本节点，有则清空</li>
+</ol>
+<h2 id="updateChildren"><a href="#updateChildren" class="headerlink" title="updateChildren"></a>updateChildren</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">updateChildren</span>(<span class="params">parentElm, oldCh, newCh</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> oldStartIdx = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> newStartIdx = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">let</span> oldEndIdx = oldCh.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> oldStartVnode = oldCh[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">let</span> oldEndVnode = oldCh[oldEndIdx];</span><br><span class="line">  <span class="keyword">let</span> newEndIdx = newCh.length - <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">let</span> newStartVnode = newCh[<span class="number">0</span>];</span><br><span class="line">  <span class="keyword">let</span> newEndVnode = newCh[newEndIdx];</span><br><span class="line">  <span class="keyword">let</span> oldKeyToIdx, idxInOld, vnodeToMove, refElm;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> (oldStartIdx &lt;= oldEndIdx &amp;&amp; newStartIdx &lt;= newEndIdx) &#123;</span><br><span class="line">    <span class="keyword">if</span> (isUndef(oldStartVnode)) &#123;</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx]; <span class="comment">// Vnode has been moved left</span></span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (isUndef(oldEndVnode)) &#123;</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldStartVnode, newStartVnode)) &#123;</span><br><span class="line">      patchVnode(oldStartVnode, newStartVnode);</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx];</span><br><span class="line">      newStartVnode = newCh[++newStartIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldEndVnode, newEndVnode)) &#123;</span><br><span class="line">      patchVnode(oldEndVnode, newEndVnode);</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx];</span><br><span class="line">      newEndVnode = newCh[--newEndIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldStartVnode, newEndVnode)) &#123;</span><br><span class="line">      <span class="comment">// Vnode moved right</span></span><br><span class="line">      patchVnode(oldStartVnode, newEndVnode);</span><br><span class="line">      nodeOps.insertBefore(</span><br><span class="line">        parentElm,</span><br><span class="line">        oldStartVnode.elm,</span><br><span class="line">        nodeOps.nextSibling(oldEndVnode.elm)</span><br><span class="line">      );</span><br><span class="line">      oldStartVnode = oldCh[++oldStartIdx];</span><br><span class="line">      newEndVnode = newCh[--newEndIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (sameVnode(oldEndVnode, newStartVnode)) &#123;</span><br><span class="line">      <span class="comment">// Vnode moved left</span></span><br><span class="line">      patchVnode(oldEndVnode, newStartVnode);</span><br><span class="line">      nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);</span><br><span class="line">      oldEndVnode = oldCh[--oldEndIdx];</span><br><span class="line">      newStartVnode = newCh[++newStartIdx];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (isUndef(oldKeyToIdx))</span><br><span class="line">        oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);</span><br><span class="line"></span><br><span class="line">      idxInOld = isDef(newStartVnode.key)</span><br><span class="line">        ? oldKeyToIdx[newStartVnode.key]</span><br><span class="line">        : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx);</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (isUndef(idxInOld)) &#123;</span><br><span class="line">        <span class="comment">// New element</span></span><br><span class="line">        createElm(</span><br><span class="line">          newStartVnode,</span><br><span class="line">          <span class="literal">null</span>,</span><br><span class="line">          parentElm,</span><br><span class="line">          oldStartVnode.elm</span><br><span class="line">        );</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        vnodeToMove = oldCh[idxInOld];</span><br><span class="line">        <span class="keyword">if</span> (sameVnode(vnodeToMove, newStartVnode)) &#123;</span><br><span class="line">          patchVnode(vnodeToMove, newStartVnode);</span><br><span class="line">          oldCh[idxInOld] = <span class="literal">undefined</span>;</span><br><span class="line">          nodeOps.insertBefore(</span><br><span class="line">            parentElm,</span><br><span class="line">            vnodeToMove.elm,</span><br><span class="line">            oldStartVnode.elm</span><br><span class="line">          );</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="comment">// same key but different element. treat as new element</span></span><br><span class="line">          createElm(newStartVnode, insertedVnodeQueue, parentElm);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      newStartVnode = newCh[++newStartIdx];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (oldStartIdx &gt; oldEndIdx) &#123;</span><br><span class="line">    refElm = isUndef(newCh[newEndIdx + <span class="number">1</span>])</span><br><span class="line">      ? <span class="literal">null</span></span><br><span class="line">      : newCh[newEndIdx + <span class="number">1</span>].elm;</span><br><span class="line">    addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (newStartIdx &gt; newEndIdx) &#123;</span><br><span class="line">    removeVnodes(oldCh, oldStartIdx, oldEndIdx);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>startIdx endIdx 称为左指针，右指针，相应的 startVnode，endVnode 我们称其为左节点，右节点</p>
+<p>updateChildren逻辑：</p>
+<ol>
+<li>当左指针小于等于右指针循环遍历</li>
+<li>判断老节点边界为null的情况，向内移动指针</li>
+<li>判断左节点是否可以复用，可以则为节点打补丁（递归调用 patchVnode，下同），向右移动指针</li>
+<li>否则，判断右节点是否可以复用，可以则为节点打补丁，向左移动指针</li>
+<li>否则，判断新右节点和旧左节点是否可以复用，可以则为节点打补丁，同时将旧左节点移动到旧右节点后面，再向内移动指针</li>
+<li>否则，判断新左节点和旧右节点是否可以复用，可以则为节点打补丁，同时将旧右节点移动到旧左节点前，向内移动指针</li>
+<li>否则 若oldKeyToIdx没有定义，则通过createKeyToOldIdx来得到旧节点索引和 key 属性的映射</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createKeyToOldIdx</span> (<span class="params">children, beginIdx, endIdx</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> i, key</span><br><span class="line">  <span class="keyword">const</span> map = &#123;&#125;</span><br><span class="line">  <span class="keyword">for</span> (i = beginIdx; i &lt;= endIdx; ++i) &#123;</span><br><span class="line">    key = children[i].key</span><br><span class="line">    <span class="keyword">if</span> (isDef(key)) map[key] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> map</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>查找左新节点的key在旧节点的位置idxInOld，若新左节点的key不存在，则调用findIdxInOld获取<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">findIdxInOld</span> (<span class="params">node, oldCh, start, end</span>) </span>&#123;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = start; i &lt; end; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> c = oldCh[i]</span><br><span class="line">    <span class="keyword">if</span> (isDef(c) &amp;&amp; sameVnode(node, c)) <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>若idxInOld不存在，则在旧左节点插入新建点</li>
+<li>若idxInOld存在，判断是否是相同节点，若是，则为idxInOld对应的旧节点做补丁，将此节点插入到旧左节点前，内移动指针</li>
+<li>若节点不同，创建新节点，插入旧左节点前，内移动指针</li>
+<li>若旧节点已遍历完，则批量向后添加剩余新节点</li>
+<li>若新节点已遍历完，则批量删除剩余旧节点</li>
+</ol>
+<h1 id="写-React-Vue-项目时为什么要在列表组件中写-key，其作用是什么？"><a href="#写-React-Vue-项目时为什么要在列表组件中写-key，其作用是什么？" class="headerlink" title="写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？"></a>写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？</h1><h2 id="不用-key："><a href="#不用-key：" class="headerlink" title="不用 key："></a>不用 key：</h2><ol>
+<li><p>就地复用节点。在比较新旧两个节点是否是同一个节点的过程中会判断成新旧两个节点是同一个节点，因为 a.key 和 b.key 都是 undefined。所以不会重新创建节点和删除节点，只会在节点的属性层面上进行比较和更新。所以可能在某种程度上（创建和删除节点方面）会有渲染性能上的提升</p>
+</li>
+<li><p>无法维持组件的状态。由于就地复用节点的关系，可能在维持组件状态方面会导致不可预知的错误，比如无法维持改组件的动画效果、开关等状态；</p>
+</li>
+<li><p>也有可能会带来性能下降。因为是直接就地复用节点，如果修改的组件，需要复用的很多节点，顺序又和原来的完全不同的话，那么创建和删除的节点数量就会比带 key 的时候增加很多，性能就会有所下降（对应前面的findIdxInOld而不是用map）</p>
+</li>
+</ol>
+<h2 id="用key"><a href="#用key" class="headerlink" title="用key:"></a>用key:</h2><ol>
+<li><p>维持组件的状态，保证组件的复用。因为有 key 唯一标识了组件，不会在每次比较新旧两个节点是否是同一个节点的时候直接判断为同一个节点，而是会继续在接下来的节点中找到 key 相同的节点去比较，能找到相同的 key 的话就复用节点，不能找到的话就增加或者删除节点。</p>
+</li>
+<li><p>查找性能上的提升。有 key 的时候，会生成 hash，这样在查找的时候就是 hash 查找了，基本上就是 O(1) 的复杂度。（使用map 而不是 findIdxInOld）</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>vue</category>
+      </categories>
+      <tags>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -2632,6 +2670,146 @@ android:orientation=&quot;horizontal&quot;&gt;
       </tags>
   </entry>
   <entry>
+    <title>android_简单数据的分享</title>
+    <url>/2016/06/23/android-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E4%BA%AB/</url>
+    <content><![CDATA[<h4 id="向其他app发送简单数据"><a href="#向其他app发送简单数据" class="headerlink" title="向其他app发送简单数据"></a>向其他app发送简单数据</h4><span id="more"></span>
+
+<h5 id="发送文本内容"><a href="#发送文本内容" class="headerlink" title="发送文本内容"></a>发送文本内容</h5><pre><code>Intent sendIntent = new Intent();
+sendIntent.setAction(Intent.ACTION_SEND);
+sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
+sendIntent.setType(&quot;text/plain&quot;);
+startActivity(sendIntent);
+</code></pre>
+<p>Intent.createChooser()</p>
+<pre><code>Intent sendIntent = new Intent();
+sendIntent.setAction(Intent.ACTION_SEND);
+sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
+sendIntent.setType(&quot;text/plain&quot;);
+startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
+</code></pre>
+<h5 id="发送二进制内容"><a href="#发送二进制内容" class="headerlink" title="发送二进制内容"></a>发送二进制内容</h5><pre><code>Intent shareIntent = new Intent();
+shareIntent.setAction(Intent.ACTION_SEND);
+shareIntent.putExtra(Intent.EXTRA_STREAM, uriToImage);
+shareIntent.setType(&quot;image/jpeg&quot;);
+startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
+</code></pre>
+<h5 id="发送多个内容"><a href="#发送多个内容" class="headerlink" title="发送多个内容"></a>发送多个内容</h5><p>ACTION_SEND_MULTIPLE  </p>
+<pre><code>ArrayList&lt;Uri&gt; imageUris = new ArrayList&lt;Uri&gt;();
+imageUris.add(imageUri1); // Add your image URIs here
+imageUris.add(imageUri2);
+
+Intent shareIntent = new Intent();
+shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
+shareIntent.setType(&quot;image/*&quot;);
+startActivity(Intent.createChooser(shareIntent, &quot;Share images to..&quot;));
+</code></pre>
+<h4 id="从其他app接收简单数据"><a href="#从其他app接收简单数据" class="headerlink" title="从其他app接收简单数据"></a>从其他app接收简单数据</h4><h5 id="更新Manifest"><a href="#更新Manifest" class="headerlink" title="更新Manifest"></a>更新Manifest</h5><pre><code>&lt;activity android:name=&quot;.ui.MyActivity&quot; &gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+        &lt;data android:mimeType=&quot;text/plain&quot; /&gt;
+    &lt;/intent-filter&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;android.intent.action.SEND_MULTIPLE&quot; /&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
+        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
+    &lt;/intent-filter&gt;
+&lt;/activity&gt;
+</code></pre>
+<h5 id="处理接收到的内容"><a href="#处理接收到的内容" class="headerlink" title="处理接收到的内容"></a>处理接收到的内容</h5><pre><code>void onCreate (Bundle savedInstanceState) &#123;
+    ...
+    // Get intent, action and MIME type
+    Intent intent = getIntent();
+    String action = intent.getAction();
+    String type = intent.getType();
+
+    if (Intent.ACTION_SEND.equals(action) &amp;&amp; type != null) &#123;
+        if (&quot;text/plain&quot;.equals(type)) &#123;
+            handleSendText(intent); // Handle text being sent
+        &#125; else if (type.startsWith(&quot;image/&quot;)) &#123;
+            handleSendImage(intent); // Handle single image being sent
+        &#125;
+    &#125; else if (Intent.ACTION_SEND_MULTIPLE.equals(action) &amp;&amp; type != null) &#123;
+        if (type.startsWith(&quot;image/&quot;)) &#123;
+            handleSendMultipleImages(intent); // Handle multiple images being sent
+        &#125;
+    &#125; else &#123;
+        // Handle other intents, such as being started from the home screen
+    &#125;
+    ...
+&#125;
+
+void handleSendText(Intent intent) &#123;
+    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (sharedText != null) &#123;
+        // Update UI to reflect text being shared
+    &#125;
+&#125;
+
+void handleSendImage(Intent intent) &#123;
+    Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+    if (imageUri != null) &#123;
+        // Update UI to reflect image being shared
+    &#125;
+&#125;
+
+void handleSendMultipleImages(Intent intent) &#123;
+    ArrayList&lt;Uri&gt; imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+    if (imageUris != null) &#123;
+        // Update UI to reflect multiple images being shared
+    &#125;
+&#125;
+</code></pre>
+<h4 id="添加一个简单的分享action"><a href="#添加一个简单的分享action" class="headerlink" title="添加一个简单的分享action"></a>添加一个简单的分享action</h4><h5 id="更新菜单声明"><a href="#更新菜单声明" class="headerlink" title="更新菜单声明"></a>更新菜单声明</h5><pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+    &lt;item
+            android:id=&quot;@+id/menu_item_share&quot;
+            android:showAsAction=&quot;ifRoom&quot;
+            android:title=&quot;Share&quot;
+            android:actionProviderClass=
+                &quot;android.widget.ShareActionProvider&quot; /&gt;
+    ...
+&lt;/menu&gt;
+</code></pre>
+<h5 id="Set-the-Share-Intent"><a href="#Set-the-Share-Intent" class="headerlink" title="Set the Share Intent"></a>Set the Share Intent</h5><pre><code>private ShareActionProvider mShareActionProvider;
+...
+
+@Override
+public boolean onCreateOptionsMenu(Menu menu) &#123;
+    // Inflate menu resource file.
+    getMenuInflater().inflate(R.menu.share_menu, menu);
+
+    // Locate MenuItem with ShareActionProvider
+    MenuItem item = menu.findItem(R.id.menu_item_share);
+
+    // Fetch and store ShareActionProvider
+    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
+
+    // Return true to display menu
+    return true;
+&#125;
+
+// Call to update the share intent
+private void setShareIntent(Intent shareIntent) &#123;
+    if (mShareActionProvider != null) &#123;
+        mShareActionProvider.setShareIntent(shareIntent);
+    &#125;
+&#125;
+</code></pre>
+]]></content>
+      <categories>
+        <category>android</category>
+      </categories>
+      <tags>
+        <tag>android</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>android_文件共享</title>
     <url>/2016/06/26/android-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/</url>
     <content><![CDATA[<h4 id="配置文件共享"><a href="#配置文件共享" class="headerlink" title="配置文件共享"></a>配置文件共享</h4><span id="more"></span>
@@ -2912,143 +3090,19 @@ sizeView.setText(Long.toString(returnCursor.getLong(sizeIndex)));
       </tags>
   </entry>
   <entry>
-    <title>android_简单数据的分享</title>
-    <url>/2016/06/23/android-%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%86%E4%BA%AB/</url>
-    <content><![CDATA[<h4 id="向其他app发送简单数据"><a href="#向其他app发送简单数据" class="headerlink" title="向其他app发送简单数据"></a>向其他app发送简单数据</h4><span id="more"></span>
-
-<h5 id="发送文本内容"><a href="#发送文本内容" class="headerlink" title="发送文本内容"></a>发送文本内容</h5><pre><code>Intent sendIntent = new Intent();
-sendIntent.setAction(Intent.ACTION_SEND);
-sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
-sendIntent.setType(&quot;text/plain&quot;);
-startActivity(sendIntent);
-</code></pre>
-<p>Intent.createChooser()</p>
-<pre><code>Intent sendIntent = new Intent();
-sendIntent.setAction(Intent.ACTION_SEND);
-sendIntent.putExtra(Intent.EXTRA_TEXT, &quot;This is my text to send.&quot;);
-sendIntent.setType(&quot;text/plain&quot;);
-startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.send_to)));
-</code></pre>
-<h5 id="发送二进制内容"><a href="#发送二进制内容" class="headerlink" title="发送二进制内容"></a>发送二进制内容</h5><pre><code>Intent shareIntent = new Intent();
-shareIntent.setAction(Intent.ACTION_SEND);
-shareIntent.putExtra(Intent.EXTRA_STREAM, uriToImage);
-shareIntent.setType(&quot;image/jpeg&quot;);
-startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.send_to)));
-</code></pre>
-<h5 id="发送多个内容"><a href="#发送多个内容" class="headerlink" title="发送多个内容"></a>发送多个内容</h5><p>ACTION_SEND_MULTIPLE  </p>
-<pre><code>ArrayList&lt;Uri&gt; imageUris = new ArrayList&lt;Uri&gt;();
-imageUris.add(imageUri1); // Add your image URIs here
-imageUris.add(imageUri2);
-
-Intent shareIntent = new Intent();
-shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
-shareIntent.setType(&quot;image/*&quot;);
-startActivity(Intent.createChooser(shareIntent, &quot;Share images to..&quot;));
-</code></pre>
-<h4 id="从其他app接收简单数据"><a href="#从其他app接收简单数据" class="headerlink" title="从其他app接收简单数据"></a>从其他app接收简单数据</h4><h5 id="更新Manifest"><a href="#更新Manifest" class="headerlink" title="更新Manifest"></a>更新Manifest</h5><pre><code>&lt;activity android:name=&quot;.ui.MyActivity&quot; &gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
-    &lt;/intent-filter&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;text/plain&quot; /&gt;
-    &lt;/intent-filter&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;android.intent.action.SEND_MULTIPLE&quot; /&gt;
-        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot; /&gt;
-        &lt;data android:mimeType=&quot;image/*&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/activity&gt;
-</code></pre>
-<h5 id="处理接收到的内容"><a href="#处理接收到的内容" class="headerlink" title="处理接收到的内容"></a>处理接收到的内容</h5><pre><code>void onCreate (Bundle savedInstanceState) &#123;
-    ...
-    // Get intent, action and MIME type
-    Intent intent = getIntent();
-    String action = intent.getAction();
-    String type = intent.getType();
-
-    if (Intent.ACTION_SEND.equals(action) &amp;&amp; type != null) &#123;
-        if (&quot;text/plain&quot;.equals(type)) &#123;
-            handleSendText(intent); // Handle text being sent
-        &#125; else if (type.startsWith(&quot;image/&quot;)) &#123;
-            handleSendImage(intent); // Handle single image being sent
-        &#125;
-    &#125; else if (Intent.ACTION_SEND_MULTIPLE.equals(action) &amp;&amp; type != null) &#123;
-        if (type.startsWith(&quot;image/&quot;)) &#123;
-            handleSendMultipleImages(intent); // Handle multiple images being sent
-        &#125;
-    &#125; else &#123;
-        // Handle other intents, such as being started from the home screen
-    &#125;
-    ...
-&#125;
-
-void handleSendText(Intent intent) &#123;
-    String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
-    if (sharedText != null) &#123;
-        // Update UI to reflect text being shared
-    &#125;
-&#125;
-
-void handleSendImage(Intent intent) &#123;
-    Uri imageUri = (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
-    if (imageUri != null) &#123;
-        // Update UI to reflect image being shared
-    &#125;
-&#125;
-
-void handleSendMultipleImages(Intent intent) &#123;
-    ArrayList&lt;Uri&gt; imageUris = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-    if (imageUris != null) &#123;
-        // Update UI to reflect multiple images being shared
-    &#125;
-&#125;
-</code></pre>
-<h4 id="添加一个简单的分享action"><a href="#添加一个简单的分享action" class="headerlink" title="添加一个简单的分享action"></a>添加一个简单的分享action</h4><h5 id="更新菜单声明"><a href="#更新菜单声明" class="headerlink" title="更新菜单声明"></a>更新菜单声明</h5><pre><code>&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
-    &lt;item
-            android:id=&quot;@+id/menu_item_share&quot;
-            android:showAsAction=&quot;ifRoom&quot;
-            android:title=&quot;Share&quot;
-            android:actionProviderClass=
-                &quot;android.widget.ShareActionProvider&quot; /&gt;
-    ...
-&lt;/menu&gt;
-</code></pre>
-<h5 id="Set-the-Share-Intent"><a href="#Set-the-Share-Intent" class="headerlink" title="Set the Share Intent"></a>Set the Share Intent</h5><pre><code>private ShareActionProvider mShareActionProvider;
-...
-
-@Override
-public boolean onCreateOptionsMenu(Menu menu) &#123;
-    // Inflate menu resource file.
-    getMenuInflater().inflate(R.menu.share_menu, menu);
-
-    // Locate MenuItem with ShareActionProvider
-    MenuItem item = menu.findItem(R.id.menu_item_share);
-
-    // Fetch and store ShareActionProvider
-    mShareActionProvider = (ShareActionProvider) item.getActionProvider();
-
-    // Return true to display menu
-    return true;
-&#125;
-
-// Call to update the share intent
-private void setShareIntent(Intent shareIntent) &#123;
-    if (mShareActionProvider != null) &#123;
-        mShareActionProvider.setShareIntent(shareIntent);
-    &#125;
-&#125;
-</code></pre>
+    <title>androidStudio快捷键整理</title>
+    <url>/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/</url>
+    <content><![CDATA[<h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><p>Alt + insert  </p>
+<h4 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h4><p>Ctrl+Alt+L </p>
+<h4 id="大小写切换"><a href="#大小写切换" class="headerlink" title="大小写切换"></a>大小写切换</h4><p>Ctrl+Shift+U </p>
+<h4 id="代码提示"><a href="#代码提示" class="headerlink" title="代码提示"></a>代码提示</h4><p>shift+ space(自己设置)<br>设置方法：File-&gt;setting-&gt;Keymap-&gt;Main menu-&gt;Code-&gt;Completion</p>
+<h4 id="导入包"><a href="#导入包" class="headerlink" title="导入包"></a>导入包</h4><p>Alt + Enter</p>
 ]]></content>
       <categories>
         <category>android</category>
       </categories>
       <tags>
-        <tag>android</tag>
+        <tag>android studio</tag>
       </tags>
   </entry>
   <entry>
@@ -3135,22 +3189,6 @@ public void onRequestPermissionsResult(int requestCode,
       </categories>
       <tags>
         <tag>android</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>androidStudio快捷键整理</title>
-    <url>/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[<h4 id="generate"><a href="#generate" class="headerlink" title="generate"></a>generate</h4><p>Alt + insert  </p>
-<h4 id="格式化代码"><a href="#格式化代码" class="headerlink" title="格式化代码"></a>格式化代码</h4><p>Ctrl+Alt+L </p>
-<h4 id="大小写切换"><a href="#大小写切换" class="headerlink" title="大小写切换"></a>大小写切换</h4><p>Ctrl+Shift+U </p>
-<h4 id="代码提示"><a href="#代码提示" class="headerlink" title="代码提示"></a>代码提示</h4><p>shift+ space(自己设置)<br>设置方法：File-&gt;setting-&gt;Keymap-&gt;Main menu-&gt;Code-&gt;Completion</p>
-<h4 id="导入包"><a href="#导入包" class="headerlink" title="导入包"></a>导入包</h4><p>Alt + Enter</p>
-]]></content>
-      <categories>
-        <category>android</category>
-      </categories>
-      <tags>
-        <tag>android studio</tag>
       </tags>
   </entry>
   <entry>
@@ -4137,6 +4175,41 @@ mean = float32(sum)
       </tags>
   </entry>
   <entry>
+    <title>前端异常监控</title>
+    <url>/2021/05/27/%E5%89%8D%E7%AB%AF%E5%BC%82%E5%B8%B8%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<p>前端异常监控方案<span id="more"></span></p>
+<h1 id="错误类型"><a href="#错误类型" class="headerlink" title="错误类型"></a>错误类型</h1><pre><code>SyntaxError:解析时发生语法错误
+TypeError:值不是所期待的类型
+ReferenceError:引用未声明的变量
+RangeError:当一个值不在其所允许的范围或者集合中
+ResourceError:资源加载错误
+HttpError:Http请求错误
+</code></pre>
+<h1 id="搜集错误"><a href="#搜集错误" class="headerlink" title="搜集错误"></a>搜集错误</h1><h2 id="try-catch"><a href="#try-catch" class="headerlink" title="try/catch"></a>try/catch</h2><pre><code>能捕获常规运行时错误，语法错误和异步错误不行
+</code></pre>
+<h2 id="window-onerror"><a href="#window-onerror" class="headerlink" title="window.onerror"></a>window.onerror</h2><p>能捕获常规运行时错误,异步错误可以捕获, 语法错误、资源错误不能捕获 </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;String&#125;</span>  </span>message    错误信息</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;String&#125;</span>  </span>source    出错文件</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;Number&#125;</span>  </span>lineno    行号</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;Number&#125;</span>  </span>colno    列号</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;Object&#125;</span>  </span>error  Error对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">message, source, lineno, colno, error</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;捕获到异常：&#x27;</span>, &#123;message, source, lineno, colno, error&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="window-addEventListener"><a href="#window-addEventListener" class="headerlink" title="window.addEventListener"></a>window.addEventListener</h2><p>图片、script、css加载错误，都能被捕获 </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;捕获到异常：&#x27;</span>, error);</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Promise错误"><a href="#Promise错误" class="headerlink" title="Promise错误"></a>Promise错误</h2><p>try/catch不能捕获Promise中的错误</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 全局统一处理Promise</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;unhandledrejection&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;捕获到异常：&#x27;</span>, e);</span><br><span class="line">&#125;);</span><br><span class="line">fetch(<span class="string">&#x27;https://tuia.cn/test&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="Vue错误"><a href="#Vue错误" class="headerlink" title="Vue错误"></a>Vue错误</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 全局捕获Vue错误，直接扔出给onerror处理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Vue.config.errorHandler = <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> err</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="React错误"><a href="#React错误" class="headerlink" title="React错误"></a>React错误</h2><blockquote>
+<p>react 通过componentDidCatch，声明一个错误边界的组件</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ErrorBoundary</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">hasError</span>: <span class="literal">false</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//只有子组件发生错误时，该函数才会被执行</span></span><br><span class="line">  <span class="keyword">static</span> <span class="function"><span class="title">getDerivedStateFromError</span>(<span class="params">error</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 更新 state 使下一次渲染能够显示降级后的 UI</span></span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">hasError</span>: <span class="literal">true</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidCatch</span>(<span class="params">error, errorInfo</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 你同样可以将错误日志上报给服务器</span></span><br><span class="line">    logErrorToMyService(error, errorInfo);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.state.hasError) &#123;</span><br><span class="line">      <span class="comment">// 你可以自定义降级后的 UI 并渲染</span></span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Something went wrong.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.props.children; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">    &lt;ErrorBoundary&gt;</span><br><span class="line">      &lt;MyWidget /&gt;</span><br><span class="line">    &lt;/ErrorBoundary&gt;  </span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="行为收集"><a href="#行为收集" class="headerlink" title="行为收集"></a>行为收集</h1><h2 id="用户行为"><a href="#用户行为" class="headerlink" title="用户行为"></a>用户行为</h2><p>使用addEventListener监听全局上的click事件，将事件和DOM元素名字收集。与错误信息一起上报。</p>
+<h2 id="浏览器行"><a href="#浏览器行" class="headerlink" title="浏览器行"></a>浏览器行</h2><p>监听window.onpopstate，页面跳转的时会触发此方法，将信息收集。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> oldOnpopstate = <span class="built_in">window</span>.onpopstate;</span><br><span class="line"><span class="built_in">window</span>.onpopstate = <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> currentUrl = location.url;</span><br><span class="line">    <span class="keyword">if</span>(oldOnpopstate)&#123;</span><br><span class="line">        <span class="keyword">return</span> oldOnpopstate.apply(<span class="built_in">this</span>,args)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="控制台打印行为"><a href="#控制台打印行为" class="headerlink" title="控制台打印行为"></a>控制台打印行为</h2><p>改写console对象的info warn error 方法，收集信息</p>
+<h1 id="数据上报"><a href="#数据上报" class="headerlink" title="数据上报"></a>数据上报</h1><p>post 一个1*1的gif上报</p>
+<p>优点：<br>    没有跨域问题<br>    不会携带cookie<br>    不需要等待服务器返回数据<br>    不会阻塞页面加载，影响用户的体验，只需new Image 对象<br>    流量小 GIF比BMP节约41%的流量，比PNG节约35%的流量</p>
+<h1 id="后台处理保存日志数据"><a href="#后台处理保存日志数据" class="headerlink" title="后台处理保存日志数据"></a>后台处理保存日志数据</h1>]]></content>
+  </entry>
+  <entry>
     <title>前端安全</title>
     <url>/2021/08/30/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/</url>
     <content><![CDATA[<p>前端安全问题<span id="more"></span></p>
@@ -4177,108 +4250,6 @@ mean = float32(sum)
 </li>
 </ol>
 <h1 id="网络劫持"><a href="#网络劫持" class="headerlink" title="网络劫持"></a>网络劫持</h1><h2 id="DNS劫持"><a href="#DNS劫持" class="headerlink" title="DNS劫持"></a>DNS劫持</h2><h2 id="HTTP劫持"><a href="#HTTP劫持" class="headerlink" title="HTTP劫持"></a>HTTP劫持</h2>]]></content>
-      <tags>
-        <tag>前端基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前端异常监控</title>
-    <url>/2021/05/27/%E5%89%8D%E7%AB%AF%E5%BC%82%E5%B8%B8%E7%9B%91%E6%8E%A7/</url>
-    <content><![CDATA[<p>前端异常监控方案<span id="more"></span></p>
-<h1 id="错误类型"><a href="#错误类型" class="headerlink" title="错误类型"></a>错误类型</h1><pre><code>SyntaxError:解析时发生语法错误
-TypeError:值不是所期待的类型
-ReferenceError:引用未声明的变量
-RangeError:当一个值不在其所允许的范围或者集合中
-ResourceError:资源加载错误
-HttpError:Http请求错误
-</code></pre>
-<h1 id="搜集错误"><a href="#搜集错误" class="headerlink" title="搜集错误"></a>搜集错误</h1><h2 id="try-catch"><a href="#try-catch" class="headerlink" title="try/catch"></a>try/catch</h2><pre><code>能捕获常规运行时错误，语法错误和异步错误不行
-</code></pre>
-<h2 id="window-onerror"><a href="#window-onerror" class="headerlink" title="window.onerror"></a>window.onerror</h2><p>能捕获常规运行时错误,异步错误可以捕获, 语法错误、资源错误不能捕获 </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;String&#125;</span>  </span>message    错误信息</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;String&#125;</span>  </span>source    出错文件</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;Number&#125;</span>  </span>lineno    行号</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;Number&#125;</span>  </span>colno    列号</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;Object&#125;</span>  </span>error  Error对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onerror = <span class="function"><span class="keyword">function</span>(<span class="params">message, source, lineno, colno, error</span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;捕获到异常：&#x27;</span>, &#123;message, source, lineno, colno, error&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="window-addEventListener"><a href="#window-addEventListener" class="headerlink" title="window.addEventListener"></a>window.addEventListener</h2><p>图片、script、css加载错误，都能被捕获 </p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&#x27;error&#x27;</span>, <span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;捕获到异常：&#x27;</span>, error);</span><br><span class="line">&#125;, <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="Promise错误"><a href="#Promise错误" class="headerlink" title="Promise错误"></a>Promise错误</h2><p>try/catch不能捕获Promise中的错误</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 全局统一处理Promise</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&quot;unhandledrejection&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;捕获到异常：&#x27;</span>, e);</span><br><span class="line">&#125;);</span><br><span class="line">fetch(<span class="string">&#x27;https://tuia.cn/test&#x27;</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="Vue错误"><a href="#Vue错误" class="headerlink" title="Vue错误"></a>Vue错误</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 全局捕获Vue错误，直接扔出给onerror处理</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Vue.config.errorHandler = <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> err</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="React错误"><a href="#React错误" class="headerlink" title="React错误"></a>React错误</h2><blockquote>
-<p>react 通过componentDidCatch，声明一个错误边界的组件</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ErrorBoundary</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123; <span class="attr">hasError</span>: <span class="literal">false</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//只有子组件发生错误时，该函数才会被执行</span></span><br><span class="line">  <span class="keyword">static</span> <span class="function"><span class="title">getDerivedStateFromError</span>(<span class="params">error</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 更新 state 使下一次渲染能够显示降级后的 UI</span></span><br><span class="line">    <span class="keyword">return</span> &#123; <span class="attr">hasError</span>: <span class="literal">true</span> &#125;;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">componentDidCatch</span>(<span class="params">error, errorInfo</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 你同样可以将错误日志上报给服务器</span></span><br><span class="line">    logErrorToMyService(error, errorInfo);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.state.hasError) &#123;</span><br><span class="line">      <span class="comment">// 你可以自定义降级后的 UI 并渲染</span></span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Something went wrong.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.props.children; </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">   </span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">    &lt;ErrorBoundary&gt;</span><br><span class="line">      &lt;MyWidget /&gt;</span><br><span class="line">    &lt;/ErrorBoundary&gt;  </span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="行为收集"><a href="#行为收集" class="headerlink" title="行为收集"></a>行为收集</h1><h2 id="用户行为"><a href="#用户行为" class="headerlink" title="用户行为"></a>用户行为</h2><p>使用addEventListener监听全局上的click事件，将事件和DOM元素名字收集。与错误信息一起上报。</p>
-<h2 id="浏览器行"><a href="#浏览器行" class="headerlink" title="浏览器行"></a>浏览器行</h2><p>监听window.onpopstate，页面跳转的时会触发此方法，将信息收集。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> oldOnpopstate = <span class="built_in">window</span>.onpopstate;</span><br><span class="line"><span class="built_in">window</span>.onpopstate = <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> currentUrl = location.url;</span><br><span class="line">    <span class="keyword">if</span>(oldOnpopstate)&#123;</span><br><span class="line">        <span class="keyword">return</span> oldOnpopstate.apply(<span class="built_in">this</span>,args)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="控制台打印行为"><a href="#控制台打印行为" class="headerlink" title="控制台打印行为"></a>控制台打印行为</h2><p>改写console对象的info warn error 方法，收集信息</p>
-<h1 id="数据上报"><a href="#数据上报" class="headerlink" title="数据上报"></a>数据上报</h1><p>post 一个1*1的gif上报</p>
-<p>优点：<br>    没有跨域问题<br>    不会携带cookie<br>    不需要等待服务器返回数据<br>    不会阻塞页面加载，影响用户的体验，只需new Image 对象<br>    流量小 GIF比BMP节约41%的流量，比PNG节约35%的流量</p>
-<h1 id="后台处理保存日志数据"><a href="#后台处理保存日志数据" class="headerlink" title="后台处理保存日志数据"></a>后台处理保存日志数据</h1>]]></content>
-  </entry>
-  <entry>
-    <title>前端性能优化</title>
-    <url>/2021/05/27/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p>前端常用性能优化方法<span id="more"></span></p>
-<h1 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h1><h2 id="NetWork面板"><a href="#NetWork面板" class="headerlink" title="NetWork面板"></a>NetWork面板</h2><p>减少请求数量  减少请求时间</p>
-<h2 id="webpack-bundle-analyzer"><a href="#webpack-bundle-analyzer" class="headerlink" title="webpack-bundle-analyzer"></a>webpack-bundle-analyzer</h2><p>webpack-bundle-analyzer是一款包分析工具。</p>
-<p>可以排查出一些无用的模块，过大的模块。然后进行优化。以减少我们的bundle包size，减少加载时长。</p>
-<h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><ol>
-<li><p>chrome自带的performance面板。<a href="https://developer.chrome.com/docs/devtools/evaluate-performance/">Performance</a></p>
-<p> 可以查看fps cpu net<br> dom加载完毕时间：DOMContentLoaded Event<br> 第一次绘制时间：First Paint<br> 第一次内容绘制时间：First Contentful Paint<br> 最大的内容绘制时间：Largest Contentful Paint</p>
-</li>
-<li><p>PerformanceNavigationTiming</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showNavigationDetails</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [entry] = performance.getEntriesByType(<span class="string">&quot;navigation&quot;</span>);</span><br><span class="line">  <span class="built_in">console</span>.table(entry.toJSON());</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<pre><code>DNS解析时间： domainLookupEnd - domainLookupStart
-TCP建立连接时间： connectEnd - connectStart
-白屏时间： responseStart - navigationStart
-dom渲染完成时间： domContentLoadedEventEnd - navigationStart
-页面onload时间： loadEventEnd - navigationStart
-</code></pre>
-<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><h2 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h2><ol>
-<li>减少http请求数量，请求时间</li>
-<li>使用 HTTP2<br> 二进制分帧传输<br> 多路复用<br> 首部压缩<br> 服务器推送</li>
-<li>静态资源使用CDN</li>
-<li>使用缓存，不重复加载相同的资源</li>
-<li>开启 gzip</li>
-</ol>
-<h2 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h2><ol>
-<li>图片压缩</li>
-<li>图片分割 图片过大时考虑</li>
-<li>雪碧图</li>
-<li>图片懒加载</li>
-<li>字体图</li>
-</ol>
-<h2 id="wabpack-相关"><a href="#wabpack-相关" class="headerlink" title="wabpack 相关"></a>wabpack 相关</h2><ol>
-<li><p>tree shaking</p>
-</li>
-<li><p>split chunks (分包)<br> 入口文件依赖的文件都被打包进了main.js，那些大于 30kb 的第三方包，如：echarts、xlsx、dropzone等都被单独打包成了一个个独立 bundle。<br> 其它被我们设置了异步加载的页面或者组件变成了一个个chunk，也就是被打包成独立的bundle。<br> 内置的代码分割策略是这样的：</p>
-<pre><code> 新的 chunk 是否被共享或者是来自 node_modules 的模块
- 新的 chunk 体积在压缩之前是否大于 30kb
- 按需加载 chunk 的并发请求数量小于等于 5 个
- 页面初始加载时的并发请求数量小于等于 3 个
-</code></pre>
-</li>
-<li><p>拆包<br> 可以将vue、react等资源包使用CDN 跟原有bundle拆开 拉取时可以命中强缓存 减少</p>
-</li>
-<li><p>压缩文件<br> 在 webpack 可以使用如下插件进行压缩：<br> JavaScript：UglifyPlugin<br> CSS ：MiniCssExtractPlugin<br> HTML：HtmlWebpackPlugin</p>
-</li>
-</ol>
-<h2 id="代码方面"><a href="#代码方面" class="headerlink" title="代码方面"></a>代码方面</h2><ol>
-<li>v-if v-show区分使用</li>
-<li>v-for 添加key 避免使用v-if</li>
-<li>computed 和 watch 区分使用  computed 有缓存 watch 在数据变化时执行异步或开销较大的操作时使用</li>
-<li>长列表性能优化     Object.freeze</li>
-<li>事件及时销毁</li>
-<li>图片资源懒加载       滚动到可视区域后再去加载图片</li>
-<li>路由懒加载</li>
-<li>第三方插件的按需引入(elemnt 只引入button)</li>
-<li>将 CSS 放在文件头部，JavaScript 文件放在底部</li>
-</ol>
-<h2 id="使用服务端渲染"><a href="#使用服务端渲染" class="headerlink" title="使用服务端渲染"></a>使用服务端渲染</h2>]]></content>
       <tags>
         <tag>前端基础</tag>
       </tags>
@@ -4359,6 +4330,73 @@ dom渲染完成时间： domContentLoadedEventEnd - navigationStart
       </tags>
   </entry>
   <entry>
+    <title>前端性能优化</title>
+    <url>/2021/05/27/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>前端常用性能优化方法<span id="more"></span></p>
+<h1 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h1><h2 id="NetWork面板"><a href="#NetWork面板" class="headerlink" title="NetWork面板"></a>NetWork面板</h2><p>减少请求数量  减少请求时间</p>
+<h2 id="webpack-bundle-analyzer"><a href="#webpack-bundle-analyzer" class="headerlink" title="webpack-bundle-analyzer"></a>webpack-bundle-analyzer</h2><p>webpack-bundle-analyzer是一款包分析工具。</p>
+<p>可以排查出一些无用的模块，过大的模块。然后进行优化。以减少我们的bundle包size，减少加载时长。</p>
+<h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><ol>
+<li><p>chrome自带的performance面板。<a href="https://developer.chrome.com/docs/devtools/evaluate-performance/">Performance</a></p>
+<p> 可以查看fps cpu net<br> dom加载完毕时间：DOMContentLoaded Event<br> 第一次绘制时间：First Paint<br> 第一次内容绘制时间：First Contentful Paint<br> 最大的内容绘制时间：Largest Contentful Paint</p>
+</li>
+<li><p>PerformanceNavigationTiming</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showNavigationDetails</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [entry] = performance.getEntriesByType(<span class="string">&quot;navigation&quot;</span>);</span><br><span class="line">  <span class="built_in">console</span>.table(entry.toJSON());</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<pre><code>DNS解析时间： domainLookupEnd - domainLookupStart
+TCP建立连接时间： connectEnd - connectStart
+白屏时间： responseStart - navigationStart
+dom渲染完成时间： domContentLoadedEventEnd - navigationStart
+页面onload时间： loadEventEnd - navigationStart
+</code></pre>
+<h1 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h1><h2 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h2><ol>
+<li>减少http请求数量，请求时间</li>
+<li>使用 HTTP2<br> 二进制分帧传输<br> 多路复用<br> 首部压缩<br> 服务器推送</li>
+<li>静态资源使用CDN</li>
+<li>使用缓存，不重复加载相同的资源</li>
+<li>开启 gzip</li>
+</ol>
+<h2 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h2><ol>
+<li>图片压缩</li>
+<li>图片分割 图片过大时考虑</li>
+<li>雪碧图</li>
+<li>图片懒加载</li>
+<li>字体图</li>
+</ol>
+<h2 id="wabpack-相关"><a href="#wabpack-相关" class="headerlink" title="wabpack 相关"></a>wabpack 相关</h2><ol>
+<li><p>tree shaking</p>
+</li>
+<li><p>split chunks (分包)<br> 入口文件依赖的文件都被打包进了main.js，那些大于 30kb 的第三方包，如：echarts、xlsx、dropzone等都被单独打包成了一个个独立 bundle。<br> 其它被我们设置了异步加载的页面或者组件变成了一个个chunk，也就是被打包成独立的bundle。<br> 内置的代码分割策略是这样的：</p>
+<pre><code> 新的 chunk 是否被共享或者是来自 node_modules 的模块
+ 新的 chunk 体积在压缩之前是否大于 30kb
+ 按需加载 chunk 的并发请求数量小于等于 5 个
+ 页面初始加载时的并发请求数量小于等于 3 个
+</code></pre>
+</li>
+<li><p>拆包<br> 可以将vue、react等资源包使用CDN 跟原有bundle拆开 拉取时可以命中强缓存 减少</p>
+</li>
+<li><p>压缩文件<br> 在 webpack 可以使用如下插件进行压缩：<br> JavaScript：UglifyPlugin<br> CSS ：MiniCssExtractPlugin<br> HTML：HtmlWebpackPlugin</p>
+</li>
+</ol>
+<h2 id="代码方面"><a href="#代码方面" class="headerlink" title="代码方面"></a>代码方面</h2><ol>
+<li>v-if v-show区分使用</li>
+<li>v-for 添加key 避免使用v-if</li>
+<li>computed 和 watch 区分使用  computed 有缓存 watch 在数据变化时执行异步或开销较大的操作时使用</li>
+<li>长列表性能优化     Object.freeze</li>
+<li>事件及时销毁</li>
+<li>图片资源懒加载       滚动到可视区域后再去加载图片</li>
+<li>路由懒加载</li>
+<li>第三方插件的按需引入(elemnt 只引入button)</li>
+<li>将 CSS 放在文件头部，JavaScript 文件放在底部</li>
+</ol>
+<h2 id="使用服务端渲染"><a href="#使用服务端渲染" class="headerlink" title="使用服务端渲染"></a>使用服务端渲染</h2>]]></content>
+      <tags>
+        <tag>前端基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>常用设计模式</title>
     <url>/2021/04/07/%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<p>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。<span id="more"></span></p>
@@ -4409,44 +4447,6 @@ dom渲染完成时间： domContentLoadedEventEnd - navigationStart
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 创建一个主题，保存状态，状态变化之后触发所有观察者对象</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Subject</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.state = <span class="number">0</span>;</span><br><span class="line">        <span class="built_in">this</span>.observers = []</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">getState</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.state</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">setState</span>(<span class="params">state</span>)</span> &#123;</span><br><span class="line">       <span class="built_in">this</span>.state = state;</span><br><span class="line">       <span class="built_in">this</span>.notifyAllObservers()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">notifyAllObservers</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.observers.forEach(<span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">            observer.update()</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">attach</span>(<span class="params">observer</span>)</span> &#123;</span><br><span class="line">       <span class="built_in">this</span>.observers.push(observer)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 观察者</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Observer</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">name , subject</span>)</span> &#123;</span><br><span class="line">       <span class="built_in">this</span>.name = name;</span><br><span class="line">       <span class="built_in">this</span>.subject = subject;</span><br><span class="line">       <span class="built_in">this</span>.subject.attach(<span class="built_in">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">update</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> update, state: <span class="subst">$&#123;<span class="built_in">this</span>.subject.getState()&#125;</span>`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = <span class="keyword">new</span> Subject();</span><br><span class="line"><span class="keyword">let</span> o1 = <span class="keyword">new</span> Observer(<span class="string">&#x27;o1&#x27;</span> , s);</span><br><span class="line"><span class="keyword">let</span> o2 = <span class="keyword">new</span> Observer(<span class="string">&#x27;o2&#x27;</span> , s);</span><br><span class="line"><span class="keyword">let</span> o3 = <span class="keyword">new</span> Observer(<span class="string">&#x27;o3&#x27;</span> , s);</span><br><span class="line"></span><br><span class="line">s.setState(<span class="number">1</span>)</span><br><span class="line">s.setState(<span class="number">2</span>)</span><br><span class="line">s.setState(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">o1 update, state: 1</span></span><br><span class="line"><span class="comment"> o2 update, state: 1</span></span><br><span class="line"><span class="comment">o3 update, state: 1</span></span><br><span class="line"><span class="comment">o1 update, state: 2</span></span><br><span class="line"><span class="comment">o2 update, state: 2</span></span><br><span class="line"><span class="comment">o3 update, state: 2</span></span><br><span class="line"><span class="comment">o2 update, state: 3</span></span><br><span class="line"><span class="comment">o3 update, state: 3</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <p>例子：Promise、Vue 的 Watch生命周期钩子、flutter Provider等</p>
 ]]></content>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ES6语法</title>
-    <url>/2021/08/17/ES6%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<p>ES6常用语法整理<span id="more"></span></p>
-<h1 id="let-const"><a href="#let-const" class="headerlink" title="let/const"></a>let/const</h1><h1 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h1><ol>
-<li>箭头函数没有arguments</li>
-<li>箭头函数没有prototype属性，不能用作构造函数</li>
-<li>箭头函数没有自己this，它的this是词法的，引用的是上下文的this</li>
-</ol>
-<h1 id="iterator迭代器"><a href="#iterator迭代器" class="headerlink" title="iterator迭代器"></a>iterator迭代器</h1><p>是另外4个ES6常用特性的实现基础（解构赋值，剩余/扩展运算符，生成器，for of循环）</p>
-<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><h1 id="剩余-扩展运算符"><a href="#剩余-扩展运算符" class="headerlink" title="剩余/扩展运算符"></a>剩余/扩展运算符</h1><h1 id="对象属性-方法简写"><a href="#对象属性-方法简写" class="headerlink" title="对象属性/方法简写"></a>对象属性/方法简写</h1><h1 id="for-…-of循环"><a href="#for-…-of循环" class="headerlink" title="for … of循环"></a>for … of循环</h1><ol>
-<li>for … of只能用在可迭代对象上,获取的是迭代器返回的value值,for … in 可以获取所有对象的键名</li>
-<li>for … in会遍历对象的整个原型链,性能非常差不推荐使用,而for … of只遍历当前对象不会遍历它的原型链</li>
-<li>对于数组的遍历,for … in会返回数组中所有可枚举的属性(包括原型链上可枚举的属性),for … of只返回数组的下标对应的属性值</li>
-</ol>
-<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><h1 id="ES6-Module"><a href="#ES6-Module" class="headerlink" title="ES6 Module"></a>ES6 Module</h1><p><a href="/2021/07/08/JavaScript%E6%A8%A1%E5%9D%97%E5%8C%96">JavaScript模块化</a>。</p>
-<h1 id="函数默认值"><a href="#函数默认值" class="headerlink" title="函数默认值"></a>函数默认值</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">&#123;x=<span class="number">10</span>&#125;=&#123;&#125;,&#123;y&#125;=&#123;y: <span class="number">10</span>&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>. log(x,y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func(&#123;&#125;,&#123;&#125;) <span class="comment">//10, undefined  </span></span><br><span class="line"><span class="comment">//传入了2个空对象,所以函数的第一第二个参数都不会使用函数默认值.第一个参数会尝试解构对象,提取变量x,因为第一个参数传入了一个空对象,所以解构不出变量x,但是这里又在内层设置了一个默认值,所以x的值为10,而第二个参数同样传了一个空对象,不会使用函数默认值,然后会尝试解构出变量y,发现空对象中也没有变量y,但是y没有设置默认值所以解构后y的值为undefined</span></span><br><span class="line"></span><br><span class="line">func (<span class="literal">undefined</span>,&#123;&#125;) <span class="comment">//10,undefined </span></span><br><span class="line"><span class="comment">//第一个参数显式的传入了一个undefined,所以会使用函数默认值为一个空对象,随后和第一行一样尝试解构x发现x为undefined,但是设置了默认值所以x的值为10,而y和上文一样为undefined</span></span><br><span class="line">func(<span class="literal">undefined</span>, <span class="literal">undefined</span>) <span class="comment">//10.10 </span></span><br><span class="line"><span class="comment">//2个参数都会undefined,第一个参数和上文一样,第二个参数会调用函数默认值,赋值为&#123;y:10&#125;,然后尝试解构出变量y,即y为10</span></span><br><span class="line">func() <span class="comment">//10,10</span></span><br><span class="line"><span class="comment">//跟上一个相同 一个是显式传入undefined,一个是隐式不传参数</span></span><br><span class="line">func(&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;,&#123;<span class="attr">y</span>:<span class="number">2</span>&#125;) <span class="comment">//1,2</span></span><br><span class="line"><span class="comment">//直接使用传入的参数,不会使用函数默认值,并且能够顺利的解构出变量x,y</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h1><h2 id="handler-apply"><a href="#handler-apply" class="headerlink" title="handler.apply"></a>handler.apply</h2><p>节流</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="function">(<span class="params">func, time</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> previous =<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">0</span>).getTime()</span><br><span class="line">    <span class="keyword">let</span> handler =&#123;</span><br><span class="line">        <span class="function"><span class="title">apply</span>(<span class="params">target, context, args</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> now =<span class="keyword">new</span> <span class="built_in">Date</span>().getTime(); </span><br><span class="line">            <span class="keyword">if</span> (now - previous&gt;time) &#123; </span><br><span class="line">                previous =now</span><br><span class="line">                <span class="built_in">Reflect</span>.apply(func, context, args)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(func, handler)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DOM.addEventListener(<span class="string">&#x27;mousemove&#x27;</span>,proxy(func,<span class="number">1000</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="handler-contruct"><a href="#handler-contruct" class="headerlink" title="handler.contruct"></a>handler.contruct</h2><p>单例</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="function">(<span class="params">func</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> instance;</span><br><span class="line">    <span class="keyword">let</span> handler =&#123;</span><br><span class="line">        <span class="function"><span class="title">contruct</span>(<span class="params">target, args</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(!instance)&#123;</span><br><span class="line">                instance = <span class="built_in">Reflect</span>.contruct(func,args)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(func, handler)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> singlePerson = proxy(Person);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p1 = singlePerson(<span class="string">&#x27;zhangsan&#x27;</span>,<span class="number">21</span>)</span><br><span class="line"><span class="keyword">let</span> p2 = singlePerson(<span class="string">&#x27;lisi&#x27;</span>,<span class="number">21</span>)</span><br><span class="line"><span class="built_in">console</span>.log(p1 === p2)</span><br></pre></td></tr></table></figure>
-
-<h2 id="handler-defineProperty"><a href="#handler-defineProperty" class="headerlink" title="handler.defineProperty"></a>handler.defineProperty</h2><h1 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h1><ol>
-<li>从 Reflect 对象上可以拿到语言内部的方法。</li>
-<li>操作对象出现报错时返回 false</li>
-<li>让操作对象都变为函数式编程</li>
-<li>保持和 proxy 对象的方法一一对应</li>
-</ol>
-]]></content>
-      <categories>
-        <category>javascript基础</category>
-      </categories>
       <tags>
         <tag>javascript</tag>
       </tags>
@@ -4513,165 +4513,6 @@ dom渲染完成时间： domContentLoadedEventEnd - navigationStart
       </categories>
       <tags>
         <tag>计算机基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>盒子模型</title>
-    <url>/2021/07/07/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/</url>
-    <content><![CDATA[<h1 id="标准盒子模型"><a href="#标准盒子模型" class="headerlink" title="标准盒子模型"></a>标准盒子模型</h1><p>标准 w3c 盒子模型的范围包括 margin、border、padding、content，并且 content 部分不包含其他部分。</p>
-<h1 id="ie-盒子模型"><a href="#ie-盒子模型" class="headerlink" title="ie 盒子模型"></a>ie 盒子模型</h1><p>ie 盒子模型的范围也包括 margin、border、padding、content，和标准 w3c 盒子模型不同的是：ie 盒子模型的 content 部分包含了 border 和 pading。</p>
-<h1 id="CSS3-box-sizing-属性"><a href="#CSS3-box-sizing-属性" class="headerlink" title="CSS3 box-sizing 属性"></a>CSS3 box-sizing 属性</h1><p>当设置为box-sizing:content-box时，将采用<em>标准模式</em>解析计算，也是默认模式；</p>
-<p>当设置为box-sizing:border-box时，将采用<em>怪异模式</em>解析计算；</p>
-<p>一般设置为border-box</p>
-]]></content>
-      <categories>
-        <category>css基础</category>
-      </categories>
-      <tags>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深拷贝与浅拷贝</title>
-    <url>/2021/04/07/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/</url>
-    <content><![CDATA[<p>在开发过程中，我们有时候并不希望引用数据类型的赋值操作中的两个变量相互影响，这就需要浅拷贝和深拷贝<span id="more"></span></p>
-<h1 id="变量存储类型"><a href="#变量存储类型" class="headerlink" title="变量存储类型"></a>变量存储类型</h1><p>基本数据类型:值存在栈中，无地址值，例子：string,bool,number,null,undefined,symbol</p>
-<p>引用数据类型:值存在堆中，地址存在栈中，例子：数组、对象、函数、正则</p>
-<p>栈是自动分配相对固定大小的内存空间，并由系统自动释放,线性结构，后进先出,效率很高，但是分配的内存容量有限。<br>堆是动态分配内存，内存大小不一，也不会自动释放,混沌，杂乱无章，方便存储和开辟内存空间。</p>
-<h1 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h1><p>当参数为基本数据类型的时候，为值传递</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">add(a);</span><br><span class="line"><span class="built_in">console</span>.log(a)<span class="comment">//100</span></span><br></pre></td></tr></table></figure>
-
-<p>当参数为引用数据类型的时候，为引用传递</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeAgeImpure</span>(<span class="params">person</span>) </span>&#123;</span><br><span class="line">    person.age = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">return</span> person;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> alex = &#123;</span><br><span class="line">    name: <span class="string">&#x27;Alex&#x27;</span>,</span><br><span class="line">    age: <span class="number">30</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> changedAlex = changeAgeImpure(alex);</span><br><span class="line"><span class="built_in">console</span>.log(alex); <span class="comment">// &#123; name: &#x27;Alex&#x27;, age: 25 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(changedAlex); <span class="comment">// &#123; name: &#x27;Alex&#x27;, age: 25 &#125;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h1><ul>
-<li>给定相同的输入，将始终返回相同的输出。</li>
-<li>无副作用。不会修改外部的状态。</li>
-</ul>
-<p>优点：可测试 可缓存  可移植</p>
-<h1 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h1><p>符号=就是赋值操作。分为对基本数据类型和引用数据类型赋值两种情况</p>
-<h2 id="基本数据类型赋值"><a href="#基本数据类型赋值" class="headerlink" title="基本数据类型赋值"></a>基本数据类型赋值</h2><p>基本数据类型的赋值操作是值引用，相互之间没有影响</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;张三&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> b = a; <span class="comment">// 将 a 赋值给 b</span></span><br><span class="line">a = <span class="string">&#x27;李四&#x27;</span>; <span class="comment">// 修改 a 的值为 &#x27;李四&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">// 打印 b 的值，仍为 &#x27;张三&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="引用数据类型赋值"><a href="#引用数据类型赋值" class="headerlink" title="引用数据类型赋值"></a>引用数据类型赋值</h2><p>引用数据类型的赋值是地址引用，两个变量指向同一个地址，相互之间有影响</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">  name: <span class="string">&#x27;张三&#x27;</span> </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> b = a; <span class="comment">// 将 a 赋值给 b</span></span><br><span class="line">a.name = <span class="string">&#x27;李四&#x27;</span>; <span class="comment">// 修改 a.name 的值为 &#x27;李四&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(b.name); <span class="comment">// 打印 b.name 的值，变为 &#x27;李四&#x27;</span></span><br></pre></td></tr></table></figure>
-<h1 id="对象的遍历"><a href="#对象的遍历" class="headerlink" title="对象的遍历"></a>对象的遍历</h1><p>对象的每个属性都有一个描述对象（Descriptor），用来控制该属性的行为。Object.getOwnPropertyDescriptor方法可以获取该属性的描述对象。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">foo</span>: <span class="number">123</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">&#x27;foo&#x27;</span>)</span><br><span class="line"><span class="comment">//  &#123;</span></span><br><span class="line"><span class="comment">//    value: 123,</span></span><br><span class="line"><span class="comment">//    writable: true,</span></span><br><span class="line"><span class="comment">//    enumerable: true,</span></span><br><span class="line"><span class="comment">//    configurable: true</span></span><br><span class="line"><span class="comment">//  &#125;</span></span><br></pre></td></tr></table></figure>
-<p>描述对象的enumerable属性，称为“可枚举性”，如果该属性为false，就表示某些操作会忽略当前属性。</p>
-<p>目前，有四个操作会忽略enumerable为false的属性。</p>
-<ul>
-<li>for…in循环：只遍历对象自身的和继承的可枚举的属性。</li>
-<li>Object.keys()：返回对象自身的所有可枚举的属性的键名。</li>
-<li>JSON.stringify()：只串行化对象自身的可枚举的属性。</li>
-<li>Object.assign()： 忽略enumerable为false的属性，只拷贝对象自身的可枚举的属性。</li>
-</ul>
-<p>只有for…in会返回继承的属性，其他三个方法都会忽略继承的属性</p>
-<h1 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h1><p>浅拷贝只拷贝原对象的第一层属性。即拷贝A对象里面的数据，但是不拷贝A对象里面的子对象。</p>
-<p>实现一个浅拷贝</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 对 obj 进行浅拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span> &amp;&amp; obj !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> copy = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">    <span class="comment">// 遍历原对象 obj，将第一层属性赋值给新对象</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> p <span class="keyword">in</span> obj) &#123;</span><br><span class="line">      copy[p] = obj[p]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回的新对象就是浅拷贝后的对象</span></span><br><span class="line">    <span class="keyword">return</span> copy</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 如果是基本类型，直接返回</span></span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>常用的浅拷贝</p>
-<ol>
-<li>Object.assign()</li>
-<li>Array.concat()</li>
-<li>{ …obj }</li>
-</ol>
-<h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><p>深拷贝是从内存中完整的拷贝一份出来，在堆内存中开一个新的内存空间，与原对象完全独立。修改新对象不会影响原对象。</p>
-<p>实现一个深拷贝</p>
-<h2 id="JSON-parse-JSON-stringify"><a href="#JSON-parse-JSON-stringify" class="headerlink" title="JSON.parse(JSON.stringify())"></a>JSON.parse(JSON.stringify())</h2><p>缺陷：不可以拷贝 undefined、Symbol、函数、正则、循环引用 等等类型的</p>
-<h2 id="浅拷贝-递归"><a href="#浅拷贝-递归" class="headerlink" title="浅拷贝+递归"></a>浅拷贝+递归</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">target </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果是一个数组的话</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(target)) &#123;</span><br><span class="line">            result = []; <span class="comment">// 将result赋值为一个数组，并且执行遍历</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> target) &#123;</span><br><span class="line">                <span class="comment">// 递归克隆数组中的每一项</span></span><br><span class="line">                result.push(deepClone(target[i]))</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 判断如果当前的值是null的话；直接赋值为null</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(target===<span class="literal">null</span>) &#123;</span><br><span class="line">            result = <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">// 判断如果当前的值是一个RegExp对象的话，直接赋值</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(target.constructor===<span class="built_in">RegExp</span>)&#123;</span><br><span class="line">            result = target;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 否则是普通对象，直接for in循环，递归赋值对象的所有值</span></span><br><span class="line">            result = &#123;&#125;;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> target) &#123;</span><br><span class="line">                result[i] = deepClone(target[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">// 如果不是对象的话，就是基本数据类型，那么直接赋值</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        result = target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>javascript基础</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>shadowsocks搭建VPN</title>
-    <url>/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/</url>
-    <content><![CDATA[<h4 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h4><span id="more"></span>
-
-<pre><code>https://www.openvzvps.cc/aff.php?aff=259
-</code></pre>
-<h4 id="修改安装的系统并安装服务"><a href="#修改安装的系统并安装服务" class="headerlink" title="修改安装的系统并安装服务"></a>修改安装的系统并安装服务</h4><p>在 客户中心-&gt;我的产品与服务 将预装的centos重装为ubunt<br>用xshell进入后台  </p>
-<pre><code>apt-get update
-apt-get install python-gevent python-pip
-apt-get install python-m2crypto
-pip install shadowsocks
-</code></pre>
-<h4 id="添加配置文件并启动服务"><a href="#添加配置文件并启动服务" class="headerlink" title="添加配置文件并启动服务"></a>添加配置文件并启动服务</h4><p>下载<a href="/uploads/shadowsocks.rar">shadowsocks.rar</a><br>修改里面的shadowsocks.json  </p>
-<pre><code>&#123;
-    &quot;server&quot;:&quot;0.0.0.0&quot;,
-    &quot;server_port&quot;:xxxx,  //端口
-    &quot;password&quot;:&quot;xxxxxx&quot;, //密码
-    &quot;timeout&quot;:600,
-    &quot;method&quot;:&quot;aes-256-cfb&quot;
-&#125; 
-</code></pre>
-<p>将文件夹上传到root目录，然后</p>
-<pre><code>bash restart.sh
-bash check.sh
-</code></pre>
-<h4 id="下载客户端"><a href="#下载客户端" class="headerlink" title="下载客户端"></a>下载客户端</h4><pre><code>windows: https://shadowsocks.org/en/download/clients.html
-android: https://github.com/shadowsocks/shadowsocks-android/releases
-</code></pre>
-]]></content>
-      <tags>
-        <tag>shadowsocks</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>箭头函数与普通函数的区别</title>
-    <url>/2021/07/16/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<ol>
-<li>箭头函数没有arguments（建议使用更好的语法，剩余运算符替代）</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(...rest)=&gt;&#123;</span><br><span class="line">    consle.log(rest)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>箭头函数没有prototype属性，不能用作构造函数（不能用new关键字调用）</li>
-</ol>
-<ol start="3">
-<li>箭头函数没有自己this，它的this是词法的，引用的是上下文的this，即在你写这行代码的时候就箭头函数的this就已经和外层执行上下文的this绑定了(这里个人认为并不代表完全是静态的,因为外层的上下文仍是动态的可以使用call,apply,bind修改,这里只是说明了箭头函数的this始终等于它上层上下文中的this)</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> T =&#123;</span><br><span class="line">    a:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">&#x27;a&#x27;</span>)&#125;,</span><br><span class="line">    b:<span class="function">()=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="string">&#x27;b&#x27;</span>)&#125;,</span><br><span class="line">    <span class="function"><span class="title">c</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">&#x27;c&#x27;</span>)&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">T.a();</span><br><span class="line">T.b();</span><br><span class="line">T.c();</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> T.a();</span><br><span class="line"><span class="keyword">new</span> T.b();<span class="comment">//报错  箭头函数没有prototype属性</span></span><br><span class="line"><span class="keyword">new</span> T.c();<span class="comment">//报错  简写的对象方法不能用作构造函数  没有prototype属性</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br></pre></td></tr></table></figure>
-<p>new的过程拆分成以下三步：</p>
-<ol>
-<li>var p={}; 也就是说，初始化一个对象p</li>
-<li>p.<strong>proto</strong> = Person.prototype;</li>
-<li>Person.call(p); 也就是说构造p，也可以称之为初始化</li>
-</ol>
-]]></content>
-      <categories>
-        <category>javascript基础</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>防抖节流</title>
-    <url>/2021/04/02/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/</url>
-    <content><![CDATA[<h1 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖 debounce"></a>防抖 debounce</h1><p>在一段时间内，不论调用多少次回调，都以最后一次为准。(将多次执行变为最后一次执行)<span id="more"></span></p>
-<p>应用场景：页面resize事件，只有最后一次是有用</p>
-<p>思路：使用定时器执行函数，新调用发生时如果旧调用没有执行就清除之前的定时器。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn,delay</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timer;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">            <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">        &#125;</span><br><span class="line">        timer = <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">            fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>); <span class="comment">// 用apply指向调用debounce的对象，相当于_this.fn(args);</span></span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showTop</span>  (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">　　<span class="built_in">console</span>.log(<span class="string">&#x27;滚动条位置：&#x27;</span> + scrollTop);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.onscroll = debounce(showTop,<span class="number">1000</span>) </span><br></pre></td></tr></table></figure>
-
-
-<h1 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流 throttle"></a>节流 throttle</h1><p>限制一个函数在一定时间内只能执行一次。(将多次执行变成每隔一段时间执行)</p>
-<p>应用场景： 输入框补全提示，只需要每两秒补全一次</p>
-<p>思路：利用时间戳判断，每次调用判断和上一次调用的时间差异确定是否需要调用。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> pre = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> now = (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime();</span><br><span class="line">        <span class="keyword">if</span>(now-pre&gt;delay)&#123;</span><br><span class="line">            fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">            pre = now</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showTop</span>  (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">　　<span class="built_in">console</span>.log(<span class="string">&#x27;滚动条位置：&#x27;</span> + scrollTop);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.onscroll = throttle(showTop,<span class="number">1000</span>) </span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>javascript基础</category>
-      </categories>
-      <tags>
-        <tag>javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -4743,6 +4584,165 @@ android: https://github.com/shadowsocks/shadowsocks-android/releases
       </categories>
       <tags>
         <tag>计算机基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深拷贝与浅拷贝</title>
+    <url>/2021/04/07/%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/</url>
+    <content><![CDATA[<p>在开发过程中，我们有时候并不希望引用数据类型的赋值操作中的两个变量相互影响，这就需要浅拷贝和深拷贝<span id="more"></span></p>
+<h1 id="变量存储类型"><a href="#变量存储类型" class="headerlink" title="变量存储类型"></a>变量存储类型</h1><p>基本数据类型:值存在栈中，无地址值，例子：string,bool,number,null,undefined,symbol</p>
+<p>引用数据类型:值存在堆中，地址存在栈中，例子：数组、对象、函数、正则</p>
+<p>栈是自动分配相对固定大小的内存空间，并由系统自动释放,线性结构，后进先出,效率很高，但是分配的内存容量有限。<br>堆是动态分配内存，内存大小不一，也不会自动释放,混沌，杂乱无章，方便存储和开辟内存空间。</p>
+<h1 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h1><p>当参数为基本数据类型的时候，为值传递</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">100</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    x = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">add(a);</span><br><span class="line"><span class="built_in">console</span>.log(a)<span class="comment">//100</span></span><br></pre></td></tr></table></figure>
+
+<p>当参数为引用数据类型的时候，为引用传递</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">changeAgeImpure</span>(<span class="params">person</span>) </span>&#123;</span><br><span class="line">    person.age = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">return</span> person;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> alex = &#123;</span><br><span class="line">    name: <span class="string">&#x27;Alex&#x27;</span>,</span><br><span class="line">    age: <span class="number">30</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> changedAlex = changeAgeImpure(alex);</span><br><span class="line"><span class="built_in">console</span>.log(alex); <span class="comment">// &#123; name: &#x27;Alex&#x27;, age: 25 &#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(changedAlex); <span class="comment">// &#123; name: &#x27;Alex&#x27;, age: 25 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h1><ul>
+<li>给定相同的输入，将始终返回相同的输出。</li>
+<li>无副作用。不会修改外部的状态。</li>
+</ul>
+<p>优点：可测试 可缓存  可移植</p>
+<h1 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h1><p>符号=就是赋值操作。分为对基本数据类型和引用数据类型赋值两种情况</p>
+<h2 id="基本数据类型赋值"><a href="#基本数据类型赋值" class="headerlink" title="基本数据类型赋值"></a>基本数据类型赋值</h2><p>基本数据类型的赋值操作是值引用，相互之间没有影响</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="string">&#x27;张三&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> b = a; <span class="comment">// 将 a 赋值给 b</span></span><br><span class="line">a = <span class="string">&#x27;李四&#x27;</span>; <span class="comment">// 修改 a 的值为 &#x27;李四&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(b); <span class="comment">// 打印 b 的值，仍为 &#x27;张三&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="引用数据类型赋值"><a href="#引用数据类型赋值" class="headerlink" title="引用数据类型赋值"></a>引用数据类型赋值</h2><p>引用数据类型的赋值是地址引用，两个变量指向同一个地址，相互之间有影响</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;</span><br><span class="line">  name: <span class="string">&#x27;张三&#x27;</span> </span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> b = a; <span class="comment">// 将 a 赋值给 b</span></span><br><span class="line">a.name = <span class="string">&#x27;李四&#x27;</span>; <span class="comment">// 修改 a.name 的值为 &#x27;李四&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(b.name); <span class="comment">// 打印 b.name 的值，变为 &#x27;李四&#x27;</span></span><br></pre></td></tr></table></figure>
+<h1 id="对象的遍历"><a href="#对象的遍历" class="headerlink" title="对象的遍历"></a>对象的遍历</h1><p>对象的每个属性都有一个描述对象（Descriptor），用来控制该属性的行为。Object.getOwnPropertyDescriptor方法可以获取该属性的描述对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">foo</span>: <span class="number">123</span> &#125;;</span><br><span class="line"><span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">&#x27;foo&#x27;</span>)</span><br><span class="line"><span class="comment">//  &#123;</span></span><br><span class="line"><span class="comment">//    value: 123,</span></span><br><span class="line"><span class="comment">//    writable: true,</span></span><br><span class="line"><span class="comment">//    enumerable: true,</span></span><br><span class="line"><span class="comment">//    configurable: true</span></span><br><span class="line"><span class="comment">//  &#125;</span></span><br></pre></td></tr></table></figure>
+<p>描述对象的enumerable属性，称为“可枚举性”，如果该属性为false，就表示某些操作会忽略当前属性。</p>
+<p>目前，有四个操作会忽略enumerable为false的属性。</p>
+<ul>
+<li>for…in循环：只遍历对象自身的和继承的可枚举的属性。</li>
+<li>Object.keys()：返回对象自身的所有可枚举的属性的键名。</li>
+<li>JSON.stringify()：只串行化对象自身的可枚举的属性。</li>
+<li>Object.assign()： 忽略enumerable为false的属性，只拷贝对象自身的可枚举的属性。</li>
+</ul>
+<p>只有for…in会返回继承的属性，其他三个方法都会忽略继承的属性</p>
+<h1 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h1><p>浅拷贝只拷贝原对象的第一层属性。即拷贝A对象里面的数据，但是不拷贝A对象里面的子对象。</p>
+<p>实现一个浅拷贝</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 对 obj 进行浅拷贝</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowCopy</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span> &amp;&amp; obj !== <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> copy = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">    <span class="comment">// 遍历原对象 obj，将第一层属性赋值给新对象</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> p <span class="keyword">in</span> obj) &#123;</span><br><span class="line">      copy[p] = obj[p]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回的新对象就是浅拷贝后的对象</span></span><br><span class="line">    <span class="keyword">return</span> copy</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 如果是基本类型，直接返回</span></span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>常用的浅拷贝</p>
+<ol>
+<li>Object.assign()</li>
+<li>Array.concat()</li>
+<li>{ …obj }</li>
+</ol>
+<h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><p>深拷贝是从内存中完整的拷贝一份出来，在堆内存中开一个新的内存空间，与原对象完全独立。修改新对象不会影响原对象。</p>
+<p>实现一个深拷贝</p>
+<h2 id="JSON-parse-JSON-stringify"><a href="#JSON-parse-JSON-stringify" class="headerlink" title="JSON.parse(JSON.stringify())"></a>JSON.parse(JSON.stringify())</h2><p>缺陷：不可以拷贝 undefined、Symbol、函数、正则、循环引用 等等类型的</p>
+<h2 id="浅拷贝-递归"><a href="#浅拷贝-递归" class="headerlink" title="浅拷贝+递归"></a>浅拷贝+递归</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">target </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> target === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="comment">// 如果是一个数组的话</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(target)) &#123;</span><br><span class="line">            result = []; <span class="comment">// 将result赋值为一个数组，并且执行遍历</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> target) &#123;</span><br><span class="line">                <span class="comment">// 递归克隆数组中的每一项</span></span><br><span class="line">                result.push(deepClone(target[i]))</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 判断如果当前的值是null的话；直接赋值为null</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(target===<span class="literal">null</span>) &#123;</span><br><span class="line">            result = <span class="literal">null</span>;</span><br><span class="line">        <span class="comment">// 判断如果当前的值是一个RegExp对象的话，直接赋值</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(target.constructor===<span class="built_in">RegExp</span>)&#123;</span><br><span class="line">            result = target;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 否则是普通对象，直接for in循环，递归赋值对象的所有值</span></span><br><span class="line">            result = &#123;&#125;;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> target) &#123;</span><br><span class="line">                result[i] = deepClone(target[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">// 如果不是对象的话，就是基本数据类型，那么直接赋值</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        result = target;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>javascript基础</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>盒子模型</title>
+    <url>/2021/07/07/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B/</url>
+    <content><![CDATA[<h1 id="标准盒子模型"><a href="#标准盒子模型" class="headerlink" title="标准盒子模型"></a>标准盒子模型</h1><p>标准 w3c 盒子模型的范围包括 margin、border、padding、content，并且 content 部分不包含其他部分。</p>
+<h1 id="ie-盒子模型"><a href="#ie-盒子模型" class="headerlink" title="ie 盒子模型"></a>ie 盒子模型</h1><p>ie 盒子模型的范围也包括 margin、border、padding、content，和标准 w3c 盒子模型不同的是：ie 盒子模型的 content 部分包含了 border 和 pading。</p>
+<h1 id="CSS3-box-sizing-属性"><a href="#CSS3-box-sizing-属性" class="headerlink" title="CSS3 box-sizing 属性"></a>CSS3 box-sizing 属性</h1><p>当设置为box-sizing:content-box时，将采用<em>标准模式</em>解析计算，也是默认模式；</p>
+<p>当设置为box-sizing:border-box时，将采用<em>怪异模式</em>解析计算；</p>
+<p>一般设置为border-box</p>
+]]></content>
+      <categories>
+        <category>css基础</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>箭头函数与普通函数的区别</title>
+    <url>/2021/07/16/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<ol>
+<li>箭头函数没有arguments（建议使用更好的语法，剩余运算符替代）</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(...rest)=&gt;&#123;</span><br><span class="line">    consle.log(rest)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>箭头函数没有prototype属性，不能用作构造函数（不能用new关键字调用）</li>
+</ol>
+<ol start="3">
+<li>箭头函数没有自己this，它的this是词法的，引用的是上下文的this，即在你写这行代码的时候就箭头函数的this就已经和外层执行上下文的this绑定了(这里个人认为并不代表完全是静态的,因为外层的上下文仍是动态的可以使用call,apply,bind修改,这里只是说明了箭头函数的this始终等于它上层上下文中的this)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> T =&#123;</span><br><span class="line">    a:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">&#x27;a&#x27;</span>)&#125;,</span><br><span class="line">    b:<span class="function">()=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="string">&#x27;b&#x27;</span>)&#125;,</span><br><span class="line">    <span class="function"><span class="title">c</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">&#x27;c&#x27;</span>)&#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">T.a();</span><br><span class="line">T.b();</span><br><span class="line">T.c();</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> T.a();</span><br><span class="line"><span class="keyword">new</span> T.b();<span class="comment">//报错  箭头函数没有prototype属性</span></span><br><span class="line"><span class="keyword">new</span> T.c();<span class="comment">//报错  简写的对象方法不能用作构造函数  没有prototype属性</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> Person = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person();</span><br></pre></td></tr></table></figure>
+<p>new的过程拆分成以下三步：</p>
+<ol>
+<li>var p={}; 也就是说，初始化一个对象p</li>
+<li>p.<strong>proto</strong> = Person.prototype;</li>
+<li>Person.call(p); 也就是说构造p，也可以称之为初始化</li>
+</ol>
+]]></content>
+      <categories>
+        <category>javascript基础</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>shadowsocks搭建VPN</title>
+    <url>/2016/06/23/%E7%BF%BB%E5%A2%99%E6%96%B9%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h4><span id="more"></span>
+
+<pre><code>https://www.openvzvps.cc/aff.php?aff=259
+</code></pre>
+<h4 id="修改安装的系统并安装服务"><a href="#修改安装的系统并安装服务" class="headerlink" title="修改安装的系统并安装服务"></a>修改安装的系统并安装服务</h4><p>在 客户中心-&gt;我的产品与服务 将预装的centos重装为ubunt<br>用xshell进入后台  </p>
+<pre><code>apt-get update
+apt-get install python-gevent python-pip
+apt-get install python-m2crypto
+pip install shadowsocks
+</code></pre>
+<h4 id="添加配置文件并启动服务"><a href="#添加配置文件并启动服务" class="headerlink" title="添加配置文件并启动服务"></a>添加配置文件并启动服务</h4><p>下载<a href="/uploads/shadowsocks.rar">shadowsocks.rar</a><br>修改里面的shadowsocks.json  </p>
+<pre><code>&#123;
+    &quot;server&quot;:&quot;0.0.0.0&quot;,
+    &quot;server_port&quot;:xxxx,  //端口
+    &quot;password&quot;:&quot;xxxxxx&quot;, //密码
+    &quot;timeout&quot;:600,
+    &quot;method&quot;:&quot;aes-256-cfb&quot;
+&#125; 
+</code></pre>
+<p>将文件夹上传到root目录，然后</p>
+<pre><code>bash restart.sh
+bash check.sh
+</code></pre>
+<h4 id="下载客户端"><a href="#下载客户端" class="headerlink" title="下载客户端"></a>下载客户端</h4><pre><code>windows: https://shadowsocks.org/en/download/clients.html
+android: https://github.com/shadowsocks/shadowsocks-android/releases
+</code></pre>
+]]></content>
+      <tags>
+        <tag>shadowsocks</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>防抖节流</title>
+    <url>/2021/04/02/%E9%98%B2%E6%8A%96%E8%8A%82%E6%B5%81/</url>
+    <content><![CDATA[<h1 id="防抖-debounce"><a href="#防抖-debounce" class="headerlink" title="防抖 debounce"></a>防抖 debounce</h1><p>在一段时间内，不论调用多少次回调，都以最后一次为准。(将多次执行变为最后一次执行)<span id="more"></span></p>
+<p>应用场景：页面resize事件，只有最后一次是有用</p>
+<p>思路：使用定时器执行函数，新调用发生时如果旧调用没有执行就清除之前的定时器。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fn,delay</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> timer;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (timer) &#123;</span><br><span class="line">            <span class="built_in">clearTimeout</span>(timer);</span><br><span class="line">        &#125;</span><br><span class="line">        timer = <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">            fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>); <span class="comment">// 用apply指向调用debounce的对象，相当于_this.fn(args);</span></span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showTop</span>  (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">　　<span class="built_in">console</span>.log(<span class="string">&#x27;滚动条位置：&#x27;</span> + scrollTop);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.onscroll = debounce(showTop,<span class="number">1000</span>) </span><br></pre></td></tr></table></figure>
+
+
+<h1 id="节流-throttle"><a href="#节流-throttle" class="headerlink" title="节流 throttle"></a>节流 throttle</h1><p>限制一个函数在一定时间内只能执行一次。(将多次执行变成每隔一段时间执行)</p>
+<p>应用场景： 输入框补全提示，只需要每两秒补全一次</p>
+<p>思路：利用时间戳判断，每次调用判断和上一次调用的时间差异确定是否需要调用。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fn,delay</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> pre = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> now = (<span class="keyword">new</span> <span class="built_in">Date</span>()).getTime();</span><br><span class="line">        <span class="keyword">if</span>(now-pre&gt;delay)&#123;</span><br><span class="line">            fn.apply(<span class="built_in">this</span>, <span class="built_in">arguments</span>);</span><br><span class="line">            pre = now</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showTop</span>  (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> scrollTop = <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">　　<span class="built_in">console</span>.log(<span class="string">&#x27;滚动条位置：&#x27;</span> + scrollTop);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">window</span>.onscroll = throttle(showTop,<span class="number">1000</span>) </span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>javascript基础</category>
+      </categories>
+      <tags>
+        <tag>javascript</tag>
       </tags>
   </entry>
 </search>
