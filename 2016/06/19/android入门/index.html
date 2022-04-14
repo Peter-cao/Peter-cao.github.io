@@ -1,38 +1,846 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="activity之间的跳转和数据传递">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android学习记录">
+<meta property="og:url" content="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Peter&#39;s blog">
+<meta property="og:description" content="activity之间的跳转和数据传递">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/uploads/activityLifecycle.PNG">
+<meta property="article:published_time" content="2016-06-19T10:09:27.000Z">
+<meta property="article:modified_time" content="2021-11-16T03:07:23.865Z">
+<meta property="article:author" content="Petercao">
+<meta property="article:tag" content="android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/uploads/activityLifecycle.PNG">
+
+<link rel="canonical" href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>android学习记录 | Peter's blog</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Peter's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Peter's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/19/android%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/aaa.jpg">
+      <meta itemprop="name" content="Petercao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Peter's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          android学习记录
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-06-19 18:09:27" itemprop="dateCreated datePublished" datetime="2016-06-19T18:09:27+08:00">2016-06-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-16 11:07:23" itemprop="dateModified" datetime="2021-11-16T11:07:23+08:00">2021-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index"><span itemprop="name">android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="activity之间的跳转和数据传递"><a href="#activity之间的跳转和数据传递" class="headerlink" title="activity之间的跳转和数据传递"></a>activity之间的跳转和数据传递</h4><span id="more"></span>
+
+<p>MainActivity-&gt;Main2Activity<br>MainActivity代码:  </p>
+<pre><code>Intent intent = new Intent();
+intent.putExtra(&quot;name&quot;,&quot;哈哈哈&quot;);
+intent.setClass(MainActivity.this,Main2Activity.class);
+MainActivity.this.startActivity(intent);  
+</code></pre>
+<p>Main2Activity代码:  </p>
+<pre><code>tv1 = (TextView) findViewById(R.id.main2text);
+String value = getIntent().getStringExtra(&quot;name&quot;);
+tv1.setText(value);  
+</code></pre>
+<h4 id="activity生命周期"><a href="#activity生命周期" class="headerlink" title="activity生命周期"></a>activity生命周期</h4><p><img src="/uploads/activityLifecycle.PNG" alt="Activity Lifecycle">  </p>
+<h5 id="onCreate"><a href="#onCreate" class="headerlink" title="onCreate()"></a>onCreate()</h5><p>Called when the activity is first created<br>当activity第一次被创建的时候调用</p>
+<h5 id="onStart"><a href="#onStart" class="headerlink" title="onStart()"></a>onStart()</h5><p>Called when the activity is becoming visible to the user<br>当activity对用户可见时调用</p>
+<h4 id="onRestart"><a href="#onRestart" class="headerlink" title="onRestart()"></a>onRestart()</h4><p>Called after your activity has been stopped<br>当activity已经stoped过，恢复的时候调用</p>
+<h5 id="onResume"><a href="#onResume" class="headerlink" title="onResume()"></a>onResume()</h5><p>Called when the activity will start interacting with the user<br>当用户能获取activity焦点时调用</p>
+<h5 id="onPause"><a href="#onPause" class="headerlink" title="onPause()"></a>onPause()</h5><p>Called when the system is about to start resuming a previous activity<br>当系统恢复之前的activity时调用（失去焦点），通常用来在此方法里面持久化当前activity的数据等</p>
+<h5 id="onStop"><a href="#onStop" class="headerlink" title="onStop()"></a>onStop()</h5><p>Called when the activity is no longer visible to the use<br>当activity完全不可见时调用</p>
+<h5 id="onDestroy"><a href="#onDestroy" class="headerlink" title="onDestroy()"></a>onDestroy()</h5><p>The final call you receive before your activity is destroyed  </p>
+<h4 id="将activity设置为窗口模式"><a href="#将activity设置为窗口模式" class="headerlink" title="将activity设置为窗口模式"></a>将activity设置为窗口模式</h4><p>在AndroidManifest.xml中设置theme</p>
+<h4 id="设备兼容"><a href="#设备兼容" class="headerlink" title="设备兼容"></a>设备兼容</h4><h5 id="语言兼容"><a href="#语言兼容" class="headerlink" title="语言兼容"></a>语言兼容</h5><pre><code>MyProject/
+    res/
+       values/
+           strings.xml
+       values-es/
+           strings.xml
+       values-fr/
+           strings.xml  
+</code></pre>
+<p>Android系统会基于当前系统的语言环境设置来选择对应的设置</p>
+<h5 id="屏幕兼容"><a href="#屏幕兼容" class="headerlink" title="屏幕兼容"></a>屏幕兼容</h5><p>创建不同的布局  </p>
+<pre><code>MyProject/
+    res/
+        layout/              # default (portrait)
+            main.xml
+        layout-land/         # landscape
+            main.xml
+        layout-large/        # large (portrait)
+            main.xml
+        layout-large-land/   # large landscape
+            main.xml
+</code></pre>
+<p>创建不同的位图  </p>
+<ul>
+<li>xhdpi: 2.0</li>
+<li>hdpi: 1.5</li>
+<li>mdpi: 1.0 (baseline)</li>
+<li>ldpi: 0.75</li>
+</ul>
+<p>如果xhdpi的图像为200*200，则hdpi为150*150，mdpi为100*100,ldpi为75*75  </p>
+<pre><code>MyProject/
+    res/
+        drawable-xhdpi/
+            awesomeimage.png
+        drawable-hdpi/
+            awesomeimage.png
+        drawable-mdpi/
+            awesomeimage.png
+        drawable-ldpi/
+            awesomeimage.png  
+</code></pre>
+<p>当引用 @drawable/awesomeimage时，系统会根据屏幕的分辨率选择对应的图片</p>
+<h5 id="版本兼容"><a href="#版本兼容" class="headerlink" title="版本兼容"></a>版本兼容</h5><p>指定最小和目标API级别  </p>
+<pre><code>&lt;manifest xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; ... &gt;
+    &lt;uses-sdk android:minSdkVersion=&quot;4&quot; android:targetSdkVersion=&quot;15&quot; /&gt;
+    ...
+&lt;/manifest&gt;  
+</code></pre>
+<p>在运行时检查系统版本  </p>
+<pre><code>private void setUpActionBar() &#123;
+    // Make sure we&#39;re running on Honeycomb or higher to use ActionBar APIs
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.HONEYCOMB) &#123;
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    &#125;
+&#125;  
+</code></pre>
+<p>使用平台的主题和样式<br>To make your activity look like a dialog box:</p>
+<pre><code>&lt;activity android:theme=&quot;@android:style/Theme.Dialog&quot;&gt;
+</code></pre>
+<p>To make your activity have a transparent background:</p>
+<pre><code>&lt;activity android:theme=&quot;@android:style/Theme.Translucent&quot;&gt;
+</code></pre>
+<p>To apply your own custom theme defined in /res/values/styles.xml:</p>
+<pre><code>&lt;activity android:theme=&quot;@style/CustomTheme&quot;&gt;
+</code></pre>
+<p>To apply a theme to your entire app (all activities), add the android:theme attribute to the <application> element:</p>
+<pre><code>application android:theme=&quot;@style/CustomTheme&quot;&gt;  
+</code></pre>
+<h4 id="Fragment的创建"><a href="#Fragment的创建" class="headerlink" title="Fragment的创建"></a>Fragment的创建</h4><p>1.Create a Fragment Class  </p>
+<pre><code>import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+public class ArticleFragment extends Fragment &#123;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        Bundle savedInstanceState) &#123;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.article_view, container, false);
+    &#125;
+&#125;
+</code></pre>
+<p>2.Add a Fragment to an Activity using XML  </p>
+<p>res/layout-large/news_articles.xml  </p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:orientation=&quot;horizontal&quot;
+    android:layout_width=&quot;fill_parent&quot;
+    android:layout_height=&quot;fill_parent&quot;&gt;
+
+    &lt;fragment android:name=&quot;com.example.android.fragments.HeadlinesFragment&quot;
+              android:id=&quot;@+id/headlines_fragment&quot;
+              android:layout_weight=&quot;1&quot;
+              android:layout_width=&quot;0dp&quot;
+              android:layout_height=&quot;match_parent&quot; /&gt;
+
+    &lt;fragment android:name=&quot;com.example.android.fragments.ArticleFragment&quot;
+              android:id=&quot;@+id/article_fragment&quot;
+              android:layout_weight=&quot;2&quot;
+              android:layout_width=&quot;0dp&quot;
+              android:layout_height=&quot;match_parent&quot; /&gt;
+
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>3.Then apply the layout to your activity  </p>
+<pre><code>import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class MainActivity extends FragmentActivity &#123;
+    @Override
+    public void onCreate(Bundle savedInstanceState) &#123;
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.news_articles);
+    &#125;
+&#125;
+</code></pre>
+<p>更多内容参考<a target="_blank" rel="noopener" href="http://blog.csdn.net/guolin_blog/article/details/8881711">Android Fragment完全解析，关于碎片你所需知道的一切</a></p>
+<h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><h5 id="保存键值对"><a href="#保存键值对" class="headerlink" title="保存键值对"></a>保存键值对</h5><p>获取SharedPreferences     </p>
+<pre><code>1.通过R.string.preference_file_key获取对应的SharedPreferences
+    Context context = getActivity();
+    SharedPreferences sharedPref = context.getSharedPreferences(
+        getString(R.string.preference_file_key), Context.MODE_PRIVATE);  
+2.获取Activity的公共的SharedPreferences
+    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);  
+</code></pre>
+<p>写入SharedPreferences </p>
+<pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+SharedPreferences.Editor editor = sharedPref.edit();
+editor.putInt(getString(R.string.saved_high_score), newHighScore);
+editor.commit();
+</code></pre>
+<p>读取SharedPreferences </p>
+<pre><code>SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+int defaultValue = getResources().getInteger(R.string.saved_high_score_default);
+long highScore = sharedPref.getInt(getString(R.string.saved_high_score), defaultValue);
+</code></pre>
+<h5 id="保存文件"><a href="#保存文件" class="headerlink" title="保存文件"></a>保存文件</h5><h6 id="内部存储"><a href="#内部存储" class="headerlink" title="内部存储"></a>内部存储</h6><ul>
+<li>它始终可用  </li>
+<li>默认情况下只有您的应用可以访问此处保存的文件</li>
+<li>当用户卸载您的应用时，系统会从内部存储中删除您的应用的所有文件。</li>
+</ul>
+<p>获取应用的内部目录的 File  </p>
+<pre><code>getFilesDir()
+</code></pre>
+<p>获取应用临时缓存文件的内部目录的 File  </p>
+<pre><code>getCacheDir()
+</code></pre>
+<p>用法：</p>
+<pre><code>File file = new File(context.getFilesDir(), filename);
+</code></pre>
+<p>或者 调用 openFileOutput() 获取写入到内部目录中的文件的 FileOutputStream</p>
+<pre><code>String filename = &quot;myfile&quot;;
+String string = &quot;Hello world!&quot;;
+FileOutputStream outputStream;
+
+try &#123;
+  outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+  outputStream.write(string.getBytes());
+  outputStream.close();
+&#125; catch (Exception e) &#123;
+  e.printStackTrace();
+&#125;  
+</code></pre>
+<p>或者 缓存某些文件，您应改用 createTempFile()</p>
+<pre><code>public File getTempFile(Context context, String url) &#123;
+    File file;
+    try &#123;
+        String fileName = Uri.parse(url).getLastPathSegment();
+        file = File.createTempFile(fileName, null, context.getCacheDir());
+    catch (IOException e) &#123;
+        // Error while creating file
+    &#125;
+    return file;
+&#125;
+</code></pre>
+<h6 id="外部存储"><a href="#外部存储" class="headerlink" title="外部存储"></a>外部存储</h6><ul>
+<li>它并非始终可用，因为用户可采用 USB 存储的形式装载外部存储，并在某些情况下会从设备中将其删除</li>
+<li>它是全局可读的，因此此处保存的文件可能不受您控制地被读取</li>
+<li>当用户卸载您的应用时，只有在您通过 getExternalFilesDir() 将您的应用的文件保存在目录中时，系统才会从此处删除您的应用的文件</li>
+</ul>
+<p>1.获取权限  </p>
+<pre><code>&lt;manifest ...&gt;  
+    &lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+     &lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot; /&gt;
+    ...
+&lt;/manifest&gt;
+</code></pre>
+<p>通过调用 getExternalStorageState() 查询外部存储状态。 如果返回的状态为 MEDIA_MOUNTED，那么您可以对您的文件进行读写    </p>
+<pre><code>/* Checks if external storage is available for read and write */
+public boolean isExternalStorageWritable() &#123;
+    String state = Environment.getExternalStorageState();
+    if (Environment.MEDIA_MOUNTED.equals(state)) &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+
+/* Checks if external storage is available to at least read */
+public boolean isExternalStorageReadable() &#123;
+    String state = Environment.getExternalStorageState();
+    if (Environment.MEDIA_MOUNTED.equals(state) ||
+        Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) &#123;
+        return true;
+    &#125;
+    return false;
+&#125;
+</code></pre>
+<p>如果要使用外部存储上的公共文件，使用 getExternalStoragePublicDirectory() 方法获取表示外部存储上相应目录的 File 。该方法使用指定 您想要保存以便它们可以与其他公共文件在逻辑上组织在一起的文件类型的参数，比如 DIRECTORY_MUSIC 或 DIRECTORY_PICTURES  </p>
+<pre><code>public File getAlbumStorageDir(String albumName) &#123;
+    // Get the directory for the user&#39;s public pictures directory. 
+    File file = new File(Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES), albumName);
+    if (!file.mkdirs()) &#123;
+        Log.e(LOG_TAG, &quot;Directory not created&quot;);
+    &#125;
+    return file;
+&#125; 
+</code></pre>
+<p>通过调用 getExternalFilesDir() 获取相应的目录并向其传递指示您想要的目录类型的名称。当用户卸载应用时，系统会删除这些文件</p>
+<pre><code>public File getAlbumStorageDir(Context context, String albumName) &#123;
+    // Get the directory for the app&#39;s private pictures directory. 
+    File file = new File(context.getExternalFilesDir(
+            Environment.DIRECTORY_PICTURES), albumName);
+    if (!file.mkdirs()) &#123;
+        Log.e(LOG_TAG, &quot;Directory not created&quot;);
+    &#125;
+    return file;
+&#125;
+</code></pre>
+<h6 id="删除文件"><a href="#删除文件" class="headerlink" title="删除文件"></a>删除文件</h6><pre><code>myFile.delete();
+or
+myContext.deleteFile(fileName);
+</code></pre>
+<h5 id="使用-SQLite-保存数据"><a href="#使用-SQLite-保存数据" class="headerlink" title="使用 SQLite 保存数据"></a>使用 SQLite 保存数据</h5><h6 id="Define-a-Schema-and-Contract"><a href="#Define-a-Schema-and-Contract" class="headerlink" title="Define a Schema and Contract"></a>Define a Schema and Contract</h6><p>通过实现 BaseColumns接口，能自动生成_ID 字段</p>
+<pre><code>public final class FeedReaderContract &#123;
+    // To prevent someone from accidentally instantiating the contract class,
+    // give it an empty constructor.
+    public FeedReaderContract() &#123;&#125;
+
+    /* Inner class that defines the table contents */
+    public static abstract class FeedEntry implements BaseColumns &#123;
+        public static final String TABLE_NAME = &quot;entry&quot;;
+        public static final String COLUMN_NAME_ENTRY_ID = &quot;entryid&quot;;
+        public static final String COLUMN_NAME_TITLE = &quot;title&quot;;
+        public static final String COLUMN_NAME_SUBTITLE = &quot;subtitle&quot;;
+        ...
+    &#125;
+&#125;
+</code></pre>
+<h6 id="Create-a-Database-Using-a-SQL-Helper"><a href="#Create-a-Database-Using-a-SQL-Helper" class="headerlink" title="Create a Database Using a SQL Helper"></a>Create a Database Using a SQL Helper</h6><pre><code>private static final String TEXT_TYPE = &quot; TEXT&quot;;
+private static final String COMMA_SEP = &quot;,&quot;;
+private static final String SQL_CREATE_ENTRIES =
+    &quot;CREATE TABLE &quot; + FeedEntry.TABLE_NAME + &quot; (&quot; +
+    FeedEntry._ID + &quot; INTEGER PRIMARY KEY,&quot; +
+    FeedEntry.COLUMN_NAME_ENTRY_ID + TEXT_TYPE + COMMA_SEP +
+    FeedEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
+    ... // Any other options for the CREATE command
+    &quot; )&quot;;
+
+private static final String SQL_DELETE_ENTRIES =
+    &quot;DROP TABLE IF EXISTS &quot; + FeedEntry.TABLE_NAME; 
+</code></pre>
+<p>Note: Because they can be long-running, be sure that you call getWritableDatabase() or getReadableDatabase() in a background thread, such as with AsyncTask or IntentService.</p>
+<pre><code>public class FeedReaderDbHelper extends SQLiteOpenHelper &#123;
+    // If you change the database schema, you must increment the database version.
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = &quot;FeedReader.db&quot;;
+
+    public FeedReaderDbHelper(Context context) &#123;
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    &#125;
+    public void onCreate(SQLiteDatabase db) &#123;
+        db.execSQL(SQL_CREATE_ENTRIES);
+    &#125;
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;
+        // This database is only a cache for online data, so its upgrade policy is
+        // to simply to discard the data and start over
+        db.execSQL(SQL_DELETE_ENTRIES);
+        onCreate(db);
+    &#125;
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) &#123;
+        onUpgrade(db, oldVersion, newVersion);
+    &#125;
+&#125;
+</code></pre>
+<p>然后</p>
+<pre><code>FeedReaderDbHelper mDbHelper = new FeedReaderDbHelper(getContext())
+</code></pre>
+<h6 id="Put-Information-into-a-Database"><a href="#Put-Information-into-a-Database" class="headerlink" title="Put Information into a Database"></a>Put Information into a Database</h6><pre><code>// Gets the data repository in write mode
+SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+// Create a new map of values, where column names are the keys
+ContentValues values = new ContentValues();
+values.put(FeedEntry.COLUMN_NAME_ENTRY_ID, id);
+values.put(FeedEntry.COLUMN_NAME_TITLE, title);
+values.put(FeedEntry.COLUMN_NAME_CONTENT, content);
+
+// Insert the new row, returning the primary key value of the new row
+long newRowId;
+newRowId = db.insert(
+         FeedEntry.TABLE_NAME,
+         FeedEntry.COLUMN_NAME_NULLABLE,
+         values);
+</code></pre>
+<h6 id="Read-Information-from-a-Database"><a href="#Read-Information-from-a-Database" class="headerlink" title="Read Information from a Database"></a>Read Information from a Database</h6><pre><code>SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+// Define a projection that specifies which columns from the database
+// you will actually use after this query.
+String[] projection = &#123;
+    FeedEntry._ID,
+    FeedEntry.COLUMN_NAME_TITLE,
+    FeedEntry.COLUMN_NAME_UPDATED,
+    ...
+    &#125;;
+
+// How you want the results sorted in the resulting Cursor
+String sortOrder =
+    FeedEntry.COLUMN_NAME_UPDATED + &quot; DESC&quot;;
+
+Cursor c = db.query(
+    FeedEntry.TABLE_NAME,  // The table to query
+    projection,                               // The columns to return
+    selection,                                // The columns for the WHERE clause
+    selectionArgs,                            // The values for the WHERE clause
+    null,                                     // don&#39;t group the rows
+    null,                                     // don&#39;t filter by row groups
+    sortOrder                                 // The sort order
+    );
+</code></pre>
+<p>then</p>
+<pre><code>cursor.moveToFirst();
+long itemId = cursor.getLong(
+    cursor.getColumnIndexOrThrow(FeedEntry._ID)
+)
+</code></pre>
+<h6 id="Delete-Information-from-a-Database"><a href="#Delete-Information-from-a-Database" class="headerlink" title="Delete Information from a Database"></a>Delete Information from a Database</h6><pre><code>// Define &#39;where&#39; part of query.
+String selection = FeedEntry.COLUMN_NAME_ENTRY_ID + &quot; LIKE ?&quot;;
+// Specify arguments in placeholder order.
+String[] selectionArgs = &#123; String.valueOf(rowId) &#125;;
+// Issue SQL statement.
+db.delete(table_name, selection, selectionArgs)
+</code></pre>
+<h6 id="Update-a-Database"><a href="#Update-a-Database" class="headerlink" title="Update a Database"></a>Update a Database</h6><pre><code>SQLiteDatabase db = mDbHelper.getReadableDatabase();
+
+// New value for one column
+ContentValues values = new ContentValues();
+values.put(FeedEntry.COLUMN_NAME_TITLE, title);
+
+// Which row to update, based on the ID
+String selection = FeedEntry.COLUMN_NAME_ENTRY_ID + &quot; LIKE ?&quot;;
+String[] selectionArgs = &#123; String.valueOf(rowId) &#125;;
+
+int count = db.update(
+    FeedReaderDbHelper.FeedEntry.TABLE_NAME,
+    values,
+    selection,
+    selectionArgs);
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/android/" rel="tag"># android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/06/13/Async/" rel="prev" title="Async">
+      <i class="fa fa-chevron-left"></i> Async
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/06/19/androidStudio%E5%BF%AB%E6%8D%B7%E9%94%AE%E6%95%B4%E7%90%86/" rel="next" title="androidStudio快捷键整理">
+      androidStudio快捷键整理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#activity%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%B3%E8%BD%AC%E5%92%8C%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="nav-number">1.</span> <span class="nav-text">activity之间的跳转和数据传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">2.</span> <span class="nav-text">activity生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onCreate"><span class="nav-number">2.1.</span> <span class="nav-text">onCreate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStart"><span class="nav-number">2.2.</span> <span class="nav-text">onStart()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#onRestart"><span class="nav-number">3.</span> <span class="nav-text">onRestart()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#onResume"><span class="nav-number">3.1.</span> <span class="nav-text">onResume()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onPause"><span class="nav-number">3.2.</span> <span class="nav-text">onPause()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onStop"><span class="nav-number">3.3.</span> <span class="nav-text">onStop()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onDestroy"><span class="nav-number">3.4.</span> <span class="nav-text">onDestroy()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%86activity%E8%AE%BE%E7%BD%AE%E4%B8%BA%E7%AA%97%E5%8F%A3%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">将activity设置为窗口模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E5%A4%87%E5%85%BC%E5%AE%B9"><span class="nav-number">5.</span> <span class="nav-text">设备兼容</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E5%85%BC%E5%AE%B9"><span class="nav-number">5.1.</span> <span class="nav-text">语言兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B1%8F%E5%B9%95%E5%85%BC%E5%AE%B9"><span class="nav-number">5.2.</span> <span class="nav-text">屏幕兼容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%85%BC%E5%AE%B9"><span class="nav-number">5.3.</span> <span class="nav-text">版本兼容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fragment%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">6.</span> <span class="nav-text">Fragment的创建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E6%95%B0%E6%8D%AE"><span class="nav-number">7.</span> <span class="nav-text">保存数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E9%94%AE%E5%80%BC%E5%AF%B9"><span class="nav-number">7.1.</span> <span class="nav-text">保存键值对</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6"><span class="nav-number">7.2.</span> <span class="nav-text">保存文件</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%86%85%E9%83%A8%E5%AD%98%E5%82%A8"><span class="nav-number">7.2.1.</span> <span class="nav-text">内部存储</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%96%E9%83%A8%E5%AD%98%E5%82%A8"><span class="nav-number">7.2.2.</span> <span class="nav-text">外部存储</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6"><span class="nav-number">7.2.3.</span> <span class="nav-text">删除文件</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-SQLite-%E4%BF%9D%E5%AD%98%E6%95%B0%E6%8D%AE"><span class="nav-number">7.3.</span> <span class="nav-text">使用 SQLite 保存数据</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Define-a-Schema-and-Contract"><span class="nav-number">7.3.1.</span> <span class="nav-text">Define a Schema and Contract</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Create-a-Database-Using-a-SQL-Helper"><span class="nav-number">7.3.2.</span> <span class="nav-text">Create a Database Using a SQL Helper</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Put-Information-into-a-Database"><span class="nav-number">7.3.3.</span> <span class="nav-text">Put Information into a Database</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Read-Information-from-a-Database"><span class="nav-number">7.3.4.</span> <span class="nav-text">Read Information from a Database</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Delete-Information-from-a-Database"><span class="nav-number">7.3.5.</span> <span class="nav-text">Delete Information from a Database</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Update-a-Database"><span class="nav-number">7.3.6.</span> <span class="nav-text">Update a Database</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Petercao"
+      src="/uploads/aaa.jpg">
+  <p class="site-author-name" itemprop="name">Petercao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/about" title="Email → &#x2F;about"><i class="fa fa-envelope fa-fw"></i>Email</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Peter-cao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Peter-cao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petercao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

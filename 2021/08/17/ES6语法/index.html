@@ -1,38 +1,490 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="ES6常用语法整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6语法">
+<meta property="og:url" content="http://yoursite.com/2021/08/17/ES6%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="Peter&#39;s blog">
+<meta property="og:description" content="ES6常用语法整理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-08-17T07:44:30.000Z">
+<meta property="article:modified_time" content="2021-11-16T03:07:23.853Z">
+<meta property="article:author" content="Petercao">
+<meta property="article:tag" content="javascript">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/08/17/ES6%E8%AF%AD%E6%B3%95/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>ES6语法 | Peter's blog</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Peter's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Peter's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/17/ES6%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/aaa.jpg">
+      <meta itemprop="name" content="Petercao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Peter's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ES6语法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-17 15:44:30" itemprop="dateCreated datePublished" datetime="2021-08-17T15:44:30+08:00">2021-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-16 11:07:23" itemprop="dateModified" datetime="2021-11-16T11:07:23+08:00">2021-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">javascript基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>ES6常用语法整理<span id="more"></span></p>
+<h1 id="let-const"><a href="#let-const" class="headerlink" title="let/const"></a>let/const</h1><h1 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h1><ol>
+<li>箭头函数没有arguments</li>
+<li>箭头函数没有prototype属性，不能用作构造函数</li>
+<li>箭头函数没有自己this，它的this是词法的，引用的是上下文的this</li>
+</ol>
+<h1 id="iterator迭代器"><a href="#iterator迭代器" class="headerlink" title="iterator迭代器"></a>iterator迭代器</h1><p>是另外4个ES6常用特性的实现基础（解构赋值，剩余/扩展运算符，生成器，for of循环）</p>
+<h1 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h1><h1 id="剩余-扩展运算符"><a href="#剩余-扩展运算符" class="headerlink" title="剩余/扩展运算符"></a>剩余/扩展运算符</h1><h1 id="对象属性-方法简写"><a href="#对象属性-方法简写" class="headerlink" title="对象属性/方法简写"></a>对象属性/方法简写</h1><h1 id="for-…-of循环"><a href="#for-…-of循环" class="headerlink" title="for … of循环"></a>for … of循环</h1><ol>
+<li>for … of只能用在可迭代对象上,获取的是迭代器返回的value值,for … in 可以获取所有对象的键名</li>
+<li>for … in会遍历对象的整个原型链,性能非常差不推荐使用,而for … of只遍历当前对象不会遍历它的原型链</li>
+<li>对于数组的遍历,for … in会返回数组中所有可枚举的属性(包括原型链上可枚举的属性),for … of只返回数组的下标对应的属性值</li>
+</ol>
+<h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><h1 id="ES6-Module"><a href="#ES6-Module" class="headerlink" title="ES6 Module"></a>ES6 Module</h1><p><a href="/2021/07/08/JavaScript%E6%A8%A1%E5%9D%97%E5%8C%96">JavaScript模块化</a>。</p>
+<h1 id="函数默认值"><a href="#函数默认值" class="headerlink" title="函数默认值"></a>函数默认值</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params">&#123;x=<span class="number">10</span>&#125;=&#123;&#125;,&#123;y&#125;=&#123;y: <span class="number">10</span>&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>. log(x,y)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func(&#123;&#125;,&#123;&#125;) <span class="comment">//10, undefined  </span></span><br><span class="line"><span class="comment">//传入了2个空对象,所以函数的第一第二个参数都不会使用函数默认值.第一个参数会尝试解构对象,提取变量x,因为第一个参数传入了一个空对象,所以解构不出变量x,但是这里又在内层设置了一个默认值,所以x的值为10,而第二个参数同样传了一个空对象,不会使用函数默认值,然后会尝试解构出变量y,发现空对象中也没有变量y,但是y没有设置默认值所以解构后y的值为undefined</span></span><br><span class="line"></span><br><span class="line">func (<span class="literal">undefined</span>,&#123;&#125;) <span class="comment">//10,undefined </span></span><br><span class="line"><span class="comment">//第一个参数显式的传入了一个undefined,所以会使用函数默认值为一个空对象,随后和第一行一样尝试解构x发现x为undefined,但是设置了默认值所以x的值为10,而y和上文一样为undefined</span></span><br><span class="line">func(<span class="literal">undefined</span>, <span class="literal">undefined</span>) <span class="comment">//10.10 </span></span><br><span class="line"><span class="comment">//2个参数都会undefined,第一个参数和上文一样,第二个参数会调用函数默认值,赋值为&#123;y:10&#125;,然后尝试解构出变量y,即y为10</span></span><br><span class="line">func() <span class="comment">//10,10</span></span><br><span class="line"><span class="comment">//跟上一个相同 一个是显式传入undefined,一个是隐式不传参数</span></span><br><span class="line">func(&#123;<span class="attr">x</span>:<span class="number">1</span>&#125;,&#123;<span class="attr">y</span>:<span class="number">2</span>&#125;) <span class="comment">//1,2</span></span><br><span class="line"><span class="comment">//直接使用传入的参数,不会使用函数默认值,并且能够顺利的解构出变量x,y</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h1><h2 id="handler-apply"><a href="#handler-apply" class="headerlink" title="handler.apply"></a>handler.apply</h2><p>节流</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="function">(<span class="params">func, time</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> previous =<span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">0</span>).getTime()</span><br><span class="line">    <span class="keyword">let</span> handler =&#123;</span><br><span class="line">        <span class="function"><span class="title">apply</span>(<span class="params">target, context, args</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> now =<span class="keyword">new</span> <span class="built_in">Date</span>().getTime(); </span><br><span class="line">            <span class="keyword">if</span> (now - previous&gt;time) &#123; </span><br><span class="line">                previous =now</span><br><span class="line">                <span class="built_in">Reflect</span>.apply(func, context, args)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(func, handler)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">DOM.addEventListener(<span class="string">&#x27;mousemove&#x27;</span>,proxy(func,<span class="number">1000</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="handler-contruct"><a href="#handler-contruct" class="headerlink" title="handler.contruct"></a>handler.contruct</h2><p>单例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> proxy = <span class="function">(<span class="params">func</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> instance;</span><br><span class="line">    <span class="keyword">let</span> handler =&#123;</span><br><span class="line">        <span class="function"><span class="title">contruct</span>(<span class="params">target, args</span>)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(!instance)&#123;</span><br><span class="line">                instance = <span class="built_in">Reflect</span>.contruct(func,args)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> instance;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(func, handler)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> singlePerson = proxy(Person);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p1 = singlePerson(<span class="string">&#x27;zhangsan&#x27;</span>,<span class="number">21</span>)</span><br><span class="line"><span class="keyword">let</span> p2 = singlePerson(<span class="string">&#x27;lisi&#x27;</span>,<span class="number">21</span>)</span><br><span class="line"><span class="built_in">console</span>.log(p1 === p2)</span><br></pre></td></tr></table></figure>
+
+<h2 id="handler-defineProperty"><a href="#handler-defineProperty" class="headerlink" title="handler.defineProperty"></a>handler.defineProperty</h2><h1 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h1><ol>
+<li>从 Reflect 对象上可以拿到语言内部的方法。</li>
+<li>操作对象出现报错时返回 false</li>
+<li>让操作对象都变为函数式编程</li>
+<li>保持和 proxy 对象的方法一一对应</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/16/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0%E4%B8%8E%E6%99%AE%E9%80%9A%E5%87%BD%E6%95%B0%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="prev" title="箭头函数与普通函数的区别">
+      <i class="fa fa-chevron-left"></i> 箭头函数与普通函数的区别
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/08/30/%E5%80%92%E8%AE%A1%E6%97%B6%E6%97%B6%E9%97%B4%E5%81%8F%E5%B7%AE%E9%97%AE%E9%A2%98/" rel="next" title="倒计时时间偏差问题">
+      倒计时时间偏差问题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#let-const"><span class="nav-number">1.</span> <span class="nav-text">let&#x2F;const</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#iterator%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">iterator迭代器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC"><span class="nav-number">4.</span> <span class="nav-text">解构赋值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%A9%E4%BD%99-%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">5.</span> <span class="nav-text">剩余&#x2F;扩展运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7-%E6%96%B9%E6%B3%95%E7%AE%80%E5%86%99"><span class="nav-number">6.</span> <span class="nav-text">对象属性&#x2F;方法简写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#for-%E2%80%A6-of%E5%BE%AA%E7%8E%AF"><span class="nav-number">7.</span> <span class="nav-text">for … of循环</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Promise"><span class="nav-number">8.</span> <span class="nav-text">Promise</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ES6-Module"><span class="nav-number">9.</span> <span class="nav-text">ES6 Module</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">10.</span> <span class="nav-text">函数默认值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Proxy"><span class="nav-number">11.</span> <span class="nav-text">Proxy</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#handler-apply"><span class="nav-number">11.1.</span> <span class="nav-text">handler.apply</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#handler-contruct"><span class="nav-number">11.2.</span> <span class="nav-text">handler.contruct</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#handler-defineProperty"><span class="nav-number">11.3.</span> <span class="nav-text">handler.defineProperty</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reflect"><span class="nav-number">12.</span> <span class="nav-text">Reflect</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Petercao"
+      src="/uploads/aaa.jpg">
+  <p class="site-author-name" itemprop="name">Petercao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/about" title="Email → &#x2F;about"><i class="fa fa-envelope fa-fw"></i>Email</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Peter-cao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Peter-cao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petercao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

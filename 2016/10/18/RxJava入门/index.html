@@ -1,38 +1,792 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="RxJava 是什么Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxJava入门">
+<meta property="og:url" content="http://yoursite.com/2016/10/18/RxJava%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Peter&#39;s blog">
+<meta property="og:description" content="RxJava 是什么Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-18T02:04:32.000Z">
+<meta property="article:modified_time" content="2021-11-16T03:07:23.859Z">
+<meta property="article:author" content="Petercao">
+<meta property="article:tag" content="android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2016/10/18/RxJava%E5%85%A5%E9%97%A8/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>RxJava入门 | Peter's blog</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Peter's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Peter's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/18/RxJava%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/aaa.jpg">
+      <meta itemprop="name" content="Petercao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Peter's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RxJava入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-18 10:04:32" itemprop="dateCreated datePublished" datetime="2016-10-18T10:04:32+08:00">2016-10-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-16 11:07:23" itemprop="dateModified" datetime="2021-11-16T11:07:23+08:00">2021-11-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="RxJava-是什么"><a href="#RxJava-是什么" class="headerlink" title="RxJava 是什么"></a>RxJava 是什么</h4><p>Github上的介绍：a library for composing asynchronous and event-based programs by using observable sequences.<br>一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库</p>
+<span id="more"></span>
+<h4 id="观察者模式举例"><a href="#观察者模式举例" class="headerlink" title="观察者模式举例"></a>观察者模式举例</h4><p>举例：按下开关，台灯灯亮<br>在这个事件中，台灯作为观察者，开关作为被观察者，台灯透过电线来观察开关的状态来并做出相应的处理</p>
+<h4 id="创建被观察者（开关）"><a href="#创建被观察者（开关）" class="headerlink" title="创建被观察者（开关）"></a>创建被观察者（开关）</h4><p>正常模式：</p>
+<pre><code>Observable switcher=Observable.create(new Observable.OnSubscribe&lt;String&gt;()&#123;
+
+    @Override
+    public void call(Subscriber&lt;? super String&gt; subscriber) &#123;
+        subscriber.onNext(&quot;On&quot;);
+        subscriber.onNext(&quot;Off&quot;);
+        subscriber.onNext(&quot;On&quot;);
+        subscriber.onNext(&quot;On&quot;);
+        subscriber.onCompleted();
+    &#125;
+&#125;);
+</code></pre>
+<p>偷懒模式1</p>
+<pre><code>Observable switcher=Observable.just(&quot;On&quot;,&quot;Off&quot;,&quot;On&quot;,&quot;On&quot;);
+</code></pre>
+<p>偷懒模式2</p>
+<pre><code>String [] kk=&#123;&quot;On&quot;,&quot;Off&quot;,&quot;On&quot;,&quot;On&quot;&#125;;
+Observable switcher=Observable.from(kk);
+</code></pre>
+<h4 id="创建观察者（台灯）"><a href="#创建观察者（台灯）" class="headerlink" title="创建观察者（台灯）"></a>创建观察者（台灯）</h4><p>正常模式</p>
+<pre><code>Subscriber light=new Subscriber&lt;String&gt;() &#123;
+    @Override
+    public void onCompleted() &#123;
+        //被观察者的onCompleted()事件会走到这里;
+        Log.d(&quot;DDDDDD&quot;,&quot;结束观察...\n&quot;);
+    &#125;
+
+    @Override
+    public void onError(Throwable e) &#123;
+            //出现错误会调用这个方法
+    &#125;
+    @Override
+    public void onNext(String s) &#123;
+        //处理传过来的onNext事件
+        Log.d(&quot;DDDDD&quot;,&quot;handle this---&quot;+s)
+    &#125;
+&#125;
+</code></pre>
+<p>偷懒模式</p>
+<pre><code> Action1 light=new Action1&lt;String&gt;() &#123;
+        @Override
+        public void call(String s) &#123;
+            Log.d(&quot;DDDDD&quot;,&quot;handle this---&quot;+s)
+        &#125;
+    &#125;
+</code></pre>
+<h4 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h4><pre><code>switcher.subscribe(light);
+</code></pre>
+<p>基本骨架：</p>
+<pre><code>//创建被观察者，是事件传递的起点
+Observable.just(&quot;On&quot;,&quot;Off&quot;,&quot;On&quot;,&quot;On&quot;)
+//这就是在传递过程中对事件进行过滤操作
+ .filter(new Func1&lt;String, Boolean&gt;() &#123;
+            @Override
+            public Boolean call(String s) &#123;
+                return s！=null;
+            &#125;
+        &#125;)
+//实现订阅
+.subscribe(
+    //创建观察者，作为事件传递的终点处理事件    
+      new Subscriber&lt;String&gt;() &#123;
+        @Override
+        public void onCompleted() &#123;
+            Log.d(&quot;DDDDDD&quot;,&quot;结束观察...\n&quot;);
+        &#125;
+
+        @Override
+        public void onError(Throwable e) &#123;
+            //出现错误会调用这个方法
+        &#125;
+        @Override
+        public void onNext(String s) &#123;
+            //处理事件
+            Log.d(&quot;DDDDD&quot;,&quot;handle this---&quot;+s)
+        &#125;
+    &#125;
+);
+</code></pre>
+<p>总结：  </p>
+<ul>
+<li>创建被观察者，产生事件</li>
+<li>设置事件传递过程中的过滤，合并，变换等加工操作。</li>
+<li>订阅一个观察者对象，实现事件最终的处理。</li>
+</ul>
+<blockquote>
+<p>Tips: 当调用订阅操作（即调用Observer.subscribe()方法）的时候，被观察者才真正开始发出事件。  </p>
+</blockquote>
+<h4 id="Map操作"><a href="#Map操作" class="headerlink" title="Map操作"></a>Map操作</h4><p>例子：</p>
+<pre><code>Observable.just(&quot;images/logo.png&quot;) // 输入类型 String
+.map(new Func1&lt;String, Bitmap&gt;() &#123;
+    @Override
+    public Bitmap call(String filePath) &#123; // 参数类型 String
+        return getBitmapFromPath(filePath); // 返回类型 Bitmap
+    &#125;
+&#125;)
+.subscribe(new Action1&lt;Bitmap&gt;() &#123;
+    @Override
+    public void call(Bitmap bitmap) &#123; // 参数类型 Bitmap
+        showBitmap(bitmap);
+    &#125;
+&#125;);
+</code></pre>
+<blockquote>
+<p>实际上在使用map操作时，new Func1() 就对应了类型的转你方向，String是原类型，Bitmap是转换后的类型。在call()方法中，输入的是原类型，返回转换后的类型 </p>
+</blockquote>
+<p>读取文件，创建bitmap可能是一个耗时操作，那么就应该在子线程中执行，主线程应该仅仅做展示。那么线程切换一般就会是比较复杂的事情了。但是在Rxjava中，是非常方便的。</p>
+<pre><code>Observable.create(new Observable.just(getFilePath())
+   //指定了被观察者执行的线程环境
+  .subscribeOn(Schedulers.newThread())
+  //将接下来执行的线程环境指定为io线程
+  .observeOn(Schedulers.io())
+    //使用map操作来完成类型转换
+    .map(new Func1&lt;String, Bitmap&gt;() &#123;
+      @Override
+      public Bitmap call(String s) &#123;
+        //显然自定义的createBitmapFromPath(s)方法，是一个极其耗时的操作
+          return createBitmapFromPath(s);
+      &#125;
+  &#125;)
+    //将后面执行的线程环境切换为主线程
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(
+         //创建观察者，作为事件传递的终点处理事件    
+          new Subscriber&lt;Bitmap&gt;() &#123;
+                @Override
+                public void onCompleted() &#123;
+                    Log.d(&quot;DDDDDD&quot;,&quot;结束观察...\n&quot;);
+                &#125;
+
+                @Override
+                public void onError(Throwable e) &#123;
+                    //出现错误会调用这个方法
+                &#125;
+                @Override
+                public void onNext(Bitmap s) &#123;
+                    //处理事件
+                    showBitmap(s)
+                &#125;
+            );
+    &#125;
+</code></pre>
+<h4 id="flatMap-操作"><a href="#flatMap-操作" class="headerlink" title="flatMap()操作"></a>flatMap()操作</h4><p>假设这么一种需求：假设有一个数据结构『学生』，现在需要打印出一组学生的名字。实现方式很简单：</p>
+<pre><code>Student[] students = ...;
+Subscriber&lt;String&gt; subscriber = new Subscriber&lt;String&gt;() &#123;
+    @Override
+    public void onNext(String name) &#123;
+        Log.d(tag, name);
+    &#125;
+    ...
+&#125;;
+Observable.from(students)
+    .map(new Func1&lt;Student, String&gt;() &#123;
+        @Override
+        public String call(Student student) &#123;
+            return student.getName();
+        &#125;
+    &#125;)
+.subscribe(subscriber);
+</code></pre>
+<p>很简单。那么再假设：如果要打印出每个学生所需要修的所有课程的名称呢？（需求的区别在于，每个学生只有一个名字，但却有多个课程。）首先可以这样实现：</p>
+<pre><code>Student[] students = ...;
+Subscriber&lt;Student&gt; subscriber = new Subscriber&lt;Student&gt;() &#123;
+    @Override
+    public void onNext(Student student) &#123;
+        List&lt;Course&gt; courses = student.getCourses();
+        for (int i = 0; i &lt; courses.size(); i++) &#123;
+            Course course = courses.get(i);
+            Log.d(tag, course.getName());
+        &#125;
+    &#125;
+    ...
+&#125;;
+Observable.from(students)
+.subscribe(subscriber);
+</code></pre>
+<p>依然很简单。那么如果我不想在 Subscriber 中使用 for 循环，而是希望 Subscriber 中直接传入单个的 Course 对象呢（这对于代码复用很重要）？用 map() 显然是不行的，因为 map() 是一对一的转化，而我现在的要求是一对多的转化。那怎么才能把一个 Student 转化成多个 Course 呢？<br>这个时候，就需要用 <code>flatMap()</code> 了：</p>
+<pre><code>Student[] students = ...;
+Subscriber&lt;Course&gt; subscriber = new Subscriber&lt;Course&gt;() &#123;
+    @Override
+    public void onNext(Course course) &#123;
+        Log.d(tag, course.getName());
+    &#125;
+    ...
+&#125;;
+Observable.from(students)
+    .flatMap(new Func1&lt;Student, Observable&lt;Course&gt;&gt;() &#123;
+        @Override
+        public Observable&lt;Course&gt; call(Student student) &#123;
+            return Observable.from(student.getCourses());
+        &#125;
+    &#125;)
+.subscribe(subscriber);
+</code></pre>
+<h4 id="异步（线程调度）"><a href="#异步（线程调度）" class="headerlink" title="异步（线程调度）"></a>异步（线程调度）</h4><p>在讲解Map操作符时，已经提到了线程调度，在这里我用更加简介的代码代替：</p>
+<pre><code> Observable.create(new Observable.just(getFilePath())
+       //指定在新线程中创建被观察者
+      .subscribeOn(Schedulers.newThread())
+      //将接下来执行的线程环境指定为io线程
+      .observeOn(Schedulers.io())
+        //map就处在io线程
+      .map(mMapOperater)
+        //将后面执行的线程环境切换为主线程，
+        //但是这一句依然执行在io线程
+      .observeOn(AndroidSchedulers.mainThread())
+      //指定线程无效，但这句代码本身执行在主线程
+      .subscribeOn(Schedulers.io())
+      //执行在主线程
+      .subscribe(mSubscriber);
+</code></pre>
+<p>实际上线程调度只有subscribeOn（）和observeOn（）两个方法。对于初学者，只需要掌握两点：  </p>
+<ul>
+<li>subscribeOn（）它指示Observable在一个指定的调度器上创建（只作用于被观察者创建阶段）。只能指定一次，如果指定多次则以第一次为准</li>
+<li>observeOn（）指定在事件传递（加工变换）和最终被处理（观察者）的发生在哪一个调度器。可指定多次，每次指定完都在下一步生效。</li>
+</ul>
+<p>RxJava已经为我们提供了一下几个Scheduler</p>
+<ul>
+<li>Schedulers.immediate()：直接在当前线程运行，相当于不指定线程。这是默认的 Scheduler。</li>
+<li>Schedulers.newThread()：总是启用新线程，并在新线程执行操作。</li>
+<li>Schedulers.io()： I/O 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。行为模式和 newThread() 差不多，区别在于 io() 的内部实现是是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下 io() 比 newThread() 更有效率。不要把计算工作放在 io() 中，可以避免创建不必要的线程。</li>
+<li>Schedulers.computation()：计算所使用的 Scheduler。这个计算指的是 CPU 密集型计算，即不会被 I/O 等操作限制性能的操作，例如图形的计算。这个 Scheduler 使用的固定的线程池，大小为 CPU 核数。不要把 I/O 操作放在 computation() 中，否则 I/O 操作的等待时间会浪费 CPU。</li>
+<li>AndroidSchedulers.mainThread()：它指定的操作将在 Android 主线程运行。</li>
+</ul>
+<h4 id="与-Retrofit-的结合"><a href="#与-Retrofit-的结合" class="headerlink" title="与 Retrofit 的结合"></a>与 Retrofit 的结合</h4><p>以获取一个 User 对象的接口作为例子。使用Retrofit 的传统 API，你可以用这样的方式来定义请求：</p>
+<pre><code>@GET(&quot;/user&quot;)
+public void getUser(@Query(&quot;userId&quot;) String userId, Callback&lt;User&gt; callback);
+</code></pre>
+<p>在程序的构建过程中， Retrofit 会把自动把方法实现并生成代码，然后开发者就可以利用下面的方法来获取特定用户并处理响应：</p>
+<pre><code>getUser(userId, new Callback&lt;User&gt;() &#123;
+    @Override
+    public void success(User user) &#123;
+        userView.setUser(user);
+    &#125;
+
+    @Override
+    public void failure(RetrofitError error) &#123;
+        // Error handling
+        ...
+    &#125;
+&#125;;
+</code></pre>
+<p>而使用 RxJava 形式的 API，定义同样的请求是这样的：</p>
+<pre><code>@GET(&quot;/user&quot;)
+public Observable&lt;User&gt; getUser(@Query(&quot;userId&quot;) String userId);
+</code></pre>
+<p>使用的时候是这样的：</p>
+<pre><code>getUser(userId)
+    .subscribeOn(Schedulers.newThread())
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(new Observer&lt;User&gt;() &#123;
+        @Override
+        public void onNext(User user) &#123;
+            userView.setUser(user);
+        &#125;
+
+        @Override
+        public void onCompleted() &#123;
+        &#125;
+
+        @Override
+        public void onError(Throwable error) &#123;
+            // Error handling
+            ...
+        &#125;
+    &#125;);
+</code></pre>
+<p>再举一个例子：假设 /user 接口并不能直接访问，而需要填入一个在线获取的 token ，代码应该怎么写？<br>Callback 方式，可以使用嵌套的 Callback：</p>
+<pre><code>@GET(&quot;/token&quot;)
+public void getToken(Callback&lt;String&gt; callback);
+
+@GET(&quot;/user&quot;)
+public void getUser(@Query(&quot;token&quot;) String token, @Query(&quot;userId&quot;) String userId, Callback&lt;User&gt; callback);
+
+...
+
+getToken(new Callback&lt;String&gt;() &#123;
+    @Override
+    public void success(String token) &#123;
+        getUser(token, userId, new Callback&lt;User&gt;() &#123;
+            @Override
+            public void success(User user) &#123;
+                userView.setUser(user);
+            &#125;
+
+            @Override
+            public void failure(RetrofitError error) &#123;
+                // Error handling
+                ...
+            &#125;
+        &#125;;
+    &#125;
+
+    @Override
+    public void failure(RetrofitError error) &#123;
+        // Error handling
+        ...
+    &#125;
+&#125;);
+</code></pre>
+<p>倒是没有什么性能问题，可是迷之缩进毁一生，你懂我也懂，做过大项目的人应该更懂。<br>而使用 RxJava 的话，代码是这样的：</p>
+<pre><code>@GET(&quot;/token&quot;)
+public Observable&lt;String&gt; getToken();
+
+@GET(&quot;/user&quot;)
+public Observable&lt;User&gt; getUser(@Query(&quot;token&quot;) String token, @Query(&quot;userId&quot;) String userId);
+
+...
+
+getToken()
+    .flatMap(new Func1&lt;String, Observable&lt;User&gt;&gt;() &#123;
+        @Override
+        public Observable&lt;User&gt; onNext(String token) &#123;
+            return getUser(token, userId);
+        &#125;)
+    .observeOn(AndroidSchedulers.mainThread())
+    .subscribe(new Observer&lt;User&gt;() &#123;
+        @Override
+        public void onNext(User user) &#123;
+            userView.setUser(user);
+        &#125;
+
+        @Override
+        public void onCompleted() &#123;
+        &#125;
+
+        @Override
+        public void onError(Throwable error) &#123;
+            // Error handling
+            ...
+        &#125;
+    &#125;);  
+</code></pre>
+<p>参考：<br><a target="_blank" rel="noopener" href="http://gank.io/post/560e15be2dca930e00da1083">http://gank.io/post/560e15be2dca930e00da1083</a><br><a target="_blank" rel="noopener" href="http://gold.xitu.io/post/580103f20e3dd90057fc3e6d">http://gold.xitu.io/post/580103f20e3dd90057fc3e6d</a>  </p>
+<p>Demo:<a href="/uploads/RxjavaTest.rar">RxjavaTest.rar</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/android/" rel="tag"># android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/10/13/React%E7%AC%94%E8%AE%B0/" rel="prev" title="React笔记">
+      <i class="fa fa-chevron-left"></i> React笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/" rel="next" title="CNode-android笔记">
+      CNode-android笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#RxJava-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">RxJava 是什么</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E4%B8%BE%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">观察者模式举例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A2%AB%E8%A7%82%E5%AF%9F%E8%80%85%EF%BC%88%E5%BC%80%E5%85%B3%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">创建被观察者（开关）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%A7%82%E5%AF%9F%E8%80%85%EF%BC%88%E5%8F%B0%E7%81%AF%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">创建观察者（台灯）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A2%E9%98%85"><span class="nav-number">5.</span> <span class="nav-text">订阅</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Map%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">Map操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#flatMap-%E6%93%8D%E4%BD%9C"><span class="nav-number">7.</span> <span class="nav-text">flatMap()操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%EF%BC%88%E7%BA%BF%E7%A8%8B%E8%B0%83%E5%BA%A6%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">异步（线程调度）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8E-Retrofit-%E7%9A%84%E7%BB%93%E5%90%88"><span class="nav-number">9.</span> <span class="nav-text">与 Retrofit 的结合</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Petercao"
+      src="/uploads/aaa.jpg">
+  <p class="site-author-name" itemprop="name">Petercao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/about" title="Email → &#x2F;about"><i class="fa fa-envelope fa-fw"></i>Email</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Peter-cao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Peter-cao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petercao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

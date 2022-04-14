@@ -1,38 +1,780 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="本文为开发CNode-android的笔记，供以后开发参考">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNode-android笔记">
+<meta property="og:url" content="http://yoursite.com/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Peter&#39;s blog">
+<meta property="og:description" content="本文为开发CNode-android的笔记，供以后开发参考">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-21T01:12:13.000Z">
+<meta property="article:modified_time" content="2021-11-16T03:07:23.853Z">
+<meta property="article:author" content="Petercao">
+<meta property="article:tag" content="android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>CNode-android笔记 | Peter's blog</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Peter's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Peter's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/21/CNode-android%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/aaa.jpg">
+      <meta itemprop="name" content="Petercao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Peter's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CNode-android笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-10-21 09:12:13" itemprop="dateCreated datePublished" datetime="2016-10-21T09:12:13+08:00">2016-10-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-16 11:07:23" itemprop="dateModified" datetime="2021-11-16T11:07:23+08:00">2021-11-16</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本文为开发CNode-android的笔记，供以后开发参考</p>
+<span id="more"></span>
+<h4 id="主页列表显示"><a href="#主页列表显示" class="headerlink" title="主页列表显示"></a>主页列表显示</h4><p>ListView的使用</p>
+<pre><code>private List&lt;Map&lt;String, Object&gt;&gt;  dataList = new ArrayList&lt;&gt;();
+ topicsList = (ListView) findViewById(R.id.topicsList);
+topicsAdapter = new SimpleAdapter(this,dataList,R.layout.topic_item,new String[]&#123;&quot;title&quot;,&quot;loginname&quot;,&quot;reply_count&quot;,&quot;visit_count&quot;,&quot;last_reply_at&quot;,&quot;getCreate_at&quot;&#125;
+        ,new int[]&#123;R.id.topicLitle,R.id.author_name,R.id.reply_count,R.id.visit_count,R.id.last_reply,R.id.create_at&#125;);
+topicsList.setAdapter(topicsAdapter);
+</code></pre>
+<p>Retrofit的使用  </p>
+<pre><code>compile &#39;com.squareup.retrofit2:retrofit:2.1.0&#39;
+compile &#39;com.squareup.retrofit2:converter-gson:2.1.0&#39;
+</code></pre>
+<p>com.squareup.retrofit2:converter-gson:2.1.0不能漏掉，否则会报错，也可以用其他库，参考<a target="_blank" rel="noopener" href="http://square.github.io/retrofit/">Retrofit官网</a></p>
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+.baseUrl(&quot;https://api.github.com&quot;)
+.addConverterFactory(GsonConverterFactory.create())
+.build();
+</code></pre>
+<p>调用的时候不能漏掉<code>.addConverterFactory(GsonConverterFactory.create())</code><br>“2016-10-12T05:36:31.914Z”类似字符串转化为Date方法:</p>
+<pre><code>SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd&#39;T&#39;HH:mm:ss.SSS&#39;Z&#39;&quot;);
+Date last_reply_date = sdf.parse(last_reply_at);
+</code></pre>
+<h4 id="列表图片加载"><a href="#列表图片加载" class="headerlink" title="列表图片加载"></a>列表图片加载</h4><p>新建TopicListAdapter代替SimpleAdapter，TopicListAdapter继承BaseAdapter，主要重写getView方法，在getView中使用viewHolder，使listview滑动更加顺畅</p>
+<pre><code>@Override
+public View getView(int position, View convertView, ViewGroup parent) &#123;
+    ViewHolder viewHolder;
+    if (convertView == null) &#123;
+        viewHolder = new ViewHolder();
+        convertView = mInflater.inflate(R.layout.topic_item, null);
+        viewHolder.author_image = (ImageView) convertView.findViewById(R.id.author_image);
+        viewHolder.author_name = (TextView) convertView.findViewById(R.id.author_name);
+        viewHolder.top = (LinearLayout) convertView.findViewById(R.id.top);
+        viewHolder.good = (LinearLayout) convertView.findViewById(R.id.good);
+        viewHolder.last_reply = (TextView) convertView.findViewById(R.id.last_reply);
+        viewHolder.topicLitle = (TextView) convertView.findViewById(R.id.topicLitle);
+        viewHolder.create_at = (TextView) convertView.findViewById(R.id.create_at);
+        viewHolder.visit_count = (TextView) convertView.findViewById(R.id.visit_count);
+        viewHolder.reply_count = (TextView) convertView.findViewById(R.id.reply_count);
+        convertView.setTag(viewHolder);
+    &#125; else &#123;
+        viewHolder = (ViewHolder) convertView.getTag();
+    &#125;
+    Topic topic = dataList.get(position);
+    viewHolder.author_name.setText(topic.getAuthor().getLoginname());
+    viewHolder.top.setVisibility(topic.isTop() ? View.VISIBLE : View.GONE);
+    viewHolder.good.setVisibility(topic.isGood() ? View.VISIBLE : View.GONE);
+    viewHolder.last_reply.setText(Utils.getDateDiff(topic.getLast_reply_at()));
+    viewHolder.topicLitle.setText(topic.getTitle());
+    viewHolder.create_at.setText(Utils.formatDate(topic.getCreate_at()));
+    viewHolder.visit_count.setText(topic.getVisit_count() + &quot;&quot;);
+    viewHolder.reply_count.setText(topic.getReply_count() + &quot;&quot;);
+
+    viewHolder.author_image.setImageResource(R.mipmap.ic_launcher);
+
+    String authorImageUrl = topic.getAuthor().getAvatar_url().contains(&quot;http&quot;) ? topic.getAuthor().getAvatar_url() : &quot;https:&quot; + topic.getAuthor().getAvatar_url();
+    viewHolder.author_image.setTag(authorImageUrl);
+    showImageByAsyncTask(authorImageUrl, viewHolder.author_image);
+    return convertView;
+&#125;
+</code></pre>
+<p>使用AsyncTask实现图片的异步加载</p>
+<pre><code>public class AuthorImageLoader extends AsyncTask &lt;String,Void,Bitmap&gt;&#123;
+    ...
+&#125;
+</code></pre>
+<p>AsyncTask是抽象类.AsyncTask定义了三种泛型类型 Params，Progress和Result。<br>　　1.Params 启动任务执行的输入参数，比如HTTP请求的URL。<br>　　2.Progress 后台任务执行的百分比。<br>　　3.Result 后台执行任务最终返回的结果，比如String。<br>主要重写doInBackground和onPostExecute方法</p>
+<pre><code>@Override
+protected Bitmap doInBackground(String... params) &#123;
+    String url = params[0];
+    Bitmap bitmap = getBitmapFromUrl(params[0]);
+    return bitmap;
+&#125;
+
+@Override
+protected void onPostExecute(Bitmap bitmap) &#123;
+    super.onPostExecute(bitmap);
+    if(mImageView.getTag().equals(mUrl))&#123;
+        mImageView.setImageBitmap(bitmap);
+    &#125;
+&#125;
+</code></pre>
+<p>通过url获取bitmap</p>
+<pre><code>public Bitmap getBitmapFromUrl(String url)&#123;
+    Bitmap bitmap;
+    InputStream is = null;
+    try&#123;
+        URL mUrl = new URL(url);
+        HttpURLConnection mHttpURLConnection = (HttpURLConnection) mUrl.openConnection();
+        is = new BufferedInputStream(mHttpURLConnection.getInputStream());
+        bitmap = BitmapFactory.decodeStream(is);
+        mHttpURLConnection.disconnect();
+        return  bitmap;
+    &#125;catch (Exception e)&#123;
+        e.printStackTrace();
+    &#125;finally &#123;
+        try &#123;
+            is.close();
+        &#125; catch (Exception e) &#123;
+            e.printStackTrace();
+        &#125;
+    &#125;
+    return null;
+&#125;
+</code></pre>
+<p>参考：<a target="_blank" rel="noopener" href="http://blog.csdn.net/dmk877/article/details/49366421">http://blog.csdn.net/dmk877/article/details/49366421</a></p>
+<h4 id="上拉加载-下拉刷新"><a href="#上拉加载-下拉刷新" class="headerlink" title="上拉加载  下拉刷新"></a>上拉加载  下拉刷新</h4><p>下拉刷新，使用SwipeRefreshLayout，布局文件如下</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v4.widget.SwipeRefreshLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/content_main&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    app:layout_behavior=&quot;@string/appbar_scrolling_view_behavior&quot;
+    tools:context=&quot;com.demo.cnode_android.MainActivity&quot;
+    tools:showIn=&quot;@layout/app_bar_main&quot;&gt;
+
+
+    &lt;ListView
+        android:id=&quot;@+id/topicsList&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_alignParentEnd=&quot;true&quot;
+        android:layout_alignParentTop=&quot;true&quot; /&gt;
+&lt;/android.support.v4.widget.SwipeRefreshLayout&gt;
+</code></pre>
+<p>主要方法</p>
+<pre><code>setOnRefreshListener(OnRefreshListener): 为布局添加一个Listener
+setRefreshing(boolean): 显示或隐藏刷新进度条
+isRefreshing(): 检查是否处于刷新状态
+setColorScheme(): 设置进度条的颜色主题，最多能设置四种
+</code></pre>
+<p>上拉加载，为ListView添加setOnScrollListener，判断是否滑倒了底部</p>
+<pre><code>topicsList.setOnScrollListener(new AbsListView.OnScrollListener() &#123;
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) &#123;
+       if(scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE)&#123;
+            if(view.getLastVisiblePosition() == view.getCount()-1)&#123;
+                page++;
+                getList(false);
+            &#125;
+       &#125;
+
+    &#125;
+
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) &#123;
+
+    &#125;
+&#125;);
+</code></pre>
+<h4 id="导航抽屉NavigationView"><a href="#导航抽屉NavigationView" class="headerlink" title="导航抽屉NavigationView"></a>导航抽屉NavigationView</h4><p>布局：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;android.support.v4.widget.DrawerLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:tools=&quot;http://schemas.android.com/tools&quot;
+    android:id=&quot;@+id/drawer_layout&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;
+    android:fitsSystemWindows=&quot;true&quot;
+    tools:openDrawer=&quot;start&quot;&gt;
+
+    &lt;include
+        layout=&quot;@layout/app_bar_main&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;match_parent&quot; /&gt;
+
+    &lt;android.support.design.widget.NavigationView
+        android:id=&quot;@+id/nav_view&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;match_parent&quot;
+        android:layout_gravity=&quot;start&quot;
+        android:fitsSystemWindows=&quot;true&quot;
+        app:headerLayout=&quot;@layout/nav_header_main&quot;
+        app:menu=&quot;@menu/activity_main_drawer&quot; /&gt;
+
+&lt;/android.support.v4.widget.DrawerLayout&gt;
+</code></pre>
+<p>app:headerLayout接收一个layout，作为导航菜单顶部的Header。<br>app:menu接收一个menu，作为导航菜单的菜单项。activity_main_drawer如下：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;menu xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;
+
+    &lt;group android:checkableBehavior=&quot;single&quot;&gt;
+        &lt;item
+            android:id=&quot;@+id/all&quot;
+            android:checked=&quot;true&quot;
+            android:icon=&quot;@drawable/main_nav_ic_all&quot;
+            android:title=&quot;全部&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/good&quot;
+            android:icon=&quot;@drawable/main_nav_ic_good&quot;
+            android:title=&quot;精华&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/share&quot;
+            android:icon=&quot;@drawable/main_nav_ic_share&quot;
+            android:title=&quot;分享&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/ask&quot;
+            android:icon=&quot;@drawable/main_nav_ic_ask&quot;
+            android:title=&quot;问答&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/job&quot;
+            android:icon=&quot;@drawable/main_nav_ic_job&quot;
+            android:title=&quot;招聘&quot; /&gt;
+    &lt;/group&gt;
+
+
+    &lt;group  android:id=&quot;@+id/group2&quot;&gt;
+        &lt;item
+            android:id=&quot;@+id/msg&quot;
+            android:icon=&quot;@mipmap/ic_notifications_grey600_24dp&quot;
+            android:title=&quot;消息&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/setting&quot;
+            android:icon=&quot;@mipmap/ic_settings_grey600_24dp&quot;
+            android:title=&quot;设置&quot; /&gt;
+        &lt;item
+            android:id=&quot;@+id/about&quot;
+            android:icon=&quot;@mipmap/ic_info_grey600_24dp&quot;
+            android:title=&quot;关于&quot; /&gt;
+    &lt;/group&gt;
+
+
+&lt;/menu&gt;
+</code></pre>
+<p>分为两个group后，会多一条横线分割，checkableBehavior=”single”表示是单选，android:checked=”true”表示已选中。<br>用setNavigationItemSelectedListener方法来设置当导航项被点击时的回调：</p>
+<pre><code>mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() &#123;
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) &#123;
+         // Handle navigation view item clicks here.
+    int id = item.getItemId();
+
+    if (id == R.id.all) &#123;
+        page = 1;
+        tab = &quot;&quot;;
+        getList(true);
+    &#125; else if (id == R.id.ask) &#123;
+        page = 1;
+        tab = &quot;ask&quot;;
+        getList(true);
+    &#125; else if (id == R.id.share) &#123;
+        page = 1;
+        tab = &quot;share&quot;;
+        getList(true);
+    &#125; else if (id == R.id.job) &#123;
+        page = 1;
+        tab = &quot;job&quot;;
+        getList(true);
+    &#125; else if (id == R.id.good) &#123;
+        page = 1;
+        tab = &quot;good&quot;;
+        getList(true);
+    &#125; else if (id == R.id.msg) &#123;
+
+    &#125; else if (id == R.id.setting) &#123;
+
+    &#125;else if(id == R.id.about)&#123;
+
+    &#125;
+
+    DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    drawer.closeDrawer(GravityCompat.START);
+    return true;
+    &#125;
+&#125;);
+</code></pre>
+<h4 id="使用Picasso实现圆形头像"><a href="#使用Picasso实现圆形头像" class="headerlink" title="使用Picasso实现圆形头像"></a>使用Picasso实现圆形头像</h4><p>官网例子（截取矩形图片中间部分为正方形）：</p>
+<pre><code>public class CropSquareTransformation implements Transformation &#123;
+  @Override public Bitmap transform(Bitmap source) &#123;
+    int size = Math.min(source.getWidth(), source.getHeight());
+    int x = (source.getWidth() - size) / 2;
+    int y = (source.getHeight() - size) / 2;
+    Bitmap result = Bitmap.createBitmap(source, x, y, size, size);
+    if (result != source) &#123;
+      source.recycle();
+    &#125;
+    return result;
+  &#125;
+
+  @Override public String key() &#123; return &quot;square()&quot;; &#125;
+&#125;
+</code></pre>
+<p>参考官网例子，定义圆形转换器类</p>
+<pre><code>public class CircleTransform implements Transformation &#123;
+    @Override
+    public Bitmap transform(Bitmap source) &#123;
+         //获取Bitmap的宽度
+        int width = source.getWidth();
+        //返回一个正方形的Bitmap对象
+        Bitmap mBitmap = Bitmap.createBitmap(width,width, Bitmap.Config.ARGB_8888);
+        //定义指定宽高的canvas
+        Canvas mCanvas = new Canvas(mBitmap);
+        //定义画笔
+        Paint mPaint = new Paint();
+        //设置抗锯齿
+        mPaint.setAntiAlias(true);
+        //背景：在画布上绘制一个圆
+        mCanvas.drawCircle(width/2,width/2,width/2,mPaint);
+        //设置图片相交情况下的处理方式
+        //setXfermode：设置当绘制的图像出现相交情况时候的处理方式的,它包含的常用模式有哪几种
+        //PorterDuff.Mode.SRC_IN 取两层图像交集部门,只显示上层图像,注意这里是指取相交叉的部分,然后显示上层图像
+        //PorterDuff.Mode.DST_IN 取两层图像交集部门,只显示下层图像
+        mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        //前景：在画布上绘制一个bitmap
+        mCanvas.drawBitmap(source,0,0,mPaint);
+        //必须要回收source，否则会报错
+        source.recycle();
+        return mBitmap;
+    &#125;
+
+    @Override
+    public String key() &#123;
+        return &quot;square()&quot;;
+    &#125;
+&#125;
+</code></pre>
+<p>调用：</p>
+<pre><code> private CircleTransform mCircleTransform = new CircleTransform();
+Picasso.with(context)
+            .load(authorImageUrl)
+            .resize(100, 100)
+            .centerCrop()
+            .transform(mCircleTransform)
+            .into(viewHolder.author_image);
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/android/" rel="tag"># android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/10/18/RxJava%E5%85%A5%E9%97%A8/" rel="prev" title="RxJava入门">
+      <i class="fa fa-chevron-left"></i> RxJava入门
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/11/04/MVP%E5%85%A5%E9%97%A8/" rel="next" title="MVP入门">
+      MVP入门 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E9%A1%B5%E5%88%97%E8%A1%A8%E6%98%BE%E7%A4%BA"><span class="nav-number">1.</span> <span class="nav-text">主页列表显示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.</span> <span class="nav-text">列表图片加载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD-%E4%B8%8B%E6%8B%89%E5%88%B7%E6%96%B0"><span class="nav-number">3.</span> <span class="nav-text">上拉加载  下拉刷新</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E6%8A%BD%E5%B1%89NavigationView"><span class="nav-number">4.</span> <span class="nav-text">导航抽屉NavigationView</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Picasso%E5%AE%9E%E7%8E%B0%E5%9C%86%E5%BD%A2%E5%A4%B4%E5%83%8F"><span class="nav-number">5.</span> <span class="nav-text">使用Picasso实现圆形头像</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Petercao"
+      src="/uploads/aaa.jpg">
+  <p class="site-author-name" itemprop="name">Petercao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/about" title="Email → &#x2F;about"><i class="fa fa-envelope fa-fw"></i>Email</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Peter-cao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Peter-cao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petercao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

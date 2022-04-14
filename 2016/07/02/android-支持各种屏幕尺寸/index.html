@@ -1,38 +1,708 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %} {{ page.title }} | {{ config.title }} {% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="使用”wrap_content”和”match_parent”如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android_支持各种屏幕尺寸">
+<meta property="og:url" content="http://yoursite.com/2016/07/02/android-%E6%94%AF%E6%8C%81%E5%90%84%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8/index.html">
+<meta property="og:site_name" content="Peter&#39;s blog">
+<meta property="og:description" content="使用”wrap_content”和”match_parent”如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-07-02T01:44:09.000Z">
+<meta property="article:modified_time" content="2021-11-16T03:07:23.864Z">
+<meta property="article:author" content="Petercao">
+<meta property="article:tag" content="android">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2016/07/02/android-%E6%94%AF%E6%8C%81%E5%90%84%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>android_支持各种屏幕尺寸 | Peter's blog</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Peter's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Peter's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
 
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/02/android-%E6%94%AF%E6%8C%81%E5%90%84%E7%A7%8D%E5%B1%8F%E5%B9%95%E5%B0%BA%E5%AF%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/aaa.jpg">
+      <meta itemprop="name" content="Petercao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Peter's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          android_支持各种屏幕尺寸
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-02 09:44:09" itemprop="dateCreated datePublished" datetime="2016-07-02T09:44:09+08:00">2016-07-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-16 11:07:23" itemprop="dateModified" datetime="2021-11-16T11:07:23+08:00">2021-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index"><span itemprop="name">android</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h4 id="使用”wrap-content”和”match-parent”"><a href="#使用”wrap-content”和”match-parent”" class="headerlink" title="使用”wrap_content”和”match_parent”"></a>使用”wrap_content”和”match_parent”</h4><p>如果使用 “wrap_content” 和 “match_parent” 尺寸值而不是硬编码的尺寸，您的视图就会相应地仅使用自身所需的空间或展开以填满可用空间。</p>
+<span id="more"></span>
+
+<p>例如：</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:orientation=&quot;vertical&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;&gt;
+    &lt;LinearLayout android:layout_width=&quot;match_parent&quot; 
+                  android:id=&quot;@+id/linearLayout1&quot;  
+                  android:gravity=&quot;center&quot;
+                  android:layout_height=&quot;50dp&quot;&gt;
+        &lt;ImageView android:id=&quot;@+id/imageView1&quot; 
+                   android:layout_height=&quot;wrap_content&quot;
+                   android:layout_width=&quot;wrap_content&quot;
+                   android:src=&quot;@drawable/logo&quot;
+                   android:paddingRight=&quot;30dp&quot;
+                   android:layout_gravity=&quot;left&quot;
+                   android:layout_weight=&quot;0&quot; /&gt;
+        &lt;View android:layout_height=&quot;wrap_content&quot; 
+              android:id=&quot;@+id/view1&quot;
+              android:layout_width=&quot;wrap_content&quot;
+              android:layout_weight=&quot;1&quot; /&gt;
+        &lt;Button android:id=&quot;@+id/categorybutton&quot;
+                android:background=&quot;@drawable/button_bg&quot;
+                android:layout_height=&quot;match_parent&quot;
+                android:layout_weight=&quot;0&quot;
+                android:layout_width=&quot;120dp&quot;
+                style=&quot;@style/CategoryButtonStyle&quot;/&gt;
+    &lt;/LinearLayout&gt;
+
+    &lt;fragment android:id=&quot;@+id/headlines&quot; 
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;match_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<h4 id="使用相对布局"><a href="#使用相对布局" class="headerlink" title="使用相对布局"></a>使用相对布局</h4><p>RelativeLayout        </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;RelativeLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;match_parent&quot;&gt;
+    &lt;TextView
+        android:id=&quot;@+id/label&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:text=&quot;Type here:&quot;/&gt;
+    &lt;EditText
+        android:id=&quot;@+id/entry&quot;
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_below=&quot;@id/label&quot;/&gt;
+    &lt;Button
+        android:id=&quot;@+id/ok&quot;
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_below=&quot;@id/entry&quot;
+        android:layout_alignParentRight=&quot;true&quot;
+        android:layout_marginLeft=&quot;10dp&quot;
+        android:text=&quot;OK&quot; /&gt;
+    &lt;Button
+        android:layout_width=&quot;wrap_content&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:layout_toLeftOf=&quot;@id/ok&quot;
+        android:layout_alignTop=&quot;@id/ok&quot;
+        android:text=&quot;Cancel&quot; /&gt;
+&lt;/RelativeLayout&gt;
+</code></pre>
+<h4 id="使用尺寸限定符"><a href="#使用尺寸限定符" class="headerlink" title="使用尺寸限定符"></a>使用尺寸限定符</h4><p>在较大的屏幕上实施’双面板’模式,小屏幕上显示’单面板’模式<br>res/layout/main.xml，单面板（默认）布局：</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:orientation=&quot;vertical&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;&gt;
+
+    &lt;fragment android:id=&quot;@+id/headlines&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;match_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>res/layout-large/main.xml，双面板布局：</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:layout_width=&quot;fill_parent&quot;
+android:layout_height=&quot;fill_parent&quot;
+android:orientation=&quot;horizontal&quot;&gt;
+    &lt;fragment android:id=&quot;@+id/headlines&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;400dp&quot;
+              android:layout_marginRight=&quot;10dp&quot;/&gt;
+    &lt;fragment android:id=&quot;@+id/article&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.ArticleFragment&quot;
+              android:layout_width=&quot;fill_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<h4 id="使用最小宽度限定符"><a href="#使用最小宽度限定符" class="headerlink" title="使用最小宽度限定符"></a>使用最小宽度限定符</h4><p>对于最小宽度大于等于 600 dp 的设备，系统会选择 layout-sw600dp/main.xml（双面板）布局，否则系统就会选择 layout/main.xml（单面板）布局<br>res/layout/main.xml，单面板（默认）布局：</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:orientation=&quot;vertical&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;&gt;
+
+    &lt;fragment android:id=&quot;@+id/headlines&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;match_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>res/layout-sw600dp/main.xml，双面板布局：</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:layout_width=&quot;fill_parent&quot;
+android:layout_height=&quot;fill_parent&quot;
+android:orientation=&quot;horizontal&quot;&gt;
+    &lt;fragment android:id=&quot;@+id/headlines&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;400dp&quot;
+              android:layout_marginRight=&quot;10dp&quot;/&gt;
+    &lt;fragment android:id=&quot;@+id/article&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.ArticleFragment&quot;
+              android:layout_width=&quot;fill_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>但 Android 版本低于 3.2 的设备不支持此技术，原因是这些设备无法将 sw600dp 识别为尺寸限定符，因此您仍需使用 large 限定符。这样一来，就会有一个名称为 res/layout-large/main.xml 的文件（与 res/layout-sw600dp/main.xml 一样）。下一教程中了解到避免此类布局文件出现重复的技术</p>
+<h4 id="使用布局别名"><a href="#使用布局别名" class="headerlink" title="使用布局别名"></a>使用布局别名</h4><ul>
+<li>res/layout/main.xml: 单面板布局</li>
+<li>res/layout-large: 多面板布局</li>
+<li>res/layout-sw600dp: 多面板布局</li>
+</ul>
+<p>后两个文件是相同的，因为其中一个用于和 Android 3.2 设备匹配，而另一个则是为使用较低版本 Android 的平板电脑和电视准备的。<br>为避免文件重复出现，可以使用别名。例如：</p>
+<ul>
+<li>res/layout/main.xml，单面板布局</li>
+<li>res/layout/main_twopanes.xml，双面板布局</li>
+</ul>
+<p>然后添加两个文件<br>res/values-large/layout.xml:</p>
+<pre><code>&lt;resources&gt;
+    &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_twopanes&lt;/item&gt;
+&lt;/resources&gt;
+</code></pre>
+<p>res/values-sw600dp/layout.xml:</p>
+<pre><code>&lt;resources&gt;
+    &lt;item name=&quot;main&quot; type=&quot;layout&quot;&gt;@layout/main_twopanes&lt;/item&gt;
+&lt;/resources&gt;
+</code></pre>
+<h4 id="使用屏幕方向限定符"><a href="#使用屏幕方向限定符" class="headerlink" title="使用屏幕方向限定符"></a>使用屏幕方向限定符</h4><p>某些布局会同时支持横向模式和纵向模式，可以通过调整优化其中大部分布局的效果。    </p>
+<ul>
+<li>小屏幕，纵向：单面板，带徽标</li>
+<li>小屏幕，横向：单面板，带徽标</li>
+<li>7 英寸平板电脑，纵向：单面板，带操作栏</li>
+<li>7 英寸平板电脑，横向：双面板，宽，带操作栏</li>
+<li>10 英寸平板电脑，纵向：双面板，窄，带操作栏</li>
+<li>10 英寸平板电脑，横向：双面板，宽，带操作栏</li>
+<li>电视，横向：双面板，宽，带操作栏</li>
+</ul>
+<p>res/layout/onepane.xml:<br>    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"></p>
+<pre><code>    &lt;fragment android:id=&quot;@+id/headlines&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;match_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>res/layout/onepane_with_bar.xml:</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:orientation=&quot;vertical&quot;
+android:layout_width=&quot;match_parent&quot;
+android:layout_height=&quot;match_parent&quot;&gt;
+    &lt;LinearLayout android:layout_width=&quot;match_parent&quot; 
+                  android:id=&quot;@+id/linearLayout1&quot;  
+                  android:gravity=&quot;center&quot;
+                  android:layout_height=&quot;50dp&quot;&gt;
+        &lt;ImageView android:id=&quot;@+id/imageView1&quot; 
+                   android:layout_height=&quot;wrap_content&quot;
+                   android:layout_width=&quot;wrap_content&quot;
+                   android:src=&quot;@drawable/logo&quot;
+                   android:paddingRight=&quot;30dp&quot;
+                   android:layout_gravity=&quot;left&quot;
+                   android:layout_weight=&quot;0&quot; /&gt;
+        &lt;View android:layout_height=&quot;wrap_content&quot; 
+              android:id=&quot;@+id/view1&quot;
+              android:layout_width=&quot;wrap_content&quot;
+              android:layout_weight=&quot;1&quot; /&gt;
+        &lt;Button android:id=&quot;@+id/categorybutton&quot;
+                android:background=&quot;@drawable/button_bg&quot;
+                android:layout_height=&quot;match_parent&quot;
+                android:layout_weight=&quot;0&quot;
+                android:layout_width=&quot;120dp&quot;
+                style=&quot;@style/CategoryButtonStyle&quot;/&gt;
+    &lt;/LinearLayout&gt;
+
+    &lt;fragment android:id=&quot;@+id/headlines&quot; 
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;match_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>res/layout/twopanes.xml:</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:layout_width=&quot;fill_parent&quot;
+android:layout_height=&quot;fill_parent&quot;
+android:orientation=&quot;horizontal&quot;&gt;
+    &lt;fragment android:id=&quot;@+id/headlines&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;400dp&quot;
+              android:layout_marginRight=&quot;10dp&quot;/&gt;
+    &lt;fragment android:id=&quot;@+id/article&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.ArticleFragment&quot;
+              android:layout_width=&quot;fill_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>res/layout/twopanes_narrow.xml:</p>
+<pre><code>&lt;LinearLayout xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+android:layout_width=&quot;fill_parent&quot;
+android:layout_height=&quot;fill_parent&quot;
+android:orientation=&quot;horizontal&quot;&gt;
+    &lt;fragment android:id=&quot;@+id/headlines&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.HeadlinesFragment&quot;
+              android:layout_width=&quot;200dp&quot;
+              android:layout_marginRight=&quot;10dp&quot;/&gt;
+    &lt;fragment android:id=&quot;@+id/article&quot;
+              android:layout_height=&quot;fill_parent&quot;
+              android:name=&quot;com.example.android.newsreader.ArticleFragment&quot;
+              android:layout_width=&quot;fill_parent&quot; /&gt;
+&lt;/LinearLayout&gt;
+</code></pre>
+<p>定义好所有可能的布局，那就只需使用配置限定符将正确的布局映射到各种配置即可<br>res/values/layouts.xml:</p>
+<pre><code>&lt;resources&gt;
+    &lt;item name=&quot;main_layout&quot; type=&quot;layout&quot;&gt;@layout/onepane_with_bar&lt;/item&gt;
+    &lt;bool name=&quot;has_two_panes&quot;&gt;false&lt;/bool&gt;
+&lt;/resources&gt;
+</code></pre>
+<p>res/values-sw600dp-land/layouts.xml:<br>    <resources><br>        <item name="main_layout" type="layout">@layout/twopanes</item><br>        <bool name="has_two_panes">true</bool><br>    </resources><br>res/values-sw600dp-port/layouts.xml:<br>    <resources><br>        <item name="main_layout" type="layout">@layout/twopanes</item><br>        <bool name="has_two_panes">true</bool><br>    </resources><br>res/values-large-port/layouts.xml:</p>
+<pre><code>&lt;resources&gt;
+    &lt;item name=&quot;main_layout&quot; type=&quot;layout&quot;&gt;@layout/twopanes_narrow&lt;/item&gt;
+    &lt;bool name=&quot;has_two_panes&quot;&gt;true&lt;/bool&gt;
+&lt;/resources&gt;
+</code></pre>
+<h4 id="使用自动拉伸位图"><a href="#使用自动拉伸位图" class="headerlink" title="使用自动拉伸位图"></a>使用自动拉伸位图</h4><p>通过 SDK 的 draw9patch 实用工具（位于 tools/ 目录中）处理图片</p>
+<p>文档参考：<a target="_blank" rel="noopener" href="https://developer.android.com/training/multiscreen/screensizes.html#TaskUse9Patch">https://developer.android.com/training/multiscreen/screensizes.html#TaskUse9Patch</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/android/" rel="tag"># android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/06/26/android-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/" rel="prev" title="android_文件共享">
+      <i class="fa fa-chevron-left"></i> android_文件共享
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2016/07/06/SAX%E8%A7%A3%E6%9E%90xml/" rel="next" title="SAX解析xml">
+      SAX解析xml <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E2%80%9Dwrap-content%E2%80%9D%E5%92%8C%E2%80%9Dmatch-parent%E2%80%9D"><span class="nav-number">1.</span> <span class="nav-text">使用”wrap_content”和”match_parent”</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%AF%B9%E5%B8%83%E5%B1%80"><span class="nav-number">2.</span> <span class="nav-text">使用相对布局</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B0%BA%E5%AF%B8%E9%99%90%E5%AE%9A%E7%AC%A6"><span class="nav-number">3.</span> <span class="nav-text">使用尺寸限定符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%9C%80%E5%B0%8F%E5%AE%BD%E5%BA%A6%E9%99%90%E5%AE%9A%E7%AC%A6"><span class="nav-number">4.</span> <span class="nav-text">使用最小宽度限定符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E5%88%AB%E5%90%8D"><span class="nav-number">5.</span> <span class="nav-text">使用布局别名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B1%8F%E5%B9%95%E6%96%B9%E5%90%91%E9%99%90%E5%AE%9A%E7%AC%A6"><span class="nav-number">6.</span> <span class="nav-text">使用屏幕方向限定符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%87%AA%E5%8A%A8%E6%8B%89%E4%BC%B8%E4%BD%8D%E5%9B%BE"><span class="nav-number">7.</span> <span class="nav-text">使用自动拉伸位图</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Petercao"
+      src="/uploads/aaa.jpg">
+  <p class="site-author-name" itemprop="name">Petercao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="/about" title="Email → &#x2F;about"><i class="fa fa-envelope fa-fw"></i>Email</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://github.com/Peter-cao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Peter-cao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Petercao</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
